@@ -2,8 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 // Import Components
-import PostList from '../../components/PostList';
-import PostCreateWidget from '../../components/PostCreateWidget/PostCreateWidget';
+import PostList from '../../components/Post/PostList';
+import RecommendList from '../../components/Recommend/RecommendList';
+
+import PostCreateWidget from '../../components/Post/PostCreateWidget/PostCreateWidget';
 
 // Import Actions
 import { addPostRequest, fetchPosts, deletePostRequest } from '../../PostActions';
@@ -12,6 +14,8 @@ import { toggleAddPost } from '../../../App/AppActions';
 // Import Selectors
 import { getShowAddPost } from '../../../App/AppReducer';
 import { getPosts } from '../../PostReducer';
+
+import grid from '../../../../assets/css/grid.css'
 
 class PostListPage extends Component {
   componentDidMount() {
@@ -31,9 +35,15 @@ class PostListPage extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
-        <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
+
+        <div className={grid.row}>
+          <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
+          <RecommendList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
+
+        </div>
+
       </div>
     );
   }

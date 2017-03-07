@@ -8,7 +8,6 @@
   width: 100%;
   max-width: 980px;
   margin: auto;
-  padding: 64px 16px;
   overflow: auto;
 }
 
@@ -17,10 +16,13 @@
   font-size: 42px;
   float: left;
 }
-
+.site-title img{
+  height: 30px;
+}
 .site-title a {
   text-decoration: none;
   color: #FFF;
+  padding-right: 15px;
 }
 
 .add-post-button {
@@ -31,6 +33,8 @@
   text-decoration: none;
   border-radius: 1000px;
   float: right;
+  margin-top: 35px;
+  margin-right: 10px;
 }
 
 .language-switcher {

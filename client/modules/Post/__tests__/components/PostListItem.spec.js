@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'ava';
 import sinon from 'sinon';
-import PostListItem from '../../components/PostListItem/PostListItem';
+import PostListItem from '../../components/Post/PostListItem/PostListItem';
 import { mountWithIntl, shallowWithIntl } from '../../../../util/react-intl-test-helper';
 
 const post = { name: 'Prashant', title: 'Hello Mern', slug: 'hello-mern', cuid: 'f34gb2bh24b24b2', content: "All cats meow 'mern!'" };

@@ -1,14 +1,22 @@
 import React, { PropTypes } from 'react';
 
 // Import Components
-import PostListItem from './PostListItem/PostListItem';
+import RecommendListItem from './RecommendListItem/RecommendListItem';
 
-function PostList(props) {
+import grid from '../../../../assets/css/grid.css'
+import styles from './RecommendList.css'
+
+function RecommendList(props) {
   return (
-    <div className="listView">
-      {
+    <div className={grid['col-md-4']}>
+     <div className={styles['recommend-top']}>
+       <h3>
+         Recommends
+       </h3>
+     </div>
+    {
         props.posts.map(post => (
-          <PostListItem
+          <RecommendListItem
             post={post}
             key={post.cuid}
             onDelete={() => props.handleDeletePost(post.cuid)}
@@ -19,7 +27,7 @@ function PostList(props) {
   );
 }
 
-PostList.propTypes = {
+RecommendList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -30,4 +38,4 @@ PostList.propTypes = {
   handleDeletePost: PropTypes.func.isRequired,
 };
 
-export default PostList;
+export default RecommendList;

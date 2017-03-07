@@ -9,9 +9,11 @@ import bg from '../../header-bk.png';
 
 export function Footer() {
   return (
-    <div style={{ background: `#FFF url(${bg}) center` }} className={styles.footer}>
-      <p>&copy; 2016 &middot; Hashnode &middot; LinearBytes Inc.</p>
-      <p><FormattedMessage id="twitterMessage" /> : <a href="https://twitter.com/@mern_io" target="_Blank">@mern_io</a></p>
+    <div className={styles.footer} style={{ background: `#FFF url(${bg}) center` }}>
+      <div >
+        <p>About Us | Privacy Policy | Terms of Use | DMCA | Rss Feeds | Contact Us</p>
+        <p>&#169; 2017 <FormattedMessage id="twitterMessage" /></p>
+      </div>
     </div>
   );
 }

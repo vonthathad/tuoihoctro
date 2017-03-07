@@ -1,0 +1,11 @@
+.single-recommend img {
+  overflow: hidden;
+  width: 100%;
+  /*width: 300px;*/
+  /*height: 105px;*/
+  margin: 0;
+}
+.single-recommend p {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
