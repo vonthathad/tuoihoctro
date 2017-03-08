@@ -19,7 +19,6 @@ function RecommendList(props) {
           <RecommendListItem
             post={post}
             key={post.cuid}
-            onDelete={() => props.handleDeletePost(post.cuid)}
           />
         ))
       }
@@ -34,8 +33,7 @@ RecommendList.propTypes = {
     content: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
-  })).isRequired,
-  handleDeletePost: PropTypes.func.isRequired,
+  })).isRequired
 };
 
 export default RecommendList;

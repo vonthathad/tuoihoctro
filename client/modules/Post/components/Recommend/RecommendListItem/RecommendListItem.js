@@ -26,8 +26,7 @@ RecommendListItem.propTypes = {
     content: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
-  }).isRequired,
-  onDelete: PropTypes.func.isRequired,
+  }).isRequired
 };
 
 export default RecommendListItem;
