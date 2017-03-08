@@ -25,25 +25,25 @@ function PostListItem(props) {
           </p>
         </div>
         <div className={styles['post-action']}>
-          <a href="" className={`${styles.btn}  ${styles['btn-default']}`}>
-            <i className={`${icons.glyphicon} ${icons['glyphicon-arrow-up']}`}></i>
+          <a href="" className="btn btn-default">
+            <i className="glyphicon glyphicon-arrow-up"></i>
           </a>
 
-          <a href="" className={`${styles.btn}  ${styles['btn-default']}`}>
-            <i className={`${icons.glyphicon} ${icons['glyphicon-arrow-down']}`}></i>
+          <a href="" className="btn btn-default">
+            <i className="glyphicon glyphicon-arrow-down"></i>
           </a>
 
-          <a href="" className={`${styles.btn} ${styles['btn-default']}`}>
-            <i className={`${icons.glyphicon}  ${icons['glyphicon-comment']}`}></i>
+          <a href="" className="btn btn-default">
+            <i className="glyphicon glyphicon-comment"></i>
           </a>
         </div>
         <div className={styles['post-social']}>
-          <a className={`${styles.btn} ${styles['btn-default']}`}>
+          <a className="btn btn-default">
             <i className={`${icons.fa} ${icons['fa-twitter']}`}></i>
             <span className="remove-mobile">Twitter</span>
           </a>
 
-          <a className={`${styles.btn} ${styles['btn-default']}`}>
+          <a className="btn btn-default">
             <i className={`${icons.fa}  ${icons['fa-facebook']}`}></i>
             <span className="remove-mobile">Facebook</span>
           </a>

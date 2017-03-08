@@ -3,11 +3,9 @@ import React, { PropTypes } from 'react';
 // Import Components
 import PostListItem from './PostListItem/PostListItem';
 
-import grid from '../../../../assets/css/grid.css';
-
 function PostList(props) {
   return (
-    <div className={grid['col-md-8']}>
+    <div className="col-md-8">
 
     {
         props.posts.map(post => (

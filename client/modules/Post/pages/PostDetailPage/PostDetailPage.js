@@ -18,13 +18,10 @@ import { getPost,getPosts } from '../../PostReducer';
 // Import Image
 import thump from '../../../../assets/img/thump.jpg'
 
-// Import Responsive
-import grid from '../../../../assets/css/grid.css'
-
 export function PostDetailPage(props) {
   return (
-    <div className={grid.row}>
-      <div className={grid['col-md-7']}>
+    <div className="row">
+      <div className="col-md-7">
         <Helmet title={props.post.title} />
         <div className={`${styles['single-post']} ${styles['post-detail']} ${grid.row}`}>
           <h3 className={styles['post-title']}>{props.post.title}</h3>
@@ -35,7 +32,7 @@ export function PostDetailPage(props) {
           <p className={styles['post-desc']}>{props.post.content}</p>
         </div>
       </div>
-      <div className={grid['col-md-5']}>
+      <div className="col-md-5">
         <RecommendList posts={props.posts} />
       </div>
     </div>

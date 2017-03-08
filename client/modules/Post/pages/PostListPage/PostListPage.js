@@ -38,7 +38,7 @@ class PostListPage extends Component {
       <div >
         <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
 
-        <div className={grid.row}>
+        <div className="row">
           <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
           <RecommendList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
 
