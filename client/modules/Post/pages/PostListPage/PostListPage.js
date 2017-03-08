@@ -15,7 +15,7 @@ import { toggleAddPost } from '../../../App/AppActions';
 import { getShowAddPost } from '../../../App/AppReducer';
 import { getPosts } from '../../PostReducer';
 
-import grid from '../../../../assets/css/grid.css'
+import grid from '../../../../assets/css/grid.css';
 
 class PostListPage extends Component {
   componentDidMount() {

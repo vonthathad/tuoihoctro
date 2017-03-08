@@ -1,21 +1,21 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+// import { Link } from 'react-router';
+// import { FormattedMessage } from 'react-intl';
 
 // Import Style
 import styles from './RecommendListItem.css';
-import thump from '../../../../../assets/img/thump.jpg'
+import thump from '../../../../../assets/img/thump.jpg';
 
 function RecommendListItem(props) {
   return (
-        <div className={styles['single-recommend']}>
+    <div className={styles['single-recommend']}>
 
-          <img src={thump} alt=""/>
-          <p>
-            {props.post.title}
-          </p>
+      <img src={thump} alt="" />
+      <p>
+        {props.post.title}
+      </p>
 
-        </div>
+    </div>
   );
 }
 

@@ -4,19 +4,19 @@ import { FormattedMessage } from 'react-intl';
 
 // Import Style
 import styles from './PostListItem.css';
-import thump from '../../../../../assets/img/thump.jpg'
-import icons from '../../../../../assets/css/icon.css'
+import thump from '../../../../../assets/img/thump.jpg';
+import icons from '../../../../../assets/css/icon.css';
 
 function PostListItem(props) {
   return (
     <div className={styles['single-post']}>
       <h3 className={styles['post-title']}>
-        <Link to={`/posts/${props.post.slug}-${props.post.cuid}`} >
+        <Link to={`/posts/${props.post.slug}-${props.post.cuid}`}>
           {props.post.title}
         </Link>
       </h3>
       <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.name}</p>
-      <img src={thump} alt=""/>
+      <img src={thump} alt="" />
 
       <div className={styles['post-body']}>
         <div className={styles['post-info']}>
@@ -25,27 +25,26 @@ function PostListItem(props) {
           </p>
         </div>
         <div className={styles['post-action']}>
-          <a href="" className={styles['btn'] + ' '+styles['btn-default']}>
-            <i className={icons['glyphicon'] + ' ' + icons['glyphicon-arrow-up']}></i>
+          <a href="" className={`${styles.btn}  ${styles['btn-default']}`}>
+            <i className={`${icons.glyphicon} ${icons['glyphicon-arrow-up']}`}></i>
           </a>
 
-          <a href="" className={styles['btn'] + ' '+styles['btn-default']}>
-            <i className={icons['glyphicon'] + ' ' + icons['glyphicon-arrow-down']}></i>
+          <a href="" className={`${styles.btn}  ${styles['btn-default']}`}>
+            <i className={`${icons.glyphicon} ${icons['glyphicon-arrow-down']}`}></i>
           </a>
 
-          <a href="" className={styles['btn'] + ' '+styles['btn-default']}>
-            <i className={icons['glyphicon'] + ' ' + icons['glyphicon-comment']}></i>
+          <a href="" className={`${styles.btn} ${styles['btn-default']}`}>
+            <i className={`${icons.glyphicon}  ${icons['glyphicon-comment']}`}></i>
           </a>
-
         </div>
         <div className={styles['post-social']}>
-          <a className={styles['btn'] + ' '+styles['btn-default']}>
-            <i className={icons['fa'] +' ' + icons['fa-twitter']}></i>
+          <a className={`${styles.btn} ${styles['btn-default']}`}>
+            <i className={`${icons.fa} ${icons['fa-twitter']}`}></i>
             <span className="remove-mobile">Twitter</span>
           </a>
 
-          <a className={styles['btn'] + ' '+styles['btn-default']}>
-            <i className={icons['fa'] +' '+ icons['fa-facebook']}></i>
+          <a className={`${styles.btn} ${styles['btn-default']}`}>
+            <i className={`${icons.fa}  ${icons['fa-facebook']}`}></i>
             <span className="remove-mobile">Facebook</span>
           </a>
 

@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 // Import Components
 import PostListItem from './PostListItem/PostListItem';
 
-import grid from '../../../../assets/css/grid.css'
+import grid from '../../../../assets/css/grid.css';
 
 function PostList(props) {
   return (

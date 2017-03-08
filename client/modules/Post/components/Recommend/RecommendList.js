@@ -3,17 +3,17 @@ import React, { PropTypes } from 'react';
 // Import Components
 import RecommendListItem from './RecommendListItem/RecommendListItem';
 
-import grid from '../../../../assets/css/grid.css'
-import styles from './RecommendList.css'
+import grid from '../../../../assets/css/grid.css';
+import styles from './RecommendList.css';
 
 function RecommendList(props) {
   return (
     <div className={grid['col-md-4']}>
-     <div className={styles['recommend-top']}>
-       <h3>
+      <div className={styles['recommend-top']}>
+        <h3>
          Recommends
-       </h3>
-     </div>
+        </h3>
+      </div>
     {
         props.posts.map(post => (
           <RecommendListItem
