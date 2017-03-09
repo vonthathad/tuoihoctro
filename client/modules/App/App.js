@@ -9,10 +9,17 @@ import Helmet from 'react-helmet';
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import LoginWidget from '../Login/components/LoginWidget/LoginWidget';
+import PostCreateWidget from '../Post/components/Post/PostCreateWidget/PostCreateWidget';
 
 // Import Actions
-import { toggleAddPost } from './AppActions';
+import { toggleAddPost, toggleLogin } from './AppActions';
+import { addPostRequest } from '../Post/PostActions';
+
 import { switchLanguage } from '../../modules/Intl/IntlActions';
+
+// Import Reducer
+import { getShowLogin, getShowAddPost } from '../App/AppReducer';
 
 export class App extends Component {
   constructor(props) {
@@ -28,6 +35,13 @@ export class App extends Component {
     this.props.dispatch(toggleAddPost());
   };
 
+  toggleLoginSection = () => {
+    this.props.dispatch(toggleLogin());
+  };
+  handleAddPost = (name, title, content) => {
+    this.props.dispatch(toggleAddPost());
+    this.props.dispatch(addPostRequest({ name, title, content }));
+  };
   render() {
     return (
       <div>
@@ -52,7 +66,10 @@ export class App extends Component {
             switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
             intl={this.props.intl}
             toggleAddPost={this.toggleAddPostSection}
+            toggleLogin={this.toggleLoginSection}
           />
+          <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
+          <LoginWidget toggleLogin={this.toggleLoginSection} showLogin={this.props.showLogin} />
           <div className={styles.container}>
             {this.props.children}
           </div>
@@ -67,12 +84,16 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
+  showLogin: PropTypes.bool.isRequired,
+  showAddPost: PropTypes.bool.isRequired,
 };
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
   return {
     intl: store.intl,
+    showLogin: getShowLogin(store),
+    showAddPost: getShowAddPost(store),
   };
 }
 

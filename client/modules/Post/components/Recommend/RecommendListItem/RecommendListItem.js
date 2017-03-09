@@ -26,7 +26,7 @@ RecommendListItem.propTypes = {
     content: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
-  }).isRequired
+  }).isRequired,
 };
 
 export default RecommendListItem;
