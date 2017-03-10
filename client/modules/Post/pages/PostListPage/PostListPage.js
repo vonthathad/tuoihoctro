@@ -5,17 +5,11 @@ import { connect } from 'react-redux';
 import PostList from '../../components/Post/PostList';
 import RecommendList from '../../components/Recommend/RecommendList';
 
-import PostCreateWidget from '../../components/Post/PostCreateWidget/PostCreateWidget';
-
 // Import Actions
-import { addPostRequest, fetchPosts, deletePostRequest } from '../../PostActions';
-import { toggleAddPost } from '../../../App/AppActions';
+import {fetchPosts, deletePostRequest } from '../../PostActions';
 
 // Import Selectors
-import { getShowAddPost } from '../../../App/AppReducer';
 import { getPosts } from '../../PostReducer';
-
-import grid from '../../../../assets/css/grid.css';
 
 class PostListPage extends Component {
   componentDidMount() {
@@ -28,17 +22,11 @@ class PostListPage extends Component {
     }
   };
 
-  handleAddPost = (name, title, content) => {
-    this.props.dispatch(toggleAddPost());
-    this.props.dispatch(addPostRequest({ name, title, content }));
-  };
 
   render() {
     return (
       <div >
-        <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
-
-        <div className={grid.row}>
+        <div className="row">
           <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
           <RecommendList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
 
@@ -55,7 +43,6 @@ PostListPage.need = [() => { return fetchPosts(); }];
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    showAddPost: getShowAddPost(state),
     posts: getPosts(state),
   };
 }
@@ -66,7 +53,6 @@ PostListPage.propTypes = {
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
   })).isRequired,
-  showAddPost: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

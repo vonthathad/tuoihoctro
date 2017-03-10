@@ -42,17 +42,11 @@ export function Header(props, context) {
             Fresh
           </Link>
         </h1>
-
-        {context
-          .router
-          .isActive('/', true)
-          ? <a className={styles['add-post-button']} href="#" onClick={props.toggleAddPost}><FormattedMessage
-            id="addPost"
-          /></a>
-          : null
-        }
-        <a className={styles['add-post-button']} href="#">Register</a>
-        <a className={styles['add-post-button']} href="#">Login</a>
+        <a className={styles['add-post-button']} href="#" onClick={props.toggleAddPost}><FormattedMessage
+          id="addPost"
+        /></a>
+        <a className={styles['add-post-button']} href="#" onClick={props.toggleLogin}>Register</a>
+        <a className={styles['add-post-button']} href="#" onClick={props.toggleLogin}>Login</a>
 
       </div>
     </div>
@@ -65,6 +59,7 @@ Header.contextTypes = {
 
 Header.propTypes = {
   toggleAddPost: PropTypes.func.isRequired,
+  toggleLogin: PropTypes.func.isRequired,
   switchLanguage: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
 };
