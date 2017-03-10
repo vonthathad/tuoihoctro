@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Boilerplate project for building Isomorphic apps using React and Redux",
   "scripts": {
-    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/mern-test node_modules/.bin/nyc node --harmony-proxies node_modules/.bin/ava",
+    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/mern-test node_modules/.bin/nyc node node_modules/.bin/ava",
     "watch:test": "npm run test -- --watch",
     "cover": "nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
@@ -17,8 +17,7 @@
     "lint": "eslint client server"
   },
   "pre-commit": [
-    "lint",
-    "test"
+    "lint"
   ],
   "repository": {
     "type": "git",
@@ -50,7 +49,19 @@
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "sanitize-html": "^1.11.4"
+    "sanitize-html": "^1.11.4",
+
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+
+    "jsonwebtoken": "^7.3.0",
+    "mongoose-auto-increment": "^5.0.1",
+    "crypto": "0.0.3",
+    "nodemailer": "^3.1.1",
+    "gm": "^1.23.0",
+    "fluent-ffmpeg": "^2.1.0"
   },
   "devDependencies": {
     "ava": "^0.15.2",
