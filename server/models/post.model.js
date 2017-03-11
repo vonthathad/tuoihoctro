@@ -8,7 +8,7 @@ import serverConfig from '../configs/server.config.js';
 const connection = mongoose.createConnection(serverConfig.mongoURL);
 autoIncrement.initialize(connection);
 // var random = require('mongoose-simple-random');
-const ContentSchema = new Schema({
+const PostSchema = new Schema({
   title: {
     type: String,
     trim: true,
@@ -137,8 +137,8 @@ const ContentSchema = new Schema({
     default: false,
   },
 });
-ContentSchema.plugin(autoIncrement.plugin, {
-  model: 'Content',
+PostSchema.plugin(autoIncrement.plugin, {
+  model: 'Post',
   startAt: 1,
 });
 // ContentSchema.statics.findChallengeByURL = function(url, callback) {
@@ -150,6 +150,6 @@ ContentSchema.plugin(autoIncrement.plugin, {
 //         .exec(callback);
 // };
 // GameSchema.plugin(random);
-ContentSchema.index({ title: 'text', description: 'text' });
-ContentSchema.set('toJSON', { getters: true, virtuals: true });
-export default mongoose.model('Content', ContentSchema);
+PostSchema.index({ title: 'text', description: 'text' });
+PostSchema.set('toJSON', { getters: true, virtuals: true });
+export default mongoose.model('Post', PostSchema);

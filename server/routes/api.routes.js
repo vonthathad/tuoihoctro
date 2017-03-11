@@ -4,7 +4,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import * as users from '../controllers/user.controller';
-import * as contents from '../controllers/content.controller';
+import * as posts from '../controllers/post.controller';
 import * as comments from '../controllers/comment.controller';
 import * as categories from '../controllers/category.controller';
 
@@ -33,27 +33,27 @@ router.route('/categories/:categoryID')
   .put(users.requiresManager, categories.update);
 router.param('categoryID', categories.categoryByURL);
 
-// ////////// CONTENT
-router.post('/contents', users.requiresLogin, contents.create)
-  .get('/contents', contents.list);
-router.route('/contents/:contentID')
-  .get(contents.get)
-  .delete(users.requiresLogin, contents.remove);
-router.route('/contents/:contentID/share')
-  .put(users.requiresLogin, contents.share);
-router.route('/contents/:contentID/view')
-  .put(contents.view);
-router.route('/contents/:contentID/report')
-  .put(users.requiresLogin, contents.report);
-router.route('/contents/:contentID/voteUp')
-  .put(users.requiresLogin, contents.voteUp);
-router.route('/contents/:contentID/voteDown')
-  .put(users.requiresLogin, contents.voteDown);
-router.route('/contents/:contentID/unVote')
-  .put(users.requiresLogin, contents.unVote);
-router.route('/contents/:contentID/publish')
-  .put(users.requiresLogin, users.requiresManager, contents.publish);
-router.param('contentID', contents.contentByID);
+// ////////// POST
+router.post('/posts', users.requiresLogin, posts.create)
+  .get('/posts', posts.list);
+router.route('/posts/:postID')
+  .get(posts.get)
+  .delete(users.requiresLogin, posts.remove);
+router.route('/posts/:postID/share')
+  .put(users.requiresLogin, posts.share);
+router.route('/posts/:postID/view')
+  .put(posts.view);
+router.route('/posts/:postID/report')
+  .put(users.requiresLogin, posts.report);
+router.route('/posts/:postID/voteUp')
+  .put(users.requiresLogin, posts.voteUp);
+router.route('/posts/:postID/voteDown')
+  .put(users.requiresLogin, posts.voteDown);
+router.route('/posts/:postID/unVote')
+  .put(users.requiresLogin, posts.unVote);
+router.route('/posts/:postID/publish')
+  .put(users.requiresLogin, users.requiresManager, posts.publish);
+router.param('postID', posts.postByID);
 
 // ////////// COMMENT
 router.post('/comments', users.requiresLogin, comments.create)

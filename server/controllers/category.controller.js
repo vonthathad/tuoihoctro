@@ -1,7 +1,7 @@
 /**
  * Created by andh on 1/29/17.
  */
-import Content from '../models/content.model';
+import Content from '../models/post.model';
 import Category from '../models/category.model';
 const getErrorMessage = (err) => {
   // console.log(err);
