@@ -43,7 +43,7 @@ export function PostDetailPage(props) {
           <Comments href={pathname} />
         </FacebookProvider>
       </div>
-        <RecommendList posts={props.posts} />
+      <RecommendList posts={props.posts} />
     </div>
   );
 }

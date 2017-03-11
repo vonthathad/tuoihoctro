@@ -6,7 +6,7 @@ import PostList from '../../components/Post/PostList';
 import RecommendList from '../../components/Recommend/RecommendList';
 
 // Import Actions
-import {fetchPosts, deletePostRequest } from '../../PostActions';
+import { fetchPosts, deletePostRequest } from '../../PostActions';
 
 // Import Selectors
 import { getPosts } from '../../PostReducer';

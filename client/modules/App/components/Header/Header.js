@@ -7,7 +7,7 @@ import styles from './Header.css';
 
 import logo from '../../../../assets/img/logo/iconweb2.png';
 
-export function Header(props, context) {
+export function Header(props) {
   const languageNodes = props
     .intl
     .enabledLanguages
