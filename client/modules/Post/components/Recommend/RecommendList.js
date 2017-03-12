@@ -7,20 +7,20 @@ import styles from './RecommendList.css';
 
 function RecommendList(props) {
   return (
-    <div className="col-md-4">
-      <div className={styles['recommend-top']}>
-        <h3>
-         Recommends
-        </h3>
+    <div className="col-sm-4">
+      <div id={styles['featured-box']}>
+        <div className={styles['right-bar-title']}>
+          <h1>Bài liên quan</h1>
+        </div>
+        {
+          props.posts.map(post => (
+            <RecommendListItem
+              post={post}
+              key={post.cuid}
+            />
+          ))
+        }
       </div>
-    {
-        props.posts.map(post => (
-          <RecommendListItem
-            post={post}
-            key={post.cuid}
-          />
-        ))
-      }
     </div>
   );
 }

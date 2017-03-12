@@ -11,6 +11,9 @@ import { fetchPosts, deletePostRequest } from '../../PostActions';
 // Import Selectors
 import { getPosts } from '../../PostReducer';
 
+// Import Style
+import styles from '../../components/Post/PostListItem/PostListItem.css';
+
 class PostListPage extends Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
@@ -25,20 +28,23 @@ class PostListPage extends Component {
 
   render() {
     return (
-      <div >
-        <div className="row">
+
+      <div id={styles.wrap}>
+        <div className="container">
           <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
           <RecommendList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
 
         </div>
-
       </div>
+
     );
   }
 }
 
 // Actions required to provide data for this component to render in sever side.
-PostListPage.need = [() => { return fetchPosts(); }];
+PostListPage.need = [() => {
+  return fetchPosts();
+}];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {

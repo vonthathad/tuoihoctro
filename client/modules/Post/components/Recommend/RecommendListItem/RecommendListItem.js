@@ -8,14 +8,16 @@ import thump from '../../../../../assets/img/thump.jpg';
 
 function RecommendListItem(props) {
   return (
-    <div className={styles['single-recommend']}>
-
-      <img src={thump} alt="" />
-      <p>
-        {props.post.title}
-      </p>
-
-    </div>
+    <a href="">
+      <div className={styles['featured-post']}>
+        <div className={styles['featured-image']}>
+          <img src={thump} alt="" />
+        </div>
+        <div className={styles['featured-title']}>
+          <h2>{props.post.title}</h2>
+        </div>
+      </div>
+    </a>
   );
 }
 

@@ -2,10 +2,11 @@ import React, { PropTypes } from 'react';
 
 // Import Components
 import PostListItem from './PostListItem/PostListItem';
-
+// Import Styles
+import styles from './PostListItem/PostListItem.css';
 function PostList(props) {
   return (
-    <div className="col-md-8">
+    <div className="col-md-8" id={styles.left}>
 
     {
         props.posts.map(post => (
