@@ -12,7 +12,7 @@ function PostList(props) {
         props.posts.map(post => (
           <PostListItem
             post={post}
-            key={post['_id']}
+            key={post._id}
             onDelete={() => props.handleDeletePost(post.cuid)}
           />
         ))
@@ -41,8 +41,8 @@ PostList.propTypes = {
     mediaContentHeight: PropTypes.number.isRequired,
     creator: {
       avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired
-    }
+      username: PropTypes.string.isRequired,
+    },
   })).isRequired,
   handleDeletePost: PropTypes.func.isRequired,
 };

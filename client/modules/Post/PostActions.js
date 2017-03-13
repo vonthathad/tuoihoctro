@@ -26,7 +26,6 @@ export function addPostRequest(post) {
 }
 
 export function addPosts(posts) {
-  console.log(posts);
   return {
     type: ADD_POSTS,
     posts,
@@ -36,7 +35,6 @@ export function addPosts(posts) {
 export function fetchPosts() {
   return (dispatch) => {
     return callApi('posts').then(res => {
-      console.log(res);
       dispatch(addPosts(res));
     });
   };

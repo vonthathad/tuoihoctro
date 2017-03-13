@@ -41,8 +41,8 @@ RecommendListItem.propTypes = {
     mediaContentHeight: PropTypes.number.isRequired,
     creator: {
       avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired
-    }
+      username: PropTypes.string.isRequired,
+    },
   }).isRequired,
 };
 

@@ -11,7 +11,7 @@ function PostListItem(props) {
   return (
     <div className={styles['single-post']}>
       <h3 className={styles['post-title']}>
-        <Link to={`/posts/${props.post['_id']}`}>
+        <Link to={`/posts/${props.post._id}`}>
           {props.post.title}
         </Link>
       </h3>
@@ -74,8 +74,8 @@ PostListItem.propTypes = {
     mediaContentHeight: PropTypes.number.isRequired,
     creator: {
       avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired
-    }
+      username: PropTypes.string.isRequired,
+    },
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
 };

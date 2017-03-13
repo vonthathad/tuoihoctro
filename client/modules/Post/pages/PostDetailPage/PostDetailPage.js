@@ -112,8 +112,8 @@ PostDetailPage.propTypes = {
     mediaContentHeight: PropTypes.number.isRequired,
     creator: {
       avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired
-    }
+      username: PropTypes.string.isRequired,
+    },
   })).isRequired,
   posts: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.number.isRequired,
@@ -134,8 +134,8 @@ PostDetailPage.propTypes = {
     mediaContentHeight: PropTypes.number.isRequired,
     creator: {
       avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired
-    }
+      username: PropTypes.string.isRequired,
+    },
   })).isRequired,
 };
 

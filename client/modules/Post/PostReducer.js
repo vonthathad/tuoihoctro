@@ -11,7 +11,6 @@ const PostReducer = (state = initialState, action) => {
       };
 
     case ADD_POSTS :
-      console.log(action.posts);
       return {
         data: action.posts,
       };
