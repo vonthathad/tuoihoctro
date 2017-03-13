@@ -55,9 +55,25 @@ function mapStateToProps(state) {
 
 PostListPage.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
+    mediaContent: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    thumb: PropTypes.string.isRequired,
+    smallThumb: PropTypes.string.isRequired,
+    numComment: PropTypes.number.isRequired,
+    point: PropTypes.number.isRequired,
+    created: PropTypes.string.isRequired,
+    view: PropTypes.number.isRequired,
+    smallThumbWidth: PropTypes.number.isRequired,
+    smallThumbHeight: PropTypes.number.isRequired,
+    thumbWidth: PropTypes.number.isRequired,
+    thumbHeight: PropTypes.number.isRequired,
+    mediaContentWidth: PropTypes.number.isRequired,
+    mediaContentHeight: PropTypes.number.isRequired,
+    creator: {
+      avatar: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired
+    }
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

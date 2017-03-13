@@ -1,6 +1,3 @@
-/**
- * Created by andh on 1/28/17.
- */
 import { Router } from 'express';
 import passport from 'passport';
 import * as users from '../controllers/user.controller';

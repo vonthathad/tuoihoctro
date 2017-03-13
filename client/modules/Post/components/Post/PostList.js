@@ -12,7 +12,7 @@ function PostList(props) {
         props.posts.map(post => (
           <PostListItem
             post={post}
-            key={post.cuid}
+            key={post['_id']}
             onDelete={() => props.handleDeletePost(post.cuid)}
           />
         ))
@@ -23,11 +23,26 @@ function PostList(props) {
 
 PostList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired,
+    mediaContent: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    thumb: PropTypes.string.isRequired,
+    smallThumb: PropTypes.string.isRequired,
+    numComment: PropTypes.number.isRequired,
+    point: PropTypes.number.isRequired,
+    created: PropTypes.string.isRequired,
+    view: PropTypes.number.isRequired,
+    smallThumbWidth: PropTypes.number.isRequired,
+    smallThumbHeight: PropTypes.number.isRequired,
+    thumbWidth: PropTypes.number.isRequired,
+    thumbHeight: PropTypes.number.isRequired,
+    mediaContentWidth: PropTypes.number.isRequired,
+    mediaContentHeight: PropTypes.number.isRequired,
+    creator: {
+      avatar: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired
+    }
   })).isRequired,
   handleDeletePost: PropTypes.func.isRequired,
 };

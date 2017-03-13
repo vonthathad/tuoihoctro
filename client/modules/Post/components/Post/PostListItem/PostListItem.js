@@ -11,11 +11,11 @@ function PostListItem(props) {
   return (
     <div className={styles['single-post']}>
       <h3 className={styles['post-title']}>
-        <Link to={`/posts/${props.post.slug}-${props.post.cuid}`}>
+        <Link to={`/posts/${props.post['_id']}`}>
           {props.post.title}
         </Link>
       </h3>
-      <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.name}</p>
+      <p className={styles['author-name']}><FormattedMessage id="by" /> {props.post.creator.username}</p>
       <img src={thump} alt="" />
 
       <div className={styles['post-body']}>
@@ -56,11 +56,26 @@ function PostListItem(props) {
 
 PostListItem.propTypes = {
   post: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
-    cuid: PropTypes.string.isRequired,
+    mediaContent: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    thumb: PropTypes.string.isRequired,
+    smallThumb: PropTypes.string.isRequired,
+    numComment: PropTypes.number.isRequired,
+    point: PropTypes.number.isRequired,
+    created: PropTypes.string.isRequired,
+    view: PropTypes.number.isRequired,
+    smallThumbWidth: PropTypes.number.isRequired,
+    smallThumbHeight: PropTypes.number.isRequired,
+    thumbWidth: PropTypes.number.isRequired,
+    thumbHeight: PropTypes.number.isRequired,
+    mediaContentWidth: PropTypes.number.isRequired,
+    mediaContentHeight: PropTypes.number.isRequired,
+    creator: {
+      avatar: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired
+    }
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
