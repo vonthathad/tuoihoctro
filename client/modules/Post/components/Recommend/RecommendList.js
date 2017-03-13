@@ -16,7 +16,7 @@ function RecommendList(props) {
           props.posts.map(post => (
             <RecommendListItem
               post={post}
-              key={post['_id']}
+              key={post.id}
             />
           ))
         }
@@ -45,8 +45,8 @@ RecommendList.propTypes = {
     mediaContentHeight: PropTypes.number.isRequired,
     creator: {
       avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired
-    }
+      username: PropTypes.string.isRequired,
+    },
   })).isRequired,
 };
 
