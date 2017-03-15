@@ -28,7 +28,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isMounted: true }); // eslint-disable-line
+    this.setState({isMounted: true}); // eslint-disable-line
   }
 
   toggleAddPostSection = () => {
@@ -42,6 +42,7 @@ export class App extends Component {
     this.props.dispatch(toggleAddPost());
     this.props.dispatch(addPostRequest({ name, title, content }));
   };
+
   render() {
     return (
       <div>
@@ -62,18 +63,18 @@ export class App extends Component {
               },
             ]}
           />
-          <Header
-            switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
-            intl={this.props.intl}
-            toggleAddPost={this.toggleAddPostSection}
-            toggleLogin={this.toggleLoginSection}
-          />
-          <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
-          <LoginWidget toggleLogin={this.toggleLoginSection} showLogin={this.props.showLogin} />
-          <div className={styles.container}>
+          <div id={styles.wrap}>
+            <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
+            <LoginWidget toggleLogin={this.toggleLoginSection} showLogin={this.props.showLogin} />
+            <Header
+              switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
+              intl={this.props.intl}
+              toggleAddPost={this.toggleAddPostSection}
+              toggleLogin={this.toggleLoginSection}
+            />
             {this.props.children}
+            <Footer />
           </div>
-          <Footer />
         </div>
       </div>
     );

@@ -1,55 +1,68 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+// import { Link } from 'react-router';
+// import { FormattedMessage } from 'react-intl';
 
 // Import Style
 import styles from './Header.css';
-
+import nav from '../../../../assets/css/nav.css';
 import logo from '../../../../assets/img/logo/iconweb2.png';
 
-export function Header(props) {
-  const languageNodes = props
-    .intl
-    .enabledLanguages
-    .map(lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>);
-
+export function Header() {
   return (
-    <div className={styles.header}>
-      <div className={styles['language-switcher']}>
-        <ul>
-
-          <li><FormattedMessage id="switchLanguage" /></li>
-          {
-            languageNodes
-          }
-        </ul>
+    <nav className="nav navbar-inverse navbar-fixed-top">
+      <div className="container-fluid">
+        <div className="container">
+          <div className="navbar-header">
+            <button
+              type="button"
+              className="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+            ><span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span> <span className="icon-bar"></span> <span className="icon-bar"></span>
+            </button>
+            <a className="navbar-brand" href="index.html"><img
+              src={logo}
+              className={styles.logo}
+              alt="Tuổi học trò"
+            /></a>
+          </div>
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul className="nav navbar-nav">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="hot.html">Hot</a></li>
+              <li><a href="trending.html">Top</a></li>
+              <li><a href="fresh.html">Fresh</a></li>
+              <li className="dropdown"><a
+                href="index.html#"
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button" aria-expanded="false"
+              >More <span className="caret"></span></a>
+                <ul className="dropdown-menu" role="menu">
+                  <li><a href="gif.html">GIF</a></li>
+                  <li><a href="category-4-comic-1.html">Comic</a></li>
+                  <li><a href="category-7-cool-1.html">Cool</a></li>
+                  <li><a href="category-3-cute-1.html">Cute</a></li>
+                  <li><a href="category-5-food-1.html">Food</a></li>
+                  <li><a href="category-1-geeky-1.html">Geeky</a></li>
+                  <li><a href="category-2-meme-1.html">Meme</a></li>
+                  <li><a href="category-6-wtf-1.html">WTF</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a data-toggle="modal" data-target="#myModal" href="index.html#">Đăng nhập</a></li>
+              <li><a data-toggle="modal" data-target="#modalRegister" href="index.html#">Đăng ký</a></li>
+              <li className="btn-upload"><a
+                href="index.html#"
+              >Upload</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div className={styles.content}>
-        <h1 className={styles['site-title']}>
-          <Link to="/">
-            <img src={logo} alt="" />
-          </Link>
-          <Link to="/">
-            Home
-          </Link>
-          <Link to="/">
-            Hot
-          </Link>
-          <Link to="/">
-            Top
-          </Link>
-          <Link to="/">
-            Fresh
-          </Link>
-        </h1>
-        <a className={styles['add-post-button']} href="#" onClick={props.toggleAddPost}><FormattedMessage
-          id="addPost"
-        /></a>
-        <a className={styles['add-post-button']} href="#" onClick={props.toggleLogin}>Register</a>
-        <a className={styles['add-post-button']} href="#" onClick={props.toggleLogin}>Login</a>
+    </nav>
 
-      </div>
-    </div>
   );
 }
 
