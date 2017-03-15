@@ -11,7 +11,6 @@ const privateKey = serverConfig.key.privateKey;
 import passport from 'passport';
 import crypto from 'crypto';
 const getErrorMessage = (err) => {
-    //   console.log(err);
   let messages = [];
   if (err.code) {
     switch (err.code) {
@@ -66,10 +65,10 @@ export function register(req, res) {
           messages,
         });
       }
-      const tokenData = {
-        email: user.email,
-      };
-      Mail.sentMailVerificationLink(user, Jwt.sign(tokenData, privateKey));
+      // const tokenData = {
+      //   email: user.email,
+      // };
+      // Mail.sentMailVerificationLink(user, Jwt.sign(tokenData, privateKey));
             // message = "Hãy kiểm tra email của bạn để xác nhận tài khoản";
             // req.flash('error', message);
             //   console.log(123);

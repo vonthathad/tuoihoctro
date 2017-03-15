@@ -8,11 +8,11 @@ import styles from './Header.css';
 import logo from '../../../../assets/img/logo/iconweb2.png';
 
 export function Header(props) {
+  const curentUser = props.curentUser;
   const languageNodes = props
     .intl
     .enabledLanguages
     .map(lang => <li key={lang} onClick={() => props.switchLanguage(lang)} className={lang === props.intl.locale ? styles.selected : ''}>{lang}</li>);
-
   return (
     <div className={styles.header}>
       <div className={styles['language-switcher']}>
@@ -42,14 +42,18 @@ export function Header(props) {
             Fresh
           </Link>
         </h1>
-        <a className={styles['add-post-button']} href="#" onClick={props.toggleAddPost}>
-          <FormattedMessage
-          id="addPost"
-        />
-        </a>
-        <a className={styles['add-post-button']} href="#" >Register</a>
-        <a className={styles['add-post-button']} href="#" onClick={props.toggleLogin}>Login</a>
-
+        {
+          curentUser._id && curentUser
+            ? <a className={styles['add-post-button']} href="#" onClick={props.toggleAddPost}>
+              <FormattedMessage
+                id="addPost"
+              />
+            </a>
+            : <div>
+              <a className={styles['add-post-button']} href="#" onClick={props.toggleRegister}>Register</a>
+              <a className={styles['add-post-button']} href="#" onClick={props.toggleLogin}>Login</a>
+            </div>
+        }
       </div>
     </div>
   );
@@ -62,8 +66,10 @@ Header.contextTypes = {
 Header.propTypes = {
   toggleAddPost: PropTypes.func.isRequired,
   toggleLogin: PropTypes.func.isRequired,
+  toggleRegister: PropTypes.func.isRequired,
   switchLanguage: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
+  curentUser: PropTypes.object.isRequired,
 };
 
 export default Header;

@@ -6,7 +6,7 @@ import PostListItem from './PostListItem/PostListItem';
 import styles from './PostListItem/PostListItem.css';
 function PostList(props) {
   return (
-    <div className="col-md-8" id={styles.left}>
+    <div className="col-sm-8" id={styles.left}>
 
     {
         props.posts.map(post => (
@@ -39,10 +39,6 @@ PostList.propTypes = {
     thumbHeight: PropTypes.number.isRequired,
     mediaContentWidth: PropTypes.number.isRequired,
     mediaContentHeight: PropTypes.number.isRequired,
-    creator: {
-      avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-    },
   })).isRequired,
   handleDeletePost: PropTypes.func.isRequired,
 };

@@ -17,10 +17,14 @@ const AppReducer = (state = initialState, action) => {
     case TOGGLE_LOGIN:
       return {
         showLogin: !state.showLogin,
+        showRegister: false,
+        showAddPost: false,
       };
     case TOGGLE_REGISTER:
       return {
         showRegister: !state.showRegister,
+        showLogin: false,
+        showAddPost: false,
       };
     default:
       return state;

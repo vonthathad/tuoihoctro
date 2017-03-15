@@ -9,24 +9,24 @@ import Helmet from 'react-helmet';
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import LoginWidget from '../Login/components/LoginWidget/LoginWidget';
+import User from '../User/components/user';
 import PostCreateWidget from '../Post/components/Post/PostCreateWidget/PostCreateWidget';
 
 // Import Actions
-import { toggleAddPost, toggleLogin } from './AppActions';
+import { toggleAddPost, toggleLogin, toggleRegister } from './AppActions';
 import { addPostRequest } from '../Post/PostActions';
+import { loginRequest, registerRequest } from '../User/UserActions';
 
 import { switchLanguage } from '../../modules/Intl/IntlActions';
 
 // Import Reducer
-import { getShowLogin, getShowAddPost } from '../App/AppReducer';
+import { getShowRegister, getShowLogin, getShowAddPost } from '../App/AppReducer';
 
 export class App extends Component {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
   }
-
   componentDidMount() {
     this.setState({ isMounted: true }); // eslint-disable-line
   }
@@ -38,9 +38,20 @@ export class App extends Component {
   toggleLoginSection = () => {
     this.props.dispatch(toggleLogin());
   };
+  toggleRegisterSection = () => {
+    this.props.dispatch(toggleRegister());
+  };
   handleAddPost = (name, title, content) => {
     this.props.dispatch(toggleAddPost());
     this.props.dispatch(addPostRequest({ name, title, content }));
+  };
+  handleLogin = (email, password) => {
+    this.props.dispatch(toggleLogin());
+    this.props.dispatch(loginRequest({ email, password }));
+  };
+  handleRegister = (username, email, password) => {
+    this.props.dispatch(toggleRegister());
+    this.props.dispatch(registerRequest({ username, email, password }));
   };
   render() {
     return (
@@ -67,9 +78,18 @@ export class App extends Component {
             intl={this.props.intl}
             toggleAddPost={this.toggleAddPostSection}
             toggleLogin={this.toggleLoginSection}
+            toggleRegister={this.toggleRegisterSection}
+            curentUser={this.props.curentUser}
           />
           <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
-          <LoginWidget toggleLogin={this.toggleLoginSection} showLogin={this.props.showLogin} />
+          <User
+            toggleLogin={this.toggleLoginSection}
+            toggleRegister={this.toggleRegisterSection}
+            loginUser={this.handleLogin}
+            registerUser={this.handleRegister}
+            showLogin={this.props.showLogin}
+            showRegister={this.props.showRegister}
+          />
           <div className={styles.container}>
             {this.props.children}
           </div>
@@ -84,7 +104,9 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
+  curentUser: PropTypes.object.isRequired,
   showLogin: PropTypes.bool.isRequired,
+  showRegister: PropTypes.bool.isRequired,
   showAddPost: PropTypes.bool.isRequired,
 };
 
@@ -92,7 +114,9 @@ App.propTypes = {
 function mapStateToProps(store) {
   return {
     intl: store.intl,
+    curentUser: store.loginUser,
     showLogin: getShowLogin(store),
+    showRegister: getShowRegister(store),
     showAddPost: getShowAddPost(store),
   };
 }

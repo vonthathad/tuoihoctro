@@ -25,7 +25,6 @@ class PostListPage extends Component {
     }
   };
 
-
   render() {
     return (
 
@@ -70,10 +69,6 @@ PostListPage.propTypes = {
     thumbHeight: PropTypes.number.isRequired,
     mediaContentWidth: PropTypes.number.isRequired,
     mediaContentHeight: PropTypes.number.isRequired,
-    creator: {
-      avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-    },
   })).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

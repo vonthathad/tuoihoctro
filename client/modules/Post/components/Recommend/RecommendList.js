@@ -27,7 +27,6 @@ function RecommendList(props) {
 
 RecommendList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     mediaContent: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
@@ -43,10 +42,6 @@ RecommendList.propTypes = {
     thumbHeight: PropTypes.number.isRequired,
     mediaContentWidth: PropTypes.number.isRequired,
     mediaContentHeight: PropTypes.number.isRequired,
-    creator: {
-      avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-    },
   })).isRequired,
 };
 

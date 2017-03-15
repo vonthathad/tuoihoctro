@@ -93,7 +93,7 @@ function mapStateToProps(state, props) {
 }
 
 PostDetailPage.propTypes = {
-  post: PropTypes.arrayOf(PropTypes.shape({
+  post: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     mediaContent: PropTypes.string.isRequired,
@@ -110,11 +110,7 @@ PostDetailPage.propTypes = {
     thumbHeight: PropTypes.number.isRequired,
     mediaContentWidth: PropTypes.number.isRequired,
     mediaContentHeight: PropTypes.number.isRequired,
-    creator: {
-      avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-    },
-  })).isRequired,
+  }).isRequired,
   posts: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -132,10 +128,6 @@ PostDetailPage.propTypes = {
     thumbHeight: PropTypes.number.isRequired,
     mediaContentWidth: PropTypes.number.isRequired,
     mediaContentHeight: PropTypes.number.isRequired,
-    creator: {
-      avatar: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-    },
   })).isRequired,
 };
 
