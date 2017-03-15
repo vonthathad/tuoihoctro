@@ -11,7 +11,7 @@ export default function callApi(endpoint, method = 'get', body) {
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRydW5naGlldXRrNDU5QGdtYWlsLmNvbSIsImlhdCI6MTQ4ODIwMzY1M30.GW5HawuuydIIQx77pp4tzpnYst1QnrbGZUyjf8uZl8I',
     },
     method,
-    body: body.post,
+    body: body ? body.post : null,
   })
   .then(response => response.json().then(json => ({ json, response })))
   .then(({ json, response }) => {

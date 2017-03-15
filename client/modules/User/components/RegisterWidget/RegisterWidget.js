@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl } from 'react-intl';
 
 // Import Plugin
 import FacebookProvider, { Login } from 'react-facebook';
@@ -107,4 +106,4 @@ RegisterWidget.propTypes = {
   registerUser: PropTypes.func.isRequired,
 };
 
-export default injectIntl(RegisterWidget);
+export default RegisterWidget;

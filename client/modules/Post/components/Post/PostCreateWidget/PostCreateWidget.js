@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 
 // Import Style
@@ -46,7 +45,7 @@ export class PostCreateWidget extends Component {
           <Link to={this.state.imgSrc} target="_blank">
             <img src={this.state.imgSrc} alt="" />
           </Link>
-          <a className={styles['post-submit-button']} onClick={this.addPost}><FormattedMessage id="submit" /></a>
+          <a className={styles['post-submit-button']} onClick={this.addPost}>Submit</a>
         </div>
         <div className={styles.backgroundPost}>
         </div>
@@ -58,7 +57,6 @@ export class PostCreateWidget extends Component {
 PostCreateWidget.propTypes = {
   addPost: PropTypes.func.isRequired,
   showAddPost: PropTypes.bool.isRequired,
-  intl: intlShape.isRequired,
 };
 
-export default injectIntl(PostCreateWidget);
+export default PostCreateWidget;

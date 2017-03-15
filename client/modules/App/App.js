@@ -17,8 +17,6 @@ import { toggleAddPost, toggleLogin, toggleRegister } from './AppActions';
 import { addPostRequest } from '../Post/PostActions';
 import { loginRequest, registerRequest } from '../User/UserActions';
 
-import { switchLanguage } from '../../modules/Intl/IntlActions';
-
 // Import Reducer
 import { getShowRegister, getShowLogin, getShowAddPost } from '../App/AppReducer';
 
@@ -59,7 +57,7 @@ export class App extends Component {
     this.props.dispatch(toggleRegister());
     this.props.dispatch(registerRequest({ username, email, password }, this.showAlert()));
   };
-  showAlert(res) {
+  showAlert() {
     this.setState({ show: true });
   }
   render() {
@@ -69,8 +67,6 @@ export class App extends Component {
         <div>
           <div id={styles.wrap}>
             <Header
-              switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
-              intl={this.props.intl}
               toggleAddPost={this.toggleAddPostSection}
               toggleLogin={this.toggleLoginSection}
               toggleRegister={this.toggleRegisterSection}
@@ -113,7 +109,6 @@ export class App extends Component {
 App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired,
   curentUser: PropTypes.object.isRequired,
   showLogin: PropTypes.bool.isRequired,
   showRegister: PropTypes.bool.isRequired,
@@ -123,7 +118,6 @@ App.propTypes = {
 // Retrieve data from store as props
 function mapStateToProps(store) {
   return {
-    intl: store.intl,
     curentUser: store.loginUser,
     showLogin: getShowLogin(store),
     showRegister: getShowRegister(store),

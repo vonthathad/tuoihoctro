@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 // import Helmet from 'react-helmet';
-// import { FormattedMessage } from 'react-intl';
 
 // Import Components
 import RecommendList from '../../components/Recommend/RecommendList';

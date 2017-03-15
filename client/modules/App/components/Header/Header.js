@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 
 // Import Style
 import styles from './Header.css';
@@ -77,8 +75,6 @@ Header.propTypes = {
   toggleAddPost: PropTypes.func.isRequired,
   toggleLogin: PropTypes.func.isRequired,
   toggleRegister: PropTypes.func.isRequired,
-  switchLanguage: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired,
   curentUser: PropTypes.object.isRequired,
 };
 
