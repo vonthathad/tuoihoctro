@@ -404,7 +404,7 @@ const removeFile = (input) => {
 exports.create = (req, res) => {
   const form = new formidable.IncomingForm();
   const dir = `uploaded/${req.user._id}`;
-
+  console.log(dir);
   form.uploadDir = `${__dirname}/../../public/${dir}/`;
   mkdirp(form.uploadDir, () => {
     // if (err) {
@@ -421,12 +421,14 @@ exports.create = (req, res) => {
   form.on('progress', bytesReceived => {
     if (bytesReceived > 6000000) {
       form._error();
+      console.log(123444);
       return res.status(400).send();
     }
     return null;
   });
   form.on('field', (name, field) => {
     if (name === 'content') {
+      console.log(1235554);
       _post = field;
     }
   });
@@ -446,7 +448,7 @@ exports.create = (req, res) => {
         const originalWidth = size.width;
         const originalHeight = size.height;
         const originalFileSize = file.size;
-
+        console.log(1234);
         const data = JSON.parse(_post);
 
         data.creator = req.user._id;
@@ -494,7 +496,7 @@ exports.create = (req, res) => {
           const post = new Post(data);
           post.save((err1, post1) => {
             if (err1) {
-              return res.status(400).send({ messages: getErrorMessage(err) });
+              return res.status(400).send({ messages: getErrorMessage(err1) });
             }
             return res.json({ data: post1 });
           });
@@ -558,7 +560,7 @@ exports.create = (req, res) => {
           const post = new Post(data);
           post.save((err1, post1) => {
             if (err1) {
-              return res.status(400).send({ messages: getErrorMessage(err) });
+              return res.status(400).send({ messages: getErrorMessage(err1) });
             }
             return res.json({ data: post1 });
           });

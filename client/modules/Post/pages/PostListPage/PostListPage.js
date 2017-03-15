@@ -12,7 +12,7 @@ import { fetchPosts, deletePostRequest } from '../../PostActions';
 import { getPosts } from '../../PostReducer';
 
 // Import Style
-import styles from '../../components/Post/PostListItem/PostListItem.css';
+// import styles from '../../components/Post/PostListItem/PostListItem.css';
 
 class PostListPage extends Component {
   componentDidMount() {
@@ -27,15 +27,10 @@ class PostListPage extends Component {
 
   render() {
     return (
-
-      <div id={styles.wrap}>
-        <div className="container">
-          <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
-          <RecommendList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
-
-        </div>
+      <div className="container">
+        <PostList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
+        <RecommendList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
       </div>
-
     );
   }
 }

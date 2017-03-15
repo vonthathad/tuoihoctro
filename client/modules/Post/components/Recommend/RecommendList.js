@@ -7,7 +7,7 @@ import styles from './RecommendList.css';
 
 function RecommendList(props) {
   return (
-    <div className="col-sm-4">
+    <div className={`col-sm-4 ${styles['col-sm-4']}`}>
       <div id={styles['featured-box']}>
         <div className={styles['right-bar-title']}>
           <h1>Bài liên quan</h1>

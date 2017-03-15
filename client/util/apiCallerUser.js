@@ -15,6 +15,7 @@ export default function callApiUser(endpoint, method = 'get', body) {
   })
   .then(response => response.json().then(json => ({ json, response })))
   .then(({ json, response }) => {
+    console.log(json);
     if (!response.ok) {
       return Promise.reject(json);
     }

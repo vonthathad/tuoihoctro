@@ -20,6 +20,7 @@ export function registerUser(user) {
 
 
 export function loginRequest(data) {
+  console.log(data);
   return (dispatch) => {
     return callApiUser('login', 'post', {
       user: {
@@ -33,7 +34,7 @@ export function loginRequest(data) {
 }
 
 
-export function registerRequest(data) {
+export function registerRequest(data, cb) {
   return (dispatch) => {
     return callApiUser('register', 'post', {
       user: {
@@ -42,6 +43,7 @@ export function registerRequest(data) {
         password: data.password,
       },
     }).then((res) => {
+      cb(res);
       dispatch(registerUser(res.data));
     });
   };

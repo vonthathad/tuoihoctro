@@ -1,20 +1,27 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+// import { FormattedMessage } from 'react-intl';
 
 // Import Style
 import styles from './Footer.css';
 
 // Import Images
-import bg from '../../header-bk.png';
+// import bg from '../../header-bk.png';
 
 export function Footer() {
   return (
-    <div className={styles.footer} style={{ background: `#FFF url(${bg}) center` }}>
-      <div >
-        <p>About Us | Privacy Policy | Terms of Use | DMCA | Rss Feeds | Contact Us</p>
-        <p>&#169; 2017 <FormattedMessage id="twitterMessage" /></p>
+    <footer className={styles['main-footer']}>
+      <div className="container">
+        <div className={styles['pull-middle']}>
+          <a href="about_us.html">About Us</a> | <a href="privacy_policy.html">Privacy Policy</a> | <a
+            href="tos.html"
+          >Terms of Use</a> | <a href="dmca.html">DMCA</a> | <a href="rss.html">Rss Feeds</a>|
+          <a href="contact_us.html">Contact Us</a>
+        </div>
+        <div className={`${styles['pull-middle']} ${styles['copyright-note']}`}>&#169; 2017 Tuổi học trò. All Rights
+          Reserved.
+        </div>
       </div>
-    </div>
+    </footer>
   );
 }
 

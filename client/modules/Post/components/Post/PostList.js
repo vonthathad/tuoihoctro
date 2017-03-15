@@ -6,7 +6,7 @@ import PostListItem from './PostListItem/PostListItem';
 import styles from './PostListItem/PostListItem.css';
 function PostList(props) {
   return (
-    <div className="col-sm-8" id={styles.left}>
+    <div className={`col-sm-8 ${styles['col-sm-8']}`} id={styles.left}>
 
     {
         props.posts.map(post => (

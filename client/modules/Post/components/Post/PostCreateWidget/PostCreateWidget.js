@@ -1,30 +1,54 @@
 import React, { Component, PropTypes } from 'react';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
 
 // Import Style
 import styles from './PostCreateWidget.css';
 
 export class PostCreateWidget extends Component {
+  constructor() {
+    super();
+    this.state = {
+      imgSrc: '',
+    };
+  }
   addPost = () => {
-    const nameRef = this.refs.name;
     const titleRef = this.refs.title;
     const contentRef = this.refs.content;
-    if (nameRef.value && titleRef.value && contentRef.value) {
-      this.props.addPost(nameRef.value, titleRef.value, contentRef.value);
-      nameRef.value = titleRef.value = contentRef.value = '';
+    const fileRef = this.state.file;
+    const category = 'funny';
+    if (titleRef.value && contentRef.value && fileRef) {
+      this.props.addPost(titleRef.value, category, fileRef);
+      titleRef.value = contentRef.value = '';
     }
   };
-
+  loadFile(e) {
+    e.preventDefault();
+    const reader = new FileReader();
+    const file = e.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        file,
+        imgSrc: reader.result,
+      });
+    };
+    reader.readAsDataURL(file);
+  }
   render() {
     const cls = `${styles.form} ${(this.props.showAddPost ? styles.appear : '')}`;
     return (
       <div className={cls}>
         <div className={styles['form-content']}>
-          <h2 className={styles['form-title']}><FormattedMessage id="createNewPost" /></h2>
-          <input placeholder={this.props.intl.messages.authorName} className={styles['form-field']} ref="name" />
-          <input placeholder={this.props.intl.messages.postTitle} className={styles['form-field']} ref="title" />
-          <textarea placeholder={this.props.intl.messages.postContent} className={styles['form-field']} ref="content" />
-          <a className={styles['post-submit-button']} href="#" onClick={this.addPost}><FormattedMessage id="submit" /></a>
+          <h2 className={styles['form-title']}>Đăng bài mới</h2>
+          <input placeholder="Tiêu đề" className={styles['form-field']} ref="title" />
+          <textarea placeholder="Nội dung" className={styles['form-field']} ref="content" />
+          <input type="file" ref="file" onChange={(e) => this.loadFile(e)} />
+          <Link to={this.state.imgSrc} target="_blank">
+            <img src={this.state.imgSrc} alt="" />
+          </Link>
+          <a className={styles['post-submit-button']} onClick={this.addPost}><FormattedMessage id="submit" /></a>
+        </div>
+        <div className={styles.backgroundPost}>
         </div>
       </div>
     );

@@ -32,7 +32,7 @@ function PostListItem(props) {
           <span className={styles['display-vote']}>0 điểm</span>
         </div>
 
-        <div className="social-box">
+        <div className={styles['social-box']}>
           <a className={`btn btn-default ${styles['twitter-button']}`}><span
             className={`${icons.fa} ${icons['fa-twitter']}`}
           ></span><span

@@ -156,12 +156,13 @@ p {
   padding-right: 0;
 }
 
-.col-md-8 {
+.col-sm-8 {
   padding-left: 0;
+  padding-top: 80px;
 }
 
-.col-md-4 {
-  padding-top: 60px;
+.col-sm-4 {
+  padding-top: 80px;
 }
 
 .post-box {
@@ -573,13 +574,13 @@ li.btn-upload > a:link, li.btn-upload > a:visited {
   color: #666;
 }
 
-.col-md-8 .well {
+.col-sm-8 .well {
   background: #FFF;
   border: none;
   padding: 15px 0 0 0;
 }
 
-.col-md-8 > div.well > div.media > div.media-body > p {
+.col-sm-8 > div.well > div.media > div.media-body > p {
   color: #666;
 }
 
@@ -1061,7 +1062,7 @@ ul#profile-nav li.active {
     width: 100%;
   }
 
-  .col-md-4 {
+  .col-sm-4 {
     display: none;
   }
 
@@ -1074,7 +1075,7 @@ ul#profile-nav li.active {
     visibility: hidden;
   }
 
-  .col-md-8 {
+  .col-sm-8 {
     padding: 0;
   }
 
@@ -1161,3 +1162,4 @@ img {
 video {
   width: 100%;
 }
+

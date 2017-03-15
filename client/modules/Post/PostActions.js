@@ -16,12 +16,10 @@ export function addPost(post) {
 export function addPostRequest(post) {
   return (dispatch) => {
     return callApi('posts', 'post', {
-      post: {
-        name: post.name,
-        title: post.title,
-        content: post.content,
-      },
-    }).then(res => dispatch(addPost(res.post)));
+      post,
+    }).then(res => {
+      dispatch(addPost(res.post));
+    });
   };
 }
 

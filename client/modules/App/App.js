@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import SweetAlert from 'sweetalert-react';
 // Import Style
 import styles from './App.css';
 
 // Import Components
-import Helmet from 'react-helmet';
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -25,10 +25,11 @@ import { getShowRegister, getShowLogin, getShowAddPost } from '../App/AppReducer
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { isMounted: false };
+    this.state = { isMounted: false, show: false };
+    this.showAlert = this.showAlert.bind(this);
   }
   componentDidMount() {
-    this.setState({ isMounted: true }); // eslint-disable-line
+    this.setState({isMounted: true}); // eslint-disable-line
   }
 
   toggleAddPostSection = () => {
@@ -41,9 +42,14 @@ export class App extends Component {
   toggleRegisterSection = () => {
     this.props.dispatch(toggleRegister());
   };
-  handleAddPost = (name, title, content) => {
+  handleAddPost = (title, category, file) => {
+    const data = new FormData();
+    data.append('file', file);
+    data.append('content', JSON.stringify({
+      title, category,
+    }));
     this.props.dispatch(toggleAddPost());
-    this.props.dispatch(addPostRequest({ name, title, content }));
+    this.props.dispatch(addPostRequest(data));
   };
   handleLogin = (email, password) => {
     this.props.dispatch(toggleLogin());
@@ -51,49 +57,53 @@ export class App extends Component {
   };
   handleRegister = (username, email, password) => {
     this.props.dispatch(toggleRegister());
-    this.props.dispatch(registerRequest({ username, email, password }));
+    this.props.dispatch(registerRequest({ username, email, password }, this.showAlert()));
   };
+  showAlert(res) {
+    this.setState({ show: true });
+  }
   render() {
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
-          <Helmet
-            title="MERN Starter - Blog App"
-            titleTemplate="%s - Blog App"
-            meta={[
-              { charset: 'utf-8' },
-              {
-                'http-equiv': 'X-UA-Compatible',
-                content: 'IE=edge',
-              },
-              {
-                name: 'viewport',
-                content: 'width=device-width, initial-scale=1',
-              },
-            ]}
-          />
-          <Header
-            switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
-            intl={this.props.intl}
-            toggleAddPost={this.toggleAddPostSection}
-            toggleLogin={this.toggleLoginSection}
-            toggleRegister={this.toggleRegisterSection}
-            curentUser={this.props.curentUser}
-          />
-          <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
-          <User
-            toggleLogin={this.toggleLoginSection}
-            toggleRegister={this.toggleRegisterSection}
-            loginUser={this.handleLogin}
-            registerUser={this.handleRegister}
-            showLogin={this.props.showLogin}
-            showRegister={this.props.showRegister}
-          />
-          <div className={styles.container}>
-            {this.props.children}
+          <div id={styles.wrap}>
+            <Header
+              switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
+              intl={this.props.intl}
+              toggleAddPost={this.toggleAddPostSection}
+              toggleLogin={this.toggleLoginSection}
+              toggleRegister={this.toggleRegisterSection}
+              curentUser={this.props.curentUser}
+            />
+            <SweetAlert
+              show={this.state.show}
+              type="success"
+              title="Đăng ký tài khoản thành công"
+              text="Truy cập email để xác nhận đăng ký"
+              onConfirm={() => this.setState({ show: false })}
+            />
+            <SweetAlert
+              show={this.state.show}
+              type="success"
+              title="Đăng ký tài khoản thành công"
+              text="Truy cập email để xác nhận đăng ký"
+              onConfirm={() => this.setState({ show: false })}
+            />
+            <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
+            <User
+              toggleLogin={this.toggleLoginSection}
+              toggleRegister={this.toggleRegisterSection}
+              loginUser={this.handleLogin}
+              registerUser={this.handleRegister}
+              showLogin={this.props.showLogin}
+              showRegister={this.props.showRegister}
+            />
+            <div className={styles.container}>
+              {this.props.children}
+              <Footer />
+            </div>
           </div>
-          <Footer />
         </div>
       </div>
     );

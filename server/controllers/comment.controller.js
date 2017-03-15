@@ -217,7 +217,7 @@ exports.list = (req, res) => {
 exports.create = (req, res) => {
   req.body.creator = req.user._id;
   if (req.body.content) {
-    // console.log(req.body.content);
+    console.log(req.body.content);
 
     const comment = new Comment(req.body);
     comment.save((err, comment2) => {
@@ -227,7 +227,7 @@ exports.create = (req, res) => {
         if (success) {
           Comment.findById(comment2._id).populate('creator', 'displayName avatar username')
                         .exec((err2, data) => {
-                          if (err2) return res.status(400).send({ messages: getErrorMessage(err) });
+                          if (err2) return res.status(400).send({ messages: getErrorMessage(err2) });
                             // increase numComment of Content
                           // console.log(success);
                           return res.json({ data });
