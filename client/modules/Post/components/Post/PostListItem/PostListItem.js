@@ -1,35 +1,33 @@
 import React, { PropTypes } from 'react';
-// import { Link } from 'react-router';
-// import { FormattedMessage } from 'react-intl';
-
+import { Link } from 'react-router';
 // Import Style
 import styles from './PostListItem.css';
-import thump from '../../../../../assets/img/thump.jpg';
 import icons from '../../../../../assets/css/icon.css';
 
 function PostListItem(props) {
+  console.log(props);
   return (
     <div className={styles['post-box']}>
       <header className={styles['post-header']}>
         <div className={styles['post-title']}>
           <h1>
-            <a>
+            <Link to={`posts/${props.post._id}`} >
               {props.post.title}
-            </a>
+            </Link>
           </h1>
         </div>
-        <div className={styles['post-footer']}>518 lượt xem - 1 bình luận</div>
+        <div className={styles['post-footer']}>{props.post.view} lượt xem - 1 bình luận</div>
       </header>
       <div className={styles['post-left']}>
 
         <div className={styles.post}>
-          <img className={styles['img-responsive']} src={thump} alt="" />
+          <img className={styles['img-responsive']} alt={props.post.title} src={props.post.thumb} />
         </div>
 
         <div className={styles['vote-box']}>
           <a className="btn btn-default glyphicon glyphicon-heart-empty"></a>
           <a className="btn btn-default glyphicon glyphicon-thumbs-down"></a>
-          <span className={styles['display-vote']}>0 điểm</span>
+          <span className={styles['display-vote']}>{props.post.point} điểm</span>
         </div>
 
         <div className={styles['social-box']}>
@@ -54,22 +52,11 @@ PostListItem.propTypes = {
   post: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    mediaContent: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     thumb: PropTypes.string.isRequired,
-    smallThumb: PropTypes.string.isRequired,
-    numComment: PropTypes.number.isRequired,
     point: PropTypes.number.isRequired,
-    created: PropTypes.string.isRequired,
     view: PropTypes.number.isRequired,
-    smallThumbWidth: PropTypes.number.isRequired,
-    smallThumbHeight: PropTypes.number.isRequired,
-    thumbWidth: PropTypes.number.isRequired,
-    thumbHeight: PropTypes.number.isRequired,
-    mediaContentWidth: PropTypes.number.isRequired,
-    mediaContentHeight: PropTypes.number.isRequired,
   }).isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default PostListItem;

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl, intlShape } from 'react-intl';
 
 import { LoginWidget } from './LoginWidget/LoginWidget';
 import { RegisterWidget } from './RegisterWidget/RegisterWidget';
@@ -37,7 +36,6 @@ User.propTypes = {
   registerUser: PropTypes.func.isRequired,
   showLogin: PropTypes.bool.isRequired,
   showRegister: PropTypes.bool.isRequired,
-  intl: intlShape.isRequired,
 };
 
-export default injectIntl(User);
+export default User;
