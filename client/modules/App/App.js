@@ -59,7 +59,7 @@ export class App extends Component {
     this.props.dispatch(toggleRegister());
     this.props.dispatch(registerRequest({ username, email, password }, this.showAlert()));
   };
-  showAlert(res) {
+  showAlert() {
     this.setState({ show: true });
   }
   render() {
