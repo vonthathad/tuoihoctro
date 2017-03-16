@@ -13,7 +13,6 @@ function PostList(props) {
           <PostListItem
             post={post}
             key={post._id}
-            onDelete={() => props.handleDeletePost(post.cuid)}
           />
         ))
       }
@@ -25,22 +24,11 @@ PostList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    mediaContent: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     thumb: PropTypes.string.isRequired,
-    smallThumb: PropTypes.string.isRequired,
-    numComment: PropTypes.number.isRequired,
     point: PropTypes.number.isRequired,
-    created: PropTypes.string.isRequired,
     view: PropTypes.number.isRequired,
-    smallThumbWidth: PropTypes.number.isRequired,
-    smallThumbHeight: PropTypes.number.isRequired,
-    thumbWidth: PropTypes.number.isRequired,
-    thumbHeight: PropTypes.number.isRequired,
-    mediaContentWidth: PropTypes.number.isRequired,
-    mediaContentHeight: PropTypes.number.isRequired,
   })).isRequired,
-  handleDeletePost: PropTypes.func.isRequired,
 };
 
 export default PostList;

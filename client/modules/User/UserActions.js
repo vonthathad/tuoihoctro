@@ -20,7 +20,6 @@ export function registerUser(user) {
 
 
 export function loginRequest(data) {
-  console.log(data);
   return (dispatch) => {
     return callApiUser('login', 'post', {
       user: {

@@ -718,9 +718,9 @@ exports.update = (req, res) => {
   req.body.creator = req.user._id;
   Post.findByIdAndUpdate(req.post._id, req.body).exec((err, post) => {
     return err ? res.status(400).send({ messages: getErrorMessage(err) }) : res.json({
-      message: "Post's information has changed",
-      data: post,
-    });
+        message: "Post's information has changed",
+        data: post,
+      });
   });
 };
 exports.review = (req, res) => {
@@ -818,10 +818,10 @@ exports.follow = (req, res) => {
       },
     }).exec((err) => {
       return err ? res.status(400).send() : res.status(200).send({
-        data: {
-          follow: true,
-        },
-      });
+          data: {
+            follow: true,
+          },
+        });
     });
   } else {
     Post.findByIdAndUpdate(req.post._id, {
@@ -830,10 +830,10 @@ exports.follow = (req, res) => {
       },
     }).exec((err) => {
       return err ? res.status(400).send() : res.status(200).send({
-        data: {
-          follow: false,
-        },
-      });
+          data: {
+            follow: false,
+          },
+        });
     });
   }
 };
@@ -932,10 +932,10 @@ exports.voteUp = (req, res) => {
           })
             .exec((err1) => {
               return err1 ? res.status(400).send() : res.status(200).send({
-                data: {
-                  voteUp: true,
-                },
-              });
+                  data: {
+                    voteUp: true,
+                  },
+                });
             });
           return null;
         });
@@ -950,10 +950,10 @@ exports.voteUp = (req, res) => {
       })
         .exec((err) => {
           return err ? res.status(400).send() : res.status(200).send({
-            data: {
-              voteUp: true,
-            },
-          });
+              data: {
+                voteUp: true,
+              },
+            });
         });
     }
   } else {
@@ -1006,10 +1006,10 @@ exports.voteDown = (req, res) => {
             },
           }).exec((err1) => {
             return err1 ? res.status(400).send() : res.status(200).send({
-              data: {
-                voteDown: true,
-              },
-            });
+                data: {
+                  voteDown: true,
+                },
+              });
           });
           return null;
         });
@@ -1023,10 +1023,10 @@ exports.voteDown = (req, res) => {
         },
       }).exec((err) => {
         return err ? res.status(400).send() : res.status(200).send({
-          data: {
-            voteDown: true,
-          },
-        });
+            data: {
+              voteDown: true,
+            },
+          });
       });
     }
   } else {
@@ -1077,10 +1077,10 @@ exports.unVote = (req, res) => {
           },
         }).exec((err1) => {
           return err1 ? res.status(400).send() : res.status(200).send({
-            data: {
-              unVote: true,
-            },
-          });
+              data: {
+                unVote: true,
+              },
+            });
         });
       }
       return null;
@@ -1097,10 +1097,10 @@ exports.unVote = (req, res) => {
       })
         .exec((err) => {
           return err ? res.status(400).send() : res.status(200).send({
-            data: {
-              unVote: true,
-            },
-          });
+              data: {
+                unVote: true,
+              },
+            });
         });
     } else {
       return res

@@ -217,8 +217,6 @@ exports.list = (req, res) => {
 exports.create = (req, res) => {
   req.body.creator = req.user._id;
   if (req.body.content) {
-    console.log(req.body.content);
-
     const comment = new Comment(req.body);
     comment.save((err, comment2) => {
       if (err) return res.status(400).send({ messages: getErrorMessage(err) });

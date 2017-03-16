@@ -1,21 +1,19 @@
 import React, { PropTypes } from 'react';
-
-// Import Style
 import styles from './RecommendListItem.css';
-import thump from '../../../../../assets/img/thump.jpg';
+import { Link } from 'react-router';
 
 function RecommendListItem(props) {
   return (
-    <a href="">
+    <Link to={`posts/${props.post._id}`}>
       <div className={styles['featured-post']}>
         <div className={styles['featured-image']}>
-          <img src={thump} alt="" />
+          <img src={props.post.smallThumb} alt="" />
         </div>
         <div className={styles['featured-title']}>
           <h2>{props.post.title}</h2>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
@@ -23,20 +21,7 @@ RecommendListItem.propTypes = {
   post: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    mediaContent: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    thumb: PropTypes.string.isRequired,
     smallThumb: PropTypes.string.isRequired,
-    numComment: PropTypes.number.isRequired,
-    point: PropTypes.number.isRequired,
-    created: PropTypes.string.isRequired,
-    view: PropTypes.number.isRequired,
-    smallThumbWidth: PropTypes.number.isRequired,
-    smallThumbHeight: PropTypes.number.isRequired,
-    thumbWidth: PropTypes.number.isRequired,
-    thumbHeight: PropTypes.number.isRequired,
-    mediaContentWidth: PropTypes.number.isRequired,
-    mediaContentHeight: PropTypes.number.isRequired,
   }).isRequired,
 };
 
