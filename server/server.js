@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import bodyParser from 'body-parser';
 import path from 'path';
-
+import cors from 'cors';
 // Webpack Requirements
 import webpack from 'webpack';
 import webpackConfig from '../webpack.config.dev';
@@ -51,11 +51,13 @@ import passportAction from './modules/passport';
 //   // dummyData();
 // });
 
+app.use(cors());
 // Apply body Parser and server public assets and routes
 app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(Express.static(path.resolve(__dirname, '../dist')));
+app.use(Express.static(path.resolve(__dirname, '../public')));
 app.use('/api', api);
 app.use('/auth', auth);
 

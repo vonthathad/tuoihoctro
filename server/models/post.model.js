@@ -29,7 +29,6 @@ const PostSchema = new Schema({
   mediaContentLQ: {
     type: String,
     trim: true,
-    required: 'Cần nội dung số',
   },
   mediaContentHeight: {
     type: Number,
@@ -48,7 +47,6 @@ const PostSchema = new Schema({
   thumbLQ: {
     type: String,
     trim: true,
-    required: 'Cần thumb',
   },
   thumbHeight: {
     type: Number,
