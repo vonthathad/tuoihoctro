@@ -9,7 +9,6 @@ var cssnano = require('cssnano');
 
 module.exports = {
   devtool: 'hidden-source-map',
-
   entry: {
     app: [
       './client/index.js',
@@ -39,12 +38,8 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=[hash:base64]&modules&importLoaders=1!postcss-loader'),
-      }, {
-        test: /\.css$/,
-        include: /node_modules/,
-        loaders: ['style-loader', 'css-loader'],
-      }, {
+        loader: ExtractTextPlugin.extract('css-loader', 'css-loader?localIdentName=[hash:base64]&modules&importLoaders=1!postcss-loader'),
+      },  {
         test: /\.jsx*$/,
         exclude: /node_modules/,
         loader: 'babel',
