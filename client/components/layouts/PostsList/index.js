@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ImagePrettyLoad from '../ImagePrettyLoad'
 import VideoAutoPlay from '../VideoAutoPlay'
+import PostsListItem from '../PostsListItem'
 import './index.css'
 class PostsList extends Component {
     constructor(props) {
@@ -12,15 +13,20 @@ class PostsList extends Component {
         // console.log(posts);
         return (
             <div>
-                {loading && 
+                {loading &&
                     < h2 > Loading...</h2>
                 }
                 {!loading && posts && posts.length > 0 &&
-                    posts.map(post =>
-                        post.type.indexOf('gif') === -1  
-                        ? <ImagePrettyLoad key={post._id} post={post} />                
-                        : <VideoAutoPlay key={post._id} post={post} win={this.props.win}/>
-                )
+                    posts.map(post => (
+                        <PostsListItem post={post}>
+                            {post.type.indexOf('gif') === -1
+                                ? <ImagePrettyLoad key={post._id} post={post} />
+                                : <VideoAutoPlay key={post._id} post={post} win={this.props.win} />
+                            }
+                        </PostsListItem>
+                    )
+
+                    )
                 }
             </div >
         );

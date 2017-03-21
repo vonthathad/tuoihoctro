@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import RecommendList from '../../layouts/RecommendList';
 
 // Import Style
-import styles from '../../layouts/PostListItem/index.css';
+import styles from '../../layouts/PostsListItem/index.css';
 
 // Import Actions
 import { fetchPost } from '../../../actions/PostsActions';

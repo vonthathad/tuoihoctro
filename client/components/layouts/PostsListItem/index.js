@@ -5,6 +5,7 @@ import styles from './index.css';
 // import icons from '../../../../../assets/css/icon.css';
 
 function PostListItem(props) {
+  console.log(props);
   return (
     <div className={styles['post-box']}>
       <header className={styles['post-header']}>
@@ -20,7 +21,8 @@ function PostListItem(props) {
       <div className={styles['post-left']}>
 
         <div className={styles.post}>
-          <img className={styles['img-responsive']} alt={props.post.title} src={props.post.thumb} />
+          {/*<img className={styles['img-responsive']} alt={props.post.title} src={props.post.thumb} />*/}
+          {props.children}
         </div>
 
         <div className={styles['vote-box']}>
@@ -30,16 +32,14 @@ function PostListItem(props) {
         </div>
 
         <div className={styles['social-box']}>
-          <a className="btn btn-default twitter-button"><span
-            className="fa fa-twitter"
-          ></span><span
-            className={styles['remove-mobile']}
-          > Twitter</span></a>
-          <a className="btn btn-default fb-button"><span
-            className="fa fa-facebook"
-          ></span><span
-            className={styles['remove-mobile']}
-          > Facebook</span></a>
+          <a className="btn btn-default twitter-button">
+            <span className="fa fa-twitter" ></span>
+            <span className={styles['remove-mobile']} > Twitter</span>
+          </a>
+          <a className="btn btn-default fb-button">
+            <span className="fa fa-facebook"  ></span>
+            <span className={styles['remove-mobile']} > Facebook</span>
+          </a>
         </div>
       </div>
 

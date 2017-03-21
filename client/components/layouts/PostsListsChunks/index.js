@@ -46,7 +46,7 @@ class PostsListsChunk extends Component {
         let postsChunks = null;
         if (postsLists) postsChunks = postsLists.postsChunks;
         return (
-            <div>
+            <div className="col-sm-8">
                 {postsChunks && postsChunks.length > 0 &&
                     postsChunks.map((postsChunk, i) =>
                         <PostsList
