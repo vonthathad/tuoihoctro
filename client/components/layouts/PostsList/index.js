@@ -20,8 +20,14 @@ class PostsList extends Component {
                     posts.map(post => (
                         <PostsListItem post={post}>
                             {post.type.indexOf('gif') === -1
-                                ? <ImagePrettyLoad key={post._id} post={post} />
-                                : <VideoAutoPlay key={post._id} post={post} win={this.props.win} />
+                                ? <ImagePrettyLoad 
+                                key={post._id} 
+                                image={post.mediaContent}
+                                imageLQ={post.mediaContentLQ}
+                                imageHeight={post.mediaContentHeight}
+                                imageWidth={post.mediaContentWidth}
+                                 />
+                                : <VideoAutoPlay key={post._id} post={post} _window={this.props._window} />
                             }
                         </PostsListItem>
                     )

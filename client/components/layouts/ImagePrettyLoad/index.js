@@ -24,13 +24,13 @@ class ImagePrettyLoad extends Component {
         });
     }
     render() {
-        const { post } = this.props
+        const { image, imageLQ, imageWidth, imageHeight } = this.props
         return (
             <div>
-                <div className={`${st.placeholder}`} style={{ height: this.containerWidth * post.mediaContentHeight / post.mediaContentWidth }} ref={(container) => { if (container) this.containerWidth = container.offsetWidth; }}>
+                <div className={`${st.placeholder}`} style={{ height: this.containerWidth * imageHeight / imageWidth }} ref={(container) => { if (container) this.containerWidth = container.offsetWidth; }}>
                     <div>
-                        <img src={post.mediaContentLQ} className={`${st['img-small']} ${this.state.loadedImgLQ ? `${st.loaded}` : ''}`} onLoad={this.handleLoadedImgLQ} />
-                        <img src={post.mediaContent} className={this.state.loadedImg ? `${st.loaded}` : ''} onLoad={this.handleLoadedImg} />
+                        <img src={imageLQ} className={`${st['img-small']} ${this.state.loadedImgLQ ? `${st.loaded}` : ''}`} onLoad={this.handleLoadedImgLQ} />
+                        <img src={image} className={this.state.loadedImg ? `${st.loaded}` : ''} onLoad={this.handleLoadedImg} />
                     </div>
                 </div>
             </div>

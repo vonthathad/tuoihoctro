@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './index.css';
+import st from './index.css';
 class VideoAutoPlay extends Component {
     constructor(props) {
         super(props);
@@ -14,13 +14,18 @@ class VideoAutoPlay extends Component {
             this.playVideo()
         }
     }
+    componentDidMount(){
+       this.checkDomPosition(this.props._window);
+    }
     componentWillReceiveProps(nextProps) {
+        this.checkDomPosition(nextProps._window);
+    }
+    checkDomPosition(_window){
         const { x, w, y, h, video } = this.videoRef;
-        const { win } = nextProps
         const r = x + w;
         const b = y + h;
-        const visibleX = Math.max(0, Math.min(w, win.pageXOffset + win.innerWidth - x, r - win.pageXOffset));
-        const visibleY = Math.max(0, Math.min(h, win.pageYOffset + win.innerHeight - y, b - window.pageYOffset));
+        const visibleX = Math.max(0, Math.min(w, _window.pageXOffset + _window.innerWidth - x, r - _window.pageXOffset));
+        const visibleY = Math.max(0, Math.min(h, _window.pageYOffset + _window.innerHeight - y, b - _window.pageYOffset));
         const visible = visibleX * visibleY / (w * h);
         const fraction = 0.99;
         if (visible > fraction) {
@@ -40,12 +45,12 @@ class VideoAutoPlay extends Component {
         this.badge.style.display = 'block';
     }
     render() {
-        const { post, win } = this.props
+        const { post } = this.props
         return (
-            <div className='video-wrapper'
+            <div className={`${st['video-wrapper']}`}
                 onClick={this.onVideoClick}
             >
-                <video className='video-media-content'
+                <video className={`${st['video-media-content']}`}
                     width={post.mediaContentWidth}
                     height={post.mediaContentHeight}
                     ref={video => {
@@ -61,10 +66,10 @@ class VideoAutoPlay extends Component {
                     loop>
                     <source src={post.mediaContent} type="video/mp4" />
                 </video>
-                <div className="badge-gif-wrapper"
+                <div className={`${st['badge-gif-wrapper']}`}
                     ref={badge => { badge && (this.badge = badge) }}
                     style={{ top: 0 - post.mediaContentHeight / 2 }}>
-                    <span className="badge-gif">GIF</span>
+                    <span className={`${st['badge-gif']}`}>GIF</span>
                 </div>
             </div>
         );

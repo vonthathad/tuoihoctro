@@ -13,7 +13,6 @@ class PostsListsChunk extends Component {
         this.handleOnScrollLoadMediaContent = this.handleOnScrollLoadMediaContent.bind(this)
     }
     handleOnScrollLoadMediaContent = () => {
-
         this.setState({
             _window: {
                 pageXOffset: window.pageXOffset,
@@ -27,13 +26,21 @@ class PostsListsChunk extends Component {
             const postsChunks = postsLists.postsChunks;
             // if is not loading postschunk or there has not been an error 
             if (!this.state.fetching && !postsChunks[postsChunks.length - 1].loading && !postsLists.error) {
-                this.setState({fetching: true});
+                this.setState({ fetching: true });
                 dispatch(_fetchPostsChunk('mediaContent', postsLists.paging, postsLists.page));
             }
         }
     }
 
     componentDidMount() {
+        this.setState({
+            _window: {
+                pageXOffset: window.pageXOffset,
+                pageYOffset: window.pageYOffset,
+                innerWidth: window.innerWidth,
+                innerHeight: window.innerHeight,
+            }
+        });
         window.addEventListener('scroll', this.handleOnScrollLoadMediaContent, false)
         window.addEventListener('resize', this.handleOnScrollLoadMediaContent, false)
     }

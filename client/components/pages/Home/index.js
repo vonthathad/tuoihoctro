@@ -37,9 +37,9 @@ class Home extends Component {
 }
 
 // Actions required to provide data for this component to render in sever side.
-Home.need = [() => {
-  return _fetchPostsChunk('mediaContent');
-}];
+Home.need = [() => {  return _fetchPostsChunk('thumb');},
+// ()=>{return _fetchPostsChunk('smallThumb');}
+];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
