@@ -4,31 +4,31 @@ import { Link } from 'react-router';
 import styles from './index.css';
 // import icons from '../../../../../assets/css/icon.css';
 
-function PostListItem(props) {
-  console.log(props);
+function ThumbListItem(props) {
+  // console.log(props);
   return (
-    <div className={styles['post-box']}>
-      <header className={styles['post-header']}>
-        <div className={styles['post-title']}>
+    <div className={styles['thumb-box']}>
+      <header className={styles['thumb-header']}>
+        <div className={styles['thumb-title']}>
           <h1>
-            <Link to={`posts/${props.post._id}`} >
-              {props.post.title}
+            <Link to={`thumbs/${props.thumb._id}`} >
+              {props.thumb.title}
             </Link>
           </h1>
         </div>
-        <div className={styles['post-footer']}>{props.post.view} lượt xem - 1 bình luận</div>
+        <div className={styles['thumb-footer']}>{props.thumb.view} lượt xem - 1 bình luận</div>
       </header>
-      <div className={styles['post-left']}>
+      <div className={styles['thumb-left']}>
 
-        <div className={styles.post}>
-          {/*<img className={styles['img-responsive']} alt={props.post.title} src={props.post.thumb} />*/}
+        <div className={styles.thumb}>
+          {/*<img className={styles['img-responsive']} alt={props.thumb.title} src={props.thumb.thumb} />*/}
           {props.children}
         </div>
 
         <div className={styles['vote-box']}>
           <a className="btn btn-default glyphicon glyphicon-heart-empty"></a>
           <a className="btn btn-default glyphicon glyphicon-thumbs-down"></a>
-          <span className={styles['display-vote']}>{props.post.point} điểm</span>
+          <span className={styles['display-vote']}>{props.thumb.point} điểm</span>
         </div>
 
         <div className={styles['social-box']}>
@@ -47,8 +47,8 @@ function PostListItem(props) {
   );
 }
 
-PostListItem.propTypes = {
-  post: PropTypes.shape({
+ThumbListItem.propTypes = {
+  thumb: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
@@ -58,4 +58,4 @@ PostListItem.propTypes = {
   }).isRequired,
 };
 
-export default PostListItem;
+export default ThumbListItem;

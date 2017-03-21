@@ -14,8 +14,8 @@ import PostCreateWidget from '../../layouts/WidgetPostCreate';
 
 // Import Actions
 import { toggleAddPost, toggleLogin, toggleRegister } from './actions';
-import { addPostRequest } from '../../../actions/PostsActions';
-import { loginRequest, registerRequest } from '../../../actions/UsersActions';
+import { addPostRequest } from '../../../_actions/PostsActions';
+import { loginRequest, registerRequest } from '../../../_actions/UsersActions';
 
 // Import Reducer
 import { getShowRegister, getShowLogin, getShowAddPost } from './reducer';

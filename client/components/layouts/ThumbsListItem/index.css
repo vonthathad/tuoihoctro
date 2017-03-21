@@ -165,62 +165,62 @@ p {
   padding-top: 80px;
 }
 
-.post-box {
+.thumb-box {
   width: 550px;
   overflow: hidden;
   padding: 10px 0;
   border-bottom: 1px solid #dddddd;
 }
 
-.post-box-2 {
+.thumb-box-2 {
   width: 500px;
   overflow: hidden;
   padding: 10px 0;
 }
 
-.post-date {
+.thumb-date {
   width: 100%;
   text-align: right;
   padding: 10px 0;
 }
 
-.post-header {
+.thumb-header {
   overflow: hidden;
   width: 100%;
 }
 
-.post-title {
+.thumb-title {
   padding-bottom: 15px;
   cursor: pointer;
 }
 
-.post-title h1 {
+.thumb-title h1 {
   font-weight: 700;
 }
 
-.post-title-2 {
+.thumb-title-2 {
   padding-bottom: 4px;
   margin-bottom: 15px;
 }
 
-.post-footer {
+.thumb-footer {
   padding: 5px 0 10px 0;
   color: #999;
 }
 
-.post-left {
+.thumb-left {
   width: 500px;
   overflow: hidden;
   float: left;
 }
 
-.post-page-left {
+.thumb-page-left {
   width: 500px;
   overflow: hidden;
   float: left;
 }
 
-.post {
+.thumb {
   overflow: hidden;
   padding: 0;
   margin: 0;
@@ -228,7 +228,7 @@ p {
   text-align: center;
 }
 
-.post-box p {
+.thumb-box p {
   margin: 15px 0;
 }
 
@@ -458,7 +458,7 @@ p {
   margin: 0;
 }
 
-.featured-post {
+.featured-thumb {
   overflow: hidden;
   margin-bottom: 10px;
   padding: 0;
@@ -588,13 +588,13 @@ li.btn-upload > a:link, li.btn-upload > a:visited {
   margin-top: 25px;
 }
 
-.post-content {
+.thumb-content {
   text-align: center;
   width: 500px;
   background: #EBEBEB;
 }
 
-.post-content > img.img-responsive {
+.thumb-content > img.img-responsive {
   margin: 0 auto;
 }
 
@@ -602,14 +602,14 @@ li.btn-upload > a:link, li.btn-upload > a:visited {
   margin: 0 auto;
 }
 
-.post-content-box {
+.thumb-content-box {
   width: 500px;
   overflow: hidden;
   padding: 10px 0;
   border-bottom: 1px solid #dddddd;
 }
 
-.post-content-box p {
+.thumb-content-box p {
   margin: 15px 0;
 }
 
@@ -1026,11 +1026,11 @@ ul#profile-nav li.active {
 
 @media (max-width: 1200px) {
 
-  .post-content-box {
+  .thumb-content-box {
     width: 100%;
   }
 
-  .post-page-left {
+  .thumb-page-left {
     width: 100%;
   }
 
@@ -1050,15 +1050,15 @@ ul#profile-nav li.active {
     width: 100%;
   }
 
-  .post-box {
+  .thumb-box {
     width: 100%;
   }
 
-  .post-left {
+  .thumb-left {
     width: 100%;
   }
 
-  .post-content {
+  .thumb-content {
     width: 100%;
   }
 
@@ -1066,7 +1066,7 @@ ul#profile-nav li.active {
     display: none;
   }
 
-  .post {
+  .thumb {
     width: 100%;
     height: auto;
   }
@@ -1099,7 +1099,7 @@ ul#profile-nav li.active {
     margin: 0 auto;
   }
 
-  .post-date {
+  .thumb-date {
     text-align: left;
   }
 

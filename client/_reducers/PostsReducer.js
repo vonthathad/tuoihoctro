@@ -1,6 +1,6 @@
 import {
   FETCH_POSTS_CHUNK, FETCH_POSTS_CHUNK_FAILURE, FETCH_POSTS_CHUNK_SUCCESS,
-} from '../actions/PostsActions';
+} from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsLists: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
   postsLists: { postsChunks: [], page: 1, paging: 5, error: false },
@@ -39,7 +39,7 @@ const PostReducer = (state = INITIAL_STATE, action) => {
       }
     case FETCH_POSTS_CHUNK_SUCCESS:
       {
-        console.log(state.postsLists);
+        // console.log(state.postsLists);
         const postsChunks = state.postsLists.postsChunks;
         const lastChunkIndex = postsChunks.length - 1;
         postsChunks[lastChunkIndex].loading = false;

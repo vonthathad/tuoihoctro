@@ -2,16 +2,17 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // Import Components
-import RecommendList from '../../layouts/RecommendList';
+// import RecommendList from '../../layouts/RecommendList';
+import SmallThumbsListsChunksContainer from '../../containers/SmallThumbsListsChunksContainer';
 
 // Import Style
-import styles from '../../layouts/PostsListItem/index.css';
+import styles from '../../layouts/ThumbsListItem/index.css';
 
 // Import Actions
-import { fetchPost } from '../../../actions/PostsActions';
+import { fetchPost } from '../../../_actions/PostsActions';
 
 // Import Selectors
-import { getPost, getPosts } from '../../../reducers/PostsReducer';
+import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
 // import FacebookProvider, { Comments, Share } from 'react-facebook';
 
@@ -67,7 +68,7 @@ export function PostDetail(props) {
             </div>
           </div>
         </div>
-        <RecommendList posts={props.posts} />
+        <SmallThumbsListsChunksContainer/>
 
       </div>
     </div>

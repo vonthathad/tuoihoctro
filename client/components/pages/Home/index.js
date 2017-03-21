@@ -2,14 +2,19 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 // Import Components
-import PostsListsChunksContainer from '../../containers/PostsListsChunksContainer';
-import RecommendList from '../../layouts/RecommendList';
+import ThumbsListsChunksContainer from '../../containers/ThumbsListsChunksContainer';
+import SmallThumbsListsChunksContainer from '../../containers/SmallThumbsListsChunksContainer';
+// import RecommendList from '../../layouts/RecommendList';
 
 // Import Actions
-import { _fetchPostsChunk, deletePostRequest } from '../../../actions/PostsActions';
+// import { _fetchPostsChunk } from '../../../_actions/PostsActions';
+import { _fetchThumbsChunk } from '../../../_actions/ThumbsActions';
+import { _fetchSmallThumbsChunk } from '../../../_actions/SmallThumbsActions';
 
 // Import Selectors
-import { getPosts } from '../../../reducers/PostsReducer';
+// import { getPosts } from '../../../reducers/PostsReducer';
+import { getThumbs } from '../../../_reducers/ThumbsReducer';
+import { getSmallThumbs } from '../../../_reducers/SmallThumbsReducer';
 
 // Import Style
 // import styles from '../../components/Post/PostListItem/PostListItem.css';
@@ -26,45 +31,58 @@ class Home extends Component {
   };
 
   render() {
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     return (
       <div className="container">
-        <PostsListsChunksContainer/>
-        <RecommendList handleDeletePost={this.handleDeletePost} posts={this.props.posts} />
+        <ThumbsListsChunksContainer />
+        <SmallThumbsListsChunksContainer/>
       </div>
     );
   }
 }
 
 // Actions required to provide data for this component to render in sever side.
-Home.need = [() => {  return _fetchPostsChunk('thumb');},
-// ()=>{return _fetchPostsChunk('smallThumb');}
+Home.need = [
+  () => { return _fetchThumbsChunk('thumb'); },
+  () => { return _fetchSmallThumbsChunk('smallThumb'); }
 ];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    posts: getPosts(state),
+    smallThumbs: getSmallThumbs(state),
+    thumbs: getThumbs(state),
   };
 }
 Home.propTypes = {
-  posts: PropTypes.arrayOf(PropTypes.shape({
+  smallThumbs: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
-    mediaContent: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    thumb: PropTypes.string.isRequired,
-    smallThumb: PropTypes.string.isRequired,
+  
     numComment: PropTypes.number.isRequired,
     point: PropTypes.number.isRequired,
     created: PropTypes.string.isRequired,
     view: PropTypes.number.isRequired,
+
+    smallThumb: PropTypes.string.isRequired,
     smallThumbWidth: PropTypes.number.isRequired,
     smallThumbHeight: PropTypes.number.isRequired,
+  })).isRequired,
+
+  thumbs: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  
+    numComment: PropTypes.number.isRequired,
+    point: PropTypes.number.isRequired,
+    created: PropTypes.string.isRequired,
+    view: PropTypes.number.isRequired,
+
+    thumb: PropTypes.string.isRequired,
     thumbWidth: PropTypes.number.isRequired,
     thumbHeight: PropTypes.number.isRequired,
-    mediaContentWidth: PropTypes.number.isRequired,
-    mediaContentHeight: PropTypes.number.isRequired,
   })).isRequired,
+
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -74,4 +92,4 @@ Home.contextTypes = {
 
 export default connect(
   mapStateToProps,
-  )(Home);
+)(Home);

@@ -45,30 +45,30 @@ class VideoAutoPlay extends Component {
         this.badge.style.display = 'block';
     }
     render() {
-        const { post } = this.props
+        const { videoWidth,videoHeight,videoSrc  } = this.props
         return (
             <div className={`${st['video-wrapper']}`}
                 onClick={this.onVideoClick}
             >
                 <video className={`${st['video-media-content']}`}
-                    width={post.mediaContentWidth}
-                    height={post.mediaContentHeight}
-                    ref={video => {
-                        video &&
+                    width={videoWidth}
+                    height={videoHeight}
+                    ref={videoTag => {
+                        videoTag &&
                             (this.videoRef = {
-                                x: video.offsetLeft,
-                                y: video.offsetTop,
-                                w: video.offsetWidth,
-                                h: video.offsetHeight,
-                                video: video
+                                x: videoTag.offsetLeft,
+                                y: videoTag.offsetTop,
+                                w: videoTag.offsetWidth,
+                                h: videoTag.offsetHeight,
+                                video: videoTag
                             });
                     }}
                     loop>
-                    <source src={post.mediaContent} type="video/mp4" />
+                    <source src={videoSrc} type="video/mp4" />
                 </video>
                 <div className={`${st['badge-gif-wrapper']}`}
                     ref={badge => { badge && (this.badge = badge) }}
-                    style={{ top: 0 - post.mediaContentHeight / 2 }}>
+                    style={{ top: 0 - videoHeight / 2 }}>
                     <span className={`${st['badge-gif']}`}>GIF</span>
                 </div>
             </div>
