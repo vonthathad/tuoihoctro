@@ -1,0 +1,31 @@
+.badge-gif-wrapper{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.badge-gif{
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    left: 50%;
+    margin-left: -30px;
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    overflow: hidden;
+    background: #222;
+    line-height: 60px;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 35px;
+    opacity: .9;
+}
+.video-wrapper{
+    /*position: relative;*/
+    text-align: center;
+}
+.video-media-content{
+    margin: auto 0;
+}

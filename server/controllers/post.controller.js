@@ -288,7 +288,11 @@ exports.list = (req, res) => {
         .status(400)
         .send();
     }
-
+    if (results.length === 0) {
+      return res
+        .status(404)
+        .send();
+    }
     // results = results.map(function (doc) {     return new Post(doc) });
     res.json(results);
     // Post.populate(results, { "path": "creator", "select": "displayName

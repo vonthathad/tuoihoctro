@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Content from './components-page/content';
+import Guest from './components/templates/Guest';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -16,18 +16,18 @@ if (typeof require.ensure !== 'function') {
  */
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
-  require('./components-route/home/index.js');
-  require('./components-route/postDetail/index.js');
+  require('./components/pages/Home/index.js');
+  require('./components/pages/PostDetail/index.js');
 }
 
 // react-router setup with code-splitting
 // More info: http://blog.mxstbr.com/2016/01/react-apps-with-pages/
 export default (
-  <Route path="/" component={Content}>
+  <Route path="/" component={Guest}>
     <IndexRoute
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./components-route/home/index.js').default);
+          cb(null, require('./components/pages/Home/index.js').default);
         });
       }}
     />
@@ -35,7 +35,7 @@ export default (
       path="/posts/:cuid"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./components-route/postDetail/index.js').default);
+          cb(null, require('./components/pages/PostDetail/index.js').default);
         });
       }}
     />

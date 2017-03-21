@@ -30,6 +30,7 @@
   "author": "Prashant Abhishek <prashant.abhishek7g@gmail.com>, Mayank Chandola <imayankchd@gmail.com>, Sandeep Panda <sandeep@hashnode.com>, Syed Fazle Rahman <fazle@hashnode.com>, Alkshendra Maurya <alkshendra@hashnode.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.15.3",
     "babel-core": "^6.9.1",
     "body-parser": "^1.15.1",
     "compression": "^1.6.2",
@@ -59,6 +60,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
+    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
     "sanitize-html": "^1.11.4",
     "sweetalert-react": "^0.4.9"
