@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 // Import Components
 // import RecommendList from '../../layouts/RecommendList';
-import SmallThumbsListsChunksContainer from '../../containers/SmallThumbsListsChunksContainer';
+import RecommendsListContainer from '../../containers/RecommendsListContainer';
 
 // Import Style
-import styles from '../../layouts/ThumbsListItem/index.css';
+import styles from '../../layouts/Post/index.css';
 
 // Import Actions
 import { fetchPost } from '../../../_actions/PostsActions';
@@ -68,7 +68,7 @@ export function PostDetail(props) {
             </div>
           </div>
         </div>
-        <SmallThumbsListsChunksContainer/>
+        <RecommendsListContainer/>
 
       </div>
     </div>
