@@ -165,62 +165,62 @@ p {
   padding-top: 80px;
 }
 
-.thumb-box {
+.post-box {
   width: 550px;
   overflow: hidden;
   padding: 10px 0;
   border-bottom: 1px solid #dddddd;
 }
 
-.thumb-box-2 {
+.post-box-2 {
   width: 500px;
   overflow: hidden;
   padding: 10px 0;
 }
 
-.thumb-date {
+.post-date {
   width: 100%;
   text-align: right;
   padding: 10px 0;
 }
 
-.thumb-header {
+.post-header {
   overflow: hidden;
   width: 100%;
 }
 
-.thumb-title {
+.post-title {
   padding-bottom: 15px;
   cursor: pointer;
 }
 
-.thumb-title h1 {
+.post-title h1 {
   font-weight: 700;
 }
 
-.thumb-title-2 {
+.post-title-2 {
   padding-bottom: 4px;
   margin-bottom: 15px;
 }
 
-.thumb-footer {
+.post-footer {
   padding: 5px 0 10px 0;
   color: #999;
 }
 
-.thumb-left {
+.post-left {
   width: 500px;
   overflow: hidden;
   float: left;
 }
 
-.thumb-page-left {
+.post-page-left {
   width: 500px;
   overflow: hidden;
   float: left;
 }
 
-.thumb {
+.post {
   overflow: hidden;
   padding: 0;
   margin: 0;
@@ -228,7 +228,7 @@ p {
   text-align: center;
 }
 
-.thumb-box p {
+.post-box p {
   margin: 15px 0;
 }
 
@@ -458,7 +458,7 @@ p {
   margin: 0;
 }
 
-.featured-thumb {
+.featured-post {
   overflow: hidden;
   margin-bottom: 10px;
   padding: 0;
@@ -538,7 +538,7 @@ li.btn-upload > a:link, li.btn-upload > a:visited {
   color: #acaaaa;
 }
 
-.thumb {
+.post {
   cursor: pointer;
 }
 
@@ -588,13 +588,13 @@ li.btn-upload > a:link, li.btn-upload > a:visited {
   margin-top: 25px;
 }
 
-.thumb-content {
+.post-content {
   text-align: center;
   width: 500px;
   background: #EBEBEB;
 }
 
-.thumb-content > img.img-responsive {
+.post-content > img.img-responsive {
   margin: 0 auto;
 }
 
@@ -602,14 +602,14 @@ li.btn-upload > a:link, li.btn-upload > a:visited {
   margin: 0 auto;
 }
 
-.thumb-content-box {
+.post-content-box {
   width: 500px;
   overflow: hidden;
   padding: 10px 0;
   border-bottom: 1px solid #dddddd;
 }
 
-.thumb-content-box p {
+.post-content-box p {
   margin: 15px 0;
 }
 
@@ -1026,11 +1026,11 @@ ul#profile-nav li.active {
 
 @media (max-width: 1200px) {
 
-  .thumb-content-box {
+  .post-content-box {
     width: 100%;
   }
 
-  .thumb-page-left {
+  .post-page-left {
     width: 100%;
   }
 
@@ -1042,7 +1042,7 @@ ul#profile-nav li.active {
     display: none;
   }
 
-  .img-responsive, .thumb {
+  .img-responsive, .post {
     width: 100%;
   }
 
@@ -1050,15 +1050,15 @@ ul#profile-nav li.active {
     width: 100%;
   }
 
-  .thumb-box {
+  .post-box {
     width: 100%;
   }
 
-  .thumb-left {
+  .post-left {
     width: 100%;
   }
 
-  .thumb-content {
+  .post-content {
     width: 100%;
   }
 
@@ -1066,7 +1066,7 @@ ul#profile-nav li.active {
     display: none;
   }
 
-  .thumb {
+  .post {
     width: 100%;
     height: auto;
   }
@@ -1099,7 +1099,7 @@ ul#profile-nav li.active {
     margin: 0 auto;
   }
 
-  .thumb-date {
+  .post-date {
     text-align: left;
   }
 

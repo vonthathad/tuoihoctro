@@ -2,28 +2,28 @@ import React, { PropTypes } from 'react';
 import styles from './index.css';
 import { Link } from 'react-router';
 
-function SmallThumbsListItem(props) {
+function Recommend(props) {
   return (
-    <Link to={`posts/${props.smallThumb._id}`}>
-      <div className={styles['featured-smallThumb']}>
+    <Link to={`posts/${props.recommend._id}`}>
+      <div className={styles['featured-recommend']}>
         <div className={styles['featured-image']}>
-          {/*<img src={props.smallThumb.smallThumb} alt="" />*/}
+          {/*<img src={props.recommend.recommend} alt="" />*/}
            {props.children}
         </div>
         <div className={styles['featured-title']}>
-          <h2>{props.smallThumb.title}</h2>
+          <h2>{props.recommend.title}</h2>
         </div>
       </div>
     </Link>
   );
 }
 
-SmallThumbsListItem.propTypes = {
-  smallThumb: PropTypes.shape({
+Recommend.propTypes = {
+  recommend: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     smallThumb: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default SmallThumbsListItem;
+export default Recommend;

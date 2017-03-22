@@ -27,14 +27,17 @@ function request(options) {
   // return this.http.request(req);
   return fetch(options.url, { ...options })
     .then(res => {
+      console.log(res);
       if (res.status !== 200) {
-        throw res.Body.statusText;
+        if(res.Body)throw res.Body.statusText;
+        else throw 'Lỗi';
       }
       return res.json();
     });
 }
 
 export function post(options) {
+  console.log(options);
   options.method = 'post';
   return request(options);
 }

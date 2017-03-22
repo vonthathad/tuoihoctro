@@ -46,6 +46,7 @@ class VideoAutoPlay extends Component {
     }
     render() {
         const { videoWidth,videoHeight,videoSrc  } = this.props
+        // console.log(videoSrc);  
         return (
             <div className={`${st['video-wrapper']}`}
                 onClick={this.onVideoClick}

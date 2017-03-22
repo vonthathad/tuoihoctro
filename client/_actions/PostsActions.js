@@ -1,5 +1,5 @@
 // import request from '../../services/api.services';
-import { getPosts } from '../utils/PostsUtils';
+import { getPosts, getPost, addPost } from '../utils/PostsUtils';
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
@@ -57,20 +57,34 @@ function fetchPostsChunkFailure(error) {
   };
 }
 
+export function addPostSuccess(post) {
+  return {
+    type: CREATE_POST_SUCCESS,
+    post,
+  };
+}
+
 export function _fetchPostsChunk(type, paging = 5, page = 1) {
   return (dispatch) => {
     dispatch(fetchPostsChunk());
-    // return request(`http://localhost:4000/api/posts?type=${type}&paging=${paging}&page=${page}`, {
-    //   headers: {
-    //     'Content-type': 'application/json',
-    //     authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpcmRhdDE5OTNAZ21haWwuY29tIiwiaWF0IjoxNDg3NzY4MTE3fQ.Ds8JI_moMH9-UzuS38p1zGWirYNM89uadhV8RsShTjg',
-    //   },
-    //   method: 'get',
-    // })
     const queryArgs = { type, paging, page };
     return getPosts(queryArgs)
       .then(posts => dispatch(fetchPostsChunkSuccess(posts)))
       .catch(error => dispatch(fetchPostsChunkFailure(error)));
+  };
+}
+
+
+
+export function addPostRequest(post) {
+  console.log(post);
+  return (dispatch) => {
+    return addPost({
+      post,
+    }).then(res => {
+      console.log(res);
+      dispatch(addPostSuccess(res));
+    });
   };
 }
 

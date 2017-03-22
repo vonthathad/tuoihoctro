@@ -10,7 +10,7 @@ import DevTools from '../../common/DevTools';
 import Header from '../../common/Header';
 import Footer from '../../common/Footer';
 import Auth from '../../layouts/Auth';
-import PostCreateWidget from '../../layouts/WidgetPostCreate';
+import PostCreateWidget from '../../layouts/PostWidget';
 
 // Import Actions
 import { toggleAddPost, toggleLogin, toggleRegister, closeElement } from './actions';
@@ -60,12 +60,13 @@ export class Guest extends Component {
   };
 
   handleAddPost = (title, category, file) => {
+    console.log(title, category, file);
     const data = new FormData();
     data.append('file', file);
     data.append('content', JSON.stringify({
       title, category,
     }));
-    this.props.dispatch(clostElement());
+    this.closeElementSection();
     this.props.dispatch(addPostRequest(data));
   };
 
@@ -131,7 +132,6 @@ Guest.propTypes = {
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
-  console.log(store);
   return {
     curentUser: store.auth,
     showElement: getShowElement(store),

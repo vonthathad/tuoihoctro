@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import ThumbsList from '../ThumbsList';
-import { _fetchThumbsChunk } from '../../../_actions/ThumbsActions';
+import PostsChunk from '../PostsChunk';
+import { _fetchPostsChunk } from '../../../_actions/PostsActions';
 
 
-class ThumbsListsChunk extends Component {
+class PostsList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,12 +22,12 @@ class ThumbsListsChunk extends Component {
             }
         });
         if (document.body.scrollTop + window.innerHeight > document.body.clientHeight || document.documentElement.scrollTop + window.innerHeight > document.body.clientHeight) {
-            const { dispatch, thumbsLists } = this.props;
-            const thumbsChunks = thumbsLists.thumbsChunks;
+            const { dispatch, postsList } = this.props;
+            const postsChunks = postsList.postsChunks;
             // if is not loading thumbschunk or there has not been an error 
-            if (!this.state.fetching && !thumbsChunks[thumbsChunks.length - 1].loading && !thumbsLists.error) {
+            if (!this.state.fetching && !postsChunks[postsChunks.length - 1].loading && !postsList.error) {
                 this.setState({ fetching: true });
-                dispatch(_fetchThumbsChunk('mediaContent', thumbsLists.paging, thumbsLists.page));
+                dispatch(_fetchPostsChunk('thumb', postsList.paging, postsList.page));
             }
         }
     }
@@ -49,17 +49,20 @@ class ThumbsListsChunk extends Component {
         window.removeEventListener('resize', this.handleOnScrollLoadMediaContent)
     }
     render() {
-        const { thumbsLists } = this.props;
-        let thumbsChunks = null;
-        if (thumbsLists) thumbsChunks = thumbsLists.thumbsChunks;
+        const { postsList } = this.props;
+        // console.log(this.props);
+        // console.log("this.props" + JSON.stringify(this.props));
+        // console.log("postsList" + JSON.stringify(postsList));
+        let postsChunks = null;
+        if (postsList) postsChunks = postsList.postsChunks;
         return (
             <div className="col-sm-8">
-                {thumbsChunks && thumbsChunks.length > 0 &&
-                    thumbsChunks.map((thumbsChunk, i) =>
-                        <ThumbsList
+                {postsChunks && postsChunks.length > 0 &&
+                    postsChunks.map((postsChunk, i) =>
+                        <PostsChunk
                             key={i}
-                            thumbs={thumbsChunk.thumbs}
-                            loading={thumbsChunk.loading}
+                            posts={postsChunk.posts}
+                            loading={postsChunk.loading}
                             _window={this.state._window}
                         />
                     )}
@@ -67,11 +70,18 @@ class ThumbsListsChunk extends Component {
         );
     }
 }
-ThumbsListsChunk.propTypes = {
-    thumbsChunks: PropTypes.arrayOf(PropTypes.shape({
-        thumbs: PropTypes.array.isRequired,
-        loading: PropTypes.bool.isRequired,
+PostsList.propTypes = {
+    postsList: PropTypes.objectOf(PropTypes.shape({
+        postsChunks: PropTypes.arrayOf(PropTypes.shape({
+            postsChunk: PropTypes.arrayOf(PropTypes.shape({
+                posts: PropTypes.array.isRequired,
+                loading: PropTypes.bool.isRequired,
+            })),
+        })),
+        error: PropTypes.bool,
+        paging: PropTypes.number,
+        page: PropTypes.number,
     })),
 };
 
-export default ThumbsListsChunk
+export default PostsList

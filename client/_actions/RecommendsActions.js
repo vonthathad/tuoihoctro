@@ -1,11 +1,11 @@
 // import request from '../../services/api.services';
 import { getPosts } from '../utils/PostsUtils';
-// SmallThumb list
-export const FETCH_SMALLTHUMBS_CHUNK = 'FETCH_SMALLTHUMBS_CHUNK';
-export const FETCH_SMALLTHUMBS_CHUNK_SUCCESS = 'FETCH_SMALLTHUMBS_CHUNK_SUCCESS';
-export const FETCH_SMALLTHUMBS_CHUNK_FAILURE = 'FETCH_SMALLTHUMBS_CHUNK_FAILURE';
+// Recommend list
+export const FETCH_RECOMMEND_CHUNK = 'FETCH_RECOMMEND_CHUNK';
+export const FETCH_RECOMMEND_CHUNK_SUCCESS = 'FETCH_RECOMMEND_CHUNK_SUCCESS';
+export const FETCH_RECOMMEND_CHUNK_FAILURE = 'FETCH_RECOMMEND_CHUNK_FAILURE';
 
-// export function createSmallThumb(smallThumb) {
+// export function createRecommend(smallThumb) {
 //   const headers = {
 //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRydW5naGlldXRrNDU5QGdtYWlsLmNvbSIsImlhdCI6MTQ4ODIwMzY1M30.GW5HawuuydIIQx77pp4tzpnYst1QnrbGZUyjf8uZl8I',
 //     'content-type': 'application/json',
@@ -17,28 +17,28 @@ export const FETCH_SMALLTHUMBS_CHUNK_FAILURE = 'FETCH_SMALLTHUMBS_CHUNK_FAILURE'
 //   };
 // }
 
-function fetchSmallThumbsChunk() {
+function fetchRecommendsChunk() {
   return {
-    type: FETCH_SMALLTHUMBS_CHUNK,
+    type: FETCH_RECOMMEND_CHUNK,
   };
 }
 
-function fetchSmallThumbsChunkSuccess(smallThumbs) {
+function fetchRecommendsChunkSuccess(recommends) {
   return {
-    type: FETCH_SMALLTHUMBS_CHUNK_SUCCESS,
-    payload: smallThumbs,
+    type: FETCH_RECOMMEND_CHUNK_SUCCESS,
+    payload: recommends,
   };
 }
-function fetchSmallThumbsChunkFailure(error) {
+function fetchRecommendsChunkFailure(error) {
   return {
-    type: FETCH_SMALLTHUMBS_CHUNK_FAILURE,
+    type: FETCH_RECOMMEND_CHUNK_FAILURE,
     payload: error,
   };
 }
 
-export function _fetchSmallThumbsChunk(type, paging = 5, page = 1) {
+export function _fetchRecommendsChunk(type, paging = 5, page = 1) {
   return (dispatch) => {
-    dispatch(fetchSmallThumbsChunk());
+    dispatch(fetchRecommendsChunk());
     // return request(`http://localhost:4000/api/smallThumbs?type=${type}&paging=${paging}&page=${page}`, {
     //   headers: {
     //     'Content-type': 'application/json',
@@ -48,8 +48,11 @@ export function _fetchSmallThumbsChunk(type, paging = 5, page = 1) {
     // })
     const queryArgs = { type, paging, page };
     return getPosts(queryArgs)
-      .then(smallThumbs => dispatch(fetchSmallThumbsChunkSuccess(smallThumbs)))
-      .catch(error => dispatch(fetchSmallThumbsChunkFailure(error)));
+      .then((recommends) => {
+        return dispatch(fetchRecommendsChunkSuccess(recommends));
+      }
+      )
+      .catch(error => dispatch(fetchRecommendsChunkFailure(error)));
   };
 }
 
