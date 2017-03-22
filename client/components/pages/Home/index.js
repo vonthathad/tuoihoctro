@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-
 // Import Components
 import PostsListContainer from '../../containers/PostsListContainer';
 import RecommendsListContainer from '../../containers/RecommendsListContainer';
@@ -13,12 +12,21 @@ import { _fetchRecommendsChunk } from '../../../_actions/RecommendsActions';
 import { getPosts } from '../../../_reducers/PostsReducer';
 import { getRecommends } from '../../../_reducers/RecommendsReducer';
 
+import st from './index.css';
+
 class Home extends Component {
   render() {
     return (
-      <div className="container">
-        <PostsListContainer />
-        <RecommendsListContainer/>
+
+
+      
+      <div className={`container ${st.wrapper}`}>
+        <div className={`col-sm-8`}>
+          <PostsListContainer/>
+        </div>
+        <div className={` col-sm-4`}>
+          <RecommendsListContainer />
+        </div>
       </div>
     );
   }

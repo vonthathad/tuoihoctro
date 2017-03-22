@@ -12,21 +12,19 @@ class RecommendsList extends Component {
         let recommendsChunks = null;
         if (recommendsList) recommendsChunks = recommendsList.recommendsChunks;
         return (
-            <div className={`col-sm-4 ${st.p80}`}>
-                <div className={st['featured-box']}>
-                    <div className={st['right-bar-title']}>
-                        <h1>Bài liên quan</h1>
-                    </div>
-                    {recommendsChunks && recommendsChunks.length > 0 &&
-                        recommendsChunks.map((recommendsChunk, i) =>
-                            <RecommendsChunk
-                                key={i}
-                                recommends={recommendsChunk.recommends}
-                                loading={recommendsChunk.loading}
-                            />
-                        )}
-                </div >
-            </div>
+            <div className={st['recommends-list-wrapper']}>
+                <div className={st['right-bar-title']}>
+                    <h1>Bài liên quan</h1>
+                </div>
+                {recommendsChunks && recommendsChunks.length > 0 &&
+                    recommendsChunks.map((recommendsChunk, i) =>
+                        <RecommendsChunk
+                            key={i}
+                            recommends={recommendsChunk.recommends}
+                            loading={recommendsChunk.loading}
+                        />
+                    )}
+            </div >
         );
     }
 }

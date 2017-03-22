@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import PostsChunk from '../PostsChunk';
 import { _fetchPostsChunk } from '../../../_actions/PostsActions';
-
+import st from './index.css'
 
 class PostsList extends Component {
     constructor(props) {
@@ -56,7 +56,7 @@ class PostsList extends Component {
         let postsChunks = null;
         if (postsList) postsChunks = postsList.postsChunks;
         return (
-            <div className="col-sm-8">
+            <div className={st['post-list-wrapper']}>
                 {postsChunks && postsChunks.length > 0 &&
                     postsChunks.map((postsChunk, i) =>
                         <PostsChunk
