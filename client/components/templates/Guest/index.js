@@ -9,57 +9,84 @@ import styles from './index.css';
 import DevTools from '../../common/DevTools';
 import Header from '../../common/Header';
 import Footer from '../../common/Footer';
-import User from '../../layouts/WidgetAuth';
+import Auth from '../../layouts/Auth';
 import PostCreateWidget from '../../layouts/WidgetPostCreate';
 
 // Import Actions
-import { toggleAddPost, toggleLogin, toggleRegister } from './actions';
+import { toggleAddPost, toggleLogin, toggleRegister, closeElement } from './actions';
 import { addPostRequest } from '../../../_actions/PostsActions';
-import { loginRequest, registerRequest } from '../../../_actions/UsersActions';
+import { loginRequest, registerRequest, checkLogin, logout } from '../../layouts/Auth/AuthActions';
 
 // Import Reducer
-import { getShowRegister, getShowLogin, getShowAddPost } from './reducer';
+import { getShowElement } from './reducer';
 
 export class Guest extends Component {
   constructor(props) {
     super(props);
-    this.state = { isMounted: false, show: false };
-    this.showAlert = this.showAlert.bind(this);
-  }
-  componentDidMount() {
-    this.setState({isMounted: true}); // eslint-disable-line
+    this.state = { isMounted: false };
   }
 
+  componentDidMount() {
+    this.setState({isMounted: true}); // eslint-disable-line
+    this.props.dispatch(checkLogin());
+  }
+
+  changeStyleModal (check){
+    if(check == true){
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'inherit';
+    }
+  };
+
   toggleAddPostSection = () => {
+    this.changeStyleModal(true);
     this.props.dispatch(toggleAddPost());
   };
 
   toggleLoginSection = () => {
+    this.changeStyleModal(true);
     this.props.dispatch(toggleLogin());
   };
+
   toggleRegisterSection = () => {
+    this.changeStyleModal(true);
     this.props.dispatch(toggleRegister());
   };
+
+  closeElementSection = () => {
+    this.changeStyleModal(false);
+    this.props.dispatch(closeElement());
+  };
+
   handleAddPost = (title, category, file) => {
     const data = new FormData();
     data.append('file', file);
     data.append('content', JSON.stringify({
       title, category,
     }));
-    this.props.dispatch(toggleAddPost());
+    this.props.dispatch(clostElement());
     this.props.dispatch(addPostRequest(data));
   };
+
   handleLogin = (email, password) => {
-    this.props.dispatch(toggleLogin());
+    this.closeElementSection();
     this.props.dispatch(loginRequest({ email, password }));
   };
+
   handleRegister = (username, email, password) => {
-    this.props.dispatch(toggleRegister());
-    this.props.dispatch(registerRequest({ username, email, password }, this.showAlert()));
+    this.closeElementSection();
+    this.props.dispatch(registerRequest({ username, email, password }));
   };
-  showAlert() {
-    this.setState({ show: true });
-  }
+
+  handleLogout = () => {
+    const reply = confirm("Bạn muốn đăng xuất khỏi ứng dụng");
+    if(reply == true){
+      this.props.dispatch(logout());
+    }
+  };
+
+
   render() {
     return (
       <div>
@@ -71,34 +98,23 @@ export class Guest extends Component {
               toggleLogin={this.toggleLoginSection}
               toggleRegister={this.toggleRegisterSection}
               curentUser={this.props.curentUser}
+              logout={this.handleLogout}
             />
-            <SweetAlert
-              show={this.state.show}
-              type="success"
-              title="Đăng ký tài khoản thành công"
-              text="Truy cập email để xác nhận đăng ký"
-              onConfirm={() => this.setState({ show: false })}
+            <PostCreateWidget
+              addPost={this.handleAddPost}
+              showElement={this.props.showElement}
+              closeElement={this.closeElementSection}
             />
-            <SweetAlert
-              show={this.state.show}
-              type="success"
-              title="Đăng ký tài khoản thành công"
-              text="Truy cập email để xác nhận đăng ký"
-              onConfirm={() => this.setState({ show: false })}
-            />
-            <PostCreateWidget addPost={this.handleAddPost} showAddPost={this.props.showAddPost} />
-            <User
+            <Auth
+              closeElement={this.closeElementSection}
               toggleLogin={this.toggleLoginSection}
               toggleRegister={this.toggleRegisterSection}
-              login={this.handleLogin}
-              register={this.handleRegister}
-              showLogin={this.props.showLogin}
-              showRegister={this.props.showRegister}
+              loginUser={this.handleLogin}
+              registerUser={this.handleRegister}
+              showElement={this.props.showElement}
             />
-            <div className={styles.container}>
-              {this.props.children}
-              <Footer />
-            </div>
+            {this.props.children}
+            <Footer />
           </div>
         </div>
       </div>
@@ -110,18 +126,15 @@ Guest.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   curentUser: PropTypes.object.isRequired,
-  showLogin: PropTypes.bool.isRequired,
-  showRegister: PropTypes.bool.isRequired,
-  showAddPost: PropTypes.bool.isRequired,
+  showElement: PropTypes.string,
 };
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
+  console.log(store);
   return {
-    curentUser: store.login,
-    showLogin: getShowLogin(store),
-    showRegister: getShowRegister(store),
-    showAddPost: getShowAddPost(store),
+    curentUser: store.auth,
+    showElement: getShowElement(store),
   };
 }
 

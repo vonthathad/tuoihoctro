@@ -8,7 +8,7 @@ import { combineReducers } from 'redux';
 import posts from './_reducers/PostsReducer';
 import smallThumbs from './_reducers/SmallThumbsReducer';
 import thumbs from './_reducers/ThumbsReducer';
-import login from './_reducers/UsersReducer';
+import auth from './components/layouts/Auth/AuthReducer';
 import app from './components/templates/Guest/reducer';
 // Combine all reducers into one root reducer
 export default combineReducers({
@@ -16,5 +16,5 @@ export default combineReducers({
   posts,
   thumbs,
   smallThumbs,
-  login,
+  auth,
 });

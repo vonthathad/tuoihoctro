@@ -3,9 +3,9 @@
   position: absolute;
   z-index: 100;
   width: 100%;
+  height: 100%;
   background: initial;
   border: none;
-  top: 100px;
   padding: 32px 0;
 }
 
@@ -19,6 +19,8 @@
   position: relative;
   z-index: 111;
   text-align: center;
+  top: 100px;
+
 }
 .form-content img{
   width: 100%;

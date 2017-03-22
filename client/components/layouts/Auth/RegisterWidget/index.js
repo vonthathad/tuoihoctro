@@ -5,18 +5,17 @@ import FacebookProvider, { Login } from 'react-facebook';
 
 // Import Style
 import styles from './index.css';
-// import icons from '../../../../assets/css/icon.css';
 
 export class RegisterWidget extends Component {
 
   onFacebookResponse() {
   }
-  register = () => {
+  registerUser = () => {
     const emailRef = this.refs.email;
     const usernameRef = this.refs.username;
     const passwordRef = this.refs.password;
     if (emailRef.value && passwordRef.value && passwordRef.value) {
-      this.props.register(usernameRef.value, emailRef.value, passwordRef.value);
+      this.props.registerUser(usernameRef.value, emailRef.value, passwordRef.value);
       emailRef.value = passwordRef.value = usernameRef.value = '';
     }
   };
@@ -24,14 +23,14 @@ export class RegisterWidget extends Component {
     return (
       <div>
         <div className={styles['login-content']}>
-          <span onClick={this.props.toggleRegister}>x</span>
+          <span onClick={this.props.closeElement}>x</span>
           <div className="col-md-12">
             Register via
             <div className={styles['social-buttons']}>
               <FacebookProvider appID="1559166841054175">
                 <Login scope="email" onResponse={this.onFacebookResponse.bind(this)}>
                   <a href="#" className={`btn ${styles['btn-fb']}`}>
-                    <i className="fa fa-facebook"></i> Facebook</a>
+                     Facebook</a>
                 </Login>
               </FacebookProvider>
               <a href="#" className={`btn ${styles['btn-tw']}`}><i className="fa fa-twitter"></i> Twitter</a>
@@ -81,7 +80,7 @@ export class RegisterWidget extends Component {
                 />
               </div>
               <div className={`form-group ${styles['form-group']}`}>
-                <button type="button" className="btn btn-primary btn-block" onClick={this.register}>Sign up</button>
+                <button type="button" className="btn btn-primary btn-block" onClick={this.registerUser}>Sign up</button>
               </div>
               <div className="checkbox">
                 <label>
@@ -94,7 +93,7 @@ export class RegisterWidget extends Component {
             <a href="#"><b>Login</b></a>
           </div>
         </div>
-        <div className={styles['login-background']} onClick={this.props.toggleRegister}>
+        <div className={styles['login-background']} onClick={this.props.closeElement}>
         </div>
       </div>
     );
@@ -102,8 +101,8 @@ export class RegisterWidget extends Component {
 }
 
 RegisterWidget.propTypes = {
-  toggleRegister: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
+  closeElement: PropTypes.func.isRequired,
+  registerUser: PropTypes.func.isRequired,
 };
 
 export default RegisterWidget;
