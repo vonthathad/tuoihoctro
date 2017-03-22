@@ -10,7 +10,6 @@ class PostsChunk extends Component {
 
     render() {
         const { posts, loading } = this.props;
-        // console.log(this.props);
         return (
             <div>
                 {loading &&
