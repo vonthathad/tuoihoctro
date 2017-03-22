@@ -31,13 +31,9 @@ const RecommendsReducer = (state = INITIAL_STATE, action) => {
         recommendsChunks[lastChunkIndex].loading = false;
         recommendsChunks[lastChunkIndex].recommends = action.payload;
         return {
-          ...state,
-          recommendsList:
-          {
-            ...state.recommendsList,
-            recommendsChunks,
-            page: state.recommendsList.page + 1,
-          },
+          ...state.recommendsList,
+          recommendsChunks,
+          page: state.recommendsList.page + 1,
         };
       }
     case FETCH_RECOMMEND_CHUNK_FAILURE:

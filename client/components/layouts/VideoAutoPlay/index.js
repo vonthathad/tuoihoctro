@@ -52,7 +52,7 @@ class VideoAutoPlay extends Component {
                 onClick={this.onVideoClick}
             >
                 <video className={`${st['video-media-content']}`}
-                    width={videoWidth}
+                    width={550}
                     height={videoHeight}
                     ref={videoTag => {
                         videoTag &&

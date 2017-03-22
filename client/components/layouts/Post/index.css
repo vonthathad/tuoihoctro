@@ -27,6 +27,9 @@
     height: auto;
   }
 }
+.post{
+  border-radius: 10px;
+}
 .post-box {
   margin: 0 auto;
   width: 550px;
@@ -41,6 +44,7 @@
 .post-header {
   overflow: hidden;
   width: 100%;
+  margin-bottom: 10px;  
 }
 
 .post-title {
@@ -48,13 +52,54 @@
   cursor: pointer;
 }
 .post-footer {
-  padding: 5px 0 10px 0;
   color: #999;
+  margin: 10px 0;
+  font-weight: normal;
+  font-size: 14px;
+  text-align: left;
 }
 .post-title h1 {
   font-weight: 700;
+  float: left;
 }
 
-.emotion-button{width: 300px; border-radius: 5px; font-size: 30px; line-height: 5px}
+.emotion-button{
+  width: 300px; 
+  border-radius: 5px; 
+  font-size: 30px; 
+  line-height: 5px;
+ 
+  }
 .thumbup{color: #191e3f;}
-.thumbup{color: r; }
+/*.thumbup{color: r; }*/
+
+.emotion-buttons-wrapper{float: left;}
+.share-buttons-wrapper{float:right;} 
+
+.fb-button{
+  background-color: #3b5998;
+  color: #fff;
+  display: block;
+  font-weight: 700;
+  height: 34px;
+  line-height: 34px;
+  padding: 0 23px 0 17px;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 14px;
+}
+.fb-button:hover{
+  background-color: #4c70ba;
+   color: #fff;
+}
+.fb-button i {
+  margin-right: 10px;
+  font-size: 20px;
+  line-height: 34px;
+}
+.fb-button span {
+  line-height: 34px;
+  margin-bottom: 7px;
+  display: block;
+  float: right;
+}
