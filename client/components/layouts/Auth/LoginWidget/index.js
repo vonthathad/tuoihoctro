@@ -5,15 +5,13 @@ import React, { Component, PropTypes } from 'react';
 
 // Import Style
 import styles from './index.css';
-// import icons from '../../../../assets/css/icon.css';
+
 export class LoginWidget extends Component {
-  onFacebookResponse() {
-  }
-  login = () => {
+  loginUser = () => {
     const emailRef = this.refs.email;
     const passwordRef = this.refs.password;
     if (emailRef.value && passwordRef.value) {
-      this.props.login(emailRef.value, passwordRef.value);
+      this.props.loginUser(emailRef.value, passwordRef.value);
       emailRef.value = passwordRef.value = '';
     }
   };
@@ -21,16 +19,11 @@ export class LoginWidget extends Component {
     return (
       <div>
         <div className={styles['login-content']}>
-          <span onClick={this.props.toggleLogin}>x</span>
+          <span onClick={this.props.closeElement}>x</span>
           <div className="col-md-12">
             Login via
             <div className={styles['social-buttons']}>
-              {/*<FacebookProvider appID="1559166841054175">
-                <Login scope="email" onResponse={this.onFacebookResponse.bind(this)}>
-                  <a href="#" className={`btn ${styles['btn-fb']}`}><i className="fa fa-facebook"></i> Facebook</a>
-                </Login>
-              </FacebookProvider>*/}
-              <a href="#" className={`btn ${styles['btn-tw']}`}><i className="fa fa-twitter"></i> Twitter</a>
+              <a href="#" className={`btn ${styles['btn-fb']}`}>Facebook</a>
             </div>
             or
             <form className="form" role="form" method="post" action="login">
@@ -44,7 +37,7 @@ export class LoginWidget extends Component {
                 <div className="help-block text-right"><a href="">Forget the password ?</a></div>
               </div>
               <div className={`form-group ${styles['form-group']}`}>
-                <button type="button" className="btn btn-primary btn-block" onClick={this.login}>Sign in</button>
+                <button type="button" className="btn btn-primary btn-block" onClick={this.loginUser}>Sign in</button>
               </div>
               <div className="checkbox">
                 <label>
@@ -57,7 +50,7 @@ export class LoginWidget extends Component {
             New here ? <a href="#" ><b>Join Us</b></a>
           </div>
         </div>
-        <div className={styles['login-background']} onClick={this.props.toggleLogin}>
+        <div className={styles['login-background']} onClick={this.props.closeElement}>
         </div>
       </div>
     );
@@ -65,8 +58,8 @@ export class LoginWidget extends Component {
 }
 
 LoginWidget.propTypes = {
-  toggleLogin: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
+  closeElement: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired,
 };
 
 export default LoginWidget;

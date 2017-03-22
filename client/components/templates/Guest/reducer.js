@@ -1,32 +1,28 @@
 // Import Actions
-import { TOGGLE_ADD_POST, TOGGLE_LOGIN, TOGGLE_REGISTER } from './actions';
+import { TOGGLE_ADD_POST, TOGGLE_LOGIN, TOGGLE_REGISTER, CLOSE_ELEMENT } from './actions';
 
 // Initial State
 const initialState = {
-  showAddPost: false,
-  showLogin: false,
-  showRegister: false,
+  showElement : '',
 };
 
 const AppReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_ADD_POST:
       return {
-        showAddPost: !state.showAddPost,
-        showRegister: false,
-        showLogin: false,
+        showElement : 'post'
       };
     case TOGGLE_LOGIN:
       return {
-        showLogin: !state.showLogin,
-        showRegister: false,
-        showAddPost: false,
+        showElement: 'login'
       };
     case TOGGLE_REGISTER:
       return {
-        showRegister: !state.showRegister,
-        showLogin: false,
-        showAddPost: false,
+        showElement: 'register'
+      };
+    case CLOSE_ELEMENT:
+      return {
+        showElement: ''
       };
     default:
       return state;
@@ -36,13 +32,8 @@ const AppReducer = (state = initialState, action) => {
 /* Selectors */
 
 // Get showAddPost
-export const getShowAddPost = state => state.app.showAddPost;
+export const getShowElement = state => state.app.showElement;
 
-// Get showLogin
-export const getShowLogin = state => state.app.showLogin;
-
-// Get showRegister
-export const getShowRegister = state => state.app.showRegister;
 
 // Export Reducer
 export default AppReducer;

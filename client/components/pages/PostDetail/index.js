@@ -84,7 +84,6 @@ PostDetail.need = [params => {
 function mapStateToProps(state, props) {
   return {
     post: getPost(state, props.params.cuid),
-    posts: getPosts(state),
   };
 }
 
@@ -92,17 +91,12 @@ PostDetail.propTypes = {
   post: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    mediaContent: PropTypes.string.isRequired,
+    mediaContent: PropTypes.string,
     numComment: PropTypes.number.isRequired,
     point: PropTypes.number.isRequired,
     created: PropTypes.string.isRequired,
     view: PropTypes.number.isRequired,
   }).isRequired,
-  posts: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    smallThumb: PropTypes.string.isRequired,
-  })).isRequired,
 };
 
 export default connect(mapStateToProps)(PostDetail);

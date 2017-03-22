@@ -5,6 +5,7 @@ export const TOGGLE_LOGIN = 'TOGGLE_LOGIN';
 
 export const TOGGLE_REGISTER = 'TOGGLE_REGISTER';
 
+export const CLOSE_ELEMENT = 'CLOSE_ELEMENT';
 // Export Actions
 export function toggleAddPost() {
   return {
@@ -23,3 +24,10 @@ export function toggleRegister() {
     type: TOGGLE_REGISTER,
   };
 }
+
+export function closeElement() {
+  return {
+    type: CLOSE_ELEMENT,
+  };
+}
+

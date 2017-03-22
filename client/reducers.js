@@ -4,14 +4,14 @@
 import { combineReducers } from 'redux';
 
 // Import Reducers
+// import app from './components-page/content/_reducer';
+import auth from './components/layouts/Auth/AuthReducer';
 import recommendsStore from './_reducers/RecommendsReducer';
 import postsStore from './_reducers/PostsReducer';
-import login from './_reducers/UsersReducer';
 import app from './components/templates/Guest/reducer';
-// Combine all reducers into one root reducer
 export default combineReducers({
   app,
+  auth,
   postsStore,
   recommendsStore,
-  login,
 });

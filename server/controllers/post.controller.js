@@ -246,11 +246,15 @@ exports.list = (req, res) => {
       ...aggregation.project,
       ...propertiesThumb,
       ...propertiesDetailInfo,
+      ...propertiesMediaContent,
+      ...propertiesDetailInfo,
     };
   } else if (req.query.type === 'smallThumb') {
     aggregation.project = {
       ...aggregation.project,
       ...propertiesSmallThumb,
+      ...propertiesMediaContent,
+      ...propertiesDetailInfo,
     };
   }
   // console.log((new Date).getTime());

@@ -34,7 +34,7 @@ export class PostCreateWidget extends Component {
     reader.readAsDataURL(file);
   }
   render() {
-    const cls = `${styles.form} ${(this.props.showAddPost ? styles.appear : '')}`;
+    const cls = `${styles.form} ${(this.props.showElement == 'post' ? styles.appear : '')}`;
     return (
       <div className={cls}>
         <div className={styles['form-content']}>
@@ -45,9 +45,10 @@ export class PostCreateWidget extends Component {
           <Link to={this.state.imgSrc} target="_blank">
             <img src={this.state.imgSrc} alt="" />
           </Link>
+          <a className={styles['post-submit-button']} onClick={this.props.closeElement}>Cancel</a>
           <a className={styles['post-submit-button']} onClick={this.addPost}>Submit</a>
         </div>
-        <div className={styles.backgroundPost}>
+        <div className={styles.backgroundPost} onClick={this.props.closeElement}>
         </div>
       </div>
     );
@@ -56,7 +57,8 @@ export class PostCreateWidget extends Component {
 
 PostCreateWidget.propTypes = {
   addPost: PropTypes.func.isRequired,
-  showAddPost: PropTypes.bool.isRequired,
+  showElement: PropTypes.string,
+  closeElement: PropTypes.func.isRequired,
 };
 
 export default PostCreateWidget;
