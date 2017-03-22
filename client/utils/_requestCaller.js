@@ -29,8 +29,8 @@ function request(options) {
     .then(res => {
       console.log(res);
       if (res.status !== 200) {
-        if(res.Body)throw res.Body.statusText;
-        else throw 'Lỗi';
+        if (res.Body) throw res.Body.statusText;
+        else throw Object({ error: 'Lỗi' });
       }
       return res.json();
     });

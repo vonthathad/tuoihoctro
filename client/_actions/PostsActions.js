@@ -1,5 +1,5 @@
 // import request from '../../services/api.services';
-import { getPosts, getPost, addPost } from '../utils/PostsUtils';
+import { getPosts, addPost } from '../utils/PostsUtils';
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
@@ -73,8 +73,6 @@ export function _fetchPostsChunk(type, paging = 5, page = 1) {
       .catch(error => dispatch(fetchPostsChunkFailure(error)));
   };
 }
-
-
 
 export function addPostRequest(post) {
   console.log(post);

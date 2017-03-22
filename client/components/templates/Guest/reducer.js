@@ -3,26 +3,26 @@ import { TOGGLE_ADD_POST, TOGGLE_LOGIN, TOGGLE_REGISTER, CLOSE_ELEMENT } from '.
 
 // Initial State
 const initialState = {
-  showElement : '',
+  showElement: '',
 };
 
 const AppReducer = (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_ADD_POST:
       return {
-        showElement : 'post'
+        showElement: 'post',
       };
     case TOGGLE_LOGIN:
       return {
-        showElement: 'login'
+        showElement: 'login',
       };
     case TOGGLE_REGISTER:
       return {
-        showElement: 'register'
+        showElement: 'register',
       };
     case CLOSE_ELEMENT:
       return {
-        showElement: ''
+        showElement: '',
       };
     default:
       return state;

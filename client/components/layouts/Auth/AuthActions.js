@@ -1,5 +1,5 @@
-import {login} from '../../../utils/UsersUtils';
-
+import { login } from '../../../utils/UsersUtils';
+import callApiUser from '../../../utils/_requestCaller';
 // Export Constants
 export const LOGIN_USER = 'LOGIN_USER';
 export const REGISTER_USER = 'REGISTER_USER';
@@ -76,7 +76,7 @@ export function checkLogin() {
 
 export function logout() {
   return (dispatch) => {
-    console.log(1)
+    console.log(1);
     const data = {};
     localStorage.removeItem('id');
     localStorage.removeItem('token');

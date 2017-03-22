@@ -93,7 +93,7 @@ export const getPosts = (state) => {
 };
 
 // Get post by cuid
-export const getPost = (state, cuid) => state.postsStore.postsList.postsChunks[0].posts.filter(post => post._id == parseInt(cuid, 10))[0];
+export const getPost = (state, cuid) => state.postsStore.postsList.postsChunks[0].posts.filter(post => post._id === parseInt(cuid, 10))[0];
 
 // Export Reducer
 export default PostsReducer;
