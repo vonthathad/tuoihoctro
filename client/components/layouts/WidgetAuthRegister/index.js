@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 // Import Plugin
-import FacebookProvider, { Login } from 'react-facebook';
+// import FacebookProvider, { Login } from 'react-facebook';
 
 // Import Style
 import styles from './index.css';
@@ -28,12 +28,12 @@ export class RegisterWidget extends Component {
           <div className="col-md-12">
             Register via
             <div className={styles['social-buttons']}>
-              <FacebookProvider appID="1559166841054175">
+              {/*<FacebookProvider appID="1559166841054175">
                 <Login scope="email" onResponse={this.onFacebookResponse.bind(this)}>
                   <a href="#" className={`btn ${styles['btn-fb']}`}>
                     <i className="fa fa-facebook"></i> Facebook</a>
                 </Login>
-              </FacebookProvider>
+              </FacebookProvider>*/}
               <a href="#" className={`btn ${styles['btn-tw']}`}><i className="fa fa-twitter"></i> Twitter</a>
             </div>
             or

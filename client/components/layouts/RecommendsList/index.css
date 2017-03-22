@@ -1,11 +1,7 @@
-.featured-box {
-  float: right;
-  overflow: hidden;
-}
 
 .right-bar-title {
   padding: 5px 0;
 }
-.p80{
-  padding-top: 80px
+.recommends-list-wrapper{
+  text-align: left;
 }

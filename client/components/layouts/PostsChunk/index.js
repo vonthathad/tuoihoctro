@@ -26,6 +26,7 @@ class PostsChunk extends Component {
                                     imageLQ={post.thumbLQ}
                                     imageHeight={post.thumbHeight}
                                     imageWidth={post.thumbWidth}
+                                    width={500}
                                 />
                                 : <VideoAutoPlay
                                     key={post._id}

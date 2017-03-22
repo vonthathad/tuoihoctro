@@ -2,7 +2,7 @@ import React, {Component, PropTypes } from 'react';
 import ImagePrettyLoad from '../ImagePrettyLoad'
 // Import Components
 import Recommend from '../Recommend';
-
+import st from './index.css';
 class RecommendsChunk extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +18,17 @@ class RecommendsChunk extends Component {
         }
         {!loading && recommends && recommends.length > 0 &&
           recommends.map(recommend => (
-            <Recommend recommend={recommend}>
-              <ImagePrettyLoad
-                key={recommend._id}
-                image={recommend.smallThumb}
-                imageLQ={recommend.smallThumbLQ}
-                imageHeight={recommend.smallThumbHeight}
-                imageWidth={recommend.smallThumbWidth}
-              />
-            </Recommend>
+            <div className={st['recommend-item']}>
+              <Recommend recommend={recommend}>
+                <ImagePrettyLoad
+                  key={recommend._id}
+                  image={recommend.smallThumb}
+                  imageLQ={recommend.smallThumbLQ}
+                  imageHeight={recommend.smallThumbHeight}
+                  imageWidth={recommend.smallThumbWidth}
+                />
+              </Recommend>
+            </div>
           ))
         }
       </div >

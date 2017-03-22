@@ -21,21 +21,18 @@ function Post(props) {
       <div className={styles['post-left']}>
 
         <div className={styles.post}>
-          {/*<img className={styles['img-responsive']} alt={props.post.title} src={props.post.post} />*/}
           {props.children}
         </div>
 
         <div className={styles['vote-box']}>
-          <a className="btn btn-default glyphicon glyphicon-heart-empty"></a>
-          <a className="btn btn-default glyphicon glyphicon-posts-down"></a>
-          <span className={styles['display-vote']}>{props.post.point} điểm</span>
+          <a className={`${styles.thumbup} ${styles['emotion-button']}`}><i className="fa fa-heart-o" aria-hidden="true"></i></a>
+          <a className={`${styles.thumbup} ${styles['emotion-button']}`}><i className="fa fa-heart" aria-hidden="true"></i></a>
+          <a className={`${styles.thumbdown} ${styles['emotion-button']}`}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+
+          <span>{props.post.point} điểm</span>
         </div>
 
         <div className={styles['social-box']}>
-          <a className="btn btn-default twitter-button">
-            <span className="fa fa-twitter" ></span>
-            <span className={styles['remove-mobile']} > Twitter</span>
-          </a>
           <a className="btn btn-default fb-button">
             <span className="fa fa-facebook"  ></span>
             <span className={styles['remove-mobile']} > Facebook</span>
