@@ -5,18 +5,14 @@ import st from './index.css';
 class PostsList extends Component {
   constructor(props) {
     super(props);
-    this._window = {};
+    this.state = {
+      _window: {},
+    };
     this.postsListRef = null;
     this.handleOnScrollLoadMediaContent = this.handleOnScrollLoadMediaContent.bind(this);
   }
-
   componentDidMount() {
-    this._window = {
-      pageXOffset: window.pageXOffset,
-      pageYOffset: window.pageYOffset,
-      innerWidth: window.innerWidth,
-      innerHeight: window.innerHeight,
-    };
+    this.setWindowToState();
     window.addEventListener('scroll', this.handleOnScrollLoadMediaContent, false);
     window.addEventListener('resize', this.handleOnScrollLoadMediaContent, false);
   }
@@ -25,31 +21,29 @@ class PostsList extends Component {
     window.removeEventListener('scroll', this.handleOnScrollLoadMediaContent);
     window.removeEventListener('resize', this.handleOnScrollLoadMediaContent);
   }
-
+  setWindowToState() {
+    this.setState({
+      _window: {
+        pageXOffset: window.pageXOffset,
+        pageYOffset: window.pageYOffset,
+        innerWidth: window.innerWidth,
+        innerHeight: window.innerHeight,
+      },
+    });
+  }
   handleOnScrollLoadMediaContent = () => {
-    this._window = {
-      pageXOffset: window.pageXOffset,
-      pageYOffset: window.pageYOffset,
-      innerWidth: window.innerWidth,
-      innerHeight: window.innerHeight,
-    };
+    this.setWindowToState();
     if (document.body.scrollTop > parseInt(window.getComputedStyle(this.postsListRef, null).getPropertyValue('height').replace('px', ''), 10) - 1000) {
       const { dispatch, postsList } = this.props;
-      const postsChunks = postsList.postsChunks;
-      // if is not loading thumbschunk or there has not been an error
-      console.log(!postsList.fetching);
-      console.log(!postsChunks[postsChunks.length - 1].loading);
-      console.log(!postsList.error);
-      if (!postsList.fetching && !postsChunks[postsChunks.length - 1].loading && !postsList.error) {
-        console.log(1235);
-        dispatch(_fetchPostsChunk('thumb', postsList.paging, postsList.page));
+      if (!postsList.fetching && !postsList.error) {
+        dispatch(_fetchPostsChunk('mediaContent', postsList.paging, postsList.page));
       }
     }
   };
 
   render() {
     const { postsList } = this.props;
-    let postsChunks = null;
+    let postsChunks = [];
     if (postsList) postsChunks = postsList.postsChunks;
     return (
       <div className={st['post-list-wrapper']} ref={(postsListRef) => { this.postsListRef = postsListRef; }}>
@@ -57,20 +51,14 @@ class PostsList extends Component {
           key={i}
           posts={postsChunk.posts}
           loading={postsChunk.loading}
-          _window={this._window}
+          _window={this.state._window}
         />)}
       </div >
     );
   }
 }
 PostsList.propTypes = {
-  postsList: PropTypes.objectOf(PropTypes.shape({
-    postsChunks: PropTypes.arrayOf(PropTypes.shape({
-      postsChunk: PropTypes.arrayOf(PropTypes.shape({
-        posts: PropTypes.array.isRequired, loading: PropTypes.bool.isRequired,
-      })),
-    })), error: PropTypes.bool, paging: PropTypes.number, page: PropTypes.number,
-  })),
+  postsList: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 export default PostsList;

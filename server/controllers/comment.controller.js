@@ -182,7 +182,7 @@ exports.list = (req, res) => {
                 { $sort: { confident: -1 } },
                 { $skip: skip },
                 // Optionally limit results
-                { $limit: (paging + 1) },
+                { $limit: (paging) },
       ]
             , (err, results) => {
       if (err) return res.status(400).send();

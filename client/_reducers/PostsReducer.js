@@ -43,24 +43,16 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
       }
     case FETCH_POSTS_CHUNK_SUCCESS:
       {
-        // console.log(state.postsList);
-        const postsChunks = state.postsList.postsChunks;
+        const postsList = { ...state.postsList };
+        const postsChunks = postsList.postsChunks;
         const lastChunkIndex = postsChunks.length - 1;
         postsChunks[lastChunkIndex].loading = false;
         postsChunks[lastChunkIndex].posts = action.payload;
-        // console.log(JSON.stringify({ ...state, postsList: { ...state.postsList, postsChunks } }));
-        // console.log(JSON.stringify(state.postsList));
-        // console.log('action.payload' + JSON.stringify(action.payload));
+        postsList.fetching = false;
+        postsList.page++;
         return {
           ...state,
-
-          postsList:
-          {
-            ...state.postsList,
-            fetching: false,
-            postsChunks,
-            page: state.postsList.page + 1,
-          },
+          postsList,
         };
       }
     case FETCH_POSTS_CHUNK_FAILURE:

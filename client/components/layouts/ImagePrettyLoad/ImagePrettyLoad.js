@@ -21,12 +21,12 @@ class ImagePrettyLoad extends Component {
     });
   };
   render() {
-    const { image, imageLQ, imageWidth, imageHeight, width } = this.props;
+    const { image, imageLQ, imageWidth, imageHeight, containerWidth } = this.props;
     return (
       <div>
         <div
           className={`${st.placeholder}`}
-          style={{ width, height: this.containerWidth * imageHeight / imageWidth }}
+          style={{ containerWidth, height: this.containerWidth * imageHeight / imageWidth }}
           ref={(container) => {
             if (container) this.containerWidth = container.offsetWidth;
           }}
@@ -56,6 +56,6 @@ ImagePrettyLoad.propTypes = {
   imageLQ: PropTypes.string.isRequired,
   imageWidth: PropTypes.number.isRequired,
   imageHeight: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  containerWidth: PropTypes.number.isRequired,
 };
 export default ImagePrettyLoad;

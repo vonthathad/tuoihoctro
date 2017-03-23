@@ -1,17 +1,24 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import RecommendsChunk from '../RecommendsChunk/RecommendsChunk';
+import { _fetchRecommendsChunk } from '../../../_actions/RecommendsActions';
 import st from './index.css';
 
-const RecommendsList = (props) => {
-  const { recommendsList } = props;
-  let recommendsChunks = null;
-  if (recommendsList) recommendsChunks = recommendsList.recommendsChunks;
-  return (
-    <div className={st['recommends-list-wrapper']}>
-      <div className={st['right-bar-title']}>
-        <h1>Bài liên quan</h1>
-      </div>
-      {recommendsChunks && recommendsChunks.length > 0 &&
+class RecommendsList extends Component {
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(_fetchRecommendsChunk('smallThumb', 6, 1));
+  }
+  render() {
+    const { recommendsList } = this.props;
+    let recommendsChunks = null;
+    if (recommendsList) recommendsChunks = recommendsList.recommendsChunks;
+    return (
+      <div className={st['recommends-list-wrapper']}>
+        <div className={st['right-bar-title']}>
+          <h1>Bài liên quan</h1>
+        </div>
+        {recommendsChunks && recommendsChunks.length > 0 &&
           recommendsChunks.map((recommendsChunk, i) =>
             <RecommendsChunk
               key={i}
@@ -19,9 +26,10 @@ const RecommendsList = (props) => {
               loading={recommendsChunk.loading}
             />
           )}
-    </div >
+      </div >
     );
-};
+  }
+}
 
 RecommendsList.propTypes = {
   recommendsList: PropTypes.objectOf(PropTypes.shape({
@@ -35,6 +43,7 @@ RecommendsList.propTypes = {
     paging: PropTypes.number,
     page: PropTypes.number,
   })),
+  dispatch: PropTypes.func,
 };
 
 export default RecommendsList;

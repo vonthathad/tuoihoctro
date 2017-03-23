@@ -21,15 +21,11 @@ class VideoAutoPlay extends Component {
     }
   };
   checkDomPosition(_window) {
-    const { x, w, y, h } = this.videoRef;
-    const r = x + w;
-    const b = y + h;
-    const visibleX = Math.max(0, Math.min(w, _window.pageXOffset + _window.innerWidth - x, r - _window.pageXOffset));
-    const visibleY = Math.max(0, Math.min(h, _window.pageYOffset + _window.innerHeight - y, b - _window.pageYOffset));
-    const visible = visibleX * visibleY / (w * h);
-    const fraction = 0.99;
-    if (visible > fraction) {
-      this.playVideo();
+    const { y, h } = this.videoRef;
+    if (_window.pageYOffset < y && _window.pageYOffset + _window.innerHeight > y + h + h / 3) {
+      setTimeout(() => {
+        this.playVideo();
+      }, 300);
     } else {
       this.pauseVideo();
     }
@@ -45,8 +41,7 @@ class VideoAutoPlay extends Component {
     this.badge.style.display = 'block';
   };
   render() {
-    const { videoWidth, videoHeight, videoSrc } = this.props;
-        // console.log(videoSrc);
+    const { videoWidth, videoHeight, videoSrc, containerWidth } = this.props;
     return (
       <div
         className={`${st['video-wrapper']}`}
@@ -54,17 +49,15 @@ class VideoAutoPlay extends Component {
       >
         <video
           className={`${st['video-media-content']}`}
-          width={videoWidth}
-          height={videoHeight}
+          width={containerWidth}
+          height={videoHeight * containerWidth / videoWidth}
           ref={videoTag => {
             videoTag &&
-                    (this.videoRef = {
-                      x: videoTag.offsetLeft,
-                      y: videoTag.offsetTop,
-                      w: videoTag.offsetWidth,
-                      h: videoTag.offsetHeight,
-                      video: videoTag,
-                    });
+              (this.videoRef = {
+                y: videoTag.offsetTop,
+                h: videoTag.offsetHeight,
+                video: videoTag,
+              });
           }}
           loop
         >
@@ -78,14 +71,15 @@ class VideoAutoPlay extends Component {
           <span className={`${st['badge-gif']}`}>GIF</span>
         </div>
       </div>
-      );
+    );
   }
 }
 
 VideoAutoPlay.propTypes = {
-  _window: PropTypes.node.isRequired,
+  _window: PropTypes.object.isRequired,
   videoHeight: PropTypes.number.isRequired,
   videoWidth: PropTypes.number.isRequired,
+  containerWidth: PropTypes.number.isRequired,
   videoSrc: PropTypes.string.isRequired,
 };
 

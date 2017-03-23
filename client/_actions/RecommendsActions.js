@@ -52,7 +52,9 @@ export function _fetchRecommendsChunk(type, paging = 5, page = 1) {
         return dispatch(fetchRecommendsChunkSuccess(recommends));
       }
       )
-      .catch(error => dispatch(fetchRecommendsChunkFailure(error)));
+      .catch(error => {
+        dispatch(fetchRecommendsChunkFailure(error));
+      });
   };
 }
 

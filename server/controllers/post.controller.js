@@ -240,6 +240,12 @@ exports.list = (req, res) => {
       ...aggregation.project,
       ...propertiesMediaContent,
       ...propertiesDetailInfo,
+
+      ...aggregation.project,
+      ...propertiesThumb,
+      ...propertiesDetailInfo,
+      ...propertiesMediaContent,
+      ...propertiesDetailInfo,
     };
   } else if (req.query.type === 'thumb') {
     aggregation.project = {
@@ -281,7 +287,7 @@ exports.list = (req, res) => {
     },
     // Optionally limit results
     {
-      $limit: (paging + 1),
+      $limit: (paging),
     },
 
   ], (err, results) => {
@@ -363,6 +369,10 @@ const createCroppedCompressedImage = (input) => {
       input.size.width && (input.size.width = Math.round(input.size.width / 10));
       input.size.height && (input.size.height = Math.round(input.size.height / 10));
     }
+    console.log('input.originalWidth ' + input.originalWidth);
+    console.log('input.size.height ' + input.size.height);
+    console.log('input.input.size.width  ' + input.size.width);
+    console.log('createCroppedCompressedImage ' + Math.round(input.size.height * input.originalWidth / input.size.width));
     const cmd = `convert ${input.fileInput} -gravity center -crop x${Math.round(input.size.height * input.originalWidth / input.size.width)}+0+0 +repage -filter Triangle -define filter:support=2 -thumbnail ${input.size.width} -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB -strip ${input.fileOutput}`;
     exec(cmd, (err) => {
       if (err) {
@@ -398,6 +408,8 @@ const formatGifToMp4 = (input) => {
   });
 };
 const takeMp4Screenshot = (input) => {
+  console.log('input.size.width: ' + input.size.width);
+  console.log('input.size.height: ' + input.size.height);
   return new Promise((resolve, reject) => {
     ffmpeg(input.fileInput).on('end', (err) => {
       if (err) {
@@ -499,7 +511,8 @@ exports.create = (req, res) => {
           originalWidth,
           originalFileSize,
         };
-
+        console.log(JSON.stringify(origin));
+        console.log(JSON.stringify(size));
         const sizeMediaPost = { size: { width: WIDTH_MEDIACONTENT, height: data.mediaContentHeight } };
 
         const sizeThumb = {

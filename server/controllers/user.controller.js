@@ -404,7 +404,7 @@ export function list(req, res) {
         { $sort: sortType },
         { $skip: skip },
         // Optionally limit results
-        { $limit: (paging + 1) },
+        { $limit: paging },
         ],
          (err, results) => {
         //    console.log(1 + results);
