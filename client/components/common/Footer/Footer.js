@@ -6,7 +6,7 @@ import styles from './index.css';
 // Import Images
 // import bg from '../../header-bk.png';
 
-export function Footer() {
+const Footer = () => {
   return (
     <footer className={styles['main-footer']}>
       <div className="container">
@@ -22,6 +22,6 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import PostsList from '../layouts/PostsList';
+import PostsList from '../layouts/PostsList/PostsList';
 
 const mapStateToProps = (state) => {
   return {

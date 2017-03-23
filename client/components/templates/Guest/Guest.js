@@ -1,16 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import SweetAlert from 'sweetalert-react';
+// import SweetAlert from 'sweetalert-react';
 // Import Style
 import styles from './index.css';
 
 // Import Components
-import DevTools from '../../common/DevTools';
-import Header from '../../common/Header';
-import Footer from '../../common/Footer';
+import DevTools from '../../common/DevTools/DevTools';
+import Header from '../../common/Header/Header';
+import Footer from '../../common/Footer/Footer';
 import Auth from '../../layouts/Auth';
-import PostCreateWidget from '../../layouts/PostWidget';
+import PostCreateWidget from '../../layouts/PostWidget/PostWidget';
 
 // Import Actions
 import { toggleAddPost, toggleLogin, toggleRegister, closeElement } from './actions';
@@ -31,13 +31,13 @@ export class Guest extends Component {
     this.props.dispatch(checkLogin());
   }
 
-  changeStyleModal (check){
-    if(check == true){
+  changeStyleModal(check) {
+    if (check === true) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'inherit';
     }
-  };
+  }
 
   toggleAddPostSection = () => {
     this.changeStyleModal(true);
@@ -60,7 +60,7 @@ export class Guest extends Component {
   };
 
   handleAddPost = (title, category, file) => {
-    console.log(title, category, file);
+    // console.log(title, category, file);
     const data = new FormData();
     data.append('file', file);
     data.append('content', JSON.stringify({
@@ -79,10 +79,12 @@ export class Guest extends Component {
     this.closeElementSection();
     this.props.dispatch(registerRequest({ username, email, password }));
   };
-
+  _confirm(content) {
+    return confirm(content);
+  }
   handleLogout = () => {
-    const reply = confirm("Bạn muốn đăng xuất khỏi ứng dụng");
-    if(reply == true){
+    const reply = this._confirm('Bạn muốn đăng xuất khỏi ứng dụng');
+    if (reply === true) {
       this.props.dispatch(logout());
     }
   };
@@ -124,7 +126,7 @@ export class Guest extends Component {
 }
 
 Guest.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
   dispatch: PropTypes.func.isRequired,
   curentUser: PropTypes.object.isRequired,
   showElement: PropTypes.string,

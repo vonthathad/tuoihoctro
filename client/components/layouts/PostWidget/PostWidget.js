@@ -34,7 +34,7 @@ export class PostCreateWidget extends Component {
     reader.readAsDataURL(file);
   }
   render() {
-    const cls = `${styles.form} ${(this.props.showElement == 'post' ? styles.appear : '')}`;
+    const cls = `${styles.form} ${(this.props.showElement === 'post' ? styles.appear : '')}`;
     return (
       <div className={cls}>
         <div className={styles['form-content']}>

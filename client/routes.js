@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Guest from './components/templates/Guest';
+import Guest from './components/templates/Guest/Guest';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -16,7 +16,7 @@ if (typeof require.ensure !== 'function') {
  */
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
-  require('./components/pages/Home/index.js');
+  require('./components/pages/Home/Home.js');
   require('./components/pages/PostDetail/index.js');
 }
 
@@ -27,7 +27,7 @@ export default (
     <IndexRoute
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./components/pages/Home/index.js').default);
+          cb(null, require('./components/pages/Home/Home.js').default);
         });
       }}
     />

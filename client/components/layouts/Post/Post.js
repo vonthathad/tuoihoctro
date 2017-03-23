@@ -59,6 +59,7 @@ Post.propTypes = {
     point: PropTypes.number.isRequired,
     view: PropTypes.number.isRequired,
   }).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Post;

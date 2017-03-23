@@ -10,19 +10,16 @@ class ImagePrettyLoad extends Component {
     this.handleLoadedImg = this.handleLoadedImg.bind(this);
     this.handleLoadedImgLQ = this.handleLoadedImgLQ.bind(this);
   }
-  
   handleLoadedImg = () => {
     this.setState({
       loadedImg: true,
     });
-  }
-  
+  };
   handleLoadedImgLQ = () => {
     this.setState({
       loadedImgLQ: true,
     });
-  }
-  
+  };
   render() {
     const { image, imageLQ, imageWidth, imageHeight, width } = this.props;
     return (

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import RecommendsList from '../layouts/RecommendsList';
+import RecommendsList from '../layouts/RecommendsList/RecommendsList';
 
 const mapStateToProps = (state) => {
   return {
