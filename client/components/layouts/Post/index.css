@@ -32,9 +32,9 @@
 }
 .post-box {
   margin: 0 auto;
-  width: 550px;
+  /*width: 550px;*/
   overflow: hidden;
-  padding: 10px 0;
+  margin-bottom: 21px;
   border-bottom: 1px solid #dddddd;
 }
 
@@ -44,7 +44,7 @@
 .post-header {
   overflow: hidden;
   width: 100%;
-  margin-bottom: 10px;  
+  margin-bottom: 10px;
 }
 
 .post-title {
@@ -55,26 +55,14 @@
   color: #999;
   margin: 5px 0;
   font-weight: normal;
-  font-size: 14px;
   text-align: left;
+  font-size: 25px;
 }
 .post-title h1 {
   font-weight: 700;
   float: left;
 }
 
-.emotion-button{
-  width: 300px; 
-  border-radius: 5px; 
-  font-size: 30px; 
-  line-height: 5px;
- 
-  }
-.thumbup{color: #191e3f;}
-/*.thumbup{color: r; }*/
-
-.emotion-buttons-wrapper{float: left;}
-.share-buttons-wrapper{float:right;} 
 
 .fb-button{
   background-color: #3b5998;
@@ -102,4 +90,49 @@
   margin-bottom: 7px;
   display: block;
   float: right;
+}
+
+.social-button{
+  height:50px;
+}
+
+.box-vote{
+  float:left;
+  margin-right: 20px;
+  position: relative;
+}
+.box-comment{
+  float:left;
+  line-height: 36px;
+  display: block;
+}
+.box-facebook{
+  float:right;
+}
+.twitter-heart-wrapper{
+  display: inline-block;
+  font-size: 15px;
+  margin-top: 4px;
+  float: left;
+  width: 56px;
+  position: absolute;
+  left: -10px;
+  transform: scale(0.75);
+}
+.vote-number-wrapper{
+  float: right;
+  margin-left: 37px;
+  line-height: 36px;
+  font-size: 15px;
+}
+
+.comment-icon-wrapper{
+  float: left;
+  line-height: 36px;
+}
+.comment-number-wrapper{
+  float: right;
+  margin-left: 5px;
+  font-size: 15px;
+  line-height: 36px;
 }

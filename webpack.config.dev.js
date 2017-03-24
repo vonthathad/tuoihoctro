@@ -39,8 +39,8 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        // loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
-        loader: 'style-loader!css-loader?modules=true&importLoaders=1&sourceMap!postcss-loader',
+        loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
+        // loader: 'style-loader!css-loader?modules=true&importLoaders=1&sourceMap!postcss-loader',
       }, {
         test: /\.css$/,
         include: /node_modules/,
@@ -50,7 +50,7 @@ module.exports = {
         exclude: [/node_modules/, /.+\.config.js/],
         loader: 'babel',
       }, {
-        test: /\.(jpe?g|gif|png|svg)$/i,
+        test: /\.(jpe?g|gif|png)$/i,
         loader: 'url-loader?limit=10000',
       }, {
         test: /\.json$/,

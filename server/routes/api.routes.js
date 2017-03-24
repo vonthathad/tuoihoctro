@@ -42,6 +42,8 @@ router.route('/posts/:postID/view')
   .put(posts.view);
 router.route('/posts/:postID/report')
   .put(users.requiresLogin, posts.report);
+router.route('/posts/:postID/vote')
+  .put(users.requiresLogin, posts.vote);
 router.route('/posts/:postID/voteUp')
   .put(users.requiresLogin, posts.voteUp);
 router.route('/posts/:postID/voteDown')

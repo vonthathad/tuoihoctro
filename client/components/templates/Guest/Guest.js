@@ -32,11 +32,11 @@ export class Guest extends Component {
   }
 
   changeStyleModal(check) {
-    if (check === true) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'inherit';
-    }
+    // if (check === true) {
+    //   document.body.style.overflow = 'hidden';
+    // } else {
+    //   document.body.style.overflow = 'inherit';
+    // }
   }
 
   toggleAddPostSection = () => {

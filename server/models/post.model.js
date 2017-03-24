@@ -95,6 +95,11 @@ const PostSchema = new Schema({
     ref: 'User',
     default: [],
   }],
+  votes: [{
+    type: Number,
+    ref: 'User',
+    default: [],
+  }],
   voteUps: [{
     type: Number,
     ref: 'User',

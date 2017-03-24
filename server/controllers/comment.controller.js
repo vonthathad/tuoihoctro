@@ -170,7 +170,6 @@ exports.list = (req, res) => {
             pointDown: 1,
             pointTotal: 1,
             voteUps: 1,
-            voteDowns: 1,
             creator: {
               $arrayElemAt: [[{
                 avatar: { $arrayElemAt: ['$creator.avatar', 0] },

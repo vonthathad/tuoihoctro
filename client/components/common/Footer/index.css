@@ -10,16 +10,16 @@ html, body {
   color: #000000;
 }
 
-a:link, a:visited, a:active {
+/*a:link, a:visited, a:active {
   text-decoration: none;
   color: #000;
-}
+}*/
 
-a:hover {
+/*a:hover {
   text-decoration: none;
-  /*color: #0087f7;*/
+  color: #0087f7;
   color: rgba(136, 176, 75, 1);
-}
+}*/
 
 a img {
   border: none;
