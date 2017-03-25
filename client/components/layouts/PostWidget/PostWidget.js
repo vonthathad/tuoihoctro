@@ -13,12 +13,11 @@ export class PostCreateWidget extends Component {
   }
   addPost = () => {
     const titleRef = this.refs.title;
-    const contentRef = this.refs.content;
     const fileRef = this.state.file;
     const category = 'funny';
-    if (titleRef.value && contentRef.value && fileRef) {
+    if (titleRef.value  && fileRef) {
       this.props.addPost(titleRef.value, category, fileRef);
-      titleRef.value = contentRef.value = '';
+      titleRef.value =  '';
     }
   };
   loadFile(e) {
@@ -40,7 +39,6 @@ export class PostCreateWidget extends Component {
         <div className={styles['form-content']}>
           <h2 className={styles['form-title']}>Đăng bài mới</h2>
           <input placeholder="Tiêu đề" className={styles['form-field']} ref="title" />
-          <textarea placeholder="Nội dung" className={styles['form-field']} ref="content" />
           <input type="file" ref="file" onChange={(e) => this.loadFile(e)} />
           <Link to={this.state.imgSrc} target="_blank">
             <img src={this.state.imgSrc} alt="" />

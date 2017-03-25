@@ -3,7 +3,7 @@ import ImagePrettyLoad from '../ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../VideoAutoPlay/VideoAutoPlay';
 import Post from '../Post/Post';
 import './index.css';
-const PostsChunk = ({ posts, loading }) => (
+const PostsChunk = ({ posts, loading, _window }) => (
   <div>
     {loading && < h2 > Loading...</h2>}
     {!loading && posts && posts.length > 0 && posts.map(post => (
@@ -21,7 +21,7 @@ const PostsChunk = ({ posts, loading }) => (
           videoHeight={post.thumbHeight}
           videoWidth={post.thumbWidth}
           width={550}
-          _window={this.props._window}
+          _window={_window}
         />
         }
       </Post>

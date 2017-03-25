@@ -27,7 +27,6 @@ function request(options) {
   // return this.http.request(req);
   return fetch(options.url, { ...options })
     .then(res => {
-      console.log(res);
       if (res.status !== 200) {
         if (res.Body) throw res.Body.statusText;
         else throw Object({ error: 'Lỗi' });

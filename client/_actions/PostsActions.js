@@ -1,5 +1,5 @@
 // import request from '../../services/api.services';
-import { getPosts, addPost } from '../utils/PostsUtils';
+import { getPosts, addPost, getPost,voteUp, voteDown } from '../utils/PostsUtils';
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
@@ -25,7 +25,8 @@ export const DELETE_POST = 'DELETE_POST';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
-
+export const VOTE_UP_POST_SECCESS = 'VOTE_UP_POST_SECCESS';
+export const VOTE_DOWN_POST_SECCESS = 'VOTE_DOWN_POST_SECCESS';
 // export function createPost(post) {
 //   const headers = {
 //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRydW5naGlldXRrNDU5QGdtYWlsLmNvbSIsImlhdCI6MTQ4ODIwMzY1M30.GW5HawuuydIIQx77pp4tzpnYst1QnrbGZUyjf8uZl8I',
@@ -38,12 +39,31 @@ export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 //   };
 // }
 
+function voteUpSeccess() {
+  return {
+    type: VOTE_UP_POST_SECCESS
+  };
+}
+
+function voteDownSeccess() {
+  return {
+    type: VOTE_DOWN_POST_SECCESS
+  };
+}
+
+function addPostSuccess(post) {
+  return {
+    type: CREATE_POST_SUCCESS,
+    post,
+  };
+}
+
+
 function fetchPostsChunk() {
   return {
     type: FETCH_POSTS_CHUNK,
   };
 }
-
 function fetchPostsChunkSuccess(posts) {
   return {
     type: FETCH_POSTS_CHUNK_SUCCESS,
@@ -57,10 +77,20 @@ function fetchPostsChunkFailure(error) {
   };
 }
 
-export function addPostSuccess(post) {
+function fetchPost() {
   return {
-    type: CREATE_POST_SUCCESS,
-    post,
+    type: FETCH_POST,
+  };
+}
+function fetchPostSuccess(postDetail) {
+  return {
+    type: FETCH_POST_SUCCESS,
+    postDetail: postDetail,
+  };
+}
+function fetchPostFailure(error) {
+  return {
+    type: FETCH_POST_FAILURE
   };
 }
 
@@ -71,6 +101,15 @@ export function _fetchPostsChunk(type, paging = 5, page = 1) {
     return getPosts(queryArgs)
       .then(posts => dispatch(fetchPostsChunkSuccess(posts)))
       .catch(error => dispatch(fetchPostsChunkFailure(error)));
+  };
+}
+export function _fetchPost(id) {
+  return (dispatch) => {
+    return getPost(id)
+      .then(post => {
+        dispatch(fetchPostSuccess(post))
+      })
+      .catch(error => console.log(error));
   };
 }
 
@@ -86,7 +125,30 @@ export function addPostRequest(post) {
   };
 }
 
+export function voteUpPost(id){
+  return (dispatch) => {
+    return voteUp(id)
+      .then(res=>{
+        console.log(res.data);
 
+        if(res.data.voteUp == true){
+          dispatch(voteUpSeccess)
+        }
+      })
+  }
+}
+export function voteDownPost(id){
+  return (dispatch) => {
+    return voteDown(id)
+      .then(res=>{
+        console.log(res.data);
+
+        if(res.data.voteDown == true){
+          dispatch(voteDownSeccess)
+        }
+      })
+  }
+}
 export function deletePost(cuid) {
   return {
     type: DELETE_POST,

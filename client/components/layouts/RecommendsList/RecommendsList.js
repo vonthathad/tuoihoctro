@@ -4,6 +4,7 @@ import st from './index.css';
 
 const RecommendsList = (props) => {
   const { recommendsList } = props;
+  console.log(props);
   let recommendsChunks = null;
   if (recommendsList) recommendsChunks = recommendsList.recommendsChunks;
   return (

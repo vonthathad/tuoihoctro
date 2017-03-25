@@ -44,7 +44,7 @@
 .post-header {
   overflow: hidden;
   width: 100%;
-  margin-bottom: 10px;  
+  margin-bottom: 10px;
 }
 
 .post-title {
@@ -64,17 +64,17 @@
 }
 
 .emotion-button{
-  width: 300px; 
-  border-radius: 5px; 
-  font-size: 30px; 
+  width: 300px;
+  border-radius: 5px;
+  font-size: 30px;
   line-height: 5px;
- 
+
   }
 .thumbup{color: #191e3f;}
 /*.thumbup{color: r; }*/
 
 .emotion-buttons-wrapper{float: left;}
-.share-buttons-wrapper{float:right;} 
+.share-buttons-wrapper{float:right;}
 
 .fb-button{
   background-color: #3b5998;
