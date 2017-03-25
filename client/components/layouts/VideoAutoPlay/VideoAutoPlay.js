@@ -10,6 +10,7 @@ class VideoAutoPlay extends Component {
   componentDidMount() {
     this.checkDomPosition(this.props._window);
   }
+
   componentWillReceiveProps(nextProps) {
     this.checkDomPosition(nextProps._window);
   }
@@ -46,6 +47,7 @@ class VideoAutoPlay extends Component {
       <div
         className={`${st['video-wrapper']}`}
         onClick={this.onVideoClick}
+        ref={(videoWrapperRef) => { this.videoWrapperRef = videoWrapperRef; }}
       >
         <video
           className={`${st['video-media-content']}`}
@@ -66,7 +68,7 @@ class VideoAutoPlay extends Component {
         <div
           className={`${st['badge-gif-wrapper']}`}
           ref={badge => { badge && (this.badge = badge); }}
-          style={{ top: 0 - videoHeight / 2 }}
+          style={{ top: 0 - videoHeight * containerWidth / videoWidth / 2 }}
         >
           <span className={`${st['badge-gif']}`}>GIF</span>
         </div>

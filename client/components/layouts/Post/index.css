@@ -11,10 +11,12 @@
 }
 @media (max-width: 990px) {
   .post-box {
+    max-width: 550px;
     width: 100%;
   }
 
   .post-left {
+    max-width: 500px;
     width: 100%;
   }
 
@@ -32,7 +34,7 @@
 }
 .post-box {
   margin: 0 auto;
-  /*width: 550px;*/
+  max-width: 550px; 
   overflow: hidden;
   margin-bottom: 21px;
   border-bottom: 1px solid #dddddd;
