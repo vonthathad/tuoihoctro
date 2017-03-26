@@ -14,7 +14,7 @@ import { _fetchPost, voteUpPost, voteDownPost } from '../../../_actions/PostsAct
 // Import Selectors
 import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
-// import FacebookProvider, { Comments, Share } from 'react-facebook';
+import FacebookProvider, { Comments, Share } from 'react-facebook';
 
 export class PostDetail extends Component{
   // let pathname = window.location.href;
@@ -36,8 +36,14 @@ export class PostDetail extends Component{
   voteDown(id){
     this.props.dispatch(voteDownPost(id))
   }
+  readBack(id){
+    this.props.dispatch(_fetchPost(id-1))
+  }
+  readNext(id){
+    this.props.dispatch(_fetchPost(id+1))
+  }
   render(){
-    console.log(this.props);
+    let pathname = window.location.href;
     return (
       <div id={styles.wrap}>
         <div className="container">
@@ -45,12 +51,14 @@ export class PostDetail extends Component{
             {
               (this.props.post)
               ?  <div className={styles['post-content-box']}>
+
                   <header className={styles['post-header']}>
                     <div className={styles['post-title']}><h1>{this.props.post.title}</h1></div>
                     <div className={styles['post-footer']}>
                       <span className={styles['display-vote']}>{this.props.post.point} Điểm</span> - {this.props.post.view} Lượt xem - 0 Bình luận
                     </div>
                   </header>
+
                   <div className={styles['vote-box-top']}>
                     <a className="btn btn-default glyphicon glyphicon-arrow-up" onClick={this.voteUp.bind(this, this.props.post._id)}><span
                       className={`${styles['vote-font']} ${styles['remove-mobile']}`}
@@ -60,11 +68,10 @@ export class PostDetail extends Component{
                   </div>
 
                   <div className={styles['social-box-top']}>
-                    <a className={`btn btn-default ${styles['fb-button-top']}`}>
-                      <span className="fa fa-facebook"></span>
-                      <span className={styles['remove-mobile']}> Facebook</span>
+                    <a className={`btn btn-default ${styles['fb-button-top']}`} onClick={this.readBack.bind(this, this.props.post._id)}>
+                      <span className={styles['remove-mobile']}> Bài trước</span>
                     </a>
-                    <a className={`btn btn-danger pull-right ${styles['btn-arrow-right']} ${styles['remove-mobile']}`}>
+                    <a className={`btn btn-danger pull-right ${styles['btn-arrow-right']} ${styles['remove-mobile']}`} onClick={this.readNext.bind(this, this.props.post._id)}>
                       Đọc tiếp
                     </a>
                   </div>
@@ -72,19 +79,27 @@ export class PostDetail extends Component{
                   <div className={styles['post-page-left']}>
                     <div id={styles['page-post']} className={styles['post-content']}>
                       <a_fetchPost className={styles['popup-image']}>
-                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} style={{ width: '600' }} />
+                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} width = {600} />
                       </a_fetchPost>
                     </div>
                     <div className={styles['bottom-share']}>
-                      <a className={styles['fb-btn-long']}>Share on Facebook</a>
+                      <FacebookProvider appID="370964589952027">
+                        <Share href={pathname}>
+                          <a className={styles['fb-btn-long']}>Share on Facebook</a>
+
+                        </Share>
+                      </FacebookProvider>
                     </div>
                     <div className={styles['post-date']}>
                       <abbr className={styles.timeago}></abbr> BY
-                      <a className={styles['user-link']}>{this.props.post.creator.username}</a>
+                      {/*<a className={styles['user-link']}>{this.props.post.creator.username}</a>*/}
                     </div>
                   </div>
+                  <FacebookProvider appID="370964589952027">
+                    <Comments href={pathname} />
+                  </FacebookProvider>
                 </div>
-                : <div>Chua co du lieu</div>
+                : <div className={styles.loading}>Loading&#8230;</div>
             }
           </div>
 

@@ -34,15 +34,28 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
 
     case FETCH_POST_SUCCESS:
       const temp1 = { postDetail: { ...state.postDetail } };
-      temp1.postDetail = action.postDetail.data
+      temp1.postDetail = action.postDetail.data;
       return {
         ...state,
         ...temp1
       };
     case VOTE_UP_POST_SUCCESS:
-      return { ...state.postDetail, point: state.postDetail.point +1 };
-    case VOTE_DOWN_POST_SUCCESS:
-      return { ...state.postDetail, point: state.postDetail.point - 1 };
+    {
+      const temp = { postDetail: { ...state.postDetail } };
+      temp.postDetail.point += 1;
+      return {
+        ...state,
+        ...temp,
+      };
+    }
+    case VOTE_DOWN_POST_SUCCESS: {
+      const temp4 = { postDetail: {...state.postDetail} };
+      temp4.postDetail.point -= 1;
+      return {
+        ...state,
+        ...temp4,
+      };
+    }
     case FETCH_POST_FAILURE:
       return {
         postDetail: {}
