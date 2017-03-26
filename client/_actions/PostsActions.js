@@ -64,10 +64,10 @@ export function addPostSuccess(post) {
   };
 }
 
-export function _fetchPostsChunk(type, paging = 5, page = 1) {
+export function _fetchPostsChunk(page = 1) {
   return (dispatch) => {
     dispatch(fetchPostsChunk());
-    const queryArgs = { type, paging, page };
+    const queryArgs = { page };
     return getPosts(queryArgs)
       .then(posts => dispatch(fetchPostsChunkSuccess(posts)))
       .catch(error => dispatch(fetchPostsChunkFailure(error)));

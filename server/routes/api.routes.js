@@ -32,8 +32,8 @@ router.param('categoryID', categories.categoryByURL);
 
 // ////////// POST
 router.post('/posts', users.requiresLogin, posts.create)
-  .get('/posts', posts.list);
-router.get('/poststest', posts.listtest);
+  .get('/posts', posts.listPosts);
+router.get('/postsRecommend', posts.listRecommendPosts);
 router.route('/posts/:postID')
   .get(posts.get)
   .delete(users.requiresLogin, posts.remove);

@@ -10,7 +10,7 @@ const RecommendsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_RECOMMEND_CHUNK:
       {
-        console.log(state);
+        // console.log(state);
         return {
           ...state,
           recommendsList:
@@ -40,7 +40,7 @@ const RecommendsReducer = (state = INITIAL_STATE, action) => {
         recommendsChunks[lastChunkIndex].recommends = action.payload;
         recommendsList.fetching = false;
         recommendsList.page++;
-        console.log(state);
+        // console.log(state);
         return {
           ...state,
           recommendsList,

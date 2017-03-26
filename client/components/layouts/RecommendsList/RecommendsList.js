@@ -7,7 +7,7 @@ class RecommendsList extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(_fetchRecommendsChunk('smallThumb', 6, 1));
+    dispatch(_fetchRecommendsChunk(1));
   }
   render() {
     const { recommendsList } = this.props;

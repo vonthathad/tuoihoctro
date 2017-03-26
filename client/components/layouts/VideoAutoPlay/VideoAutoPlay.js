@@ -22,11 +22,11 @@ class VideoAutoPlay extends Component {
     }
   };
   checkDomPosition(_window) {
-    const { y, h } = this.videoRef;
-    if (_window.pageYOffset < y && _window.pageYOffset + _window.innerHeight > y + h + h / 3) {
-      setTimeout(() => {
-        this.playVideo();
-      }, 300);
+    const { y } = this.videoRef;
+    const { videoWidth, videoHeight, containerWidth } = this.props;
+    const changedVideoHeight = videoHeight * containerWidth / videoWidth;
+    if (_window.pageYOffset < y + changedVideoHeight / 2 && _window.pageYOffset + _window.innerHeight > y + changedVideoHeight) {
+      this.playVideo();
     } else {
       this.pauseVideo();
     }
@@ -43,21 +43,20 @@ class VideoAutoPlay extends Component {
   };
   render() {
     const { videoWidth, videoHeight, videoSrc, containerWidth } = this.props;
+    const changedVideoHeight = videoHeight * containerWidth / videoWidth;
     return (
       <div
         className={`${st['video-wrapper']}`}
         onClick={this.onVideoClick}
-        ref={(videoWrapperRef) => { this.videoWrapperRef = videoWrapperRef; }}
       >
         <video
           className={`${st['video-media-content']}`}
           width={containerWidth}
-          height={videoHeight * containerWidth / videoWidth}
+          height={changedVideoHeight}
           ref={videoTag => {
             videoTag &&
               (this.videoRef = {
                 y: videoTag.offsetTop,
-                h: videoTag.offsetHeight,
                 video: videoTag,
               });
           }}
@@ -68,7 +67,7 @@ class VideoAutoPlay extends Component {
         <div
           className={`${st['badge-gif-wrapper']}`}
           ref={badge => { badge && (this.badge = badge); }}
-          style={{ top: 0 - videoHeight * containerWidth / videoWidth / 2 }}
+          style={{ top: 0 - changedVideoHeight / 2 }}
         >
           <span className={`${st['badge-gif']}`}>GIF</span>
         </div>

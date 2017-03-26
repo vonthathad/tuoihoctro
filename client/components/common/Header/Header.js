@@ -7,7 +7,6 @@ import logo from '../../../assets/logos/iconweb.svg';
 // import logo from '../../../assets/images/ribbon.svg';
 class Header extends Component {
   burgerToggle = () => {
-    console.log(1235);
     const linksEl = this.narrowLinkRef;
     if (linksEl.style.display === 'block') {
       linksEl.style.display = 'none';
