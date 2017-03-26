@@ -1,13 +1,14 @@
 import {
   FETCH_POSTS_CHUNK, FETCH_POSTS_CHUNK_FAILURE, FETCH_POSTS_CHUNK_SUCCESS, CREATE_POST_SUCCESS,
-  FETCH_POST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS, VOTE_UP_POST_SECCESS,VOTE_DOWN_POST_SECCESS
+  FETCH_POST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS, VOTE_UP_POST_SUCCESS,VOTE_DOWN_POST_SUCCESS
 } from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsList: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
   postsList: { postsChunks: [], page: 1, paging: 5, error: false, fetching: false },
   newPost: { post: null, error: null, loading: false },
   activePost: { post: null, error: null, loading: false },
-  deletedPost: { post: null, error: null, loading: false }
+  deletedPost: { post: null, error: null, loading: false },
+  postDetail: {}
 };
 // Initial State
 
@@ -38,20 +39,10 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         ...temp1
       };
-    case VOTE_UP_POST_SECCESS:
-      const temp2 = { postDetail: { ...state.postDetail } };
-      temp2.postDetail.point += 1;
-      return {
-        ...state,
-        ...temp2
-      };
-    case VOTE_DOWN_POST_SECCESS:
-      const temp = { postDetail: { ...state.postDetail } };
-      temp.postDetail.point -= 1;
-      return {
-        ...state,
-        ...temp
-      };
+    case VOTE_UP_POST_SUCCESS:
+      return { ...state.postDetail, point: state.postDetail.point +1 };
+    case VOTE_DOWN_POST_SUCCESS:
+      return { ...state.postDetail, point: state.postDetail.point - 1 };
     case FETCH_POST_FAILURE:
       return {
         postDetail: {}

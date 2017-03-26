@@ -37,54 +37,56 @@ export class PostDetail extends Component{
     this.props.dispatch(voteDownPost(id))
   }
   render(){
-    const post = this.props.post ;
-    console.log(post);
+    console.log(this.props);
     return (
       <div id={styles.wrap}>
         <div className="container">
           <div className="col-sm-8" id={styles.left}>
-            <div className={styles['post-content-box']}>
-              <header className={styles['post-header']}>
-                <div className={styles['post-title']}><h1>{post.title}</h1></div>
-                <div className={styles['post-footer']}>
-                  <span className={styles['display-vote']}>{post.point} Điểm</span> - {post.view} Lượt xem - 0 Bình luận
-                </div>
-              </header>
-              <div className={styles['vote-box-top']}>
-                <a className="btn btn-default glyphicon glyphicon-arrow-up" onClick={this.voteUp.bind(this, post._id)}><span
-                  className={`${styles['vote-font']} ${styles['remove-mobile']}`}
-                >UP</span>
-                </a>
-                <a className="btn btn-default glyphicon glyphicon-arrow-down" onClick={this.voteDown.bind(this,post._id)}></a>
-              </div>
+            {
+              (this.props.post)
+              ?  <div className={styles['post-content-box']}>
+                  <header className={styles['post-header']}>
+                    <div className={styles['post-title']}><h1>{this.props.post.title}</h1></div>
+                    <div className={styles['post-footer']}>
+                      <span className={styles['display-vote']}>{this.props.post.point} Điểm</span> - {this.props.post.view} Lượt xem - 0 Bình luận
+                    </div>
+                  </header>
+                  <div className={styles['vote-box-top']}>
+                    <a className="btn btn-default glyphicon glyphicon-arrow-up" onClick={this.voteUp.bind(this, this.props.post._id)}><span
+                      className={`${styles['vote-font']} ${styles['remove-mobile']}`}
+                    >UP</span>
+                    </a>
+                    <a className="btn btn-default glyphicon glyphicon-arrow-down" onClick={this.voteDown.bind(this,this.props.post._id)}></a>
+                  </div>
 
-              <div className={styles['social-box-top']}>
-                <a className={`btn btn-default ${styles['fb-button-top']}`}>
-                  <span className="fa fa-facebook"></span>
-                  <span className={styles['remove-mobile']}> Facebook</span>
-                </a>
-                <a className={`btn btn-danger pull-right ${styles['btn-arrow-right']} ${styles['remove-mobile']}`}>
-                  Đọc tiếp
-                </a>
-              </div>
+                  <div className={styles['social-box-top']}>
+                    <a className={`btn btn-default ${styles['fb-button-top']}`}>
+                      <span className="fa fa-facebook"></span>
+                      <span className={styles['remove-mobile']}> Facebook</span>
+                    </a>
+                    <a className={`btn btn-danger pull-right ${styles['btn-arrow-right']} ${styles['remove-mobile']}`}>
+                      Đọc tiếp
+                    </a>
+                  </div>
 
-              <div className={styles['post-page-left']}>
-                <div id={styles['page-post']} className={styles['post-content']}>
-                  <a className={styles['popup-image']}>
-                    <img alt="" src={post.mediaContent} className={styles['img-responsive']} style={{ width: '600' }} />
-                  </a>
+                  <div className={styles['post-page-left']}>
+                    <div id={styles['page-post']} className={styles['post-content']}>
+                      <a_fetchPost className={styles['popup-image']}>
+                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} style={{ width: '600' }} />
+                      </a_fetchPost>
+                    </div>
+                    <div className={styles['bottom-share']}>
+                      <a className={styles['fb-btn-long']}>Share on Facebook</a>
+                    </div>
+                    <div className={styles['post-date']}>
+                      <abbr className={styles.timeago}></abbr> BY
+                      <a className={styles['user-link']}>{this.props.post.creator.username}</a>
+                    </div>
+                  </div>
                 </div>
-                <div className={styles['bottom-share']}>
-                  <a className={styles['fb-btn-long']}>Share on Facebook</a>
-                </div>
-                <div className={styles['post-date']}>
-                  <abbr className={styles.timeago}></abbr> BY
-                  <a className={styles['user-link']}>{post.creator.username}</a>
-                </div>
-              </div>
-            </div>
+                : <div>Chua co du lieu</div>
+            }
           </div>
-          <RecommendsListContainer/>
 
         </div>
       </div>
@@ -100,9 +102,8 @@ PostDetail.need = [params => {
 
 // Retrieve data from store as props
 function mapStateToProps(state, props) {
-  console.log(state,getPost(state, props.params.cuid))
     return {
-      post: getPost(state, props.params.cuid),
+      post: state.postsStore.postDetail,
     };
 }
 

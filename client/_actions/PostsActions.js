@@ -25,8 +25,8 @@ export const DELETE_POST = 'DELETE_POST';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
-export const VOTE_UP_POST_SECCESS = 'VOTE_UP_POST_SECCESS';
-export const VOTE_DOWN_POST_SECCESS = 'VOTE_DOWN_POST_SECCESS';
+export const VOTE_UP_POST_SUCCESS = 'VOTE_UP_POST_SUCCESS';
+export const VOTE_DOWN_POST_SUCCESS = 'VOTE_DOWN_POST_SUCCESS';
 // export function createPost(post) {
 //   const headers = {
 //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRydW5naGlldXRrNDU5QGdtYWlsLmNvbSIsImlhdCI6MTQ4ODIwMzY1M30.GW5HawuuydIIQx77pp4tzpnYst1QnrbGZUyjf8uZl8I',
@@ -41,13 +41,13 @@ export const VOTE_DOWN_POST_SECCESS = 'VOTE_DOWN_POST_SECCESS';
 
 function voteUpSeccess() {
   return {
-    type: VOTE_UP_POST_SECCESS
+    type: VOTE_UP_POST_SUCCESS
   };
 }
 
 function voteDownSeccess() {
   return {
-    type: VOTE_DOWN_POST_SECCESS
+    type: VOTE_DOWN_POST_SUCCESS
   };
 }
 
@@ -58,6 +58,12 @@ function addPostSuccess(post) {
   };
 }
 
+function fetchPostSuccess(post) {
+  return {
+    type: FETCH_POST_SUCCESS,
+    post,
+  };
+}
 
 function fetchPostsChunk() {
   return {
@@ -121,7 +127,7 @@ export function addPostRequest(post) {
     }).then(res => {
       console.log(res);
       dispatch(addPostSuccess(res));
-    });
+    }).catch(error => console.log(error));;
   };
 }
 
@@ -131,8 +137,10 @@ export function voteUpPost(id){
       .then(res=>{
         console.log(res.data);
 
-        if(res.data.voteUp == true){
-          dispatch(voteUpSeccess)
+        if(res.data.voteUp){
+          console.log(1);
+
+          dispatch(voteUpSeccess())
         }
       })
   }
@@ -143,8 +151,9 @@ export function voteDownPost(id){
       .then(res=>{
         console.log(res.data);
 
-        if(res.data.voteDown == true){
-          dispatch(voteDownSeccess)
+        if(res.data.voteDown){
+          console.log(2);
+          dispatch(voteDownSeccess())
         }
       })
   }
