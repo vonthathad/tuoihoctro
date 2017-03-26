@@ -27,8 +27,8 @@ const Home = () => (
 
 // Actions required to provide data for this component to render in sever side.
 Home.need = [
-  () => { return _fetchPostsChunk('thumb'); },
-  () => { return _fetchRecommendsChunk('smallThumb'); },
+  () => { return _fetchPostsChunk(1); },
+  () => { return _fetchRecommendsChunk(200); },
 ];
 
 Home.contextTypes = {

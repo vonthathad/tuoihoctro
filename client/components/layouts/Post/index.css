@@ -4,17 +4,21 @@
     display: none;
   }
 }
+
 .post-left {
   width: 500px;
   overflow: hidden;
+  position: relative;
   float: left;
 }
 @media (max-width: 990px) {
   .post-box {
+    max-width: 550px;
     width: 100%;
   }
 
   .post-left {
+    max-width: 500px;
     width: 100%;
   }
 
@@ -28,13 +32,12 @@
   }
 }
 .post{
-  border-radius: 10px;
 }
 .post-box {
   margin: 0 auto;
-  width: 550px;
+  max-width: 550px;
   overflow: hidden;
-  padding: 10px 0;
+  margin-bottom: 21px;
   border-bottom: 1px solid #dddddd;
 }
 
@@ -53,28 +56,16 @@
 }
 .post-footer {
   color: #999;
-  margin: 10px 0;
+  margin: 5px 0;
   font-weight: normal;
-  font-size: 14px;
   text-align: left;
+  font-size: 25px;
 }
 .post-title h1 {
   font-weight: 700;
   float: left;
 }
 
-.emotion-button{
-  width: 300px;
-  border-radius: 5px;
-  font-size: 30px;
-  line-height: 5px;
-
-  }
-.thumbup{color: #191e3f;}
-/*.thumbup{color: r; }*/
-
-.emotion-buttons-wrapper{float: left;}
-.share-buttons-wrapper{float:right;}
 
 .fb-button{
   background-color: #3b5998;
@@ -84,9 +75,10 @@
   height: 34px;
   line-height: 34px;
   padding: 0 23px 0 17px;
-  border-radius: 2px;
+  border-radius: 5px;
   text-align: center;
   font-size: 14px;
+  cursor: pointer;
 }
 .fb-button:hover{
   background-color: #4c70ba;
@@ -103,3 +95,91 @@
   display: block;
   float: right;
 }
+
+
+/*DEVIDE*/
+
+.social-button{
+  height:50px;
+}
+
+.box-vote{
+  float:left;
+  margin-right: 20px;
+  position: relative;
+  transition: 0.06s ease-in-out;
+  transition-property: bottom;
+  bottom: 0px;
+}
+.box-vote:hover{
+  bottom: 4px;
+}
+
+.box-comment{
+  float:left;
+  line-height: 36px;
+  display: block;
+   position: relative;
+  transition: 0.06s ease-in-out;
+  transition-property: bottom;
+  bottom: 0px;
+}
+.box-comment:hover{
+  bottom: 4px;
+}
+.box-facebook{
+  float:right;
+}
+.twitter-heart-wrapper{
+  display: inline-block;
+  font-size: 15px;
+  margin-top: 4px;
+  float: left;
+  width: 56px;
+  position: absolute;
+  left: -10px;
+  transform: scale(0.75);
+
+
+}
+.vote-number-wrapper{
+  float: right;
+  margin-left: 32px;
+  line-height: 36px;
+  font-size: 15px;
+  color: #597836;
+}
+
+.comment-icon-wrapper{
+  float: left;
+  line-height: 36px;
+  cursor: pointer;
+  display: block;
+}
+.comment-icon-wrapper:hover{
+   color: #597836;
+}
+.comment-number-wrapper{
+  float: right;
+  margin-left: 5px;
+  font-size: 15px;
+  line-height: 36px;
+  color: #597836
+}
+
+.read-more{
+  position: absolute;
+  background: #fff;
+  bottom: 46px;
+  line-height: 33px;
+  height: 33px;
+  width: 100%;
+  z-index: 10;
+  display: block;
+  left: 0px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 1px 0 rgba(0,0,0,.05);
+}
+

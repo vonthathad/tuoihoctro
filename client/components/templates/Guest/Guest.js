@@ -31,12 +31,12 @@ export class Guest extends Component {
     this.props.dispatch(checkLogin());
   }
 
-  changeStyleModal(check) {
-    if (check === true) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'inherit';
-    }
+  changeStyleModal() {
+    // if (check === true) {
+    //   document.body.style.overflow = 'hidden';
+    // } else {
+    //   document.body.style.overflow = 'inherit';
+    // }
   }
 
   toggleAddPostSection = () => {

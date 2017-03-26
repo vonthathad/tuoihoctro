@@ -22,7 +22,6 @@ Recommend.propTypes = {
   recommend: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    smallThumb: PropTypes.string.isRequired,
   }).isRequired,
   children: PropTypes.node.isRequired,
 };

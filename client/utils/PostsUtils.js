@@ -1,4 +1,4 @@
-import { get, post,put } from './_requestCaller';
+import { get, post, put } from './_requestCaller';
 
 export function getPosts(queryArgs) {
   const headers = {
@@ -8,6 +8,17 @@ export function getPosts(queryArgs) {
   return get({
     queryArgs,
     url: 'api/posts',
+    headers,
+  });
+}
+export function getPostsRecommend(queryArgs) {
+  const headers = {
+    'Content-type': 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpcmRhdDE5OTNAZ21haWwuY29tIiwiaWF0IjoxNDg3NzY4MTE3fQ.Ds8JI_moMH9-UzuS38p1zGWirYNM89uadhV8RsShTjg',
+  };
+  return get({
+    queryArgs,
+    url: 'api/postsRecommend',
     headers,
   });
 }
@@ -27,7 +38,7 @@ export function getPost(id) {
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpcmRhdDE5OTNAZ21haWwuY29tIiwiaWF0IjoxNDg3NzY4MTE3fQ.Ds8JI_moMH9-UzuS38p1zGWirYNM89uadhV8RsShTjg',
   };
   return get({
-    url: 'api/posts/'+id,
+    url: `api/posts/${id}`,
     headers,
   });
 }
@@ -37,7 +48,7 @@ export function voteUp(id) {
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpcmRhdDE5OTNAZ21haWwuY29tIiwiaWF0IjoxNDg3NzY4MTE3fQ.Ds8JI_moMH9-UzuS38p1zGWirYNM89uadhV8RsShTjg',
   };
   return put({
-    url: 'api/posts/'+id+'/voteUp',
+    url: `api/posts/${id}/voteUp`,
     headers,
   });
 }
@@ -46,7 +57,7 @@ export function voteDown(id) {
     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpcmRhdDE5OTNAZ21haWwuY29tIiwiaWF0IjoxNDg3NzY4MTE3fQ.Ds8JI_moMH9-UzuS38p1zGWirYNM89uadhV8RsShTjg',
   };
   return put({
-    url: 'api/posts/'+id+'/voteDown',
+    url: `api/posts/${id}/voteDown`,
     headers,
   });
 }

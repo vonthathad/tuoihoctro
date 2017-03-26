@@ -1,5 +1,5 @@
 // import request from '../../services/api.services';
-import { getPosts } from '../utils/PostsUtils';
+import { getPostsRecommend } from '../utils/PostsUtils';
 // Recommend list
 export const FETCH_RECOMMEND_CHUNK = 'FETCH_RECOMMEND_CHUNK';
 export const FETCH_RECOMMEND_CHUNK_SUCCESS = 'FETCH_RECOMMEND_CHUNK_SUCCESS';
@@ -36,7 +36,7 @@ function fetchRecommendsChunkFailure(error) {
   };
 }
 
-export function _fetchRecommendsChunk(type, paging = 5, page = 1) {
+export function _fetchRecommendsChunk(paging = 200) {
   return (dispatch) => {
     dispatch(fetchRecommendsChunk());
     // return request(`http://localhost:4000/api/smallThumbs?type=${type}&paging=${paging}&page=${page}`, {
@@ -46,13 +46,16 @@ export function _fetchRecommendsChunk(type, paging = 5, page = 1) {
     //   },
     //   method: 'get',
     // })
-    const queryArgs = { type, paging, page };
-    return getPosts(queryArgs)
+    const queryArgs = { paging };
+    return getPostsRecommend(queryArgs)
       .then((recommends) => {
         return dispatch(fetchRecommendsChunkSuccess(recommends));
       }
       )
-      .catch(error => dispatch(fetchRecommendsChunkFailure(error)));
+      .catch(error => {
+        console.log(error);
+        dispatch(fetchRecommendsChunkFailure(error));
+      });
   };
 }
 

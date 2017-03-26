@@ -36,7 +36,7 @@ function request(options) {
 }
 
 export function post(options) {
-  console.log(options);
+  // console.log(options);
   options.method = 'post';
   return request(options);
 }

@@ -1,5 +1,5 @@
 // import request from '../../services/api.services';
-import { getPosts, addPost, getPost,voteUp, voteDown } from '../utils/PostsUtils';
+import { getPosts, addPost, getPost, voteUp, voteDown } from '../utils/PostsUtils';
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
@@ -41,13 +41,13 @@ export const VOTE_DOWN_POST_SUCCESS = 'VOTE_DOWN_POST_SUCCESS';
 
 function voteUpSeccess() {
   return {
-    type: VOTE_UP_POST_SUCCESS
+    type: VOTE_UP_POST_SUCCESS,
   };
 }
 
 function voteDownSeccess() {
   return {
-    type: VOTE_DOWN_POST_SUCCESS
+    type: VOTE_DOWN_POST_SUCCESS,
   };
 }
 
@@ -58,12 +58,12 @@ function addPostSuccess(post) {
   };
 }
 
-function fetchPostSuccess(post) {
-  return {
-    type: FETCH_POST_SUCCESS,
-    post,
-  };
-}
+// function fetchPostSuccess(post) {
+//   return {
+//     type: FETCH_POST_SUCCESS,
+//     post,
+//   };
+// }
 
 function fetchPostsChunk() {
   return {
@@ -83,27 +83,27 @@ function fetchPostsChunkFailure(error) {
   };
 }
 
-function fetchPost() {
-  return {
-    type: FETCH_POST,
-  };
-}
+// function fetchPost() {
+//   return {
+//     type: FETCH_POST,
+//   };
+// }
 function fetchPostSuccess(postDetail) {
   return {
     type: FETCH_POST_SUCCESS,
-    postDetail: postDetail,
+    postDetail,
   };
 }
-function fetchPostFailure(error) {
-  return {
-    type: FETCH_POST_FAILURE
-  };
-}
+// function fetchPostFailure(error) {
+//   return {
+//     type: FETCH_POST_FAILURE,
+//   };
+// }
 
-export function _fetchPostsChunk(type, paging = 5, page = 1) {
+export function _fetchPostsChunk(page) {
   return (dispatch) => {
     dispatch(fetchPostsChunk());
-    const queryArgs = { type, paging, page };
+    const queryArgs = { page };
     return getPosts(queryArgs)
       .then(posts => dispatch(fetchPostsChunkSuccess(posts)))
       .catch(error => dispatch(fetchPostsChunkFailure(error)));
@@ -113,50 +113,50 @@ export function _fetchPost(id) {
   return (dispatch) => {
     return getPost(id)
       .then(post => {
-        dispatch(fetchPostSuccess(post))
+        dispatch(fetchPostSuccess(post));
       })
       .catch(error => console.log(error));
   };
 }
 
 export function addPostRequest(post) {
-  console.log(post);
+  // console.log(post);
   return (dispatch) => {
     return addPost({
       post,
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch(addPostSuccess(res));
-    }).catch(error => console.log(error));;
+    }).catch(error => console.log(error));
   };
 }
 
-export function voteUpPost(id){
+export function voteUpPost(id) {
   return (dispatch) => {
     return voteUp(id)
-      .then(res=>{
+      .then(res => {
         console.log(res.data);
 
-        if(res.data.voteUp){
+        if (res.data.voteUp) {
           console.log(1);
 
-          dispatch(voteUpSeccess())
+          dispatch(voteUpSeccess());
         }
-      })
-  }
+      });
+  };
 }
-export function voteDownPost(id){
+export function voteDownPost(id) {
   return (dispatch) => {
     return voteDown(id)
-      .then(res=>{
+      .then(res => {
         console.log(res.data);
 
-        if(res.data.voteDown){
+        if (res.data.voteDown) {
           console.log(2);
-          dispatch(voteDownSeccess())
+          dispatch(voteDownSeccess());
         }
-      })
-  }
+      });
+  };
 }
 export function deletePost(cuid) {
   return {

@@ -10,10 +10,9 @@ const RecommendsChunk = ({ recommends, loading }) => (
     }
     {!loading && recommends && recommends.length > 0 &&
       recommends.map(recommend => (
-        <div className={st['recommend-item']}>
+        <div className={st['recommend-item']} key={recommend._id}>
           <Recommend recommend={recommend}>
             <ImagePrettyLoad
-              key={recommend._id}
               image={recommend.smallThumb}
               imageLQ={recommend.smallThumbLQ}
               imageHeight={recommend.smallThumbHeight}

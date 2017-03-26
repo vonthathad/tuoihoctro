@@ -32,7 +32,8 @@ router.param('categoryID', categories.categoryByURL);
 
 // ////////// POST
 router.post('/posts', users.requiresLogin, posts.create)
-  .get('/posts', posts.list);
+  .get('/posts', posts.listPosts);
+router.get('/postsRecommend', posts.listRecommendPosts);
 router.route('/posts/:postID')
   .get(posts.get)
   .delete(users.requiresLogin, posts.remove);
@@ -42,6 +43,8 @@ router.route('/posts/:postID/view')
   .put(posts.view);
 router.route('/posts/:postID/report')
   .put(users.requiresLogin, posts.report);
+router.route('/posts/:postID/vote')
+  .put(users.requiresLogin, posts.vote);
 router.route('/posts/:postID/voteUp')
   .put(users.requiresLogin, posts.voteUp);
 router.route('/posts/:postID/voteDown')

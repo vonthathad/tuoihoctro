@@ -10,8 +10,10 @@ const RecommendsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_RECOMMEND_CHUNK:
       {
+        // console.log(state);
         return {
-          ...state, recommendsList:
+          ...state,
+          recommendsList:
           {
             ...state.recommendsList,
             recommendsChunks: [
@@ -26,14 +28,22 @@ const RecommendsReducer = (state = INITIAL_STATE, action) => {
       }
     case FETCH_RECOMMEND_CHUNK_SUCCESS:
       {
-        const recommendsChunks = state.recommendsList.recommendsChunks;
+        // const recommendsChunks = state.recommendsList.recommendsChunks;
+        // const lastChunkIndex = recommendsChunks.length - 1;
+        // recommendsChunks[lastChunkIndex].loading = false;
+        // recommendsChunks[lastChunkIndex].recommends = action.payload;
+
+        const recommendsList = { ...state.recommendsList };
+        const recommendsChunks = recommendsList.recommendsChunks;
         const lastChunkIndex = recommendsChunks.length - 1;
         recommendsChunks[lastChunkIndex].loading = false;
         recommendsChunks[lastChunkIndex].recommends = action.payload;
+        recommendsList.fetching = false;
+        recommendsList.page++;
+        // console.log(state);
         return {
-          ...state.recommendsList,
-          recommendsChunks,
-          page: state.recommendsList.page + 1,
+          ...state,
+          recommendsList,
         };
       }
     case FETCH_RECOMMEND_CHUNK_FAILURE:

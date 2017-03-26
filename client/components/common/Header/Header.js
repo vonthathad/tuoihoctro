@@ -1,32 +1,34 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-
 // Import Style
-import styles from './index.css';
-import logo from '../../../assets/logos/iconweb.png';
+import st from './index.css';
+import logo from '../../../assets/logos/iconweb.svg';
+// import NavBar from '../../layouts/NavBar/NavBar';
+// import logo from '../../../assets/images/ribbon.svg';
+class Header extends Component {
+  burgerToggle = () => {
+    const linksEl = this.narrowLinkRef;
+    if (linksEl.style.display === 'block') {
+      linksEl.style.display = 'none';
+    } else {
+      linksEl.style.display = 'block';
+    }
+  };
 
-function Header(props) {
-  const curentUser = props.curentUser;
-  return (
-    <nav className="navbar-inverse navbar-fixed-top">
-      <div className="container-fluid">
-        <div className="container">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1"
-            ><span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span> <span className="icon-bar"></span> <span className="icon-bar"></span>
-            </button>
-            <a className="navbar-brand" href="/"><img
+  render() {
+    const curentUser = this.props.curentUser;
+    return (
+      <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
+        <div className={`${st.body_ribbon} ${st.esi_ribbon}`}></div>
+        <div className={`${st['nav-wide']} container`}>
+          <a className={`navbar-brand ${st['logo-wrapper']}`} href="/">
+            <img
               src={logo}
-              className={styles.logo}
+              className={st.logo}
               alt="Tuổi học trò"
-            /></a>
-          </div>
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            />
+          </a>
+          <div className={st['wide-div']}>
             <ul className="nav navbar-nav">
               <li><a href="index.html">Home</a></li>
               <li><a href="hot.html">Hot</a></li>
@@ -50,31 +52,68 @@ function Header(props) {
                 </ul>
               </li>
             </ul>
+             {
+               curentUser._id && curentUser ?
+                 <ul className={'nav navbar-nav navbar-right'}>
+                   <li className="btn-upload"><a>Xin chào: {curentUser.username}</a></li>
+                   <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>
+                   <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
+                 </ul>
+                 :
+                 <ul className={'nav navbar-nav navbar-right'}>
+                   <li><a onClick={this.props.toggleLogin}>Đăng nhập</a></li>
+                   <li><Link to="/admin">Admin</Link></li>
+                   <li><a onClick={this.props.toggleRegister}>Đăng ký</a></li>
+                 </ul>
+             }
+          </div>
+        </div>
+        <div className={`${st['nav-narrow']} container`}>
+          <div className={st['mobile-logo-wrapper']}>
+            <a className={`navbar-brand ${st['logo-wrapper']}`} href="/">
+              <img
+                src={logo}
+                className={st.logo}
+                alt="Tuổi học trò"
+              />
+            </a>
+          </div>
+          <div className={st['mobile-menu-icon-wrapper']}>
+            <i className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+          </div>
+          <div
+            className={st['narrow-links']}
+            ref={narrowLinkRef => {
+              this.narrowLinkRef = narrowLinkRef;
+            }}
+          >
+            <a onClick={() => { this.burgerToggle(); }}>Home</a>
+            <a href="hot.html">Hot</a>
+            <a href="trending.html">Top</a>
+            <a href="fresh.html">Fresh</a>
             {
-              curentUser._id && curentUser
-                ? <ul className={`nav navbar-nav navbar-right ${styles['navbar-right']}`}>
-                  <li className="btn-upload"><a>Xin chào: {curentUser.username}</a></li>
-
-                  <li className="btn-upload"><a onClick={props.toggleAddPost}>Upload</a></li>
-                  <li className="btn-upload"><a onClick={props.logout}>Đăng xuất</a></li>
-                </ul>
-                : <ul className={`nav navbar-nav navbar-right ${styles['navbar-right']}`}>
-                  <li><a onClick={props.toggleLogin}>Đăng nhập</a></li>
-                  <li><Link to="/admin">Admin</Link></li>
-                  <li><a onClick={props.toggleRegister}>Đăng ký</a></li>
-                </ul>
+              curentUser._id && curentUser ?
+                <div>
+                  <a onClick={() => { this.props.toggleAddPost(); this.burgerToggle(); }}>Upload</a>
+                  <a onClick={() => { this.props.logout(); this.burgerToggle(); }}>Đăng xuất</a>
+                </div>
+                :
+                <div>
+                  <a onClick={() => { this.props.toggleLogin(); this.burgerToggle(); }}>Đăng nhập</a>
+                  <a onClick={() => { this.burgerToggle(); }}>Đăng nhập</a>
+                  <Link to="/admin">Admin</Link>
+                  <a onClick={() => { this.props.toggleRegister(); this.burgerToggle(); }}>Đăng ký</a>
+                </div>
             }
           </div>
         </div>
-      </div>
-    </nav>
-  );
+      </nav>
+    );
+  }
 }
-
 Header.contextTypes = {
   router: React.PropTypes.object,
 };
-
 Header.propTypes = {
   toggleAddPost: PropTypes.func.isRequired,
   toggleLogin: PropTypes.func.isRequired,
@@ -82,5 +121,4 @@ Header.propTypes = {
   curentUser: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
 };
-
 export default Header;

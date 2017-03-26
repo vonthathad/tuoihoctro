@@ -170,7 +170,6 @@ exports.list = (req, res) => {
             pointDown: 1,
             pointTotal: 1,
             voteUps: 1,
-            voteDowns: 1,
             creator: {
               $arrayElemAt: [[{
                 avatar: { $arrayElemAt: ['$creator.avatar', 0] },
@@ -182,7 +181,7 @@ exports.list = (req, res) => {
                 { $sort: { confident: -1 } },
                 { $skip: skip },
                 // Optionally limit results
-                { $limit: (paging + 1) },
+                { $limit: (paging) },
       ]
             , (err, results) => {
       if (err) return res.status(400).send();

@@ -12,16 +12,13 @@ import fs from 'fs';
 import ffmpeg from 'fluent-ffmpeg';
 import serverConfig from '../configs/server.config';
 import mkdirp from 'mkdirp';
-
 const exec = require('child_process').exec;
-
 // size
 const WIDTH_MEDIACONTENT = 600;
 const WIDTH_THUMB = 460;
 const HEIGHT_THUMB = 300;
 const WIDTH_SMALLTHUMB = 300;
 const HEIGHT_SMALLTHUMB = 157;
-
 const getErrorMessage = (err) => {
   // console.log(err);
   let messages = [];
@@ -57,12 +54,9 @@ const configAggregation = (sortType, aggregation) => {
                   $cond: [
                     {
                       $lt: ['$point', 0],
-                    },
-                    0,
-                    1,
+                    }, 0, 1,
                   ],
-                },
-                -1,
+                }, -1,
               ],
             }, {
               $log: [
@@ -70,11 +64,9 @@ const configAggregation = (sortType, aggregation) => {
                   $max: [
                     {
                       $abs: '$point',
-                    },
-                    1,
+                    }, 1,
                   ],
-                },
-                10,
+                }, 10,
               ],
             },
           ],
@@ -84,11 +76,9 @@ const configAggregation = (sortType, aggregation) => {
               $divide: [
                 {
                   $subtract: ['$created', new Date('2005-12-8')],
-                },
-                1000,
+                }, 1000,
               ],
-            },
-            46000,
+            }, 46000,
           ],
         },
       ],
@@ -105,8 +95,7 @@ const configAggregation = (sortType, aggregation) => {
           $multiply: [
             {
               $size: '$shares',
-            },
-            2,
+            }, 2,
           ],
         },
       ],
@@ -129,13 +118,12 @@ exports.hasAuthorization = (req, res, next) => {
   next();
   return null;
 };
-exports.list = (req, res) => {
-  const paging = parseInt(req.query.paging, 10) || npp;
+exports.listPosts = (req, res) => {
+  // const paging = parseInt(req.query.paging, 10) || npp;
   // console.log('paging', paging);
   const page = parseInt(req.query.page, 10) || 1;
-  const skip = page > 0 ? ((page - 1) * paging) : 0;
+  // const skip = page > 0 ? ((page - 1) * paging) : 0;
   const conds = [];
-
   if (!req.query.user || parseInt(req.query.user, 10) !== req.user._id) {
     if (req.query.review) {
       conds.push({ review: true });
@@ -144,7 +132,6 @@ exports.list = (req, res) => {
     }
   }
   req.query.category && conds.push({ categories: req.query.category });
-
   if (req.query.recommendations && req.user._id) {
     if (req.user.recommendations) {
       const cateList = [];
@@ -161,18 +148,15 @@ exports.list = (req, res) => {
     $or: [
       {
         title: {
-          $regex: req.query.text,
-          $options: 'i',
+          $regex: req.query.text, $options: 'i',
         },
       }, {
         description: {
-          $regex: req.query.text,
-          $options: 'i',
+          $regex: req.query.text, $options: 'i',
         },
       },
     ],
   });
-
   conds.push({ processed: true });
   let match = null;
   if (!conds.length) {
@@ -188,102 +172,53 @@ exports.list = (req, res) => {
   // e33d0d9#.hkka5wx3i
   const aggregation = {};
   aggregation.project = {
-    title: 1,
-    type: 1,
-    categories: 1,
+    title: 1, type: 1, categories: 1,
   };
   const propertiesMediaContent = {
-    mediaContent: 1,
-    mediaContentLQ: 1,
-    mediaContentHeight: 1,
-    mediaContentWidth: 1,
+    mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
   };
   const propertiesThumb = {
-    thumb: 1,
-    thumbLQ: 1,
-    thumbHeight: 1,
-    thumbWidth: 1,
+    thumb: 1, thumbLQ: 1, thumbHeight: 1, thumbWidth: 1,
   };
-  const propertiesSmallThumb = {
-    smallThumb: 1,
-    smallThumbLQ: 1,
-    smallThumbHeight: 1,
-    smallThumbWidth: 1,
-  };
+  // const propertiesSmallThumb = {
+  //   smallThumb: 1, smallThumbLQ: 1, smallThumbHeight: 1, smallThumbWidth: 1,
+  // };
   const propertiesDetailInfo = {
-    created: 1,
-    description: 1,
-    shares: 1,
-    follows: 1,
-    point: 1,
-    view: 1,
-    numComment: 1,
-
-    creator: {
-      $arrayElemAt: [
-        [
-          {
-            avatar: {
-              $arrayElemAt: ['$creator.avatar', 0],
-            },
-            username: {
-              $arrayElemAt: ['$creator.username', 0],
-            },
-          },
-        ],
-        0,
-      ],
-    },
+    created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
   };
-  if (req.query.type === 'mediaContent') {
-    aggregation.project = {
-      ...aggregation.project,
-      ...propertiesMediaContent,
-      ...propertiesDetailInfo,
-    };
-  } else if (req.query.type === 'thumb') {
-    aggregation.project = {
-      ...aggregation.project,
-      ...propertiesThumb,
-      ...propertiesDetailInfo,
-      ...propertiesMediaContent,
-      ...propertiesDetailInfo,
-    };
-  } else if (req.query.type === 'smallThumb') {
-    aggregation.project = {
-      ...aggregation.project,
-      ...propertiesSmallThumb,
-      ...propertiesMediaContent,
-      ...propertiesDetailInfo,
-    };
-  }
+  // if (req.query.type === 'mediaContent') {
+  aggregation.project = {
+    ...aggregation.project, ...propertiesMediaContent, ...propertiesDetailInfo, ...aggregation.project, ...propertiesThumb, ...propertiesDetailInfo, ...propertiesMediaContent, ...propertiesDetailInfo,
+  };
+  // } else if (req.query.type === 'thumb') {
+  //   aggregation.project = {
+  //     ...aggregation.project, ...propertiesThumb, ...propertiesDetailInfo, ...propertiesMediaContent, ...propertiesDetailInfo,
+  //   };
+  // } else if (req.query.type === 'smallThumb') {
+  //   aggregation.project = {
+  //     ...aggregation.project, ...propertiesSmallThumb, ...propertiesMediaContent, ...propertiesDetailInfo,
+  //   };
+  // }
   // console.log((new Date).getTime());
   configAggregation(req.query.order, aggregation);
   Post.aggregate([
     {
       $match: match,
-    },
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'creator',
-        foreignField: '_id',
-        as: 'creator',
-      },
+      // }, {
+      //   $lookup: {
+      //     from: 'users', localField: 'creator', foreignField: '_id', as: 'creator',
+      //   },
     }, {
       $project: aggregation.project,
-    },
-    // Sorting pipeline
+    }, // Sorting pipeline
     {
       $sort: aggregation.sort,
-    }, {
-      $skip: skip,
-    },
-    // Optionally limit results
-    {
-      $limit: (paging + 1),
-    },
-
+    }, // {
+    //   $skip: skip,
+    // }, // Optionally limit results
+    // {
+    //   $limit: (paging),
+    // },
   ], (err, results) => {
     // console.log(results);
     if (err) {
@@ -297,18 +232,233 @@ exports.list = (req, res) => {
         .status(404)
         .send();
     }
-    // results = results.map(function (doc) {     return new Post(doc) });
-    res.json(results);
-    // Post.populate(results, { "path": "creator", "select": "displayName
-    // username avatar" }, function (err, data) {     if (err) return
-    // res.status(400).send();     console.log(JSON.stringify(data));     var isNext
-    // = false;     if (data.length == (paging + 1)) {         isNext = true;
-    // data.pop();     }     resdata = {         data: data,         isNext: isNext
-    // }     res.json(resdata); });
+    // res.json(results);
+    const numPhotos = 9;
+    const numLists = 1;
+    const numGifs = 3;
+    let photosCount = numPhotos * page;
+    let listsCount = numLists * page;
+    let gifsCount = numGifs * page;
+    let lists = [];
+    let photos = [];
+    let gifs = [];
+    let isEnough = false;
+    for (let i = 0; i < results.length; i++) {
+      if (photosCount > 0 || listsCount > 0 || gifsCount > 0) {
+        if (results[i].type === 'photo' && photosCount > 0) {
+          if (photosCount <= numPhotos) {
+            photos.push(results[i]);
+          }
+          photosCount--;
+        } else if (results[i].type === 'list' && listsCount > 0) {
+          if (listsCount <= numLists) {
+            lists.push(results[i]);
+          }
+          listsCount--;
+        } else if (results[i].type === 'gif' && gifsCount > 0) {
+          if (gifsCount <= numGifs) {
+            gifs.push(results[i]);
+          }
+          gifsCount--;
+        }
+      }
+      if (photosCount === 0 && listsCount === 0 && gifsCount === 0) {
+        // const mediaContent = [...photos, ...lists, ...gifs];
+        // return res.json(posts);
+        isEnough = true;
+        break;
+      }
+    }
+    // let posts = [...photos, ...lists, ...gifs];
+
+    // const mediaContent = [];
+    // for (let j = 0; j < 9; j++) {
+    //   mediaContent.push(photos[j]);
+    //   if (j % 3 === 2) {
+    //     mediaContent.push(gifs[Math.floor(j / 3)]);
+    //   }
+    // }
+    // mediaContents.push(lists[0]);
+
+    // return res.json(posts);
+    // posts = posts.map((post) => { return new Post(post); });
+    // Post.populate(posts, {
+    //   path: 'creator',
+    //   select: 'displayName  username avatar',
+    // }, (err1, data) => {
+    //   if (err1) return res.status(403).send({ message: err1 });
+    //   return res.json(data);
+    // });
+    // return null;
+    if (isEnough) {
+      photos = photos.map((photo) => { return new Post(photo); });
+      Post.populate(photos, {
+        path: 'creator',
+        select: 'displayName username avatar',
+      }, (err1, photosExt) => {
+        if (err1) return res.status(403).send({ message: err1 });
+        lists = lists.map((list) => { return new Post(list); });
+        Post.populate(lists, {
+          path: 'creator',
+          select: 'displayName  username avatar',
+        }, (err2, listsExt) => {
+          if (err2) return res.status(403).send({ message: err2 });
+          gifs = gifs.map((gif) => { return new Post(gif); });
+          Post.populate(gifs, {
+            path: 'creator',
+            select: 'displayName  username avatar',
+          }, (err3, gifsExt) => {
+            if (err3) return res.status(403).send({ message: err3 });
+
+            const postsExt = [];
+            for (let j = 0; j < 9; j++) {
+              postsExt.push(photosExt[j]);
+              if (j % 3 === 2) {
+                postsExt.push(gifsExt[Math.floor(j / 3)]);
+              }
+            }
+            postsExt.push(listsExt[0]);
+            return res.json(postsExt);
+          });
+          return null;
+        });
+        return null;
+      });
+    } else {
+      const posts = [...photos, ...lists, ...gifs];
+      Post.populate(posts, {
+        path: 'creator',
+        select: 'displayName username avatar',
+      }, (err1, postsExt) => {
+        if (err1) return res.status(403).send({ message: err1 });
+        return res.json(postsExt);
+      });
+    }
     return null;
   });
+  return null;
 };
-
+exports.listRecommendPosts = (req, res) => {
+  const paging = parseInt(req.query.paging, 10) || npp;
+  // console.log('paging', paging);
+  const page = parseInt(req.query.page, 10) || 1;
+  const skip = page > 0 ? ((page - 1) * paging) : 0;
+  const conds = [];
+  if (!req.query.user || parseInt(req.query.user, 10) !== req.user._id) {
+    if (req.query.review) {
+      conds.push({ review: true });
+    } else {
+      conds.push({ publish: true });
+    }
+  }
+  req.query.category && conds.push({ categories: req.query.category });
+  if (req.query.recommendations && req.user._id) {
+    if (req.user.recommendations) {
+      const cateList = [];
+      req.user.recommendations.forEach((recommendation) => {
+        cateList.push({ categories: recommendation });
+      });
+      if (cateList.length) {
+        conds.push({ $or: cateList });
+      }
+    }
+  }
+  req.query.user && conds.push({ creator: parseInt(req.query.user, 10) });
+  req.query.text && conds.push({
+    $or: [
+      {
+        title: {
+          $regex: req.query.text, $options: 'i',
+        },
+      }, {
+        description: {
+          $regex: req.query.text, $options: 'i',
+        },
+      },
+    ],
+  });
+  conds.push({ processed: true });
+  let match = null;
+  if (!conds.length) {
+    match = {};
+  } else if (conds.length === 1) {
+    match = conds.pop();
+  } else {
+    match = {
+      $and: conds,
+    };
+  }
+  // https://medium.com/hacking-and-gonzo/how-reddit-ranking-algorithms-work-ef111
+  // e33d0d9#.hkka5wx3i
+  const aggregation = {};
+  aggregation.project = {
+    title: 1
+  };
+  // const propertiesMediaContent = {
+    // mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
+  // };
+  // const propertiesThumb = {
+  //   thumb: 1, thumbLQ: 1, thumbHeight: 1, thumbWidth: 1,
+  // };
+  const propertiesSmallThumb = {
+    smallThumb: 1, smallThumbLQ: 1, smallThumbHeight: 1, smallThumbWidth: 1,
+  };
+  // const propertiesDetailInfo = {
+    // created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
+  // };
+  // if (req.query.type === 'mediaContent') {
+  //   aggregation.project = {
+  //     ...aggregation.project, ...propertiesMediaContent, ...propertiesDetailInfo, ...aggregation.project, ...propertiesThumb, ...propertiesDetailInfo, ...propertiesMediaContent, ...propertiesDetailInfo,
+  //   };
+  // } else if (req.query.type === 'thumb') {
+  //   aggregation.project = {
+  //     ...aggregation.project, ...propertiesThumb, ...propertiesDetailInfo, ...propertiesMediaContent, ...propertiesDetailInfo,
+  //   };
+  // } else if (req.query.type === 'smallThumb') {
+  aggregation.project = {
+    ...aggregation.project, ...propertiesSmallThumb,
+  };
+  // }
+  // console.log((new Date).getTime());
+  configAggregation(req.query.order, aggregation);
+  Post.aggregate([
+    {
+      $match: match,
+    }, {
+      $project: aggregation.project,
+    }, // Sorting pipeline
+    {
+      $sort: aggregation.sort,
+    }, {
+      $skip: skip,
+    }, // Optionally limit results
+    {
+      $limit: (paging),
+    },
+  ], (err, result) => {
+    const posts = result;
+    if (err) {
+      // console.log(err);
+      return res
+        .status(400)
+        .send();
+    }
+    if (posts.length === 0) {
+      return res
+        .status(404)
+        .send();
+    }
+    // posts = posts.map((doc) => { return new Post(doc); });
+    // Post.populate(posts, {
+    //   path: 'creator',
+    //   select: 'displayName username avatar',
+    // }, (err1, data) => {
+    //   if (err1) return res.status(403).send({ message: err1 });
+    return res.json(posts);
+    // });
+    // return null;
+  });
+};
 const jpgOptim = (input) => {
   return new Promise((resolve, reject) => {
     let sizeCompressed;
@@ -356,13 +506,16 @@ const createCompressedImage = (input) => {
     });
   });
 };
-
 const createCroppedCompressedImage = (input) => {
   return new Promise((resolve, reject) => {
     if (input.LQ) {
       input.size.width && (input.size.width = Math.round(input.size.width / 10));
       input.size.height && (input.size.height = Math.round(input.size.height / 10));
     }
+    // console.log('input.originalWidth ' + input.originalWidth);
+    // console.log('input.size.height ' + input.size.height);
+    // console.log('input.input.size.width  ' + input.size.width);
+    // console.log('createCroppedCompressedImage ' + Math.round(input.size.height * input.originalWidth / input.size.width));
     const cmd = `convert ${input.fileInput} -gravity center -crop x${Math.round(input.size.height * input.originalWidth / input.size.width)}+0+0 +repage -filter Triangle -define filter:support=2 -thumbnail ${input.size.width} -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB -strip ${input.fileOutput}`;
     exec(cmd, (err) => {
       if (err) {
@@ -398,6 +551,8 @@ const formatGifToMp4 = (input) => {
   });
 };
 const takeMp4Screenshot = (input) => {
+  // console.log('input.size.width: ' + input.size.width);
+  // console.log('input.size.height: ' + input.size.height);
   return new Promise((resolve, reject) => {
     ffmpeg(input.fileInput).on('end', (err) => {
       if (err) {
@@ -416,6 +571,17 @@ const takeMp4Screenshot = (input) => {
 const removeFile = (input) => {
   return new Promise((resolve, reject) => {
     fs.unlink(input.fileInput, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+};
+const removeFileByUrl = (url) => {
+  return new Promise((resolve, reject) => {
+    fs.unlink(url, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -444,13 +610,11 @@ exports.create = (req, res) => {
     //   return res.status(400).send({ messages: err });
     // }
   });
-
   form.keepExtensions = true;
   form.maxFields = 1;
   form.maxFieldsSize = 4096;
   let count = 0;
   let _post;
-
   form.on('progress', bytesReceived => {
     if (bytesReceived > 6000000) {
       form._error();
@@ -463,7 +627,6 @@ exports.create = (req, res) => {
       _post = field;
     }
   });
-
   form.on('file', (name1, file) => {
     count++;
     const fileNameSplit = file.path.split('/');
@@ -480,49 +643,38 @@ exports.create = (req, res) => {
         const originalHeight = size.height;
         const originalFileSize = file.size;
         const data = JSON.parse(_post);
-
         data.creator = req.user._id;
-        data.type = file.type;
-
+        if (file.type.indexOf('gif') !== -1) {
+          data.type = 'gif';
+        } else {
+          data.type = originalHeight / originalWidth > 5 ? 'list' : 'photo';
+        }
         const ratioAcceptable = originalHeight / originalWidth < 5;
         data.thumbHeight = ratioAcceptable ? Math.round(originalHeight * WIDTH_THUMB / originalWidth) : HEIGHT_THUMB;
         data.thumbWidth = WIDTH_THUMB;
-
         data.mediaContentHeight = Math.round(originalHeight * WIDTH_MEDIACONTENT / originalWidth);
         data.mediaContentWidth = WIDTH_MEDIACONTENT;
-
         data.smallThumbWidth = WIDTH_SMALLTHUMB;
         data.smallThumbHeight = HEIGHT_SMALLTHUMB;
-
         const fileInputObj = { fileInput: file.path };
         const origin = {
-          originalWidth,
-          originalFileSize,
+          originalWidth, originalFileSize,
         };
-
         const sizeMediaPost = { size: { width: WIDTH_MEDIACONTENT, height: data.mediaContentHeight } };
-
         const sizeThumb = {
           size: {
-            width: WIDTH_THUMB,
-            height: ratioAcceptable ? data.thumbHeight : HEIGHT_THUMB,
+            width: WIDTH_THUMB, height: ratioAcceptable ? data.thumbHeight : HEIGHT_THUMB,
           },
         };
-
         const sizeSmallThumb = { size: { width: WIDTH_SMALLTHUMB, height: HEIGHT_SMALLTHUMB } };
-
         const lowQuality = { LQ: true };
-
         if ((fileNameExtension === 'jpg' || fileNameExtension === 'png') && count === 1) {
           data.mediaContent = `${URLFullFileNameWithoutExtension}.${fileNameExtension}`;
           data.mediaContentLQ = `${URLFullFileNameWithoutExtension}_LQ.${fileNameExtension}`;
-
           data.thumb = `${URLFullFileNameWithoutExtension}_thumb.${fileNameExtension}`;
           data.thumbLQ = `${URLFullFileNameWithoutExtension}_thumb_LQ.${fileNameExtension}`;
-
           data.smallThumb = `${URLFullFileNameWithoutExtension}_smallThumb.${fileNameExtension}`;
           data.smallThumbLQ = `${URLFullFileNameWithoutExtension}_smallThumb_LQ.${fileNameExtension}`;
-
           const post = new Post(data);
           post.save((err1, post1) => {
             if (err1) {
@@ -530,23 +682,18 @@ exports.create = (req, res) => {
             }
             return res.json({ data: post1 });
           });
-
           const fileOutputMediaPost = { fileOutput: `${pathFullFileNameWithoutExtension}.${fileNameExtension}` };
           const fileOutputMediaPostLQ = { fileOutput: `${pathFullFileNameWithoutExtension}_LQ.${fileNameExtension}` };
-
           const fileOutputThumb = { fileOutput: `${pathFullFileNameWithoutExtension}_thumb.${fileNameExtension}` };
           const fileOutputThumbLQ = { fileOutput: `${pathFullFileNameWithoutExtension}_thumb_LQ.${fileNameExtension}` };
-
           const fileOutputSmallThumb = { fileOutput: `${pathFullFileNameWithoutExtension}_smallThumb.${fileNameExtension}` };
           const fileOutputSmallThumbLQ = { fileOutput: `${pathFullFileNameWithoutExtension}_smallThumb_LQ.${fileNameExtension}` };
-
           const mediaContent = Object.assign({}, fileInputObj, origin, fileOutputMediaPost, sizeMediaPost);
           const mediaContentLQ = Object.assign({}, fileInputObj, origin, fileOutputMediaPostLQ, sizeMediaPost, lowQuality);
           const thumb = Object.assign({}, fileInputObj, origin, fileOutputThumb, sizeThumb);
           const thumbLQ = Object.assign({}, fileInputObj, origin, fileOutputThumbLQ, sizeThumb, lowQuality);
           const smallThumb = Object.assign({}, fileInputObj, origin, fileOutputSmallThumb, sizeSmallThumb);
           const smallThumbLQ = Object.assign({}, fileInputObj, origin, fileOutputSmallThumbLQ, sizeSmallThumb, lowQuality);
-
           createCompressedImage(mediaContent)
             .then(() => createCompressedImage(mediaContentLQ))
             .then(() => {
@@ -583,10 +730,8 @@ exports.create = (req, res) => {
             });
         } else if (file.type === 'image/gif' && count === 1) {
           data.mediaContent = data.thumb = `${URLFullFileNameWithoutExtension}.mp4`;
-
           data.smallThumb = `${URLFullFileNameWithoutExtension}_smallThumb.png`;
           data.smallThumbLQ = `${URLFullFileNameWithoutExtension}_smallThumb_LQ.png`;
-
           const post = new Post(data);
           post.save((err1, post1) => {
             if (err1) {
@@ -594,29 +739,21 @@ exports.create = (req, res) => {
             }
             return res.json({ data: post1 });
           });
-
           const fileOutputMp4 = { fileOutput: `${pathFullFileNameWithoutExtension}.mp4` };
           const fileInputMp4 = { fileInput: `${pathFullFileNameWithoutExtension}.mp4` };
-
           const fileOutputSmallThumb = { fileOutput: `${pathFullFileNameWithoutExtension}_smallThumb.png` };
           const fileOutputSmallThumbLQ = { fileOutput: `${pathFullFileNameWithoutExtension}_smallThumb_LQ.png` };
-
           const tempSmallThumbInput = { fileInput: `${pathFullFileNameWithoutExtension}.png` };
-
           const screenShotObj = {
             screenShot: {
-              timestamps: ['00:00:0.00'],
-              folderPath: pathFolder,
-              filename: `${fileNameWithoutExtension}.png`,
+              timestamps: ['00:00:0.00'], folderPath: pathFolder, filename: `${fileNameWithoutExtension}.png`,
             },
           };
-
           const gif = Object.assign({}, fileInputObj, origin, sizeMediaPost);
           const mp4 = Object.assign({}, fileInputObj, fileOutputMp4);
           const screenShot = Object.assign({}, fileInputMp4, screenShotObj, sizeMediaPost);
           const smallThumb = Object.assign({}, tempSmallThumbInput, origin, fileOutputSmallThumb, sizeSmallThumb);
           const smallThumbLQ = Object.assign({}, tempSmallThumbInput, origin, fileOutputSmallThumbLQ, sizeSmallThumb, lowQuality);
-
           reduceGifSize(gif)
             .then(() => formatGifToMp4(mp4))
             .then(() => takeMp4Screenshot(screenShot))
@@ -641,7 +778,6 @@ exports.create = (req, res) => {
   });
   form.parse(req);
 };
-
 function checkExists(dir, callback) {
   fs.exists(dir, (exists) => {
     if (!exists) {
@@ -702,7 +838,6 @@ exports.uploadFile = (req, res) => {
 exports.get = (req, res) => {
   return res.json({ data: req.post });
 };
-
 exports.update = (req, res) => {
   // if(req.body.url){     Challenge.findOne({url:
   // req.body.url}).exec(function(err,challenge){         if(err) return
@@ -720,14 +855,12 @@ exports.update = (req, res) => {
   // l lenge){         if(err) return res.status(400).send({messages:
   // getErrorMessage(err)});         return res.json({message: "Challenge's
   // information has changed"});     }); }
-
   req.body.publish = false;
   req.body._id = req.post._id;
   req.body.creator = req.user._id;
   Post.findByIdAndUpdate(req.post._id, req.body).exec((err, post) => {
     return err ? res.status(400).send({ messages: getErrorMessage(err) }) : res.json({
-      message: "Post's information has changed",
-      data: post,
+      message: "Post's information has changed", data: post,
     });
   });
 };
@@ -741,7 +874,6 @@ exports.publish = (req, res) => {
   req.post.save();
   res.status(200).send({ data: req.post.publish });
 };
-
 // function removeFile(input) {
 //   fs.unlink(input, () => {
 //       // if (err)
@@ -749,41 +881,50 @@ exports.publish = (req, res) => {
 //   }
 //   );
 // }
-
 exports.remove = (req, res) => {
   if (req.post.creator._id === req.user._id || req.user.role === 'admin' || req.user.role === 'manager') {
-    req.post.remove((err, post) => {
-      return err ? res.status(400).send({ messages: getErrorMessage(err) }) : res.json({ data: post });
-    });
-
-    const mediaContentfileName = req.post.mediaContent.split('/files/')[1];
-    const mediaContentFilePath = `${__dirname}/../../public/uploaded/files/${mediaContentfileName}`;
-    const thumbfileName = req.post.thumb.split('/files/')[1];
-    const thumbFilePath = `${__dirname}/../../public/uploaded/files/${thumbfileName}`;
-    const smallThumbfileName = req.post.smallThumb.split('/files/')[1];
-    const smallThumbFilePath = `${__dirname}/../../public/uploaded/files/${smallThumbfileName}`;
-
-    removeFile(mediaContentFilePath);
-    removeFile(thumbFilePath);
-    removeFile(smallThumbFilePath);
-
-    if (req.post.mediaContent.indexOf('.mp4') === -1) {
-      let extension;
-      mediaContentfileName.indexOf('png') !== -1 && (extension = '.png');
-      mediaContentfileName.indexOf('jpg') !== -1 && (extension = '.jpg');
-
-      const mediaContentfileName20 = `${mediaContentfileName.split('.')[0]}_20_${extension}`;
-      const mediaContentFilePath20 = `${__dirname}/../../public/uploaded/files/${mediaContentfileName20}`;
-
-      const thumbfileName20 = `${thumbfileName.split('.')[0]}_20_${extension}`;
-      const thumbFilePath20 = `${__dirname}/../../public/uploaded/files/${thumbfileName20}`;
-
-      const smallThumbfileName20 = `${smallThumbfileName.split('.')[0]}_20_${extension}`;
-      const smallThumbFilePath20 = `${__dirname}/../../public/uploaded/files/'${smallThumbfileName20}`;
-
-      removeFile(mediaContentFilePath20);
-      removeFile(thumbFilePath20);
-      removeFile(smallThumbFilePath20);
+    if (req.post.processed) {
+      req.post.remove((err, post) => {
+        return err ? res.status(400).send({ messages: getErrorMessage(err) }) : res.json({ data: post });
+      });
+      // console.log(req.post);
+      const mediaContentfileName = req.post.mediaContent.split('/uploaded/')[1];
+      const mediaContentFilePath = `${__dirname}/../../public/uploaded/${mediaContentfileName}`;
+      const thumbfileName = req.post.thumb.split('/uploaded/')[1];
+      const thumbFilePath = `${__dirname}/../../public/uploaded/${thumbfileName}`;
+      const smallThumbfileName = req.post.smallThumb.split('/uploaded/')[1];
+      const smallThumbFilePath = `${__dirname}/../../public/uploaded/${smallThumbfileName}`;
+      removeFileByUrl(mediaContentFilePath)
+        .catch((e) => console.log(e));
+      removeFileByUrl(thumbFilePath)
+        .catch((e) => console.log(e));
+      removeFileByUrl(smallThumbFilePath)
+        .catch((e) => console.log(e));
+      if (req.post.mediaContent.indexOf('.mp4') === -1) {
+        let extension;
+        mediaContentfileName.indexOf('png') !== -1 && (extension = '.png');
+        mediaContentfileName.indexOf('jpg') !== -1 && (extension = '.jpg');
+        const mediaContentfileName20 = `${mediaContentfileName.split('.')[0]}_LQ${extension}`;
+        const mediaContentFilePath20 = `${__dirname}/../../public/uploaded/${mediaContentfileName20}`;
+        const thumbfileName20 = `${thumbfileName.split('.')[0]}_LQ${extension}`;
+        const thumbFilePath20 = `${__dirname}/../../public/uploaded/${thumbfileName20}`;
+        const smallThumbfileName20 = `${smallThumbfileName.split('.')[0]}_LQ${extension}`;
+        const smallThumbFilePath20 = `${__dirname}/../../public/uploaded/${smallThumbfileName20}`;
+        removeFileByUrl(mediaContentFilePath20)
+          .catch((e) => console.log(e));
+        removeFileByUrl(thumbFilePath20)
+          .catch((e) => console.log(e));
+        removeFileByUrl(smallThumbFilePath20)
+          .catch((e) => console.log(e));
+      } else {
+        const extension = '.png';
+        const smallThumbfileName20 = `${smallThumbfileName.split('.')[0]}_LQ${extension}`;
+        const smallThumbFilePath20 = `${__dirname}/../../public/uploaded/${smallThumbfileName20}`;
+        removeFileByUrl(smallThumbFilePath20)
+          .catch((e) => console.log(e));
+      }
+    } else {
+      res.status(403).send('File is not processed');
     }
   } else {
     return res.status(401).send('You are not creator or manager or admin');
@@ -845,7 +986,6 @@ exports.follow = (req, res) => {
     });
   }
 };
-
 exports.share = (req, res) => {
   Post.findByIdAndUpdate(req.post._id, {
     $addToSet: {
@@ -855,7 +995,6 @@ exports.share = (req, res) => {
     return err ? res.status(400).send() : res.status(200).send();
   });
 };
-
 exports.view = (req, res) => {
   // Post.findByIdAndUpdate(req.post._id, { $addToSet: { "views":
   // req.user._id } }).exec(function (err, success) {     if (err) return
@@ -868,7 +1007,6 @@ exports.view = (req, res) => {
     return err ? res.status(400).send() : res.json({ view: success.view });
   });
 };
-
 exports.report = (req, res) => {
   let hasReported = false;
   req.post.reports.forEach((reporter) => {
@@ -897,7 +1035,28 @@ exports.report = (req, res) => {
       });
   }
 };
-
+exports.vote = (req, res) => {
+  let isVoted = false;
+  req.post.votes.forEach((vote) => {
+    if (vote === req.user._id) isVoted = true;
+    return;
+  });
+  if (!isVoted) {
+    Post.findByIdAndUpdate(req.post._id, {
+      $addToSet: { votes: req.user._id }, $inc: { point: 1 },
+    }, { new: true }).exec((err, post) => {
+      if (err) return res.status(400).send();
+      return res.status(200).send({ data: { voted: true, votes: post.votes, point: post.point } });
+    });
+  } else {
+    Post.findByIdAndUpdate(req.post._id, {
+      $pull: { votes: req.user._id }, $inc: { point: -1 },
+    }, { new: true }).exec((err, post) => {
+      if (err) return res.status(400).send();
+      return res.status(200).send({ data: { voted: false, votes: post.votes, point: post.point } });
+    });
+  }
+};
 exports.voteUp = (req, res) => {
   let isVotedUp = false;
   req
@@ -907,7 +1066,6 @@ exports.voteUp = (req, res) => {
       vote === req.user._id && (isVotedUp = true);
       return null;
     });
-
   if (!isVotedUp) {
     let isVotedDown = false;
     req
@@ -921,8 +1079,7 @@ exports.voteUp = (req, res) => {
       Post.findByIdAndUpdate(req.post._id, {
         $pull: {
           voteDowns: req.user._id,
-        },
-        $inc: {
+        }, $inc: {
           point: 1,
         },
       })
@@ -933,8 +1090,7 @@ exports.voteUp = (req, res) => {
           Post.findByIdAndUpdate(req.post._id, {
             $addToSet: {
               voteUps: req.user._id,
-            },
-            $inc: {
+            }, $inc: {
               point: 1,
             },
           })
@@ -951,8 +1107,7 @@ exports.voteUp = (req, res) => {
       Post.findByIdAndUpdate(req.post._id, {
         $addToSet: {
           voteUps: req.user._id,
-        },
-        $inc: {
+        }, $inc: {
           point: 1,
         },
       })
@@ -975,7 +1130,6 @@ exports.voteUp = (req, res) => {
   }
   return null;
 };
-
 exports.voteDown = (req, res) => {
   let isVotedDown = false;
   req
@@ -985,7 +1139,6 @@ exports.voteDown = (req, res) => {
       vote === req.user._id && (isVotedDown = true);
       return null;
     });
-
   if (!isVotedDown) {
     let isVotedUp = false;
     req.post.voteUps.forEach((vote) => {
@@ -996,8 +1149,7 @@ exports.voteDown = (req, res) => {
       Post.findByIdAndUpdate(req.post._id, {
         $pull: {
           voteUps: req.user._id,
-        },
-        $inc: {
+        }, $inc: {
           point: -1,
         },
       })
@@ -1008,8 +1160,7 @@ exports.voteDown = (req, res) => {
           Post.findByIdAndUpdate(req.post._id, {
             $addToSet: {
               voteDowns: req.user._id,
-            },
-            $inc: {
+            }, $inc: {
               point: -1,
             },
           }).exec((err1) => {
@@ -1025,8 +1176,7 @@ exports.voteDown = (req, res) => {
       Post.findByIdAndUpdate(req.post._id, {
         $addToSet: {
           voteDowns: req.user._id,
-        },
-        $inc: {
+        }, $inc: {
           point: -1,
         },
       }).exec((err) => {
@@ -1048,7 +1198,6 @@ exports.voteDown = (req, res) => {
   }
   return null;
 };
-
 exports.unVote = (req, res) => {
   // remove vote up
   let isVotedUp = false;
@@ -1056,7 +1205,6 @@ exports.unVote = (req, res) => {
     vote === req.user._id && (isVotedUp = true);
     return null;
   });
-
   // remove vote down
   let isVotedDown = false;
   req.post.voteDowns.forEach((vote) => {
@@ -1067,8 +1215,7 @@ exports.unVote = (req, res) => {
     Post.findByIdAndUpdate(req.post._id, {
       $pull: {
         voteDowns: req.user._id,
-      },
-      $inc: {
+      }, $inc: {
         point: 1,
       },
     }).exec((err) => {
@@ -1079,8 +1226,7 @@ exports.unVote = (req, res) => {
         Post.findByIdAndUpdate(req.post._id, {
           $pull: {
             voteUps: req.user._id,
-          },
-          $inc: {
+          }, $inc: {
             point: -1,
           },
         }).exec((err1) => {
@@ -1098,8 +1244,7 @@ exports.unVote = (req, res) => {
       Post.findByIdAndUpdate(req.post._id, {
         $pull: {
           voteUps: req.user._id,
-        },
-        $inc: {
+        }, $inc: {
           point: -1,
         },
       })
@@ -1122,13 +1267,10 @@ exports.unVote = (req, res) => {
   }
   return null;
 };
-
 exports.renderAngular = (req, res, next) => {
   if ((req.url.indexOf('sources') < 0 && req.url.indexOf('api') < 0 && req.url.indexOf('assets') < 0)) {
     res.render('index', {
-      message: null,
-      app: serverConfig.app,
-      channel: serverConfig.channel,
+      message: null, app: serverConfig.app, channel: serverConfig.channel,
     });
   } else {
     next();
@@ -1146,15 +1288,11 @@ exports.renderPost = (req, res) => {
         app.description = post.description;
         app.url = `${serverConfig.host}/posts/${post._id}`;
         res.render('index', {
-          message: null,
-          app,
-          channel: serverConfig.channel,
+          message: null, app, channel: serverConfig.channel,
         });
       } else {
         res.render('index', {
-          message: null,
-          app: serverConfig.app,
-          channel: serverConfig.channel,
+          message: null, app: serverConfig.app, channel: serverConfig.channel,
         });
       }
     });

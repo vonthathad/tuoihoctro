@@ -6,7 +6,7 @@ class ImagePrettyLoad extends Component {
     this.state = {
       loadedImg: false, loadedImgLQ: false,
     };
-    this.containerWidth = null;
+    this.containerWidthx = null;
     this.handleLoadedImg = this.handleLoadedImg.bind(this);
     this.handleLoadedImgLQ = this.handleLoadedImgLQ.bind(this);
   }
@@ -21,14 +21,14 @@ class ImagePrettyLoad extends Component {
     });
   };
   render() {
-    const { image, imageLQ, imageWidth, imageHeight, width } = this.props;
+    const { image, imageLQ, imageWidth, imageHeight, containerWidth } = this.props;
     return (
       <div>
         <div
           className={`${st.placeholder}`}
-          style={{ width, height: this.containerWidth * imageHeight / imageWidth }}
+          style={{ containerWidth, height: this.containerWidthx * imageHeight / imageWidth }}
           ref={(container) => {
-            if (container) this.containerWidth = container.offsetWidth;
+            if (container) this.containerWidthx = container.offsetWidth;
           }}
         >
           <div>
@@ -56,6 +56,6 @@ ImagePrettyLoad.propTypes = {
   imageLQ: PropTypes.string.isRequired,
   imageWidth: PropTypes.number.isRequired,
   imageHeight: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  containerWidth: PropTypes.number,
 };
 export default ImagePrettyLoad;
