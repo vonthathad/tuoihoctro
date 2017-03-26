@@ -31,7 +31,7 @@ export class Guest extends Component {
     this.props.dispatch(checkLogin());
   }
 
-  changeStyleModal(check) {
+  changeStyleModal() {
     // if (check === true) {
     //   document.body.style.overflow = 'hidden';
     // } else {

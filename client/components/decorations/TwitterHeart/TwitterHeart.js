@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import st from './index.css';
+import './index.css';
 const TwitterHeart = ({ _id, checked }) => (
   <div>
     <input className="toggle-heart" id={_id} type="checkbox" checked={checked} />

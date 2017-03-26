@@ -15,9 +15,9 @@ export class PostCreateWidget extends Component {
     const titleRef = this.refs.title;
     const fileRef = this.state.file;
     const category = 'funny';
-    if (titleRef.value  && fileRef) {
+    if (titleRef.value && fileRef) {
       this.props.addPost(titleRef.value, category, fileRef);
-      titleRef.value =  '';
+      titleRef.value = '';
     }
   };
   loadFile(e) {

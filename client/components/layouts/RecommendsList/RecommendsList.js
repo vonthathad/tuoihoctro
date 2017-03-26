@@ -20,13 +20,14 @@ class RecommendsList extends Component {
   render() {
     const { recommendsList } = this.props;
     let recommendsChunks = null;
-    if (recommendsList) recommendsChunks = recommendsList.recommendsChunks;
+    if (recommendsList) recommendsChunks = this.shuffleArray(recommendsList.recommendsChunks).slice(0, 5);
+    console.log(recommendsChunks);
     return (
       <div className={st['recommends-list-wrapper']}>
         <div className={st['right-bar-title']}>
           <h1>Bài liên quan</h1>
         </div>
-        {recommendsChunks && recommendsChunks.length > 0 && this.shuffleArray(recommendsChunks).slice(0, 5).map((recommendsChunk, i) =>
+        {recommendsChunks && recommendsChunks.length > 0 && recommendsChunks.map((recommendsChunk, i) =>
           <div key={i}>
             <RecommendsChunk
               recommends={recommendsChunk.recommends}
