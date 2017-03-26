@@ -3,6 +3,7 @@ import ImagePrettyLoad from '../ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../VideoAutoPlay/VideoAutoPlay';
 import Post from '../Post/Post';
 import './index.css';
+
 class PostsChunk extends Component {
   // console.log(posts);
   // console.log(loading);

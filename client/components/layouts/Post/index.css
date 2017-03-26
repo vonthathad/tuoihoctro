@@ -96,6 +96,9 @@
   float: right;
 }
 
+
+/*DEVIDE*/
+
 .social-button{
   height:50px;
 }
@@ -179,3 +182,4 @@
   border-bottom: 1px solid #ccc;
   box-shadow: 0 1px 0 rgba(0,0,0,.05);
 }
+

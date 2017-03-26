@@ -17,7 +17,7 @@ if (typeof require.ensure !== 'function') {
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
   require('./components/pages/Home/Home.js');
-  require('./components/pages/PostDetail/index.js');
+  require('./components/pages/PostDetail/PostDetail.js');
 }
 
 // react-router setup with code-splitting
@@ -35,7 +35,7 @@ export default (
       path="/posts/:cuid"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./components/pages/PostDetail/index.js').default);
+          cb(null, require('./components/pages/PostDetail/PostDetail.js').default);
         });
       }}
     />

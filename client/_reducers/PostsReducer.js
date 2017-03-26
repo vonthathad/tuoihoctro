@@ -1,5 +1,6 @@
 import {
   FETCH_POSTS_CHUNK, FETCH_POSTS_CHUNK_FAILURE, FETCH_POSTS_CHUNK_SUCCESS, CREATE_POST_SUCCESS,
+  FETCH_POST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS, VOTE_UP_POST_SUCCESS,VOTE_DOWN_POST_SUCCESS
 } from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsList: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
@@ -7,10 +8,12 @@ const INITIAL_STATE = {
   newPost: { post: null, error: null, loading: false },
   activePost: { post: null, error: null, loading: false },
   deletedPost: { post: null, error: null, loading: false },
+  postDetail: {}
 };
 // Initial State
 
 const PostsReducer = (state = INITIAL_STATE, action) => {
+  console.log(action, state)
   switch (action.type) {
 
     case CREATE_POST_SUCCESS:
@@ -22,7 +25,28 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
           ...temp,
         };
       }
+    case FETCH_POST:
+      const test = new state;
+      return {
+        ...state,
+        postDetail: {}
+      };
 
+    case FETCH_POST_SUCCESS:
+      const temp1 = { postDetail: { ...state.postDetail } };
+      temp1.postDetail = action.postDetail.data
+      return {
+        ...state,
+        ...temp1
+      };
+    case VOTE_UP_POST_SUCCESS:
+      return { ...state.postDetail, point: state.postDetail.point +1 };
+    case VOTE_DOWN_POST_SUCCESS:
+      return { ...state.postDetail, point: state.postDetail.point - 1 };
+    case FETCH_POST_FAILURE:
+      return {
+        postDetail: {}
+      };
     case FETCH_POSTS_CHUNK:
       {
         return {
@@ -85,7 +109,7 @@ export const getPosts = (state) => {
 };
 
 // Get post by cuid
-export const getPost = (state, cuid) => state.postsStore.postsList.postsChunks[0].posts.filter(post => post._id === parseInt(cuid, 10))[0];
+export const getPost = (state, cuid) => state.postsStore.postsList.postsChunks[0].posts.filter(post => post._id == parseInt(cuid, 10))[0];
 
 // Export Reducer
 export default PostsReducer;

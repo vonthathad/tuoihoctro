@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import RecommendsChunk from '../RecommendsChunk/RecommendsChunk';
-import { _fetchRecommendsChunk } from '../../../_actions/RecommendsActions';
+// import { _fetchRecommendsChunk } from '../../../_actions/RecommendsActions';
 import st from './index.css';
 import ads from '../../../assets/images/ads_300x.png';
 class RecommendsList extends Component {
@@ -32,9 +32,9 @@ class RecommendsList extends Component {
               recommends={recommendsChunk.recommends}
               loading={recommendsChunk.loading}
             />
-              <div> hello world
-                <img src={ads} alt="ads" />
-              </div>
+            <div> hello world
+              <img src={ads} alt="ads" />
+            </div>
           </div>
         )
         }
