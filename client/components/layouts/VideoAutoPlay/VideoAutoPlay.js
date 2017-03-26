@@ -25,7 +25,7 @@ class VideoAutoPlay extends Component {
     const { y } = this.videoRef;
     const { videoWidth, videoHeight, containerWidth } = this.props;
     const changedVideoHeight = videoHeight * containerWidth / videoWidth;
-    if (_window.pageYOffset < y + changedVideoHeight / 2 && _window.pageYOffset + _window.innerHeight > y + changedVideoHeight) {
+    if (y < - changedVideoHeight / 2 && y + _window.innerHeight > changedVideoHeight) {
       this.playVideo();
     } else {
       this.pauseVideo();
@@ -43,7 +43,7 @@ class VideoAutoPlay extends Component {
   };
   render() {
     const { videoWidth, videoHeight, videoSrc, containerWidth } = this.props;
-    const changedVideoHeight = videoHeight * containerWidth / videoWidth;
+    const changedVideoHeight = Math.round(videoHeight * containerWidth / videoWidth);
     return (
       <div
         className={`${st['video-wrapper']}`}
@@ -56,7 +56,7 @@ class VideoAutoPlay extends Component {
           ref={videoTag => {
             videoTag &&
               (this.videoRef = {
-                y: videoTag.offsetTop,
+                y: - videoTag.getBoundingClientRect().top,
                 video: videoTag,
               });
           }}
@@ -67,7 +67,7 @@ class VideoAutoPlay extends Component {
         <div
           className={`${st['badge-gif-wrapper']}`}
           ref={badge => { badge && (this.badge = badge); }}
-          style={{ top: 0 - changedVideoHeight / 2 }}
+          style={{ top: !isNaN(changedVideoHeight) ? 0 - changedVideoHeight / 2 : 0 }}
         >
           <span className={`${st['badge-gif']}`}>GIF</span>
         </div>
@@ -80,7 +80,7 @@ VideoAutoPlay.propTypes = {
   _window: PropTypes.object.isRequired,
   videoHeight: PropTypes.number.isRequired,
   videoWidth: PropTypes.number.isRequired,
-  containerWidth: PropTypes.number.isRequired,
+  containerWidth: PropTypes.number,
   videoSrc: PropTypes.string.isRequired,
 };
 

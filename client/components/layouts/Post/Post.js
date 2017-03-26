@@ -13,7 +13,7 @@ class Post extends Component {
   handleVoteClick = () => {
     this.count++;
     if (this.count % 2 === 0) {
-      console.log(this.count);
+      // console.log(this.count);
     }
   }
   // console.log(props);
@@ -42,7 +42,7 @@ class Post extends Component {
           <div className={st['post-footer']}>
             <div className={st['box-vote']}>
               <div className={st['twitter-heart-wrapper']} onClick={this.handleVoteClick} >
-                <TwitterHeart _id={this.props.post._id} check={false} />
+                <TwitterHeart _id={this.props.post._id} checked={false} />
               </div>
               <div className={st['vote-number-wrapper']}>
                 <span> {this.props.post.point} </span>

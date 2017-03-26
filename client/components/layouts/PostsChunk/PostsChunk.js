@@ -14,7 +14,7 @@ class PostsChunk extends Component {
   componentDidMount() {
     const width = parseInt(window.getComputedStyle(this.postWrapperRef, null).getPropertyValue('width').replace('px', ''), 10);
     this.containerWidth = width < 500 ? width : 500;
-    console.log(width);
+    // console.log(width);
     window.addEventListener('resize', this.handlePostWrapperResize);
   }
 

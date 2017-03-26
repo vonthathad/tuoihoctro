@@ -56,6 +56,6 @@ ImagePrettyLoad.propTypes = {
   imageLQ: PropTypes.string.isRequired,
   imageWidth: PropTypes.number.isRequired,
   imageHeight: PropTypes.number.isRequired,
-  containerWidth: PropTypes.number.isRequired,
+  containerWidth: PropTypes.number,
 };
 export default ImagePrettyLoad;

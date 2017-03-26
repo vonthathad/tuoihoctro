@@ -3,7 +3,7 @@ import {
 } from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsList: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
-  postsList: { postsChunks: [], page: 1, paging: 5, error: false, fetching: false },
+  postsList: { postsChunks: [], page: 1, error: false, fetching: false },
   newPost: { post: null, error: null, loading: false },
   activePost: { post: null, error: null, loading: false },
   deletedPost: { post: null, error: null, loading: false },

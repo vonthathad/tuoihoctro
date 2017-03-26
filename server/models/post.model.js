@@ -100,16 +100,16 @@ const PostSchema = new Schema({
     ref: 'User',
     default: [],
   }],
-  voteUps: [{
-    type: Number,
-    ref: 'User',
-    default: [],
-  }],
-  voteDowns: [{
-    type: Number,
-    ref: 'User',
-    default: [],
-  }],
+  // voteUps: [{
+  //   type: Number,
+  //   ref: 'User',
+  //   default: [],
+  // }],
+  // voteDowns: [{
+  //   type: Number,
+  //   ref: 'User',
+  //   default: [],
+  // }],
   created: {
     type: Date,
     default: Date.now,

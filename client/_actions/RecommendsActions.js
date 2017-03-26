@@ -36,7 +36,7 @@ function fetchRecommendsChunkFailure(error) {
   };
 }
 
-export function _fetchRecommendsChunk(page = 1) {
+export function _fetchRecommendsChunk(paging = 200) {
   return (dispatch) => {
     dispatch(fetchRecommendsChunk());
     // return request(`http://localhost:4000/api/smallThumbs?type=${type}&paging=${paging}&page=${page}`, {
@@ -46,13 +46,14 @@ export function _fetchRecommendsChunk(page = 1) {
     //   },
     //   method: 'get',
     // })
-    const queryArgs = { page };
+    const queryArgs = { paging };
     return getPostsRecommend(queryArgs)
       .then((recommends) => {
         return dispatch(fetchRecommendsChunkSuccess(recommends));
       }
       )
       .catch(error => {
+        console.log(error);
         dispatch(fetchRecommendsChunkFailure(error));
       });
   };

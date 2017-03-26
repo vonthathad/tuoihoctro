@@ -36,7 +36,7 @@ class PostsList extends Component {
     if (document.body.scrollTop > parseInt(window.getComputedStyle(this.postsListRef, null).getPropertyValue('height').replace('px', ''), 10) - 1000) {
       const { dispatch, postsList } = this.props;
       if (!postsList.fetching && !postsList.error) {
-        dispatch(_fetchPostsChunk('mediaContent', postsList.paging, postsList.page));
+        dispatch(_fetchPostsChunk(postsList.page));
       }
     }
   };

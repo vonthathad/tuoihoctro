@@ -7,7 +7,7 @@ const TwitterHeart = ({ _id, checked }) => (
   </div>
 );
 TwitterHeart.propTypes = {
-  _id: PropTypes.string.isRequired,
+  _id: PropTypes.number.isRequired,
   checked: PropTypes.bool.isRequired,
 };
 export default TwitterHeart;

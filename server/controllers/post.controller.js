@@ -261,7 +261,8 @@ exports.listPosts = (req, res) => {
           }
           gifsCount--;
         }
-      } else {
+      }
+      if (photosCount === 0 && listsCount === 0 && gifsCount === 0) {
         // const mediaContent = [...photos, ...lists, ...gifs];
         // return res.json(posts);
         isEnough = true;
@@ -333,6 +334,7 @@ exports.listPosts = (req, res) => {
         return res.json(postsExt);
       });
     }
+    return null;
   });
   return null;
 };
@@ -390,32 +392,20 @@ exports.listRecommendPosts = (req, res) => {
   // e33d0d9#.hkka5wx3i
   const aggregation = {};
   aggregation.project = {
-    title: 1, type: 1, categories: 1,
+    title: 1
   };
-  const propertiesMediaContent = {
-    mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
-  };
+  // const propertiesMediaContent = {
+    // mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
+  // };
   // const propertiesThumb = {
   //   thumb: 1, thumbLQ: 1, thumbHeight: 1, thumbWidth: 1,
   // };
   const propertiesSmallThumb = {
     smallThumb: 1, smallThumbLQ: 1, smallThumbHeight: 1, smallThumbWidth: 1,
   };
-  const propertiesDetailInfo = {
-    created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: {
-      $arrayElemAt: [
-        [
-          {
-            avatar: {
-              $arrayElemAt: ['$creator.avatar', 0],
-            }, username: {
-              $arrayElemAt: ['$creator.username', 0],
-            },
-          },
-        ], 0,
-      ],
-    },
-  };
+  // const propertiesDetailInfo = {
+    // created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
+  // };
   // if (req.query.type === 'mediaContent') {
   //   aggregation.project = {
   //     ...aggregation.project, ...propertiesMediaContent, ...propertiesDetailInfo, ...aggregation.project, ...propertiesThumb, ...propertiesDetailInfo, ...propertiesMediaContent, ...propertiesDetailInfo,
@@ -426,7 +416,7 @@ exports.listRecommendPosts = (req, res) => {
   //   };
   // } else if (req.query.type === 'smallThumb') {
   aggregation.project = {
-    ...aggregation.project, ...propertiesSmallThumb, ...propertiesMediaContent, ...propertiesDetailInfo,
+    ...aggregation.project, ...propertiesSmallThumb,
   };
   // }
   // console.log((new Date).getTime());
@@ -434,10 +424,6 @@ exports.listRecommendPosts = (req, res) => {
   Post.aggregate([
     {
       $match: match,
-    }, {
-      $lookup: {
-        from: 'users', localField: 'creator', foreignField: '_id', as: 'creator',
-      },
     }, {
       $project: aggregation.project,
     }, // Sorting pipeline
@@ -449,28 +435,28 @@ exports.listRecommendPosts = (req, res) => {
     {
       $limit: (paging),
     },
-  ], (err, results) => {
-    // console.log(results);
+  ], (err, result) => {
+    const posts = result;
     if (err) {
       // console.log(err);
       return res
         .status(400)
         .send();
     }
-    if (results.length === 0) {
+    if (posts.length === 0) {
       return res
         .status(404)
         .send();
     }
-    // results = results.map(function (doc) {     return new Post(doc) });
-    res.json(results);
-    // Post.populate(results, { "path": "creator", "select": "displayName
-    // username avatar" }, function (err, data) {     if (err) return
-    // res.status(400).send();     console.log(JSON.stringify(data));     var isNext
-    // = false;     if (data.length == (paging + 1)) {         isNext = true;
-    // data.pop();     }     resdata = {         data: data,         isNext: isNext
-    // }     res.json(resdata); });
-    return null;
+    // posts = posts.map((doc) => { return new Post(doc); });
+    // Post.populate(posts, {
+    //   path: 'creator',
+    //   select: 'displayName username avatar',
+    // }, (err1, data) => {
+    //   if (err1) return res.status(403).send({ message: err1 });
+    return res.json(posts);
+    // });
+    // return null;
   });
 };
 const jpgOptim = (input) => {

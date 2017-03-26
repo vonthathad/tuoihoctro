@@ -27,7 +27,6 @@ function request(options) {
   // return this.http.request(req);
   return fetch(options.url, { ...options })
     .then(res => {
-      console.log(res);
       if (res.status !== 200) {
         if (res.Body) throw res.Body.statusText;
         else throw Object({ error: 'Lỗi' });
@@ -37,7 +36,7 @@ function request(options) {
 }
 
 export function post(options) {
-  console.log(options);
+  // console.log(options);
   options.method = 'post';
   return request(options);
 }

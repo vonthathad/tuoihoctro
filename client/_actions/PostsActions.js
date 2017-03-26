@@ -64,7 +64,7 @@ export function addPostSuccess(post) {
   };
 }
 
-export function _fetchPostsChunk(page = 1) {
+export function _fetchPostsChunk(page) {
   return (dispatch) => {
     dispatch(fetchPostsChunk());
     const queryArgs = { page };
@@ -75,12 +75,12 @@ export function _fetchPostsChunk(page = 1) {
 }
 
 export function addPostRequest(post) {
-  console.log(post);
+  // console.log(post);
   return (dispatch) => {
     return addPost({
       post,
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch(addPostSuccess(res));
     });
   };
