@@ -14,7 +14,7 @@ import { _fetchPost, voteUpPost, voteDownPost, deletePostRequest } from '../../.
 // Import Selectors
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
-import FacebookProvider, { Comments, Share } from 'react-facebook';
+// import FacebookProvider, { Comments, Share } from 'react-facebook';
 
 export class PostDetail extends Component {
 
@@ -22,8 +22,8 @@ export class PostDetail extends Component {
     this.props.dispatch(_fetchPost(this.props.params.cuid));
   }
 
-  deletePostByOwner(id){
-    this.props.dispatch(deletePostRequest(id))
+  deletePostByOwner(id) {
+    this.props.dispatch(deletePostRequest(id));
   }
   voteUp(id) {
     this.props.dispatch(voteUpPost(id));
@@ -31,13 +31,13 @@ export class PostDetail extends Component {
   voteDown(id) {
     this.props.dispatch(voteDownPost(id));
   }
-  readBack(id){
-    this.props.dispatch(_fetchPost(id-1))
+  readBack(id) {
+    this.props.dispatch(_fetchPost(id - 1));
   }
-  readNext(id){
-    this.props.dispatch(_fetchPost(id+1))
+  readNext(id) {
+    this.props.dispatch(_fetchPost(id + 1));
   }
-  render(){
+  render() {
     console.log(this.props);
     return (
       <div id={styles.wrap}>
@@ -45,7 +45,7 @@ export class PostDetail extends Component {
           <div className="col-sm-8" id={styles.left}>
             {
               (this.props.post)
-              ?  <div className={styles['post-content-box']}>
+              ? <div className={styles['post-content-box']}>
                   <header className={styles['post-header']}>
                     <div className={styles['post-title']}><h1>{this.props.post.title}</h1></div>
                     <div className={styles['post-footer']}>
@@ -70,7 +70,7 @@ export class PostDetail extends Component {
                   <div className={styles['post-page-left']}>
                     <div id={styles['page-post']} className={styles['post-content']}>
                       <a_fetchPost className={styles['popup-image']}>
-                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} width = {600} />
+                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} width ={600} />
                       </a_fetchPost>
                     </div>
                     {
