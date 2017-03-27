@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import styles from './PostDetail.css';
 
 // Import Actions
-import { _fetchPost, voteUpPost, voteDownPost } from '../../../_actions/PostsActions';
+import { _fetchPost, voteUpPost, voteDownPost, deletePostRequest } from '../../../_actions/PostsActions';
 
 // Import Selectors
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
@@ -17,12 +17,14 @@ import { _fetchPost, voteUpPost, voteDownPost } from '../../../_actions/PostsAct
 import FacebookProvider, { Comments, Share } from 'react-facebook';
 
 export class PostDetail extends Component {
-  // let pathname = window.location.href;
 
   componentWillMount() {
     this.props.dispatch(_fetchPost(this.props.params.cuid));
   }
 
+  deletePostByOwner(id){
+    this.props.dispatch(deletePostRequest(id))
+  }
   voteUp(id) {
     this.props.dispatch(voteUpPost(id));
   }
@@ -36,7 +38,7 @@ export class PostDetail extends Component {
     this.props.dispatch(_fetchPost(id+1))
   }
   render(){
-    let pathname = window.location.href;
+    console.log(this.props);
     return (
       <div id={styles.wrap}>
         <div className="container">
@@ -71,22 +73,25 @@ export class PostDetail extends Component {
                         <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} width = {600} />
                       </a_fetchPost>
                     </div>
-                    <div className={styles['bottom-share']}>
-                      <FacebookProvider appID="370964589952027">
-                        <Share href={pathname}>
-                          <a className={styles['fb-btn-long']}>Share on Facebook</a>
-
-                        </Share>
-                      </FacebookProvider>
-                    </div>
+                    {
+                      (this.props.auth && this.props.post.creator && this.props.auth._id == this.props.post.creator._id)
+                      ? <div className={styles['bottom-share']} >
+                          <a href="" onClick={this.deletePostByOwner.bind(this, this.props.post._id)}>
+                            Delete this post
+                          </a>
+                        </div>
+                        : null
+                    }
                     <div className={styles['post-date']}>
                       <abbr className={styles.timeago}></abbr> BY
-                      {/*<a className={styles['user-link']}>{this.props.post.creator.username}</a>*/}
+                      {
+                        (this.props.post.creator)
+                        ? <a className={styles['user-link']}> {this.props.post.creator.username}</a>
+                          : null
+                      }
                     </div>
                   </div>
-                  <FacebookProvider appID="370964589952027">
-                    <Comments href={pathname} />
-                  </FacebookProvider>
+
                 </div>
                 : <div className={styles.loading}>Loading&#8230;</div>
             }
@@ -108,6 +113,7 @@ PostDetail.need = [params => {
 function mapStateToProps(state) {
   return {
     post: state.postsStore.postDetail,
+    auth: state.auth,
   };
 }
 

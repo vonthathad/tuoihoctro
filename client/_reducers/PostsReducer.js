@@ -13,7 +13,7 @@ const INITIAL_STATE = {
 // Initial State
 
 const PostsReducer = (state = INITIAL_STATE, action) => {
-  console.log(action, state);
+
   switch (action.type) {
     case CREATE_POST_SUCCESS:
       {
@@ -24,14 +24,9 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
           ...temp,
         };
       }
-    case FETCH_POST:
+
+    case FETCH_POST_SUCCESS:
       {
-        return {
-          ...state,
-          postDetail: {},
-        };
-      }
-    case FETCH_POST_SUCCESS: {
       const temp1 = { postDetail: { ...state.postDetail } };
       temp1.postDetail = action.postDetail.data;
       return {
@@ -39,27 +34,6 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
         ...temp1,
       };
     }
-    case VOTE_UP_POST_SUCCESS:
-    {
-      const temp = { postDetail: { ...state.postDetail } };
-      temp.postDetail.point += 1;
-      return {
-        ...state,
-        ...temp,
-      };
-    }
-    case VOTE_DOWN_POST_SUCCESS: {
-      const temp4 = { postDetail: {...state.postDetail} };
-      temp4.postDetail.point -= 1;
-      return {
-        ...state,
-        ...temp4,
-      };
-    }
-    case FETCH_POST_FAILURE:
-      return {
-        postDetail: {},
-      };
     case FETCH_POSTS_CHUNK:
       {
         return {
@@ -108,6 +82,24 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
           },
         };
       }
+    case VOTE_UP_POST_SUCCESS:
+    {
+      const temp = { postDetail: { ...state.postDetail } };
+      temp.postDetail.point += 1;
+      return {
+        ...state,
+        ...temp,
+      };
+    }
+    case VOTE_DOWN_POST_SUCCESS:
+      {
+      const temp4 = { postDetail: {...state.postDetail} };
+      temp4.postDetail.point -= 1;
+      return {
+        ...state,
+        ...temp4,
+      };
+    }
     default:
       return state;
   }

@@ -1,4 +1,10 @@
-import { get, post, put } from './_requestCaller';
+import { get, post, put, _delete } from './_requestCaller';
+
+function getToken() {
+  if(window.localStorage.getItem('token')){
+    return window.localStorage.getItem('token')
+  } else return null
+}
 
 export function getPosts(queryArgs) {
   const headers = {
@@ -23,12 +29,24 @@ export function getPostsRecommend(queryArgs) {
   });
 }
 export function addPost(body) {
+  let token = getToken();
   const headers = {
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpcmRhdDE5OTNAZ21haWwuY29tIiwiaWF0IjoxNDg3NzY4MTE3fQ.Ds8JI_moMH9-UzuS38p1zGWirYNM89uadhV8RsShTjg',
+    Authorization: `Bearer ${token}`,
   };
   return post({
     body: body.post,
     url: 'api/posts',
+    headers,
+  });
+}
+
+export function deletePost(id) {
+  let token = getToken();
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return _delete({
+    url: 'api/posts/'+id,
     headers,
   });
 }
