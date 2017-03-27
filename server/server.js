@@ -63,6 +63,13 @@ const renderFullPage = (html, initialState) => {
     <!doctype html>
     <html>
       <head>
+        <meta name="google-site-verification" content="9A4qGCYa5Tzh36s_jT7EmMPmizE6-5DMimF8BYIr9MY" />
+        <meta name="robots" content="index,follow" />
+        <meta http-equiv="content-language" content="vi">
+        <meta charset="UTF-8">
+        <meta property="fb:app_id" content="123" />
+        <meta property="og:site_name" content="tuoihoctro.co" />
+
         ${head.base.toString()}
         ${head.title.toString()}
         ${head.meta.toString()}
@@ -72,7 +79,6 @@ const renderFullPage = (html, initialState) => {
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-          <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
         ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
       </head>
       <body>

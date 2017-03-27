@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // Import Components
 // import RecommendList from '../../layouts/RecommendList';
 // import RecommendsListContainer from '../../containers/RecommendsListContainer';
+import Helmet from 'react-helmet';
 
 // Import Style
 import styles from './PostDetail.css';
@@ -39,13 +40,47 @@ export class PostDetail extends Component {
   }
   render() {
     console.log(this.props);
+    const post = this.props.post.title;
     return (
       <div id={styles.wrap}>
+        <Helmet title={this.props.post.title}
+
+          meta={[
+            {
+              name: 'viewport',
+              content: 'width=device-width, initial-scale=1',
+            },
+            {
+              name: 'keywords',
+              content: 'tuoihoctro, tuổi học trò, gif, image, vui',
+            },
+            {
+              name: 'title',
+              content: `${this.props.post.title}`,
+            },
+            {
+              name: 'description',
+              content: `${this.props.post.title}`,
+            },
+            {
+              name: 'og:description',
+              content: `${this.props.post.title}`,
+            },
+            {
+              name: 'og:image',
+              content: `${this.props.post.mediaContent}`,
+            },
+            {
+              name: 'og:url',
+              content: `http://tuoihoctro.co/posts/${this.props.post._id}`,
+            },
+          ]}
+        />
         <div className="container">
           <div className="col-sm-8" id={styles.left}>
             {
               (this.props.post)
-              ? <div className={styles['post-content-box']}>
+                ? <div className={styles['post-content-box']}>
                   <header className={styles['post-header']}>
                     <div className={styles['post-title']}><h1>{this.props.post.title}</h1></div>
                     <div className={styles['post-footer']}>
@@ -70,12 +105,12 @@ export class PostDetail extends Component {
                   <div className={styles['post-page-left']}>
                     <div id={styles['page-post']} className={styles['post-content']}>
                       <a_fetchPost className={styles['popup-image']}>
-                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} width ={600} />
+                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} width={600} />
                       </a_fetchPost>
                     </div>
                     {
                       (this.props.auth && this.props.post.creator && this.props.auth._id == this.props.post.creator._id)
-                      ? <div className={styles['bottom-share']} >
+                        ? <div className={styles['bottom-share']} >
                           <a href="" onClick={this.deletePostByOwner.bind(this, this.props.post._id)}>
                             Delete this post
                           </a>
@@ -86,7 +121,7 @@ export class PostDetail extends Component {
                       <abbr className={styles.timeago}></abbr> BY
                       {
                         (this.props.post.creator)
-                        ? <a className={styles['user-link']}> {this.props.post.creator.username}</a>
+                          ? <a className={styles['user-link']}> {this.props.post.creator.username}</a>
                           : null
                       }
                     </div>
@@ -98,7 +133,7 @@ export class PostDetail extends Component {
           </div>
 
         </div>
-      </div>
+      </div >
     );
   }
 

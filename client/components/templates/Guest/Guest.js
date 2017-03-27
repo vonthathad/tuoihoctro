@@ -12,6 +12,7 @@ import Footer from '../../common/Footer/Footer';
 import Auth from '../../layouts/Auth';
 import PostCreateWidget from '../../layouts/PostWidget/PostWidget';
 
+
 // Import Actions
 import { toggleAddPost, toggleLogin, toggleRegister, closeElement } from './actions';
 import { addPostRequest } from '../../../_actions/PostsActions';
@@ -95,6 +96,7 @@ export class Guest extends Component {
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
+
           <div id={styles.wrap}>
             <Header
               toggleAddPost={this.toggleAddPostSection}
