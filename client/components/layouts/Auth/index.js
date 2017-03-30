@@ -11,8 +11,8 @@ export class Auth extends React.PureComponent {
       <div className={cls}>
         {
           this.props.showElement == 'login'
-            ? <LoginWidget closeElement={this.props.closeElement} loginUser={this.props.loginUser} />
-            : <RegisterWidget closeElement={this.props.closeElement} registerUser={this.props.registerUser} />
+            ? <LoginWidget closeElement={this.props.closeElement} loginUser={this.props.loginUser}  toggleRegister={this.props.toggleRegister}/>
+            : <RegisterWidget closeElement={this.props.closeElement} registerUser={this.props.registerUser} toggleLogin={this.props.toggleLogin}/>
         }
       </div>
     );
@@ -20,6 +20,8 @@ export class Auth extends React.PureComponent {
 }
 
 Auth.propTypes = {
+  toggleLogin: PropTypes.func.isRequired,
+  toggleRegister: PropTypes.func.isRequired,
   closeElement: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired,
   registerUser: PropTypes.func.isRequired,

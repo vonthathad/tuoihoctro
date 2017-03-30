@@ -21,11 +21,6 @@ export class LoginWidget extends Component {
         <div className={styles['login-content']}>
           <span onClick={this.props.closeElement}>x</span>
           <div className="col-md-12">
-            Login via
-            <div className={styles['social-buttons']}>
-              <a href="#" className={`btn ${styles['btn-fb']}`}>Facebook</a>
-            </div>
-            or
             <form className="form" role="form" method="post" action="login">
               <div className={`form-group ${styles['form-group']}`}>
                 <label className="sr-only" htmlFor="exampleInputEmail2">Email address</label>
@@ -39,15 +34,14 @@ export class LoginWidget extends Component {
               <div className={`form-group ${styles['form-group']}`}>
                 <button type="button" className="btn btn-primary btn-block" onClick={this.loginUser}>Sign in</button>
               </div>
-              <div className="checkbox">
-                <label>
-                  <input type="checkbox" /> keep me logged-in
-                </label>
+
+              <div className={`form-group ${styles['form-group']}`}>
+                <button type="button" className={`btn btn-primary btn-block ${styles['btn-fb']}`}>Login via Facebook</button>
               </div>
             </form>
           </div>
           <div className="bottom text-center">
-            New here ? <a href="#" ><b>Join Us</b></a>
+            New here ? <a onClick={this.props.toggleRegister} ><b>Join Us</b></a>
           </div>
         </div>
         <div className={styles['login-background']} onClick={this.props.closeElement}>
@@ -58,6 +52,7 @@ export class LoginWidget extends Component {
 }
 
 LoginWidget.propTypes = {
+  toggleRegister: PropTypes.func.isRequired,
   closeElement: PropTypes.func.isRequired,
   loginUser: PropTypes.func.isRequired,
 };

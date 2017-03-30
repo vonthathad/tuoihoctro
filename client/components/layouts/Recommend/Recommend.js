@@ -7,7 +7,6 @@ const Recommend = (props) => {
     <Link to={`posts/${props.recommend._id}`}>
       <div className={styles['featured-recommend']}>
         <div className={styles['featured-image']}>
-          {/* <img src={props.recommend.recommend} alt="" />*/}
            {props.children}
         </div>
         <div className={styles['featured-title']}>
