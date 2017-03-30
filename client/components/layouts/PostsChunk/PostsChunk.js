@@ -29,7 +29,7 @@ class PostsChunk extends Component {
   }
 
   render() {
-    const { posts, loading, _window } = this.props;
+    const { posts, loading, _window, auth, dispatch } = this.props;
     return (
       <div
         ref={(postWrapperRef) => {
@@ -37,32 +37,41 @@ class PostsChunk extends Component {
         }}
       >
         {loading && < h2 > Loading...</h2>}
-        {!loading && posts && posts.length > 0 && posts.map((post, i) => (
-          <Post post={post} key={i}>
+        {!loading && posts && posts.length > 0 && posts.map((post, i) => {
+          post.votes.forEach(item => {
+            if(item == auth._id) {
+              post.liked = true
+            }
+            else post.liked = false
+          });
+          return <Post post={post} key={i} dispatch={dispatch}>
             {post.type.indexOf('gif') === -1 ? <ImagePrettyLoad
-              key={post._id}
-              image={post.thumb}
-              imageLQ={post.thumbLQ}
-              imageHeight={post.thumbHeight}
-              imageWidth={post.thumbWidth}
-              containerWidth={this.containerWidth}
-            /> : <VideoAutoPlay
-              key={post._id}
-              videoSrc={post.thumb}
-              videoHeight={post.thumbHeight}
-              videoWidth={post.thumbWidth}
-              containerWidth={this.containerWidth}
-              _window={_window}
-            />
+                key={post._id}
+                image={post.thumb}
+                imageLQ={post.thumbLQ}
+                imageHeight={post.thumbHeight}
+                imageWidth={post.thumbWidth}
+                containerWidth={this.containerWidth}
+              /> : <VideoAutoPlay
+                key={post._id}
+                videoSrc={post.thumb}
+                videoHeight={post.thumbHeight}
+                videoWidth={post.thumbWidth}
+                containerWidth={this.containerWidth}
+                _window={_window}
+              />
             }
           </Post>
-        ))
+        })
         }
       </div >
     );
   }
 }
 PostsChunk.propTypes = {
-  posts: PropTypes.array.isRequired, loading: PropTypes.bool.isRequired, _window: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  posts: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired, _window: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 export default PostsChunk;

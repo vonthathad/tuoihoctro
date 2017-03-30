@@ -58,11 +58,12 @@ class Header extends Component {
                    <li className="btn-upload"><a>Xin chào: {curentUser.username}</a></li>
                    <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>
                    <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
+                   <li><Link to="/admin">Admin</Link></li>
+
                  </ul>
                  :
                  <ul className={'nav navbar-nav navbar-right'}>
                    <li><a onClick={this.props.toggleLogin}>Đăng nhập</a></li>
-                   <li><Link to="/admin">Admin</Link></li>
                    <li><a onClick={this.props.toggleRegister}>Đăng ký</a></li>
                  </ul>
              }
@@ -96,12 +97,13 @@ class Header extends Component {
                 <div>
                   <a onClick={() => { this.props.toggleAddPost(); this.burgerToggle(); }}>Upload</a>
                   <a onClick={() => { this.props.logout(); this.burgerToggle(); }}>Đăng xuất</a>
+                  <Link to="/admin">Admin</Link>
                 </div>
                 :
                 <div>
                   <a onClick={() => { this.props.toggleLogin(); this.burgerToggle(); }}>Đăng nhập</a>
                   <a onClick={() => { this.burgerToggle(); }}>Đăng nhập</a>
-                  <Link to="/admin">Admin</Link>
+
                   <a onClick={() => { this.props.toggleRegister(); this.burgerToggle(); }}>Đăng ký</a>
                 </div>
             }

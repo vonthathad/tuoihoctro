@@ -3,19 +3,13 @@ import { Link } from 'react-router';
 import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
 // Import Style
 import st from './index.css';
-// import icons from '../../../../../assets/css/icon.css';
+import { _fetchPostsChunk,voteUpPost } from '../../../_actions/PostsActions';
+
 class Post extends Component {
-  constructor(props) {
-    super(props);
-    this.handleVoteClick = this.handleVoteClick.bind(this);
-    this.count = 0;
-  }
-  handleVoteClick = () => {
-    this.count++;
-    if (this.count % 2 === 0) {
-      // console.log(this.count);
-    }
-  }
+
+  handleVoteClick(id) {
+    this.props.dispatch(voteUpPost(id))
+  };
   // console.log(props);
   render() {
     return (
@@ -41,7 +35,7 @@ class Post extends Component {
           }
           <div className={st['post-footer']}>
             <div className={st['box-vote']}>
-              <div className={st['twitter-heart-wrapper']} onClick={this.handleVoteClick} >
+              <div className={st['twitter-heart-wrapper']} onClick={this.handleVoteClick.bind(this, this.props.post._id)} >
                 <TwitterHeart _id={this.props.post._id} checked={false} />
               </div>
               <div className={st['vote-number-wrapper']}>
@@ -49,9 +43,9 @@ class Post extends Component {
               </div>
             </div>
             <div className={st['box-comment']}>
-              <a className={st['comment-icon-wrapper']}>
+              <Link to={`posts/${this.props.post._id}`} className={st['comment-icon-wrapper']}>
                 <i className="fa fa-comment-o" aria-hidden="true"></i>
-              </a>
+              </Link>
               <div className={st['comment-number-wrapper']}>
                 <span> {this.props.post.point} </span>
               </div>
@@ -72,6 +66,7 @@ class Post extends Component {
   }
 }
 Post.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   post: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -79,6 +74,7 @@ Post.propTypes = {
     thumb: PropTypes.string.isRequired,
     point: PropTypes.number.isRequired,
     view: PropTypes.number.isRequired,
+    liked: PropTypes.boolean
   }).isRequired, children: PropTypes.node.isRequired,
 };
 export default Post;

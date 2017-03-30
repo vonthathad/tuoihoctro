@@ -18,13 +18,24 @@
   font-weight: 700;
 }
 
-
+.timeago{
+  float: right;
+}
 .post-footer {
   padding: 5px 0 10px 0;
   color: #999;
 }
-
-
+.post-content {
+  margin-top: 15px;
+}
+.post-content img{
+  width: 100%;
+}
+.post-action{
+  position: relative;
+  padding-bottom: 10px;
+  display: list-item;
+}
 .vote-box {
   width: 50%;
   float: left;
@@ -32,39 +43,6 @@
   margin-bottom: 15px;
 }
 
-.vote-box a {
-  margin-right: 2px;
-}
-
-
-.vote-box-top {
-  display: inline-block;
-  float: left;
-  margin-top: 10px;
-  margin-bottom: 15px;
-}
-
-.vote-font {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: bold;
-}
-
-.comment-vote {
-  padding: 0 7px;
-}
-
-.social-box {
-  width: 50%;
-  float: left;
-  margin-top: 10px;
-}
-
-.social-box-top {
-  float: left;
-  margin-top: 10px;
-  display: block;
-
-}
 #wrap {
   margin-top: 120px;
 }
@@ -262,4 +240,110 @@
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+
+.comment {
+  overflow: hidden;
+  padding: 0 0 1em;
+  margin: 0 0 1em;
+  *zoom: 1;
+}
+
+.comment-img {
+  float: left;
+  margin-right: 33px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.comment-img img {
+  display: block;
+}
+
+.comment-body {
+  overflow: hidden;
+}
+
+.comment .text {
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.comment .text p:last-child {
+  margin: 0;
+}
+
+.comment .attribution {
+  margin: 0.5em 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Decoration */
+.comments{
+  margin-top: 20px;
+}
+.comments,
+.comment {
+  position: relative;
+}
+
+.comments:before,
+.comment:before,
+.comment .text:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 65px;
+}
+
+.comments:before {
+  width: 3px;
+  top: -20px;
+  bottom: -20px;
+  background: rgba(0,0,0,0.1);
+}
+
+.comment:before {
+  width: 9px;
+  height: 9px;
+  border: 3px solid #fff;
+  border-radius: 100px;
+  margin: 16px 0 0 -6px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.2), inset 0 1px 1px rgba(0,0,0,0.1);
+  background: #ccc;
+}
+
+.comment:hover:before {
+  background: orange;
+}
+
+.comment .text:before {
+  top: 18px;
+  left: 78px;
+  width: 9px;
+  height: 9px;
+  border-width: 0 0 1px 1px;
+  border-style: solid;
+  border-color: #e5e5e5;
+  background: #fff;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+.twitter-heart-wrapper{
+  display: inline-block;
+  font-size: 15px;
+  margin-top: 4px;
+  float: left;
+  width: 56px;
+  position: absolute;
+  left: -10px;
+  transform: scale(0.75);
+
+
 }

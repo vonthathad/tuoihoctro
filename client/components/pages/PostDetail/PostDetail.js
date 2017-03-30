@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-
+import { browserHistory } from 'react-router'
 // Import Components
-// import RecommendList from '../../layouts/RecommendList';
-// import RecommendsListContainer from '../../containers/RecommendsListContainer';
+// import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
+import RecommendsListContainer from '../../containers/RecommendsListContainer';
 import Helmet from 'react-helmet';
 
 // Import Style
@@ -13,9 +13,11 @@ import styles from './PostDetail.css';
 import { _fetchPost, voteUpPost, voteDownPost, deletePostRequest } from '../../../_actions/PostsActions';
 
 // Import Selectors
+import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
+
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
-// import FacebookProvider, { Comments, Share } from 'react-facebook';
+import FacebookProvider, { Comments, Share } from 'react-facebook';
 
 export class PostDetail extends Component {
 
@@ -36,7 +38,8 @@ export class PostDetail extends Component {
     this.props.dispatch(_fetchPost(id - 1));
   }
   readNext(id) {
-    this.props.dispatch(_fetchPost(id + 1));
+    console.log(id);
+    browserHistory.go(`/posts/${id+1}`);
   }
   render() {
     console.log(this.props);
@@ -44,7 +47,6 @@ export class PostDetail extends Component {
     return (
       <div id={styles.wrap}>
         <Helmet title={this.props.post.title}
-
           meta={[
             {
               name: 'viewport',
@@ -83,30 +85,30 @@ export class PostDetail extends Component {
                 ? <div className={styles['post-content-box']}>
                   <header className={styles['post-header']}>
                     <div className={styles['post-title']}><h1>{this.props.post.title}</h1></div>
-                    <div className={styles['post-footer']}>
-                      <span className={styles['display-vote']}>{this.props.post.point} Điểm</span> - {this.props.post.view} Lượt xem - 0 Bình luận
-                    </div>
+
                   </header>
-                  <div className={styles['vote-box-top']}>
-                    <a className="btn btn-default glyphicon glyphicon-arrow-up" onClick={this.voteUp.bind(this, this.props.post._id)}><span
-                      className={`${styles['vote-font']} ${styles['remove-mobile']}`}
-                    >UP</span>
-                    </a>
-                    <a className="btn btn-default glyphicon glyphicon-arrow-down" onClick={this.voteDown.bind(this, this.props.post._id)}></a>
-                  </div>
-                  <div className={styles['social-box-top']}>
-                    <a className={`btn btn-default ${styles['fb-button-top']}`} onClick={this.readBack.bind(this, this.props.post._id)}>
-                      <span className={styles['remove-mobile']}> Bài trước</span>
-                    </a>
-                    <a className={`btn btn-danger pull-right ${styles['btn-arrow-right']} ${styles['remove-mobile']}`} onClick={this.readNext.bind(this, this.props.post._id)}>
-                      Đọc tiếp
-                    </a>
+                  <div className={styles['post-action']}>
+                    <span>{this.props.post.point}</span>
+                    <div onClick={this.voteUp.bind(this, this.props.post._id)} >
+                      <TwitterHeart _id={this.props.post._id} checked={false} />
+                    </div>
+                    <span>{this.props.post.view}</span><i className="fa fa-eye" aria-hidden="true"></i>
+                    <div className={styles['social-box-top']}>
+                      <a className={`btn btn-default ${styles['fb-button-top']}`} >
+                        <FacebookProvider appID="1559166841054175">
+                          <Share>
+                            <span className={styles['remove-mobile']}>Chia sẻ</span>
+                          </Share>
+                        </FacebookProvider>
+                      </a>
+                      <a className={`btn btn-danger pull-right ${styles['btn-arrow-right']} ${styles['remove-mobile']}`} onClick={this.readNext.bind(this, this.props.post._id)}>
+                        Đọc tiếp
+                      </a>
+                    </div>
                   </div>
                   <div className={styles['post-page-left']}>
                     <div id={styles['page-post']} className={styles['post-content']}>
-                      <a_fetchPost className={styles['popup-image']}>
-                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} width={600} />
-                      </a_fetchPost>
+                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} />
                     </div>
                     {
                       (this.props.auth && this.props.post.creator && this.props.auth._id == this.props.post.creator._id)
@@ -117,21 +119,22 @@ export class PostDetail extends Component {
                         </div>
                         : null
                     }
-                    <div className={styles['post-date']}>
-                      <abbr className={styles.timeago}></abbr> BY
-                      {
-                        (this.props.post.creator)
-                          ? <a className={styles['user-link']}> {this.props.post.creator.username}</a>
-                          : null
-                      }
+                     <div className={styles.timeago}>
+                       BY
+                       {
+                         (this.props.post.creator)
+                           ? <a className={styles['user-link']}> {this.props.post.creator.username}</a>
+                           : null
+                       }
                     </div>
                   </div>
-
+                  <FacebookProvider appID="1559166841054175">
+                    <Comments />
+                  </FacebookProvider>
                 </div>
                 : <div className={styles.loading}>Loading&#8230;</div>
             }
           </div>
-
         </div>
       </div >
     );

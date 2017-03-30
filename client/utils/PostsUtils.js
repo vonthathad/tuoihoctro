@@ -1,4 +1,5 @@
 import { get, post, put, _delete } from './_requestCaller';
+import fetch from 'isomorphic-fetch';
 
 function getToken() {
   if(window.localStorage.getItem('token')){
@@ -79,3 +80,5 @@ export function voteDown(id) {
     headers,
   });
 }
+
+

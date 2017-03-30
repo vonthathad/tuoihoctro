@@ -1,5 +1,5 @@
 // Import Actions
-import { TOGGLE_ADD_POST, TOGGLE_LOGIN, TOGGLE_REGISTER, CLOSE_ELEMENT } from './actions';
+import { TOGGLE_ADD_POST, TOGGLE_LOGIN, TOGGLE_REGISTER, CLOSE_ELEMENT } from '../_actions/WidgetActions';
 
 // Initial State
 const initialState = {

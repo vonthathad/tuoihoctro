@@ -4,6 +4,7 @@ import PostsList from '../layouts/PostsList/PostsList';
 const mapStateToProps = (state) => {
   return {
     postsList: state.postsStore.postsList,
+    auth: state.auth,
   };
 };
 

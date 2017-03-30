@@ -14,12 +14,12 @@ import PostCreateWidget from '../../layouts/PostWidget/PostWidget';
 
 
 // Import Actions
-import { toggleAddPost, toggleLogin, toggleRegister, closeElement } from './actions';
+import { toggleAddPost, toggleLogin, toggleRegister, closeElement } from '../../../_actions/WidgetActions';
 import { addPostRequest } from '../../../_actions/PostsActions';
-import { loginRequest, registerRequest, checkLogin, logout } from '../../layouts/Auth/AuthActions';
+import { loginRequest, registerRequest, checkLoginInit, logout } from '../../../_actions/AuthActions';
 
 // Import Reducer
-import { getShowElement } from './reducer';
+import { getShowElement } from '../../../_reducers/WidgetReducer';
 
 export class Guest extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export class Guest extends Component {
 
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
-    this.props.dispatch(checkLogin());
+    this.props.dispatch(checkLoginInit());
   }
 
   changeStyleModal() {

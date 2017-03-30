@@ -1,8 +1,10 @@
-import { login } from '../../../utils/UsersUtils';
-import callApiUser from '../../../utils/_requestCaller';
+import { login } from '../utils/UsersUtils';
+import callApiUser from '../utils/_requestCaller';
 // Export Constants
 export const LOGIN_USER = 'LOGIN_USER';
 export const REGISTER_USER = 'REGISTER_USER';
+
+import {toggleLogin} from './WidgetActions'
 
 // Export Actions
 export function loginUser(user) {
@@ -62,7 +64,7 @@ export function registerRequest(data) {
   };
 }
 
-export function checkLogin() {
+export function checkLoginInit() {
   return (dispatch) => {
     const data = {};
     data._id = localStorage.getItem('id');
@@ -73,7 +75,14 @@ export function checkLogin() {
     }
   };
 }
-
+export function checkLoginAction() {
+  return (dispatch) => {
+    if (!localStorage.getItem('id')) {
+      dispatch(toggleLogin());
+      return false
+    } else return true
+  };
+}
 export function logout() {
   return (dispatch) => {
     console.log(1);

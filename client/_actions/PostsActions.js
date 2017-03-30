@@ -1,5 +1,7 @@
 // import request from '../../services/api.services';
 import { getPosts, addPost, getPost, deletePost, voteUp, voteDown } from '../utils/PostsUtils';
+
+import {checkLoginAction} from '../_actions/AuthActions'
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
@@ -91,12 +93,17 @@ export function _fetchPost(id) {
 }
 export function voteUpPost(id) {
   return (dispatch) => {
-    return voteUp(id)
-      .then(res => {
-        if (res.data.voteUp) {
-          dispatch(voteUpSuccess());
-        }
-      });
+    let check = dispatch(checkLoginAction());
+    console.log(check);
+    if(check == true){
+      return voteUp(id)
+        .then(res => {
+          if (res.data.voteUp) {
+            dispatch(voteUpSuccess());
+          }
+        });
+    }
+
   };
 }
 export function voteDownPost(id) {
@@ -137,3 +144,4 @@ export function updateViewPostRequest() {
       })
   }
 }
+

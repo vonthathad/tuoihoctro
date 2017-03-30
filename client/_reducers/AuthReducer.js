@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER } from './AuthActions';
+import { LOGIN_USER, REGISTER_USER } from '../_actions/AuthActions';
 
 // Initial State
 const initialState = {};
