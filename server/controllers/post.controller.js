@@ -392,10 +392,10 @@ exports.listRecommendPosts = (req, res) => {
   // e33d0d9#.hkka5wx3i
   const aggregation = {};
   aggregation.project = {
-    title: 1
+    title: 1,
   };
   // const propertiesMediaContent = {
-    // mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
+  // mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
   // };
   // const propertiesThumb = {
   //   thumb: 1, thumbLQ: 1, thumbHeight: 1, thumbWidth: 1,
@@ -404,7 +404,7 @@ exports.listRecommendPosts = (req, res) => {
     smallThumb: 1, smallThumbLQ: 1, smallThumbHeight: 1, smallThumbWidth: 1,
   };
   // const propertiesDetailInfo = {
-    // created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
+  // created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
   // };
   // if (req.query.type === 'mediaContent') {
   //   aggregation.project = {
@@ -512,11 +512,8 @@ const createCroppedCompressedImage = (input) => {
       input.size.width && (input.size.width = Math.round(input.size.width / 10));
       input.size.height && (input.size.height = Math.round(input.size.height / 10));
     }
-    // console.log('input.originalWidth ' + input.originalWidth);
-    // console.log('input.size.height ' + input.size.height);
-    // console.log('input.input.size.width  ' + input.size.width);
-    // console.log('createCroppedCompressedImage ' + Math.round(input.size.height * input.originalWidth / input.size.width));
-    const cmd = `convert ${input.fileInput} -gravity center -crop x${Math.round(input.size.height * input.originalWidth / input.size.width)}+0+0 +repage -filter Triangle -define filter:support=2 -thumbnail ${input.size.width} -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB -strip ${input.fileOutput}`;
+    const height = Math.round(input.size.height * input.originalWidth / input.size.width);
+    const cmd = `convert ${input.fileInput} -gravity center -crop ${input.originalWidth}x${height}+0+0 +repage -filter Triangle -define filter:support=2 -thumbnail ${input.size.width} -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB -strip ${input.fileOutput}`;
     exec(cmd, (err) => {
       if (err) {
         reject(err);
@@ -692,8 +689,8 @@ exports.create = (req, res) => {
           const mediaContentLQ = Object.assign({}, fileInputObj, origin, fileOutputMediaPostLQ, sizeMediaPost, lowQuality);
           const thumb = Object.assign({}, fileInputObj, origin, fileOutputThumb, sizeThumb);
           const thumbLQ = Object.assign({}, fileInputObj, origin, fileOutputThumbLQ, sizeThumb, lowQuality);
-          const smallThumb = Object.assign({}, fileInputObj, origin, fileOutputSmallThumb, sizeSmallThumb);
-          const smallThumbLQ = Object.assign({}, fileInputObj, origin, fileOutputSmallThumbLQ, sizeSmallThumb, lowQuality);
+          const smallThumb = Object.assign({}, fileInputObj, origin, fileOutputSmallThumb, sizeSmallThumb, { isSmallThumb: true });
+          const smallThumbLQ = Object.assign({}, fileInputObj, origin, fileOutputSmallThumbLQ, sizeSmallThumb, lowQuality, { isSmallThumb: true });
           createCompressedImage(mediaContent)
             .then(() => createCompressedImage(mediaContentLQ))
             .then(() => {

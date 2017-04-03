@@ -23,6 +23,9 @@ class ImagePrettyLoad extends Component {
   render() {
     const { image, imageLQ, imageWidth, imageHeight, containerWidth } = this.props;
     console.log(this.containerWidthx);
+    console.log(imageWidth);
+    console.log(imageHeight);
+    console.log(containerWidth);
     return (
       <div>
         <div
