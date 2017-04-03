@@ -11,13 +11,13 @@ const development = {
   facebook: {
     clientID: '1559166841054175',
     clientSecret: '036522e3d958646273f13b3f9ffce3cd',
-    callbackURL: '/oauth/facebook/callback',
+    callbackURL: '/auth/facebook/callback',
     profileFields: ['id', 'displayName', 'email', 'gender'],
   },
   google: {
     clientID: '844189525883-op8r9biu0u8rotve147erv08dsmv3fr6.apps.googleusercontent.com',
     clientSecret: 'cNztTZyza-QkaijXejKP2lRj',
-    callbackURL: '/oauth/google/callback',
+    callbackURL: '/auth/google/callback',
     profileFields: ['id', 'displayName', 'email', 'gender'],
   },
   email: {

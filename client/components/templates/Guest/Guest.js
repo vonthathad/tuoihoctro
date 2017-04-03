@@ -31,7 +31,6 @@ export class Guest extends Component {
     this.setState({isMounted: true}); // eslint-disable-line
     this.props.dispatch(checkLoginInit());
   }
-
   changeStyleModal() {
     // if (check === true) {
     //   document.body.style.overflow = 'hidden';

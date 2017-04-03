@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
 import RecommendsListContainer from '../../containers/RecommendsListContainer';
@@ -39,7 +39,7 @@ export class PostDetail extends Component {
   }
   readNext(id) {
     console.log(id);
-    browserHistory.go(`/posts/${id+1}`);
+    browserHistory.go(`/posts/${id + 1}`);
   }
   render() {
     console.log(this.props);

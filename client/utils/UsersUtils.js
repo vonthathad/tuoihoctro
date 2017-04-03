@@ -1,4 +1,4 @@
-import { post } from './_requestCaller';
+import { post, get } from './_requestCaller';
 
 export function login(body) {
   const headers = {
@@ -7,7 +7,7 @@ export function login(body) {
   return post({
     url: 'auth/login',
     body: JSON.stringify(body.user),
-    headers
+    headers,
   });
 }
 
@@ -18,6 +18,17 @@ export function register(body) {
   return post({
     url: 'auth/register',
     body: JSON.stringify(body.user),
-    headers
+    headers,
+  });
+}
+
+export function getToken(token) {
+  const headers = {
+    'Content-type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  };
+  return get({
+    url: 'api/token',
+    headers,
   });
 }

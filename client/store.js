@@ -18,6 +18,9 @@ export function configureStore(initialState = {}) {
     // Enable DevTools only when rendering on client and during development.
     enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
   }
+  if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+    enhancers.push(window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument());
+  }
   const store = createStore(rootReducer, initialState, compose(...enhancers));
 
   // For hot reloading reducers

@@ -7,6 +7,14 @@ import React, { Component, PropTypes } from 'react';
 import styles from './index.css';
 
 export class LoginWidget extends Component {
+  constructor(props){
+    super(props);
+    this.loginFacebook = this.loginFacebook.bind(this);
+    this.loginUser = this.loginUser.bind(this);
+  }
+  loginFacebook(){
+    window.location.href = '/auth/facebook';
+  }
   loginUser = () => {
     const emailRef = this.refs.email;
     const passwordRef = this.refs.password;
@@ -36,7 +44,7 @@ export class LoginWidget extends Component {
               </div>
 
               <div className={`form-group ${styles['form-group']}`}>
-                <button type="button" className={`btn btn-primary btn-block ${styles['btn-fb']}`}>Login via Facebook</button>
+                <button type="button" onClick={this.loginFacebook} className={`btn btn-primary btn-block ${styles['btn-fb']}`}>Login via Facebook</button>
               </div>
             </form>
           </div>

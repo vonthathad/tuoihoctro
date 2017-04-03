@@ -52,7 +52,7 @@ module.exports = {
       },
       {
         test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-        loader: 'url-loader'
+        loader: 'url-loader?limit=10000'
       }
     ],
   },

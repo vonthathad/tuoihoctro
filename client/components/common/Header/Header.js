@@ -6,6 +6,10 @@ import logo from '../../../assets/logos/iconweb.svg';
 // import NavBar from '../../layouts/NavBar/NavBar';
 // import logo from '../../../assets/images/ribbon.svg';
 class Header extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+
   burgerToggle = () => {
     const linksEl = this.narrowLinkRef;
     if (linksEl.style.display === 'block') {

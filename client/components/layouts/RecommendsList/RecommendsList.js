@@ -21,7 +21,6 @@ class RecommendsList extends Component {
     const { recommendsList } = this.props;
     let recommendsChunks = null;
     if (recommendsList) recommendsChunks = this.shuffleArray(recommendsList.recommendsChunks).slice(0, 5);
-    console.log(recommendsChunks);
     return (
       <div className={st['recommends-list-wrapper']}>
         <div className={st['right-bar-title']}>

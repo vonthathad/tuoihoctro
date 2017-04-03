@@ -11,7 +11,7 @@ const production = {
   facebook: {
     clientID: '1559166841054175',
     clientSecret: '036522e3d958646273f13b3f9ffce3cd',
-    callbackURL: '/oauth/facebook/callback',
+    callbackURL: '/auth/facebook/callback',
     profileFields: ['id', 'displayName', 'email', 'gender'],
   },
   email: {

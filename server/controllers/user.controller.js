@@ -274,8 +274,8 @@ const getSortType = (sortType) => {
 // ////////////////////////////////////////////////
 export function authToken(req, res) {
   if (req.user) {
+    req.user.save();
     return res.json({ user: req.user });
-    // req.user.save();
   }
   res.status(400).send();
   return null;

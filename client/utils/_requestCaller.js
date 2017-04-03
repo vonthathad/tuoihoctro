@@ -3,7 +3,7 @@ import Config from '../../server/configs/server.config';
 
 export const BASE_URL = (typeof window === 'undefined' || process.env.NODE_ENV === 'test') ?
   process.env.baseUrl || (`http://localhost:${process.env.PORT || Config.port}`) :
-  '';
+  'http://localhost:4000';
 
 function request(options) {
   // set partial url to full url

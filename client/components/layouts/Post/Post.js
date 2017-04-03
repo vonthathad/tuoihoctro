@@ -3,13 +3,13 @@ import { Link } from 'react-router';
 import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
 // Import Style
 import st from './index.css';
-import { _fetchPostsChunk,voteUpPost } from '../../../_actions/PostsActions';
+import { _fetchPostsChunk, voteUpPost } from '../../../_actions/PostsActions';
 
 class Post extends Component {
 
   handleVoteClick(id) {
-    this.props.dispatch(voteUpPost(id))
-  };
+    this.props.dispatch(voteUpPost(id));
+  }
   // console.log(props);
   render() {
     return (
@@ -74,7 +74,7 @@ Post.propTypes = {
     thumb: PropTypes.string.isRequired,
     point: PropTypes.number.isRequired,
     view: PropTypes.number.isRequired,
-    liked: PropTypes.boolean
+    liked: PropTypes.boolean,
   }).isRequired, children: PropTypes.node.isRequired,
 };
 export default Post;
