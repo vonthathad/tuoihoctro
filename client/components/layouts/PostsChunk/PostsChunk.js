@@ -61,7 +61,6 @@ class PostsChunk extends Component {
                 videoHeight={post.thumbHeight}
                 videoWidth={post.thumbWidth}
                 containerWidth={this.containerWidth}
-                _window={_window}
               />
             }
           </Post>);
@@ -74,7 +73,7 @@ class PostsChunk extends Component {
 PostsChunk.propTypes = {
   dispatch: PropTypes.func.isRequired,
   posts: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired, _window: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
   auth: PropTypes.object.isRequired,
 };
 export default PostsChunk;

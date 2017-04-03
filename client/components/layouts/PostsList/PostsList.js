@@ -6,34 +6,17 @@ import st from './index.css';
 class PostsList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      _window: {},
-    };
     this.postsListRef = null;
     this.handleOnScrollLoadMediaContent = this.handleOnScrollLoadMediaContent.bind(this);
   }
   componentDidMount() {
-    this.setWindowToState();
     window.addEventListener('scroll', this.handleOnScrollLoadMediaContent, false);
-    // window.addEventListener('resize', this.handleOnScrollLoadMediaContent, false);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleOnScrollLoadMediaContent);
-    // window.removeEventListener('resize', this.handleOnScrollLoadMediaContent);
-  }
-  setWindowToState() {
-    this.setState({
-      _window: {
-        pageXOffset: window.pageXOffset,
-        pageYOffset: window.pageYOffset,
-        innerWidth: window.innerWidth,
-        innerHeight: window.innerHeight,
-      },
-    });
   }
   handleOnScrollLoadMediaContent = () => {
-    // this.setWindowToState();
     if (document.body.scrollTop > parseInt(window.getComputedStyle(this.postsListRef, null).getPropertyValue('height').replace('px', ''), 10) - 1000) {
       const { dispatch, postsList } = this.props;
       if (!postsList.fetching && !postsList.error && postsList.hasNext) {
