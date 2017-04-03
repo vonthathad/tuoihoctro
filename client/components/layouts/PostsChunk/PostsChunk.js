@@ -16,11 +16,11 @@ class PostsChunk extends Component {
     const width = parseInt(window.getComputedStyle(this.postWrapperRef, null).getPropertyValue('width').replace('px', ''), 10);
     this.containerWidth = width < 500 ? width : 500;
     // console.log(width);
-    window.addEventListener('resize', this.handlePostWrapperResize);
+    // window.addEventListener('resize', this.handlePostWrapperResize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handlePostWrapperResize);
+    // window.removeEventListener('resize', this.handlePostWrapperResize);
   }
 
   handlePostWrapperResize() {
@@ -36,23 +36,26 @@ class PostsChunk extends Component {
           this.postWrapperRef = postWrapperRef;
         }}
       >
-        {loading && < h2 > Loading...</h2>}
+        {loading && <h2> Loading...</h2>}
         {!loading && posts && posts.length > 0 && posts.map((post, i) => {
           post.votes.forEach(item => {
-            if(item == auth._id) {
-              post.liked = true
+            if (item === auth._id) {
+              post.liked = true;
+            } else {
+              post.liked = false;
             }
-            else post.liked = false
           });
-          return <Post post={post} key={i} dispatch={dispatch}>
+          return (<Post post={post} key={i} dispatch={dispatch}>
             {post.type.indexOf('gif') === -1 ? <ImagePrettyLoad
-                key={post._id}
-                image={post.thumb}
-                imageLQ={post.thumbLQ}
-                imageHeight={post.thumbHeight}
-                imageWidth={post.thumbWidth}
-                containerWidth={this.containerWidth}
-              /> : <VideoAutoPlay
+              key={post._id}
+              image={post.thumb}
+              imageLQ={post.thumbLQ}
+              imageHeight={post.thumbHeight}
+              imageWidth={post.thumbWidth}
+              containerWidth={this.containerWidth}
+            />
+              :
+              <VideoAutoPlay
                 key={post._id}
                 videoSrc={post.thumb}
                 videoHeight={post.thumbHeight}
@@ -61,7 +64,7 @@ class PostsChunk extends Component {
                 _window={_window}
               />
             }
-          </Post>
+          </Post>);
         })
         }
       </div >

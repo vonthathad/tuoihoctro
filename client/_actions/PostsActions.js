@@ -1,7 +1,7 @@
 // import request from '../../services/api.services';
 import { getPosts, addPost, getPost, deletePost, voteUp, voteDown } from '../utils/PostsUtils';
 
-import {checkLoginAction} from '../_actions/AuthActions'
+import { checkLoginAction } from '../_actions/AuthActions';
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
@@ -42,10 +42,10 @@ function fetchPostsChunk() {
     type: FETCH_POSTS_CHUNK,
   };
 }
-function fetchPostsChunkSuccess(posts) {
+function fetchPostsChunkSuccess(postsData) {
   return {
     type: FETCH_POSTS_CHUNK_SUCCESS,
-    payload: posts,
+    payload: postsData,
   };
 }
 function fetchPostsChunkFailure(error) {
@@ -78,7 +78,7 @@ export function _fetchPostsChunk(page) {
     dispatch(fetchPostsChunk());
     const queryArgs = { page };
     return getPosts(queryArgs)
-      .then(posts => dispatch(fetchPostsChunkSuccess(posts)))
+      .then(postsData => dispatch(fetchPostsChunkSuccess(postsData)))
       .catch(error => dispatch(fetchPostsChunkFailure(error)));
   };
 }
@@ -95,7 +95,7 @@ export function voteUpPost(id) {
   return (dispatch) => {
     let check = dispatch(checkLoginAction());
     console.log(check);
-    if(check == true){
+    if (check == true) {
       return voteUp(id)
         .then(res => {
           if (res.data.voteUp) {
@@ -103,7 +103,6 @@ export function voteUpPost(id) {
           }
         });
     }
-
   };
 }
 export function voteDownPost(id) {
@@ -132,8 +131,8 @@ export function deletePostRequest(id) {
     return deletePost(id)
       .then(res => {
         console.log(res);
-      })
-  }
+      });
+  };
 }
 
 export function updateViewPostRequest() {
@@ -141,7 +140,7 @@ export function updateViewPostRequest() {
     return updateViewPost(id)
       .then(res => {
 
-      })
-  }
+      });
+  };
 }
 

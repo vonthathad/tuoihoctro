@@ -6,13 +6,18 @@ class VideoAutoPlay extends Component {
     this.onVideoClick = this.onVideoClick.bind(this);
     this.pauseVideo = this.pauseVideo.bind(this);
     this.playVideo = this.playVideo.bind(this);
+    this.state = {
+      videoRef: {},
+      videoRefSetten: false,
+    };
+    this.checkDomPosition = this.checkDomPosition.bind(this);
   }
   componentDidMount() {
-    this.checkDomPosition(this.props._window);
+    window.addEventListener('scroll', this.checkDomPosition, false);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.checkDomPosition(nextProps._window);
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.checkDomPosition);
   }
   onVideoClick = () => {
     if (this.isPlay) {
@@ -21,23 +26,26 @@ class VideoAutoPlay extends Component {
       this.playVideo();
     }
   };
-  checkDomPosition(_window) {
-    const { y } = this.videoRef;
-    const { videoWidth, videoHeight, containerWidth } = this.props;
-    const changedVideoHeight = videoHeight * containerWidth / videoWidth;
-    if (y < - changedVideoHeight / 2 && y + _window.innerHeight > changedVideoHeight) {
-      this.playVideo();
-    } else {
-      this.pauseVideo();
+  checkDomPosition() {
+    const { videoRef, videoRefSetten } = this.state;
+    if (videoRefSetten) {
+      const { videoWidth, videoHeight, containerWidth } = this.props;
+      const changedVideoHeight = videoHeight * containerWidth / videoWidth;
+      const y = - videoRef.getBoundingClientRect().top;
+      if (y < - changedVideoHeight / 2 && y + window.innerHeight > changedVideoHeight) {
+        this.playVideo();
+      } else {
+        this.pauseVideo();
+      }
     }
   }
   playVideo = () => {
-    this.videoRef.video.play();
+    this.state.videoRef.play();
     this.isPlay = true;
     this.badge.style.display = 'none';
   };
   pauseVideo = () => {
-    this.videoRef.video.pause();
+    this.state.videoRef.pause();
     this.isPlay = false;
     this.badge.style.display = 'block';
   };
@@ -53,11 +61,11 @@ class VideoAutoPlay extends Component {
           className={`${st['video-media-content']}`}
           width={containerWidth}
           height={changedVideoHeight}
-          ref={videoTag => {
-            videoTag &&
-              (this.videoRef = {
-                y: - videoTag.getBoundingClientRect().top,
-                video: videoTag,
+          ref={videoRef => {
+            videoRef && !this.state.videoRefSetten &&
+              this.setState({
+                videoRef,
+                videoRefSetten: true,
               });
           }}
           loop
@@ -71,7 +79,7 @@ class VideoAutoPlay extends Component {
         >
           <span className={`${st['badge-gif']}`}>GIF</span>
         </div>
-      </div>
+      </div >
     );
   }
 }

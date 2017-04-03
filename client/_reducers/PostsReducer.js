@@ -4,7 +4,7 @@ import {
 } from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsList: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
-  postsList: { postsChunks: [], page: 1, error: false, fetching: false },
+  postsList: { postsChunks: [], page: 1, error: false, fetching: false, hasNext: true },
   newPost: { post: null, error: null, loading: false },
   activePost: { post: null, error: null, loading: false },
   deletedPost: { post: null, error: null, loading: false },
@@ -13,7 +13,6 @@ const INITIAL_STATE = {
 // Initial State
 
 const PostsReducer = (state = INITIAL_STATE, action) => {
-
   switch (action.type) {
     case CREATE_POST_SUCCESS:
       {
@@ -27,13 +26,13 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
 
     case FETCH_POST_SUCCESS:
       {
-      const temp1 = { postDetail: { ...state.postDetail } };
-      temp1.postDetail = action.postDetail.data;
-      return {
-        ...state,
-        ...temp1,
-      };
-    }
+        const temp1 = { postDetail: { ...state.postDetail } };
+        temp1.postDetail = action.postDetail.data;
+        return {
+          ...state,
+          ...temp1,
+        };
+      }
     case FETCH_POSTS_CHUNK:
       {
         return {
@@ -58,7 +57,8 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
         const postsChunks = postsList.postsChunks;
         const lastChunkIndex = postsChunks.length - 1;
         postsChunks[lastChunkIndex].loading = false;
-        postsChunks[lastChunkIndex].posts = action.payload;
+        postsChunks[lastChunkIndex].posts = action.payload.postsChunk;
+        postsList.hasNext = action.payload.hasNext;
         postsList.fetching = false;
         postsList.page++;
         return {
@@ -83,23 +83,23 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
         };
       }
     case VOTE_UP_POST_SUCCESS:
-    {
-      const temp = { postDetail: { ...state.postDetail } };
-      temp.postDetail.point += 1;
-      return {
-        ...state,
-        ...temp,
-      };
-    }
+      {
+        const temp = { postDetail: { ...state.postDetail } };
+        temp.postDetail.point += 1;
+        return {
+          ...state,
+          ...temp,
+        };
+      }
     case VOTE_DOWN_POST_SUCCESS:
       {
-      const temp4 = { postDetail: {...state.postDetail} };
-      temp4.postDetail.point -= 1;
-      return {
-        ...state,
-        ...temp4,
-      };
-    }
+        const temp4 = { postDetail: { ...state.postDetail } };
+        temp4.postDetail.point -= 1;
+        return {
+          ...state,
+          ...temp4,
+        };
+      }
     default:
       return state;
   }

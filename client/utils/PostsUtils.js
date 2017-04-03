@@ -2,9 +2,9 @@ import { get, post, put, _delete } from './_requestCaller';
 import fetch from 'isomorphic-fetch';
 
 function getToken() {
-  if(window.localStorage.getItem('token')){
-    return window.localStorage.getItem('token')
-  } else return null
+  if (window.localStorage.getItem('token')) {
+    return window.localStorage.getItem('token');
+  } else return null;
 }
 
 export function getPosts(queryArgs) {
@@ -47,7 +47,7 @@ export function deletePost(id) {
     Authorization: `Bearer ${token}`,
   };
   return _delete({
-    url: 'api/posts/'+id,
+    url: 'api/posts/' + id,
     headers,
   });
 }
@@ -80,5 +80,4 @@ export function voteDown(id) {
     headers,
   });
 }
-
 

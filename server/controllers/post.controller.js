@@ -318,7 +318,10 @@ exports.listPosts = (req, res) => {
               }
             }
             postsExt.push(listsExt[0]);
-            return res.json(postsExt);
+            return res.json({
+              postsChunk: postsExt,
+              hasNext: true,
+            });
           });
           return null;
         });
@@ -331,7 +334,10 @@ exports.listPosts = (req, res) => {
         select: 'displayName username avatar',
       }, (err1, postsExt) => {
         if (err1) return res.status(403).send({ message: err1 });
-        return res.json(postsExt);
+        return res.json({
+          postsChunk: postsExt,
+          hasNext: photos.length === 9,
+        });
       });
     }
     return null;

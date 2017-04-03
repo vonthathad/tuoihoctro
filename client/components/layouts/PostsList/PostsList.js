@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import PostsChunk from '../PostsChunk/PostsChunk';
-import { _fetchPostsChunk,voteUpPost } from '../../../_actions/PostsActions';
+import { _fetchPostsChunk, voteUpPost } from '../../../_actions/PostsActions';
 
 import st from './index.css';
 class PostsList extends Component {
@@ -15,12 +15,12 @@ class PostsList extends Component {
   componentDidMount() {
     this.setWindowToState();
     window.addEventListener('scroll', this.handleOnScrollLoadMediaContent, false);
-    window.addEventListener('resize', this.handleOnScrollLoadMediaContent, false);
+    // window.addEventListener('resize', this.handleOnScrollLoadMediaContent, false);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleOnScrollLoadMediaContent);
-    window.removeEventListener('resize', this.handleOnScrollLoadMediaContent);
+    // window.removeEventListener('resize', this.handleOnScrollLoadMediaContent);
   }
   setWindowToState() {
     this.setState({
@@ -33,17 +33,17 @@ class PostsList extends Component {
     });
   }
   handleOnScrollLoadMediaContent = () => {
-    this.setWindowToState();
+    // this.setWindowToState();
     if (document.body.scrollTop > parseInt(window.getComputedStyle(this.postsListRef, null).getPropertyValue('height').replace('px', ''), 10) - 1000) {
       const { dispatch, postsList } = this.props;
-      if (!postsList.fetching && !postsList.error) {
+      if (!postsList.fetching && !postsList.error && postsList.hasNext) {
         dispatch(_fetchPostsChunk(postsList.page));
       }
     }
   };
 
   render() {
-    const { postsList,auth,dispatch } = this.props;
+    const { postsList, auth, dispatch } = this.props;
     let postsChunks = [];
     if (postsList) postsChunks = postsList.postsChunks;
     return (
@@ -54,7 +54,6 @@ class PostsList extends Component {
           posts={postsChunk.posts}
           dispatch={dispatch}
           loading={postsChunk.loading}
-          _window={this.state._window}
         />)}
       </div >
     );

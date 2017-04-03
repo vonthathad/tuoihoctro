@@ -32,6 +32,8 @@
   }
 }
 .post{
+  border-radius: 5px; 
+  overflow: hidden;
 }
 .post-box {
   margin: 0 auto;
