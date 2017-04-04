@@ -13,7 +13,7 @@ export class LoginWidget extends Component {
     this.loginUser = this.loginUser.bind(this);
   }
   loginFacebook(){
-    window.location.href = '/auth/facebook';
+    window.location.href = `http://localhost:4000/auth/facebook?redirect=${window.location.href}`;
   }
   loginUser = () => {
     const emailRef = this.refs.email;

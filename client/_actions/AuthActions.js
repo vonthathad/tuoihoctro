@@ -81,24 +81,17 @@ export function registerRequest(data) {
 export function checkLoginInit() {
   return (dispatch) => {
     const token = location.search.split('token=')[1];
-    console.log(token);
-    // const data = {};
-    // // data._id = localStorage.getItem('id');
-    // data.token = localStorage.getItem('token');
-    // // data.username = localStorage.getItem('username');
-    // if (data._id && data._id !== null) {
-    //   dispatch(loginUser(data));
-    // }
-    if (token) return getToken(token).then((res) => {
-      console.log(res);
-      if (res.message) {
-        alert(res.message);
-      } else if (res.data) {
-        console.log(res.data);
-        dispatch(loginUser(res.data.user));
-      }
-    });
-    return null;
+    return token
+      ? getToken(token).then((res) => {
+        if (res.message) {
+          alert(res.message);
+        } else if (res.user) {
+          !localStorage.getItem('token') &&
+            localStorage.setItem('token', res.user.token);
+          dispatch(loginUser(res.user));
+        }
+      })
+      : null;
   };
 }
 export function checkLoginAction() {
@@ -106,7 +99,8 @@ export function checkLoginAction() {
     if (!localStorage.getItem('token')) {
       dispatch(toggleLogin());
       return false;
-    } else return true;
+    }
+    return true;
   };
 }
 export function logout() {

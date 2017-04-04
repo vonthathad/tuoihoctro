@@ -62,7 +62,7 @@ Home.need = [
 Home.contextTypes = {
   router: PropTypes.object,
 };
-Home.PropTypes = {
+Home.propTypes = {
   fetchPostChunk: PropTypes.func,
   fetchRecommendsChunk: PropTypes.func,
 };

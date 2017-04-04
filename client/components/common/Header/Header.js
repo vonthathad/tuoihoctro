@@ -34,16 +34,15 @@ class Header extends Component {
           </a>
           <div className={st['wide-div']}>
             <ul className="nav navbar-nav">
-              <li><a href="index.html">Home</a></li>
-              <li><a href="hot.html">Hot</a></li>
+              <li><a href="hot.html">Nóng hổi</a></li>
               <li><a href="trending.html">Top</a></li>
-              <li><a href="fresh.html">Fresh</a></li>
+              <li><a href="fresh.html">Mới</a></li>
               <li className="dropdown"><a
                 href="index.html#"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 role="button" aria-expanded="false"
-              >More <span className="caret"></span></a>
+              >Thêm <span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
                   <li><a href="gif.html">GIF</a></li>
                   <li><a href="category-4-comic-1.html">Comic</a></li>
@@ -59,11 +58,14 @@ class Header extends Component {
              {
                curentUser._id && curentUser ?
                  <ul className={'nav navbar-nav navbar-right'}>
-                   <li className="btn-upload"><a>Xin chào: {curentUser.username}</a></li>
+                   <li className="btn-upload">
+                     <a className={st.userinfo}>
+                      {curentUser.username}
+                       <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30} />
+                     </a>
+                   </li>
                    <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>
                    <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
-                   <li><Link to="/admin">Admin</Link></li>
-
                  </ul>
                  :
                  <ul className={'nav navbar-nav navbar-right'}>

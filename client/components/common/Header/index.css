@@ -1,4 +1,10 @@
-/*@import '../../../assets/images/'*/
+
+.userinfo{
+  padding: 10px 10px 10px 10px!important;
+}
+.userinfo img{
+  margin-left: 10px;
+}
 .mobile-menu-icon-wrapper{
   float: right;
   margin-top: 10px;
