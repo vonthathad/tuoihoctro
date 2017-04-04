@@ -105,7 +105,6 @@ export function checkLoginAction() {
 }
 export function logout() {
   return (dispatch) => {
-    console.log(1);
     const data = {};
     // localStorage.removeItem('id');
     localStorage.removeItem('token');

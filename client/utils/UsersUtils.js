@@ -23,9 +23,10 @@ export function register(body) {
 }
 
 export function getToken(token) {
+  const tokenNoQuestionMark = token.replace(/\?/, '');
   const headers = {
     'Content-type': 'application/json',
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${tokenNoQuestionMark}`,
   };
   return get({
     url: 'api/token',

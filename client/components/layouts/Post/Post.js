@@ -56,9 +56,6 @@ class Post extends Component {
                 <span className={st['remove-mobile']}> Facebook</span>
               </a>
             </div>
-            {/* <div className={st['social-button']}>*/}
-            {/**/}
-            {/* </div>*/}
           </div>
         </div>
       </div>
