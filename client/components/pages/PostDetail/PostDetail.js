@@ -10,7 +10,7 @@ import Helmet from 'react-helmet';
 import styles from './PostDetail.css';
 
 // Import Actions
-import { _fetchPost, voteUpPost, voteDownPost, deletePostRequest } from '../../../_actions/PostsActions';
+import { _fetchPost, votePost, deletePostRequest } from '../../../_actions/PostsActions';
 
 // Import Selectors
 import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
@@ -28,11 +28,8 @@ export class PostDetail extends Component {
   deletePostByOwner(id) {
     this.props.dispatch(deletePostRequest(id));
   }
-  voteUp(id) {
-    this.props.dispatch(voteUpPost(id));
-  }
-  voteDown(id) {
-    this.props.dispatch(voteDownPost(id));
+  vote(id) {
+    this.props.dispatch(votePost(id));
   }
   readBack(id) {
     this.props.dispatch(_fetchPost(id - 1));
@@ -89,7 +86,7 @@ export class PostDetail extends Component {
                   </header>
                   <div className={styles['post-action']}>
                     <span>{this.props.post.point}</span>
-                    <div onClick={this.voteUp.bind(this, this.props.post._id)} >
+                    <div onClick={this.vote.bind(this, this.props.post._id)} >
                       <TwitterHeart _id={this.props.post._id} checked={false} />
                     </div>
                     <span>{this.props.post.view}</span><i className="fa fa-eye" aria-hidden="true"></i>
@@ -108,7 +105,7 @@ export class PostDetail extends Component {
                   </div>
                   <div className={styles['post-page-left']}>
                     <div id={styles['page-post']} className={styles['post-content']}>
-                        <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} />
+                      <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} />
                     </div>
                     {
                       (this.props.auth && this.props.post.creator && this.props.auth._id == this.props.post.creator._id)
@@ -119,13 +116,13 @@ export class PostDetail extends Component {
                         </div>
                         : null
                     }
-                     <div className={styles.timeago}>
-                       BY
+                    <div className={styles.timeago}>
+                      BY
                        {
-                         (this.props.post.creator)
-                           ? <a className={styles['user-link']}> {this.props.post.creator.username}</a>
-                           : null
-                       }
+                        (this.props.post.creator)
+                          ? <a className={styles['user-link']}> {this.props.post.creator.username}</a>
+                          : null
+                      }
                     </div>
                   </div>
                   <FacebookProvider appID="1559166841054175">

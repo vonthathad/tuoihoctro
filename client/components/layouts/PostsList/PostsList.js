@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import PostsChunk from '../PostsChunk/PostsChunk';
-import { _fetchPostsChunk, voteUpPost } from '../../../_actions/PostsActions';
+import { _fetchPostsChunk } from '../../../_actions/PostsActions';
 
 import st from './index.css';
 class PostsList extends Component {

@@ -29,7 +29,7 @@ class PostsChunk extends Component {
   }
 
   render() {
-    const { posts, loading, _window, auth, dispatch } = this.props;
+    const { posts, loading, auth, dispatch } = this.props;
     return (
       <div
         ref={(postWrapperRef) => {
@@ -40,9 +40,9 @@ class PostsChunk extends Component {
         {!loading && posts && posts.length > 0 && posts.map((post, i) => {
           post.votes.forEach(item => {
             if (item === auth._id) {
-              post.liked = true;
+              post.voted = true;
             } else {
-              post.liked = false;
+              post.voted = false;
             }
           });
           return (<Post post={post} key={i} dispatch={dispatch}>

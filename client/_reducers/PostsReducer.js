@@ -1,6 +1,6 @@
 import {
   FETCH_POSTS_CHUNK, FETCH_POSTS_CHUNK_FAILURE, FETCH_POSTS_CHUNK_SUCCESS, CREATE_POST_SUCCESS,
-  FETCH_POST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS, VOTE_UP_POST_SUCCESS, VOTE_DOWN_POST_SUCCESS,
+  FETCH_POST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS, VOTE_POST_SUCCESS, VOTE_POST_FAILURE,
 } from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsList: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
@@ -82,24 +82,18 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
           },
         };
       }
-    case VOTE_UP_POST_SUCCESS:
+    case VOTE_POST_SUCCESS:
       {
-        const temp = { postDetail: { ...state.postDetail } };
-        temp.postDetail.point += 1;
-        return {
-          ...state,
-          ...temp,
-        };
+        // const temp = { postDetail: { ...state.postDetail } };
+        // temp.postDetail.point += 1;
+        // return {
+        //   ...state,
+        //   ...temp,
+        // };
+        return state;
       }
-    case VOTE_DOWN_POST_SUCCESS:
-      {
-        const temp4 = { postDetail: { ...state.postDetail } };
-        temp4.postDetail.point -= 1;
-        return {
-          ...state,
-          ...temp4,
-        };
-      }
+    case VOTE_POST_FAILURE:
+      return state;
     default:
       return state;
   }

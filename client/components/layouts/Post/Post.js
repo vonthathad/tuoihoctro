@@ -3,14 +3,25 @@ import { Link } from 'react-router';
 import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
 // Import Style
 import st from './index.css';
-import { _fetchPostsChunk, voteUpPost } from '../../../_actions/PostsActions';
+import { votePost, voteSuccess } from '../../../_actions/PostsActions';
 
 class Post extends Component {
-
-  handleVoteClick(id) {
-    this.props.dispatch(voteUpPost(id));
+  constructor(props) {
+    super(props);
+    this.handleVoteClick = this.handleVoteClick.bind(this);
   }
-  // console.log(props);
+  shouldComponentUpdate(nextProps) {
+    if (this.props.post !== nextProps.post) return false;
+    return true;
+  }
+  handleVoteClick() {
+    this.props.dispatch(voteSuccess({
+      id: this.props.post._id,
+      voted: !this.props.post.voted,
+    }));
+    console.log(this.props.post.voted);
+    this.props.dispatch(votePost(this.props.post._id));
+  }
   render() {
     return (
       <div className={st['post-box']}>
@@ -35,8 +46,8 @@ class Post extends Component {
           }
           <div className={st['post-footer']}>
             <div className={st['box-vote']}>
-              <div className={st['twitter-heart-wrapper']} onClick={this.handleVoteClick.bind(this, this.props.post._id)} >
-                <TwitterHeart _id={this.props.post._id} checked={false} />
+              <div className={st['twitter-heart-wrapper']} >
+                <TwitterHeart _id={this.props.post._id} checked={this.props.post.voted} handleClick={this.handleVoteClick} />
               </div>
               <div className={st['vote-number-wrapper']}>
                 <span> {this.props.post.point} </span>
@@ -71,7 +82,7 @@ Post.propTypes = {
     thumb: PropTypes.string.isRequired,
     point: PropTypes.number.isRequired,
     view: PropTypes.number.isRequired,
-    liked: PropTypes.boolean,
+    voted: PropTypes.boolean,
   }).isRequired, children: PropTypes.node.isRequired,
 };
 export default Post;

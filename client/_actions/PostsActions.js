@@ -1,5 +1,5 @@
 // import request from '../../services/api.services';
-import { getPosts, addPost, getPost, deletePost, voteUp, voteDown } from '../utils/PostsUtils';
+import { getPosts, addPost, getPost, deletePost, vote } from '../utils/PostsUtils';
 
 import { checkLoginAction } from '../_actions/AuthActions';
 // Post list
@@ -27,8 +27,8 @@ export const DELETE_POST = 'DELETE_POST';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
-export const VOTE_UP_POST_SUCCESS = 'VOTE_UP_POST_SUCCESS';
-export const VOTE_DOWN_POST_SUCCESS = 'VOTE_DOWN_POST_SUCCESS';
+export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS';
+export const VOTE_POST_FAILURE = 'VOTE_POST_FAILURE';
 
 
 function addPostSuccess(post) {
@@ -61,15 +61,10 @@ function fetchPostSuccess(postDetail) {
     postDetail,
   };
 }
-
-function voteUpSuccess() {
+export function voteSuccess(post) {
   return {
-    type: VOTE_UP_POST_SUCCESS,
-  };
-}
-function voteDownSuccess() {
-  return {
-    type: VOTE_DOWN_POST_SUCCESS,
+    type: VOTE_POST_SUCCESS,
+    payload: post,
   };
 }
 
@@ -91,28 +86,21 @@ export function _fetchPost(id) {
       .catch(error => console.log(error));
   };
 }
-export function voteUpPost(id) {
+export function votePost(postId) {
   return (dispatch) => {
-    let check = dispatch(checkLoginAction());
-    console.log(check);
-    if (check == true) {
-      return voteUp(id)
+    const checked = dispatch(checkLoginAction());
+    return checked
+      ? vote(postId)
         .then(res => {
-          if (res.data.voteUp) {
-            dispatch(voteUpSuccess());
+          console.log(res);
+          if (res.data) {
+            dispatch(voteSuccess({
+              id: postId,
+              voted: res.data.voted,
+            }));
           }
-        });
-    }
-  };
-}
-export function voteDownPost(id) {
-  return (dispatch) => {
-    return voteDown(id)
-      .then(res => {
-        if (res.data.voteDown) {
-          dispatch(voteDownSuccess());
-        }
-      });
+        })
+      : null;
   };
 }
 
