@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const Recommend = (props) => {
   return (
-    <Link to={`posts/${props.recommend._id}`}>
+    <Link to={`/posts/${props.recommend._id}`}>
       <div className={styles['featured-recommend']}>
         <div className={styles['featured-image']}>
            {props.children}

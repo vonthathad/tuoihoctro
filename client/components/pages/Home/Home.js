@@ -6,7 +6,6 @@ import RecommendsListContainer from '../../containers/RecommendsListContainer';
 
 // Import Actions
 import { _fetchPostsChunk } from '../../../_actions/PostsActions';
-import { _fetchRecommendsChunk } from '../../../_actions/RecommendsActions';
 
 // Import Selectors
 // import { getPosts } from '../../../_reducers/PostsReducer';
@@ -21,7 +20,7 @@ class Home extends Component {
   componentDidMount() {
     if (process.env.NODE_ENV === 'development') {
       this.props.fetchPostChunk();
-      this.props.fetchRecommendsChunk();
+      // this.props.fetchRecommendsChunk();
     }
   }
   render() {
@@ -56,7 +55,7 @@ class Home extends Component {
 // Actions required to provide data for this component to render in sever side.
 Home.need = [
   () => { return _fetchPostsChunk(1); },
-  () => { return _fetchRecommendsChunk(200); },
+  // () => { return _fetchRecommendsChunk(200); },
 ];
 
 Home.contextTypes = {
@@ -69,7 +68,7 @@ Home.propTypes = {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPostChunk: () => dispatch(_fetchPostsChunk(1)),
-    fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(200)),
+    // fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(200)),
   };
 };
 

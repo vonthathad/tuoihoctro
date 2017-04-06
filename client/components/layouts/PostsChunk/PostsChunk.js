@@ -5,29 +5,10 @@ import Post from '../Post/Post';
 import './index.css';
 
 class PostsChunk extends Component {
-  // console.log(posts);
-  // console.log(loading);
-  constructor(props) {
-    super(props);
-    this.handlePostWrapperResize = this.handlePostWrapperResize.bind(this);
-  }
-
   componentDidMount() {
     const width = parseInt(window.getComputedStyle(this.postWrapperRef, null).getPropertyValue('width').replace('px', ''), 10);
     this.containerWidth = width < 500 ? width : 500;
-    // console.log(width);
-    // window.addEventListener('resize', this.handlePostWrapperResize);
   }
-
-  componentWillUnmount() {
-    // window.removeEventListener('resize', this.handlePostWrapperResize);
-  }
-
-  handlePostWrapperResize() {
-    const width = parseInt(window.getComputedStyle(this.postWrapperRef, null).getPropertyValue('width').replace('px', ''), 10);
-    this.containerWidth = width < 500 ? width : 500;
-  }
-
   render() {
     const { posts, loading, auth, dispatch } = this.props;
     return (
@@ -38,14 +19,7 @@ class PostsChunk extends Component {
       >
         {loading && <h2> Loading...</h2>}
         {!loading && posts && posts.length > 0 && posts.map((post, i) => {
-          post.votes.forEach(item => {
-            if (item === auth._id) {
-              post.voted = true;
-            } else {
-              post.voted = false;
-            }
-          });
-          return (<Post post={post} key={i} dispatch={dispatch}>
+          return (<Post post={post} key={i} dispatch={dispatch} auth={auth}>
             {post.type.indexOf('gif') === -1 ? <ImagePrettyLoad
               key={post._id}
               image={post.thumb}

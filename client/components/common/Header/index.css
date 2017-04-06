@@ -32,7 +32,7 @@
 }
 
 .header-wrapper{
-  background: #fff;
+  background: #203806;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }
 
@@ -68,4 +68,21 @@
   .nav-narrow{
     display: none;
   }
+}
+.menu{
+  margin-left: 10px;
+}
+.menu>li>a:hover{
+  color: #fff;
+  background-color: #6d8058;
+}
+.menu>li>a{
+  border-right: 1px solid #6d8058;
+}
+.menu>li:first-child>a{
+  border-left: 1px solid #6d8058;
+}
+.rightMenu>li>a:hover{
+  color: #fff;
+  background-color: #6d8058;
 }

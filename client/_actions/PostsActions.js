@@ -29,6 +29,7 @@ export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
 export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS';
 export const VOTE_POST_FAILURE = 'VOTE_POST_FAILURE';
+export const TEMP_VOTE_POST_SUCCESS = 'TEMP_VOTE_POST_SUCCESS';
 
 
 function addPostSuccess(post) {
@@ -61,9 +62,20 @@ function fetchPostSuccess(postDetail) {
     postDetail,
   };
 }
-export function voteSuccess(post) {
+function voteSuccess() {
   return {
     type: VOTE_POST_SUCCESS,
+  };
+}
+function voteFailure(post) {
+  return {
+    type: VOTE_POST_FAILURE,
+    payload: post,
+  };
+}
+export function tempVoteSuccess(post) {
+  return {
+    type: TEMP_VOTE_POST_SUCCESS,
     payload: post,
   };
 }
@@ -86,19 +98,23 @@ export function _fetchPost(id) {
       .catch(error => console.log(error));
   };
 }
-export function votePost(postId) {
+export function votePost(voteData) {
   return (dispatch) => {
     const checked = dispatch(checkLoginAction());
     return checked
-      ? vote(postId)
+      ? vote(voteData.postId)
         .then(res => {
-          console.log(res);
           if (res.data) {
+            // console.log(res.data.votes);
             dispatch(voteSuccess({
-              id: postId,
-              voted: res.data.voted,
+              ...voteData,
+              postVotes: res.data.votes,
             }));
           }
+        })
+        .catch(error => {
+          console.log(error);
+          dispatch(voteFailure(voteData));
         })
       : null;
   };

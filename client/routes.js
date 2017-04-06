@@ -32,7 +32,7 @@ export default (
       }}
     />
     <Route
-      path="/posts/:cuid"
+      path="/posts/:postId"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./components/pages/PostDetail/PostDetail.js').default);

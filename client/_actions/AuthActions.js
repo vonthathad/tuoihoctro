@@ -80,7 +80,10 @@ export function registerRequest(data) {
 
 export function checkLoginInit() {
   return (dispatch) => {
-    const token = location.search.split('token=')[1];
+    let token = location.search.split('token=')[1];
+    if (!token) {
+      token = localStorage.getItem('token');
+    }
     return token
       ? getToken(token).then((res) => {
         if (res.message) {

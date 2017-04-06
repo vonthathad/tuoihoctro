@@ -3,33 +3,65 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
+
 import RecommendsListContainer from '../../containers/RecommendsListContainer';
+import ImagePrettyLoad from '../../layouts/ImagePrettyLoad/ImagePrettyLoad';
+import VideoAutoPlay from '../../layouts/VideoAutoPlay/VideoAutoPlay';
+
 import Helmet from 'react-helmet';
 
 // Import Style
-import styles from './PostDetail.css';
+import st from './PostDetail.css';
 
 // Import Actions
 import { _fetchPost, votePost, deletePostRequest } from '../../../_actions/PostsActions';
-
-// Import Selectors
-import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
 
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
 import FacebookProvider, { Comments, Share } from 'react-facebook';
 
 export class PostDetail extends Component {
-
-  componentWillMount() {
-    this.props.dispatch(_fetchPost(this.props.params.cuid));
+  constructor(props) {
+    super(props);
+    this.handleVoteClick = this.handleVoteClick.bind(this);
+    this.state = {};
+  }
+  componentDidMount() {
+    this.props.dispatch(_fetchPost(this.props.params.postId));
   }
 
+  componentDidUpdate(prevProps) {
+    console.log(prevProps);
+    console.log(this.props);
+    const oldId = prevProps.params.postId;
+    const newId = this.props.params.postId;
+    newId !== oldId && this.props.dispatch(_fetchPost(this.props.params.postId));
+    // if (!this.props.post) {
+    //   this.props.dispatch(_fetchPost(this.props.params.postId));
+    // } else {
+    //   if (this.props.params.postId !== this.props.post._id) {
+    //     this.props.dispatch(_fetchPost(this.props.params.postId));
+    //   }
+    // }
+  }
   deletePostByOwner(id) {
     this.props.dispatch(deletePostRequest(id));
   }
   vote(id) {
     this.props.dispatch(votePost(id));
+  }
+  handleVoteClick() {
+    // console.log(this.props.auth._id);
+    this.props.dispatch(tempVoteSuccess({
+      userId: this.props.auth._id,
+      postId: this.props.post._id,
+      postVotes: this.props.post.votes,
+    }));
+    this.props.dispatch(votePost({
+      userId: this.props.auth._id,
+      postId: this.props.post._id,
+      postVotes: this.props.post.votes,
+    }));
   }
   readBack(id) {
     this.props.dispatch(_fetchPost(id - 1));
@@ -39,11 +71,12 @@ export class PostDetail extends Component {
     browserHistory.go(`/posts/${id + 1}`);
   }
   render() {
-    console.log(this.props);
-    const post = this.props.post.title;
+    // console.log(this.props.post);
+    const post = this.props.post;
     return (
-      <div id={styles.wrap}>
-        <Helmet title={this.props.post.title}
+      <div id={st.wrap}>
+        <Helmet
+          title={post.title}
           meta={[
             {
               name: 'viewport',
@@ -55,82 +88,112 @@ export class PostDetail extends Component {
             },
             {
               name: 'title',
-              content: `${this.props.post.title}`,
+              content: `${post.title}`,
             },
             {
               name: 'description',
-              content: `${this.props.post.title}`,
+              content: `${post.title}`,
             },
             {
               name: 'og:description',
-              content: `${this.props.post.title}`,
+              content: `${post.title}`,
             },
             {
               name: 'og:image',
-              content: `${this.props.post.mediaContent}`,
+              content: `${post.mediaContent}`,
             },
             {
               name: 'og:url',
-              content: `http://tuoihoctro.co/posts/${this.props.post._id}`,
+              content: `http://tuoihoctro.co/posts/${post._id}`,
             },
           ]}
         />
         <div className="container">
-          <div className="col-sm-8" id={styles.left}>
+          <div className="col-sm-8" id={st.left}>
             {
-              (this.props.post)
-                ? <div className={styles['post-content-box']}>
-                  <header className={styles['post-header']}>
-                    <div className={styles['post-title']}><h1>{this.props.post.title}</h1></div>
-
+              (post && post.title)
+                ? <div className={st['post-content-box']}>
+                  <header className={st['post-header']}>
+                    <div className={st['post-title']}><h1>{post.title}</h1></div>
                   </header>
-                  <div className={styles['post-action']}>
-                    <span>{this.props.post.point}</span>
-                    <div onClick={this.vote.bind(this, this.props.post._id)} >
-                      <TwitterHeart _id={this.props.post._id} checked={false} />
-                    </div>
-                    <span>{this.props.post.view}</span><i className="fa fa-eye" aria-hidden="true"></i>
-                    <div className={styles['social-box-top']}>
-                      <a className={`btn btn-default ${styles['fb-button-top']}`} >
+                  <p className={st.smallText}>
+                    {post.point} điểm . {post.view} bình luận
+                  </p>
+                  <div className={st['post-action']}>
+                    <div className={st['social-box-top']}>
+                      <div className={st.unvotedButton} onClick={this.vote.bind(this, post._id)} >
+                        <span>Thích</span>
+                      </div>
+                      <div className={st.shareButton} >
                         <FacebookProvider appID="1559166841054175">
                           <Share>
-                            <span className={styles['remove-mobile']}>Chia sẻ</span>
+                            <span className={st['remove-mobile']}>Chia sẻ</span>
                           </Share>
                         </FacebookProvider>
-                      </a>
-                      <a className={`btn btn-danger pull-right ${styles['btn-arrow-right']} ${styles['remove-mobile']}`} onClick={this.readNext.bind(this, this.props.post._id)}>
-                        Đọc tiếp
-                      </a>
+                      </div>
+                      <div className={st.nextButton} onClick={this.readNext.bind(this, post._id)}>
+                        <span className={st.text}>Xem tiếp</span>
+                        <span className={st.arrow}></span>
+                      </div>
                     </div>
                   </div>
-                  <div className={styles['post-page-left']}>
-                    <div id={styles['page-post']} className={styles['post-content']}>
-                      <img alt="" src={this.props.post.mediaContent} className={styles['img-responsive']} />
+                  <div className={st['post-page-left']}>
+                    <div
+                      id={st['page-post']}
+                      className={st['post-content']}
+                    >
+                      {post.type.indexOf('gif') === -1 ?
+                        <ImagePrettyLoad
+                          key={post._id}
+                          image={post.mediaContent}
+                          imageLQ={post.mediaContentLQ}
+                          imageHeight={post.mediaContentHeight}
+                          imageWidth={post.mediaContentWidth}
+                          containerWidth={this.containerWidth}
+                        />
+                        :
+                        <VideoAutoPlay
+                          key={post._id}
+                          videoSrc={post.mediaContent}
+                          videoHeight={post.mediaContentHeight}
+                          videoWidth={post.mediaContentWidth}
+                          containerWidth={this.containerWidth}
+                        />
+                      }
+                      {/* <img alt="" src={post.mediaContent} className={st['img-responsive']} />*/}
                     </div>
                     {
-                      (this.props.auth && this.props.post.creator && this.props.auth._id == this.props.post.creator._id)
-                        ? <div className={styles['bottom-share']} >
-                          <a href="" onClick={this.deletePostByOwner.bind(this, this.props.post._id)}>
+                      (this.props.auth && post.creator && this.props.auth._id === post.creator._id)
+                        ? <div className={st['bottom-share']} >
+                          <a href="" onClick={this.deletePostByOwner.bind(this, post._id)}>
                             Delete this post
                           </a>
                         </div>
                         : null
                     }
-                    <div className={styles.timeago}>
+                    {/* <div className={st.timeago}>
                       BY
                        {
-                        (this.props.post.creator)
-                          ? <a className={styles['user-link']}> {this.props.post.creator.username}</a>
+                        (post.creator)
+                          ? <a className={st['user-link']}> {post.creator.username}</a>
                           : null
                       }
-                    </div>
+
+                    </div>*/}
                   </div>
-                  <FacebookProvider appID="1559166841054175">
-                    <Comments />
-                  </FacebookProvider>
+                  <div className={st['clear-fix']}></div>
+                  <div className={st.shareButtonLarge}> Share on Facebook</div>
+                  <RecommendsListContainer />
                 </div>
-                : <div className={styles.loading}>Loading&#8230;</div>
+                : <div className={st.loading}>Loading&#8230;</div>
             }
+          </div>
+          <div className={'col-sm-4'}>
+            <div className={st['facebook-comments']}>
+              <FacebookProvider appID="1559166841054175">
+                <Comments />
+              </FacebookProvider>
+            </div>
           </div>
         </div>
       </div >
@@ -141,7 +204,7 @@ export class PostDetail extends Component {
 
 // Actions required to provide data for this component to render in sever side.
 PostDetail.need = [params => {
-  return _fetchPost(params.cuid);
+  return _fetchPost(params.postId);
 }];
 
 // Retrieve data from store as props
@@ -156,6 +219,8 @@ PostDetail.propTypes = {
   dispatch: PropTypes.func.isRequired,
   params: PropTypes.object,
   data: PropTypes.object,
+  post: PropTypes.object,
+  auth: PropTypes.object,
   // post: PropTypes.shape({
   //   _id: PropTypes.number.isRequired,
   //   title: PropTypes.string.isRequired,

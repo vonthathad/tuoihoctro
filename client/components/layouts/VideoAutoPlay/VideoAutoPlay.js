@@ -50,8 +50,7 @@ class VideoAutoPlay extends Component {
     this.badge.style.display = 'block';
   };
   render() {
-    const { videoWidth, videoHeight, videoSrc, containerWidth } = this.props;
-    const changedVideoHeight = Math.round(videoHeight * containerWidth / videoWidth);
+    const { videoSrc, containerWidth } = this.props;
     return (
       <div
         className={`${st['video-wrapper']}`}
@@ -60,7 +59,6 @@ class VideoAutoPlay extends Component {
         <video
           className={`${st['video-media-content']}`}
           width={containerWidth}
-          height={changedVideoHeight}
           ref={videoRef => {
             videoRef && !this.state.videoRefSetten &&
               this.setState({
@@ -75,7 +73,6 @@ class VideoAutoPlay extends Component {
         <div
           className={`${st['badge-gif-wrapper']}`}
           ref={badge => { badge && (this.badge = badge); }}
-          style={{ top: !isNaN(changedVideoHeight) ? 0 - changedVideoHeight / 2 : 0 }}
         >
           <span className={`${st['badge-gif']}`}>GIF</span>
         </div>

@@ -1,6 +1,7 @@
 import {
   FETCH_POSTS_CHUNK, FETCH_POSTS_CHUNK_FAILURE, FETCH_POSTS_CHUNK_SUCCESS, CREATE_POST_SUCCESS,
-  FETCH_POST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS, VOTE_POST_SUCCESS, VOTE_POST_FAILURE,
+  FETCH_POST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS,
+  VOTE_POST_SUCCESS, VOTE_POST_FAILURE, TEMP_VOTE_POST_SUCCESS,
 } from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsList: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
@@ -84,7 +85,29 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
       }
     case VOTE_POST_SUCCESS:
       {
-        // const temp = { postDetail: { ...state.postDetail } };
+        // if ok return state
+
+        // // console.log(state);
+        // const chunks = [...state.postsList.postsChunks];
+        // // const chunks = temp.postsList.postsChunks;
+        // const chunksLength = chunks.length;
+        // for (let i = 0; i < chunksLength; i++) {
+        //   const posts = chunks[i].posts;
+        //   const postsLength = posts.length;
+        //   for (let j = 0; j < postsLength; j++) {
+        //     if (posts[j]._id === action.payload.postId) {
+        //       // console.log(posts[j]);
+        //       const post = posts[j];
+        //       const votes = post.votes;
+        //       const index = votes.indexOf(action.payload.userId);
+        //       // index > -1 ? votes.splice(index, 1) : votes.push(action.payload.userId);
+        //       console.log(votes);
+        //       // console.log(votes);
+        //       break;
+        //     }
+        //   }
+        // }
+
         // temp.postDetail.point += 1;
         // return {
         //   ...state,
@@ -92,8 +115,71 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
         // };
         return state;
       }
+    case TEMP_VOTE_POST_SUCCESS:
+      {
+        const chunks = [...state.postsList.postsChunks];
+        // const chunks = temp.postsList.postsChunks;
+        const chunksLength = chunks.length;
+        for (let i = 0; i < chunksLength; i++) {
+          const posts = chunks[i].posts;
+          const postsLength = posts.length;
+          for (let j = 0; j < postsLength; j++) {
+            if (posts[j]._id === action.payload.postId) {
+              // console.log(posts[j]);
+              const post = posts[j];
+              const votes = post.votes;
+              const index = votes.indexOf(action.payload.userId);
+              if (index > -1) {
+                votes.splice(index, 1);
+                post.point--;
+              } else {
+                votes.push(action.payload.userId);
+                post.point++;
+              }
+              break;
+            }
+          }
+        }
+        return {
+          ...state,
+          postsList: {
+            postsChunks: chunks,
+          },
+        };
+      }
     case VOTE_POST_FAILURE:
-      return state;
+      {
+        // console.log(faf);
+        const chunks = [...state.postsList.postsChunks];
+        // const chunks = temp.postsList.postsChunks;
+        const chunksLength = chunks.length;
+        for (let i = 0; i < chunksLength; i++) {
+          const posts = chunks[i].posts;
+          const postsLength = posts.length;
+          for (let j = 0; j < postsLength; j++) {
+            if (posts[j]._id === action.payload.postId) {
+              // console.log(posts[j]);
+              const post = posts[j];
+              const votes = post.votes;
+              const index = votes.indexOf(action.payload.userId);
+              if (index > -1) {
+                votes.splice(index, 1);
+                post.point--;
+              } else {
+                votes.push(action.payload.userId);
+                post.point++;
+              }
+              break;
+            }
+          }
+        }
+        return {
+          ...state,
+          postsList: {
+            postsChunks: chunks,
+          },
+        };
+      }
     default:
       return state;
   }
@@ -108,7 +194,7 @@ export const getPosts = (state) => {
 };
 
 // Get post by cuid
-export const getPost = (state, cuid) => state.postsStore.postsList.postsChunks[0].posts.filter(post => post._id === parseInt(cuid, 10))[0];
+export const getPost = (state, postId) => state.postsStore.postsList.postsChunks[0].posts.filter(post => post._id === parseInt(postId, 10))[0];
 
 // Export Reducer
 export default PostsReducer;

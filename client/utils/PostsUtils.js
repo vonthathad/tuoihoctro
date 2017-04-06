@@ -63,8 +63,9 @@ export function getPost(id) {
 }
 
 export function vote(id) {
+  const token = getToken();
   const headers = {
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNpcmRhdDE5OTNAZ21haWwuY29tIiwiaWF0IjoxNDg3NzY4MTE3fQ.Ds8JI_moMH9-UzuS38p1zGWirYNM89uadhV8RsShTjg',
+    Authorization: `Bearer ${token}`,
   };
   return put({
     url: `api/posts/${id}/vote`,

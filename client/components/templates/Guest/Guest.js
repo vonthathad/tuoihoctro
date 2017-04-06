@@ -12,6 +12,7 @@ import Footer from '../../common/Footer/Footer';
 import Auth from '../../layouts/Auth';
 import PostCreateWidget from '../../layouts/PostWidget/PostWidget';
 
+import { _fetchRecommendsChunk } from '../../../_actions/RecommendsActions';
 
 // Import Actions
 import { toggleAddPost, toggleLogin, toggleRegister, closeElement } from '../../../_actions/WidgetActions';
@@ -28,8 +29,11 @@ export class Guest extends Component {
   }
 
   componentDidMount() {
-    this.setState({isMounted: true}); // eslint-disable-line
-    this.props.dispatch(checkLoginInit());
+    this.setState({ isMounted: true }); // eslint-disable-line
+    this.props.checkLoginInit();
+    if (process.env.NODE_ENV === 'development') {
+      this.props.fetchRecommendsChunk();
+    }
   }
   changeStyleModal() {
     // if (check === true) {
@@ -131,7 +135,12 @@ Guest.propTypes = {
   dispatch: PropTypes.func.isRequired,
   curentUser: PropTypes.object.isRequired,
   showElement: PropTypes.string,
+  fetchRecommendsChunk: PropTypes.object,
+  checkLoginInit: PropTypes.object,
 };
+Guest.need = [
+  () => { return _fetchRecommendsChunk(200); },
+];
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
@@ -140,5 +149,11 @@ function mapStateToProps(store) {
     showElement: getShowElement(store),
   };
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(200)),
+    checkLoginInit: () => dispatch(checkLoginInit()),
+  };
+};
 
-export default connect(mapStateToProps)(Guest);
+export default connect(mapStateToProps, mapDispatchToProps)(Guest);

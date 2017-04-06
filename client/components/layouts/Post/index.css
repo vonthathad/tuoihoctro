@@ -70,10 +70,14 @@
   float: left;
 }
 
-
+.box-facebook>a>i{
+  color: #fff;
+}
+.box-facebook>a>span{
+  color: #fff;
+}
 .fb-button{
   background-color: #3b5998;
-  color: #fff;
   display: block;
   font-weight: 700;
   height: 34px;

@@ -25,15 +25,15 @@ class Header extends Component {
       <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
         <div className={`${st.body_ribbon} ${st.esi_ribbon}`}></div>
         <div className={`${st['nav-wide']} container`}>
-          <a className={`navbar-brand ${st['logo-wrapper']}`} href="/">
+          <Link className={`navbar-brand ${st['logo-wrapper']}`} to="/">
             <img
               src={logo}
               className={st.logo}
               alt="Tuổi học trò"
             />
-          </a>
+          </Link>
           <div className={st['wide-div']}>
-            <ul className="nav navbar-nav">
+            <ul className={`${st.menu} nav navbar-nav`}>
               <li><a href="hot.html">Nóng hổi</a></li>
               <li><a href="trending.html">Top</a></li>
               <li><a href="fresh.html">Mới</a></li>
@@ -57,7 +57,7 @@ class Header extends Component {
             </ul>
              {
                curentUser._id && curentUser ?
-                 <ul className={'nav navbar-nav navbar-right'}>
+                 <ul className={`${st.rightMenu} nav navbar-nav navbar-right`}>
                    <li className="btn-upload">
                      <a className={st.userinfo}>
                       {curentUser.username}
