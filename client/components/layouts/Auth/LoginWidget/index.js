@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-// Import Plugin
-// import FacebookProvider, { Login } from 'react-facebook';
-
 // Import Style
 import styles from './index.css';
 

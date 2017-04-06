@@ -18,6 +18,9 @@ import st from './index.css';
 // )
 class Home extends Component {
   componentDidMount() {
+    if (window.FB) {
+      window.FB.XFBML.parse();
+    }
     if (process.env.NODE_ENV === 'development') {
       this.props.fetchPostChunk();
       // this.props.fetchRecommendsChunk();

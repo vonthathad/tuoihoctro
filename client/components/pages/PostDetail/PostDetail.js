@@ -4,12 +4,11 @@ import { browserHistory } from 'react-router';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
 
-import RecommendsListContainer from '../../containers/RecommendsListContainer';
+// import RecommendsListContainer from '../../containers/RecommendsListContainer';
 import ImagePrettyLoad from '../../layouts/ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../../layouts/VideoAutoPlay/VideoAutoPlay';
 
 import Helmet from 'react-helmet';
-
 // Import Style
 import st from './PostDetail.css';
 
@@ -18,15 +17,17 @@ import { _fetchPost, votePost, deletePostRequest } from '../../../_actions/Posts
 
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
-import FacebookProvider, { Comments, Share } from 'react-facebook';
-
 export class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.handleVoteClick = this.handleVoteClick.bind(this);
     this.state = {};
+    this.url = window.location.hostname + window.location.pathname;
   }
   componentDidMount() {
+    if (window.FB) {
+      window.FB.XFBML.parse();
+    }
     this.props.dispatch(_fetchPost(this.props.params.postId));
   }
 
@@ -108,7 +109,7 @@ export class PostDetail extends Component {
             },
           ]}
         />
-        <div className="container">
+        <div className={`container ${st.postDetailWrapper}  ${st.pr0}`}>
           <div className="col-sm-8" id={st.left}>
             {
               (post && post.title)
@@ -125,11 +126,9 @@ export class PostDetail extends Component {
                         <span>Thích</span>
                       </div>
                       <div className={st.shareButton} >
-                        <FacebookProvider appID="1559166841054175">
-                          <Share>
-                            <span className={st['remove-mobile']}>Chia sẻ</span>
-                          </Share>
-                        </FacebookProvider>
+                        <div className="fb-share-button" data-href={this.url} data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                          <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${this.url}`}>Share</a>
+                        </div>
                       </div>
                       <div className={st.nextButton} onClick={this.readNext.bind(this, post._id)}>
                         <span className={st.text}>Xem tiếp</span>
@@ -182,17 +181,23 @@ export class PostDetail extends Component {
                     </div>*/}
                   </div>
                   <div className={st['clear-fix']}></div>
-                  <div className={st.shareButtonLarge}> Share on Facebook</div>
-                  <RecommendsListContainer />
+                  <div className={st.shareButtonLarge}>
+                    <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                      <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
+                    </div>
+                  </div>
+                  {/* <RecommendsListContainer />*/}
                 </div>
                 : <div className={st.loading}>Loading&#8230;</div>
             }
           </div>
-          <div className={'col-sm-4'}>
+          <div className={`col-sm-4 ${st.pr0} ${st.mt10}`}>
             <div className={st['facebook-comments']}>
-              <FacebookProvider appID="1559166841054175">
-                <Comments />
-              </FacebookProvider>
+              <span style={{ display: 'none' }} className="fb-comments-count" data-href="http://example.com/"></span>
+              <div className="fb-comments" data-href={window.location.href} data-numposts="10" width="100%"></div>
+            </div>
+            <div className={st.sideAd}>
+              <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt="" />
             </div>
           </div>
         </div>

@@ -4,11 +4,11 @@ import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
 // Import Style
 import st from './index.css';
 import { votePost, tempVoteSuccess } from '../../../_actions/PostsActions';
-
 class Post extends Component {
   constructor(props) {
     super(props);
     this.handleVoteClick = this.handleVoteClick.bind(this);
+    console.log(`${window.location.href}posts/${this.props.post._id}`);
   }
   shouldComponentUpdate(nextProps) {
     // if (this.props.post !== nextProps.post) return false;
@@ -72,7 +72,7 @@ class Post extends Component {
                 <i className="fa fa-comment-o" aria-hidden="true"></i>
               </Link>
               <div className={st['comment-number-wrapper']}>
-                <span> {point} </span>
+                <span className="fb-comments-count" data-href={`${window.location.href}posts/${this.props.post._id}`}></span>
               </div>
             </div>
             <div className={st['box-facebook']}>

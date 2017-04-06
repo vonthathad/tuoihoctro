@@ -44,7 +44,7 @@
 }
 
 #wrap {
-  margin-top: 60px;
+  margin-top: 55px;
 }
 .social-box-top{
   width: 100%;
@@ -421,8 +421,8 @@
   clear: both
 }
 .facebook-comments{
-  /*max-width: 550px;*/
   margin: auto;
+  border-left: 1px solid #dee5e7;
 }
 .shareButtonLarge{
   margin: 10px auto 20px;
@@ -449,4 +449,18 @@
   left: 2px;
   background: url('../../../assets/images/sprite.png') -90px 0 no-repeat;
   background-size: 270px 60px;
+}
+.postDetailWrapper{
+   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); 
+}
+
+.pr0{
+  padding-right: 0px;
+}
+.sideAd{
+  text-align: center;
+  margin-top: 30px;
+}
+.mt10{
+  margin-top:10px;
 }
