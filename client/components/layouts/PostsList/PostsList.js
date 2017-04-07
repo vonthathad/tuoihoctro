@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 // import PostsChunk from '../PostsChunk/PostsChunk';
+import { Link } from 'react-router';
 import ImagePrettyLoad from '../ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../VideoAutoPlay/VideoAutoPlay';
 import Post from '../Post/Post';
@@ -43,14 +44,17 @@ class PostsList extends Component {
         {/* {postsChunks && postsChunks.length > 0 && postsChunks.map((postsChunk, i) => <PostsChunk*/}
         {posts && posts.length > 0 && posts.map((post, i) =>
           <Post post={post} key={i} dispatch={dispatch} auth={auth}>
-            {post.type.indexOf('gif') === -1 ? <ImagePrettyLoad
-              key={post._id}
-              image={post.thumb}
-              imageLQ={post.thumbLQ}
-              imageHeight={post.thumbHeight}
-              imageWidth={post.thumbWidth}
-              containerWidth={this.containerWidth}
-            />
+            {post.type.indexOf('gif') === -1 ?
+              <Link to={`posts/${post._id}`}>
+                <ImagePrettyLoad
+                  key={post._id}
+                  image={post.thumb}
+                  imageLQ={post.thumbLQ}
+                  imageHeight={post.thumbHeight}
+                  imageWidth={post.thumbWidth}
+                  containerWidth={this.containerWidth}
+                />
+              </Link>
               :
               <VideoAutoPlay
                 key={post._id}
@@ -61,7 +65,7 @@ class PostsList extends Component {
               />
             }
           </Post>
-          )}
+        )}
       </div >
     );
   }

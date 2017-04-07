@@ -249,7 +249,7 @@
 .comment-img {
   float: left;
   margin-right: 33px;
-  border-radius: 5px;
+  border-radius: 2px;
   overflow: hidden;
 }
 
@@ -264,7 +264,7 @@
 .comment .text {
   padding: 10px;
   border: 1px solid #e5e5e5;
-  border-radius: 5px;
+  border-radius: 2px;
   background: #fff;
 }
 
