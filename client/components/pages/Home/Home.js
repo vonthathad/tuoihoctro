@@ -17,6 +17,9 @@ import st from './index.css';
 //   { _fetchPostsChunk, _fetchRecommendsChunk }
 // )
 class Home extends Component {
+  componentWillMount() {
+
+  }
   componentDidMount() {
     if (window.FB) {
       window.FB.XFBML.parse();

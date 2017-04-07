@@ -5,7 +5,8 @@ import {
 } from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsList: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
-  postsList: { postsChunks: [], page: 1, error: false, fetching: false, hasNext: true },
+  // postsList: { postsChunks: [], page: 1, error: false, fetching: false, hasNext: true },
+  postsList: { posts: [], page: 1, error: false, fetching: false, hasNext: true },
   newPost: { post: null, error: null, loading: false },
   activePost: { post: null, error: null, loading: false },
   deletedPost: { post: null, error: null, loading: false },
@@ -42,23 +43,26 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
           {
             ...state.postsList,
             fetching: true,
-            postsChunks: [
-              ...state.postsList.postsChunks,
-              {
-                loading: true,
-                posts: [],
-              },
-            ],
+            // postsChunks: [
+            //   ...state.postsList.postsChunks,
+            //   {
+            //     loading: true,
+            //     posts: [],
+            //   },
+            // ],
           },
         };
       }
     case FETCH_POSTS_CHUNK_SUCCESS:
       {
         const postsList = { ...state.postsList };
-        const postsChunks = postsList.postsChunks;
-        const lastChunkIndex = postsChunks.length - 1;
-        postsChunks[lastChunkIndex].loading = false;
-        postsChunks[lastChunkIndex].posts = action.payload.postsChunk;
+        // const postsChunks = postsList.postsChunks;
+        // const lastChunkIndex = postsChunks.length - 1;
+        // postsChunks[lastChunkIndex].loading = false;
+        // postsChunks[lastChunkIndex].posts = action.payload.postsChunk;
+        postsList.posts = postsList.posts.concat(action.payload.postsChunk);
+        console.log(action.payload.postsChunk);
+        console.log(postsList);
         postsList.hasNext = action.payload.hasNext;
         postsList.fetching = false;
         postsList.page++;
@@ -69,16 +73,16 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
       }
     case FETCH_POSTS_CHUNK_FAILURE:
       {
-        const postsChunks = state.postsList.postsChunks;
-        const lastChunkIndex = postsChunks.length - 1;
-        postsChunks[lastChunkIndex].loading = true;
+        // const postsChunks = state.postsList.postsChunks;
+        // const lastChunkIndex = postsChunks.length - 1;
+        // postsChunks[lastChunkIndex].loading = true;
         return {
           ...state,
           postsList:
           {
             ...state.postsList,
             fetching: false,
-            postsChunks,
+            // postsChunks,
             error: true,
           },
         };

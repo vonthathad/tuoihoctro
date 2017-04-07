@@ -156,11 +156,12 @@
   color: #597836;
 }
 
-.comment-icon-wrapper{
+.comment-icon-wrapper>i{
   float: left;
   line-height: 36px;
   cursor: pointer;
   display: block;
+  color: #888888;
 }
 .comment-icon-wrapper:hover{
    color: #597836;

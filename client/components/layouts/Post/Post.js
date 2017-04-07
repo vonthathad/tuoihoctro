@@ -8,11 +8,31 @@ class Post extends Component {
   constructor(props) {
     super(props);
     this.handleVoteClick = this.handleVoteClick.bind(this);
-    console.log(`${window.location.href}posts/${this.props.post._id}`);
+    this.handleShareFb = this.handleShareFb.bind(this);
+    // console.log(`${window.location.href}posts/${this.props.post._id}`);
+  }
+  componentDidMount() {
+    if (window.FB) {
+      window.FB.XFBML.parse(this.commentCountRef);
+    }
   }
   shouldComponentUpdate(nextProps) {
-    // if (this.props.post !== nextProps.post) return false;
+    if (this.props.post !== nextProps.post) return false;
     return true;
+  }
+  componentDidUpdate() {
+    // if (window.FB) {
+    //   window.FB.XFBML.parse();
+    // }
+  }
+  handleShareFb() {
+    let width = '626';
+    let height = '436';
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+      width = '400';
+      height = '300';
+    }
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'facebook-share-dialog', `width=${width},height=${height}`);
   }
   handleVoteClick() {
     // console.log(this.props.auth._id);
@@ -69,16 +89,19 @@ class Post extends Component {
             </div>
             <div className={st['box-comment']}>
               <Link to={`posts/${this.props.post._id}`} className={st['comment-icon-wrapper']}>
-                <i className="fa fa-comment-o" aria-hidden="true"></i>
+                <i className="fa fa-comment" aria-hidden="true"></i>
               </Link>
-              <div className={st['comment-number-wrapper']}>
+              <div className={st['comment-number-wrapper']} ref={(commentCountRef) => { this.commentCountRef = commentCountRef; }}>
                 <span className="fb-comments-count" data-href={`${window.location.href}posts/${this.props.post._id}`}></span>
               </div>
             </div>
-            <div className={st['box-facebook']}>
+            <div className={st['box-facebook']} onClick={this.handleShareFb}>
               <a className={`${st['fb-button']}`}>
                 <i className="fa fa-facebook"></i>
                 <span className={st['remove-mobile']}> Facebook</span>
+              {/* <div className="fb-share-button" data-href={`${window.location.href}posts/${this.props.post._id}`} data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                <a className="fb-xfbml-parse-ignore" target="_blank" href={`${window.location.href}posts/${this.props.post._id}`}>Share</a>
+              </div>*/}
               </a>
             </div>
           </div>

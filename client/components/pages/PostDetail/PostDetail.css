@@ -379,6 +379,11 @@
   position: relative;
   cursor: pointer;
 }
+.shareButton2{
+  position: relative;
+   float: left;
+  display: block;
+}
 .shareButton::after{
   content: " ";
   width: 32px;
@@ -450,6 +455,7 @@
   background: url('../../../assets/images/sprite.png') -90px 0 no-repeat;
   background-size: 270px 60px;
 }
+
 .postDetailWrapper{
    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); 
 }

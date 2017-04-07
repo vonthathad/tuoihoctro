@@ -23,6 +23,7 @@ export class PostDetail extends Component {
     this.handleVoteClick = this.handleVoteClick.bind(this);
     this.state = {};
     this.url = window.location.hostname + window.location.pathname;
+    this.handleShareFb = this.handleShareFb.bind(this);
   }
   componentDidMount() {
     if (window.FB) {
@@ -32,6 +33,9 @@ export class PostDetail extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (window.FB) {
+      window.FB.XFBML.parse();
+    }
     console.log(prevProps);
     console.log(this.props);
     const oldId = prevProps.params.postId;
@@ -50,6 +54,15 @@ export class PostDetail extends Component {
   }
   vote(id) {
     this.props.dispatch(votePost(id));
+  }
+  handleShareFb() {
+    let width = '626';
+    let height = '436';
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+      width = '400';
+      height = '300';
+    }
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${this.url}`, 'facebook-share-dialog', `width=${width},height=${height}`);
   }
   handleVoteClick() {
     // console.log(this.props.auth._id);
@@ -125,10 +138,12 @@ export class PostDetail extends Component {
                       <div className={st.unvotedButton} onClick={this.vote.bind(this, post._id)} >
                         <span>Thích</span>
                       </div>
-                      <div className={st.shareButton} >
-                        <div className="fb-share-button" data-href={this.url} data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                      <div className={st.shareButton} onClick={this.handleShareFb}>
+                        Chia sẻ
+                       {/* <div className={st.shareButton2} >*/}
+                        {/* <div className="fb-share-button" data-href={this.url} data-layout="button_count" data-size="large" data-mobile-iframe="true">
                           <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${this.url}`}>Share</a>
-                        </div>
+                        </div>*/}
                       </div>
                       <div className={st.nextButton} onClick={this.readNext.bind(this, post._id)}>
                         <span className={st.text}>Xem tiếp</span>
@@ -181,10 +196,11 @@ export class PostDetail extends Component {
                     </div>*/}
                   </div>
                   <div className={st['clear-fix']}></div>
-                  <div className={st.shareButtonLarge}>
-                    <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                  <div className={st.shareButtonLarge} onClick={this.handleShareFb} >
+                    Chia sẻ
+                    {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
                       <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
-                    </div>
+                    </div>*/}
                   </div>
                   {/* <RecommendsListContainer />*/}
                 </div>
