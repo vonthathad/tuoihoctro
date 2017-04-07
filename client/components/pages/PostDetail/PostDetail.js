@@ -56,13 +56,28 @@ export class PostDetail extends Component {
     this.props.dispatch(votePost(id));
   }
   handleShareFb() {
-    let width = '626';
-    let height = '436';
+    let w = '626';
+    let h = '436';
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-      width = '400';
-      height = '300';
+      w = '400';
+      h = '300';
     }
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${this.url}`, 'facebook-share-dialog', `width=${width},height=${height}`);
+    // Fixes dual-screen position                         Most browsers      Firefox
+    const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+    const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+
+    let width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth;
+    width = document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    let height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
+    height = document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    const left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    const top = ((height / 2) - (h / 2)) + dualScreenTop;
+    const newWindow = window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'facebook-share-dialog', `scrollbars=yes, width=${w}, height=${h}, top=${top}, left=${left}`);
+
+    if (window.focus) {
+      newWindow.focus();
+    }
   }
   handleVoteClick() {
     // console.log(this.props.auth._id);
