@@ -3,12 +3,13 @@ import { Link } from 'react-router';
 import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
 // Import Style
 import st from './index.css';
-import { votePost, tempVoteSuccess } from '../../../_actions/PostsActions';
+import { votePost, tempVoteSuccess, _fetchPostClient } from '../../../_actions/PostsActions';
 class Post extends Component {
   constructor(props) {
     super(props);
     this.handleVoteClick = this.handleVoteClick.bind(this);
     this.handleShareFb = this.handleShareFb.bind(this);
+    this.handleGoDetailPost = this.handleGoDetailPost.bind(this);
     // console.log(`${window.location.href}posts/${this.props.post._id}`);
   }
   componentDidMount() {
@@ -24,6 +25,11 @@ class Post extends Component {
     // if (window.FB) {
     //   window.FB.XFBML.parse();
     // }
+  }
+  handleGoDetailPost() {
+    // console.log(1235);
+    console.log(this.props.post);
+    this.props.dispatch(_fetchPostClient(this.props.post));
   }
   handleShareFb() {
     let w = '626';
@@ -76,7 +82,7 @@ class Post extends Component {
         <div className={st['post-header']}>
           <div className={st['post-title']}>
             <h1>
-              <Link to={`posts/${this.props.post._id}`}>
+              <Link onClick={this.handleGoDetailPost} to={`posts/${this.props.post._id}`}>
                 {this.props.post.title}
               </Link>
             </h1>
@@ -103,7 +109,7 @@ class Post extends Component {
               </div>
             </div>
             <div className={st['box-comment']}>
-              <Link to={`posts/${this.props.post._id}`} className={st['comment-icon-wrapper']}>
+              <Link onClick={this.handleGoDetailPost} to={`posts/${this.props.post._id}`} className={st['comment-icon-wrapper']}>
                 <i className="fa fa-comment" aria-hidden="true"></i>
               </Link>
               <div className={st['comment-number-wrapper']} ref={(commentCountRef) => { this.commentCountRef = commentCountRef; }}>

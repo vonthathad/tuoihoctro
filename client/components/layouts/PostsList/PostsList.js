@@ -34,7 +34,7 @@ class PostsList extends Component {
 
   render() {
     const { postsList, auth, dispatch } = this.props;
-    console.log(postsList);
+    // console.log(postsList);
     const posts = postsList.posts;
     // console.log(auth);
     // let postsChunks = [];

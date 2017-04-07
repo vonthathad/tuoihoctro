@@ -25,7 +25,7 @@ class Header extends Component {
       <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
         <div className={`${st.body_ribbon} ${st.esi_ribbon}`}></div>
         <div className={`${st['nav-wide']} container`}>
-          <Link className={`navbar-brand ${st['logo-wrapper']}`} to="/">
+          <Link to="/" className={`navbar-brand ${st['logo-wrapper']}`}>
             <img
               src={logo}
               className={st.logo}

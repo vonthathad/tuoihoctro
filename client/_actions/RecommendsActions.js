@@ -36,7 +36,7 @@ function fetchRecommendsChunkFailure(error) {
   };
 }
 
-export function _fetchRecommendsChunk(paging = 200) {
+export function _fetchRecommendsChunk(paging = 30) {
   return (dispatch) => {
     dispatch(fetchRecommendsChunk());
     const queryArgs = { paging };

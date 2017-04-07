@@ -139,7 +139,7 @@ Guest.propTypes = {
   checkLoginInit: PropTypes.object,
 };
 Guest.need = [
-  () => { return _fetchRecommendsChunk(200); },
+  () => { return _fetchRecommendsChunk(50); },
 ];
 
 // Retrieve data from store as props
@@ -151,7 +151,7 @@ function mapStateToProps(store) {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(200)),
+    fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(50)),
     checkLoginInit: () => dispatch(checkLoginInit()),
   };
 };

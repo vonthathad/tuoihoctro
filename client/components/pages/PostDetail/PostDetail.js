@@ -13,31 +13,64 @@ import Helmet from 'react-helmet';
 import st from './PostDetail.css';
 
 // Import Actions
-import { _fetchPost, votePost, deletePostRequest } from '../../../_actions/PostsActions';
+import { _fetchPost, votePost, deletePostRequest, tempVoteDetailSuccess } from '../../../_actions/PostsActions';
 
+import useScroll from 'react-router-scroll/lib/useScroll';
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
 export class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.handleVoteClick = this.handleVoteClick.bind(this);
-    this.state = {};
+    this.state = {
+      post: null,
+    };
     this.url = window.location.hostname + window.location.pathname;
     this.handleShareFb = this.handleShareFb.bind(this);
+    this.fetchPost = this.fetchPost.bind(this);
   }
   componentDidMount() {
     if (window.FB) {
       window.FB.XFBML.parse();
     }
-    this.props.dispatch(_fetchPost(this.props.params.postId));
+    this.fetchPost();
+    useScroll((prevRouterProps, { routes }) => {
+      if (routes.some(route => route.ignoreScrollBehavior)) {
+        return false;
+      }
+      if (routes.some(route => route.scrollToTop)) {
+        return [0, 0];
+      }
+      return true;
+    });
   }
-
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(nextProps);
+    // if (this.props.posts.length > 0 && nextProps.posts) {
+    //   const posts = this.props.posts;
+    //   const postsLength = posts.length;
+    //   const postId = this.props.params.postId;
+    //   for (let i = 0; i < postsLength; i++) {
+    //     if (posts[i]._id === parseInt(postId, 10)) {
+    //       // console.log(i);
+    //       if (this.props.posts[i].votes === nextProps.posts[i].votes) {
+    //         return true;
+    //       }
+    //     }
+    //   }
+    // }
+    // if (nextState.post === this.state.post
+    //   && this.state.post !== null
+    //   && nextState.post.votes === this.state.post.votes) return false;
+    // && this.props.posts[postId].votes === nextProps.posts[postId].votes
+  //   return true;
+  // }
   componentDidUpdate(prevProps) {
     if (window.FB) {
       window.FB.XFBML.parse();
     }
-    console.log(prevProps);
-    console.log(this.props);
+    // console.log(prevProps);
+    // console.log(this.props);
     const oldId = prevProps.params.postId;
     const newId = this.props.params.postId;
     newId !== oldId && this.props.dispatch(_fetchPost(this.props.params.postId));
@@ -49,11 +82,24 @@ export class PostDetail extends Component {
     //   }
     // }
   }
+  fetchPost() {
+    // console.log(this.props.posts);
+    // if (this.props.posts.length !== 0) {
+    //   const posts = this.props.posts;
+    //   const postsLength = posts.length;
+    //   for (let i = 0; i < postsLength; i++) {
+    //     if (posts[i]._id === parseInt(this.props.params.postId, 10)) {
+    //       this.setState({ post: posts[i] });
+    //       break;
+    //     }
+    //   }
+    // } else {
+    // console.log(this.props.post.title);
+    !this.props.post._id && this.props.dispatch(_fetchPost(this.props.params.postId));
+    // }
+  }
   deletePostByOwner(id) {
     this.props.dispatch(deletePostRequest(id));
-  }
-  vote(id) {
-    this.props.dispatch(votePost(id));
   }
   handleShareFb() {
     let w = '626';
@@ -81,29 +127,39 @@ export class PostDetail extends Component {
   }
   handleVoteClick() {
     // console.log(this.props.auth._id);
-    this.props.dispatch(tempVoteSuccess({
+    const post = this.props.post;
+    this.props.dispatch(tempVoteDetailSuccess({
       userId: this.props.auth._id,
-      postId: this.props.post._id,
-      postVotes: this.props.post.votes,
+      postId: post._id,
+      postVotes: post.votes,
     }));
     this.props.dispatch(votePost({
       userId: this.props.auth._id,
-      postId: this.props.post._id,
-      postVotes: this.props.post.votes,
+      postId: post._id,
+      postVotes: post.votes,
     }));
   }
   readBack(id) {
     this.props.dispatch(_fetchPost(id - 1));
   }
   readNext(id) {
-    console.log(id);
     browserHistory.go(`/posts/${id + 1}`);
   }
   render() {
-    // console.log(this.props.post);
+    console.log(this.props);
     const post = this.props.post;
+    let voted = false;
+    if (post) {
+      post.votes &&
+      post.votes.forEach(id => {
+        if (id === this.props.auth._id) {
+          voted = true;
+        }
+      });
+    }
     return (
       <div id={st.wrap}>
+        {post && post.title &&
         <Helmet
           title={post.title}
           meta={[
@@ -137,6 +193,7 @@ export class PostDetail extends Component {
             },
           ]}
         />
+        }
         <div className={`container ${st.postDetailWrapper}  ${st.pr0}`}>
           <div className="col-sm-8" id={st.left}>
             {
@@ -150,15 +207,15 @@ export class PostDetail extends Component {
                   </p>
                   <div className={st['post-action']}>
                     <div className={st['social-box-top']}>
-                      <div className={st.unvotedButton} onClick={this.vote.bind(this, post._id)} >
+                      <div className={voted ? st.votedButton : st.unvotedButton} onClick={this.handleVoteClick} >
                         <span>Thích</span>
                       </div>
                       <div className={st.shareButton} onClick={this.handleShareFb}>
                         Chia sẻ
-                       {/* <div className={st.shareButton2} >*/}
+                        {/* <div className={st.shareButton2} >*/}
                         {/* <div className="fb-share-button" data-href={this.url} data-layout="button_count" data-size="large" data-mobile-iframe="true">
-                          <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${this.url}`}>Share</a>
-                        </div>*/}
+                            <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${this.url}`}>Share</a>
+                          </div>*/}
                       </div>
                       <div className={st.nextButton} onClick={this.readNext.bind(this, post._id)}>
                         <span className={st.text}>Xem tiếp</span>
@@ -200,22 +257,13 @@ export class PostDetail extends Component {
                         </div>
                         : null
                     }
-                    {/* <div className={st.timeago}>
-                      BY
-                       {
-                        (post.creator)
-                          ? <a className={st['user-link']}> {post.creator.username}</a>
-                          : null
-                      }
-
-                    </div>*/}
                   </div>
                   <div className={st['clear-fix']}></div>
                   <div className={st.shareButtonLarge} onClick={this.handleShareFb} >
                     Chia sẻ
-                    {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
-                      <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
-                    </div>*/}
+                      {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                        <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
+                      </div>*/}
                   </div>
                   {/* <RecommendsListContainer />*/}
                 </div>
@@ -235,7 +283,6 @@ export class PostDetail extends Component {
       </div >
     );
   }
-
 }
 
 // Actions required to provide data for this component to render in sever side.
@@ -257,16 +304,6 @@ PostDetail.propTypes = {
   data: PropTypes.object,
   post: PropTypes.object,
   auth: PropTypes.object,
-  // post: PropTypes.shape({
-  //   _id: PropTypes.number.isRequired,
-  //   title: PropTypes.string.isRequired,
-  //   mediaContent: PropTypes.string,
-  //   numComment: PropTypes.number.isRequired,
-  //   point: PropTypes.number.isRequired,
-  //   created: PropTypes.string.isRequired,
-  //   view: PropTypes.number.isRequired,
-  //   creator: PropTypes.object.isRequired,
-  // }).isRequired,
 };
 
 export default connect(mapStateToProps)(PostDetail);

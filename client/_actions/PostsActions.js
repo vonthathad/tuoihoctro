@@ -30,6 +30,7 @@ export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS';
 export const VOTE_POST_FAILURE = 'VOTE_POST_FAILURE';
 export const TEMP_VOTE_POST_SUCCESS = 'TEMP_VOTE_POST_SUCCESS';
+export const TEMP_VOTE_POST_DETAIL_SUCCESS = 'TEMP_VOTE_POST_DETAIL_SUCCESS';
 
 
 function addPostSuccess(post) {
@@ -79,6 +80,12 @@ export function tempVoteSuccess(post) {
     payload: post,
   };
 }
+export function tempVoteDetailSuccess(post) {
+  return {
+    type: TEMP_VOTE_POST_DETAIL_SUCCESS,
+    payload: post,
+  };
+}
 
 export function _fetchPostsChunk(page) {
   return (dispatch) => {
@@ -96,6 +103,12 @@ export function _fetchPost(id) {
         dispatch(fetchPostSuccess(post));
       })
       .catch(error => console.log(error));
+  };
+}
+export function _fetchPostClient(post) {
+  return (dispatch) => {
+    console.log(post);
+    dispatch(fetchPostSuccess(post));
   };
 }
 export function votePost(voteData) {
