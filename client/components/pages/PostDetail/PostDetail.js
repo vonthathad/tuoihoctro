@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
 
-// import RecommendsListContainer from '../../containers/RecommendsListContainer';
+import RecommendsListContainer from '../../containers/RecommendsListContainer';
 import ImagePrettyLoad from '../../layouts/ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../../layouts/VideoAutoPlay/VideoAutoPlay';
 
@@ -265,7 +265,7 @@ export class PostDetail extends Component {
                         <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
                       </div>*/}
                   </div>
-                  {/* <RecommendsListContainer />*/}
+                   <RecommendsListContainer />
                 </div>
                 : <div className={st.loading}>Loading&#8230;</div>
             }
