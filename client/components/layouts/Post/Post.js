@@ -10,6 +10,7 @@ class Post extends Component {
     this.handleVoteClick = this.handleVoteClick.bind(this);
     this.handleShareFb = this.handleShareFb.bind(this);
     this.handleGoDetailPost = this.handleGoDetailPost.bind(this);
+    this.baseUrl = typeof(window) !== 'undefined' ? window.location.href : `${process.env.PROTOCOL}://${process.env.DOMAIN}`;
     // console.log(`${window.location.href}posts/${this.props.post._id}`);
   }
   componentDidMount() {
@@ -82,7 +83,7 @@ class Post extends Component {
         <div className={st['post-header']}>
           <div className={st['post-title']}>
             <h1>
-              <Link onClick={this.handleGoDetailPost} to={`posts/${this.props.post._id}`}>
+              <Link onClick={this.handleGoDetailPost} to={`/posts/${this.props.post._id}`}>
                 {this.props.post.title}
               </Link>
             </h1>
@@ -109,11 +110,11 @@ class Post extends Component {
               </div>
             </div>
             <div className={st['box-comment']}>
-              <Link onClick={this.handleGoDetailPost} to={`posts/${this.props.post._id}`} className={st['comment-icon-wrapper']}>
+              <Link onClick={this.handleGoDetailPost} to={`/posts/${this.props.post._id}`} className={st['comment-icon-wrapper']}>
                 <i className="fa fa-comment" aria-hidden="true"></i>
               </Link>
               <div className={st['comment-number-wrapper']} ref={(commentCountRef) => { this.commentCountRef = commentCountRef; }}>
-                <span className="fb-comments-count" data-href={`${window.location.href}posts/${this.props.post._id}`}></span>
+                <span className="fb-comments-count" data-href={`${this.baseUrl}posts/${this.props.post._id}`}></span>
               </div>
             </div>
             <div className={st['box-facebook']} onClick={this.handleShareFb}>

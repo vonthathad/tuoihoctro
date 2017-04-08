@@ -24,6 +24,7 @@ class Home extends Component {
     if (window.FB) {
       window.FB.XFBML.parse();
     }
+    window.scrollTo(0, 0);
     if (process.env.NODE_ENV === 'development') {
       this.props.fetchPostChunk();
       // this.props.fetchRecommendsChunk();

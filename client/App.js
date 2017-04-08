@@ -14,7 +14,7 @@ require('./main.css');
 export default function App(props) {
   return (
     <Provider store={props.store}>
-      <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
+      <Router history={browserHistory}>
         {routes}
       </Router>
     </Provider>

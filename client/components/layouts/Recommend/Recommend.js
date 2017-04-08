@@ -12,7 +12,7 @@ class Recommend extends Component {
   }
   render() {
     return (
-      <Link to={`posts/${this.props.post._id}`} onClick={this.handleGoDetailPost}>
+      <Link to={`/posts/${this.props.post._id}`} onClick={this.handleGoDetailPost}>
         <div className={styles['featured-recommend']}>
           <div className={styles['featured-image']}>
             {this.props.children}

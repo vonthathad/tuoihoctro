@@ -79,7 +79,7 @@ if (process.env.NODE_ENV === 'production') {
           <meta charset="UTF-8">
           <meta property="fb:app_id" content="123" />
           <meta property="og:site_name" content="tuoihoctro.co" />
-
+          <base href="/">
           ${head.base.toString()}
           ${head.title.toString()}
           ${head.meta.toString()}

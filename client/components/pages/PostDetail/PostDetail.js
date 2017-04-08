@@ -15,7 +15,7 @@ import st from './PostDetail.css';
 // Import Actions
 import { _fetchPost, votePost, deletePostRequest, tempVoteDetailSuccess } from '../../../_actions/PostsActions';
 
-import useScroll from 'react-router-scroll/lib/useScroll';
+// import useScroll from 'react-router-scroll/lib/useScroll';
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
 export class PostDetail extends Component {
@@ -25,24 +25,27 @@ export class PostDetail extends Component {
     this.state = {
       post: null,
     };
-    this.url = window.location.hostname + window.location.pathname;
+    // this.url = window.location.hostname + window.location.pathname;
     this.handleShareFb = this.handleShareFb.bind(this);
     this.fetchPost = this.fetchPost.bind(this);
+    this.baseUrl = typeof(window) !== 'undefined' ? window.location.hostname + window.location.pathname : `${process.env.PROTOCOL}://${process.env.DOMAIN}`;
+    console.log(this.url);
   }
   componentDidMount() {
     if (window.FB) {
       window.FB.XFBML.parse();
     }
+    window.scrollTo(0, 0);
     this.fetchPost();
-    useScroll((prevRouterProps, { routes }) => {
-      if (routes.some(route => route.ignoreScrollBehavior)) {
-        return false;
-      }
-      if (routes.some(route => route.scrollToTop)) {
-        return [0, 0];
-      }
-      return true;
-    });
+    // useScroll((prevRouterProps, { routes }) => {
+    //   if (routes.some(route => route.ignoreScrollBehavior)) {
+    //     return false;
+    //   }
+    //   if (routes.some(route => route.scrollToTop)) {
+    //     return [0, 0];
+    //   }
+    //   return true;
+    // });
   }
   // shouldComponentUpdate(nextProps, nextState) {
   //   console.log(nextProps);
@@ -73,7 +76,10 @@ export class PostDetail extends Component {
     // console.log(this.props);
     const oldId = prevProps.params.postId;
     const newId = this.props.params.postId;
-    newId !== oldId && this.props.dispatch(_fetchPost(this.props.params.postId));
+    if (newId !== oldId) {
+      window.scrollTo(0, 0);
+      this.props.dispatch(_fetchPost(this.props.params.postId));
+    }
     // if (!this.props.post) {
     //   this.props.dispatch(_fetchPost(this.props.params.postId));
     // } else {
@@ -273,7 +279,7 @@ export class PostDetail extends Component {
           <div className={`col-sm-4 ${st.pr0} ${st.mt10}`}>
             <div className={st['facebook-comments']}>
               <span style={{ display: 'none' }} className="fb-comments-count" data-href="http://example.com/"></span>
-              <div className="fb-comments" data-href={window.location.href} data-numposts="10" width="100%"></div>
+              <div className="fb-comments" data-href={`${this.baseUrl}/posts/${post._id}`} data-numposts="10" width="100%"></div>
             </div>
             <div className={st.sideAd}>
               <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt="" />

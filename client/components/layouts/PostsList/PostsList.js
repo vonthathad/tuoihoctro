@@ -45,7 +45,7 @@ class PostsList extends Component {
         {posts && posts.length > 0 && posts.map((post, i) =>
           <Post post={post} key={i} dispatch={dispatch} auth={auth}>
             {post.type.indexOf('gif') === -1 ?
-              <Link to={`posts/${post._id}`}>
+              <Link to={`/posts/${post._id}`}>
                 <ImagePrettyLoad
                   key={post._id}
                   image={post.thumb}
