@@ -87,12 +87,30 @@ if (process.env.NODE_ENV === 'production') {
           ${head.script.toString()}
           <meta data-react-helmet="true" name="viewport" content="width=device-width, initial-scale=1">
           
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-          ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
         </head>
         <body>
           <div id="root">${html}</div>
+
+
+          <noscript id="deferred-styles">
+            <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+             <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+              ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
+          </noscript>
+          <script>
+            var loadDeferredStyles = function() {
+              var addStylesNode = document.getElementById("deferred-styles");
+              var replacement = document.createElement("div");
+              replacement.innerHTML = addStylesNode.textContent;
+              document.body.appendChild(replacement)
+              addStylesNode.parentElement.removeChild(addStylesNode);
+            };
+            var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+                webkitRequestAnimationFrame || msRequestAnimationFrame;
+            if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+            else window.addEventListener('load', loadDeferredStyles);
+          </script>
+
           <script>
             window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
             ${process.env.NODE_ENV === 'production' ?
