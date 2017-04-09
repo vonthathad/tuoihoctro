@@ -25,6 +25,7 @@ import { getShowElement } from '../../../_reducers/WidgetReducer';
 export class Guest extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
     this.state = { isMounted: false };
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -46,22 +47,22 @@ export class Guest extends Component {
 
   toggleAddPostSection = () => {
     this.changeStyleModal(true);
-    this.props.dispatch(toggleAddPost());
+    this.props.toggleAddPost();
   };
 
   toggleLoginSection = () => {
     this.changeStyleModal(true);
-    this.props.dispatch(toggleLogin());
+    this.props.toggleLogin();
   };
 
   toggleRegisterSection = () => {
     this.changeStyleModal(true);
-    this.props.dispatch(toggleRegister());
+    this.props.toggleRegister();
   };
 
   closeElementSection = () => {
     this.changeStyleModal(false);
-    this.props.dispatch(closeElement());
+    this.props.closeElement();
   };
 
   handleAddPost = (title, category, file) => {
@@ -72,17 +73,17 @@ export class Guest extends Component {
       title, category,
     }));
     this.closeElementSection();
-    this.props.dispatch(addPostRequest(data));
+    this.props.addPostRequest(data);
   };
 
   handleLogin = (email, password) => {
     this.closeElementSection();
-    this.props.dispatch(loginRequest({ email, password }));
+    this.props.loginRequest({ email, password });
   };
 
   handleRegister = (username, email, password) => {
     this.closeElementSection();
-    this.props.dispatch(registerRequest({ username, email, password }));
+    this.props.registerRequest({ username, email, password });
   };
   _confirm(content) {
     return confirm(content);
@@ -90,7 +91,7 @@ export class Guest extends Component {
   handleLogout = () => {
     const reply = this._confirm('Bạn muốn đăng xuất khỏi ứng dụng');
     if (reply === true) {
-      this.props.dispatch(logout());
+      this.props.logout();
     }
   };
 
@@ -136,8 +137,16 @@ Guest.propTypes = {
   dispatch: PropTypes.func.isRequired,
   curentUser: PropTypes.object.isRequired,
   showElement: PropTypes.string,
-  fetchRecommendsChunk: PropTypes.object,
-  checkLoginInit: PropTypes.object,
+  fetchRecommendsChunk: PropTypes.func,
+  checkLoginInit: PropTypes.func,
+  logout: PropTypes.func,
+  registerRequest: PropTypes.func,
+  loginRequest: PropTypes.func,
+  addPostRequest: PropTypes.func,
+  closeElement: PropTypes.func,
+  toggleRegister: PropTypes.func,
+  toggleLogin: PropTypes.func,
+  toggleAddPost: PropTypes.func,
 };
 Guest.need = [
   () => { return _fetchRecommendsChunk(50); },
@@ -150,11 +159,19 @@ function mapStateToProps(store) {
     showElement: getShowElement(store),
   };
 }
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return {
     fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(50)),
     checkLoginInit: () => dispatch(checkLoginInit()),
+    logout: () => dispatch(logout()),
+    registerRequest: (obj) => dispatch(registerRequest(obj)),
+    loginRequest: (obj) => dispatch(loginRequest(obj)),
+    addPostRequest: (obj) => dispatch(addPostRequest(obj)),
+    closeElement: () => dispatch(closeElement()),
+    toggleRegister: () => dispatch(toggleRegister()),
+    toggleLogin: () => dispatch(toggleLogin()),
+    toggleAddPost: () => dispatch(toggleAddPost()),
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Guest);
