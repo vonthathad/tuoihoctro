@@ -108,8 +108,8 @@ export class PostDetail extends Component {
             },
           ]}
         />
-        <div className="container">
-          <div className="col-sm-8" id={st.left}>
+        <div className={`container ${st['style-container']}`}>
+          <div className={`col-sm-8 ${st['style-col-detail']}`} id={st.left}>
             {
               (post && post.title)
                 ? <div className={st['post-content-box']}>
@@ -182,16 +182,20 @@ export class PostDetail extends Component {
                     </div>*/}
                   </div>
                   <div className={st['clear-fix']}></div>
-                  <div className={st.shareButtonLarge}> Share on Facebook</div>
+                  <FacebookProvider appID="1559166841054175">
+                    <Share>
+                      <div className={st.shareButtonLarge}> Share on Facebook</div>
+                    </Share>
+                  </FacebookProvider>
                   <RecommendsListContainer />
                 </div>
                 : <div className={st.loading}>Loading&#8230;</div>
             }
           </div>
-          <div className={'col-sm-4'}>
+          <div className={`col-sm-4 ${st['style-col-detail']}`}>
             <div className={st['facebook-comments']}>
-              <FacebookProvider appID="1559166841054175">
-                <Comments />
+              <FacebookProvider appID="1559166841054175" >
+                <Comments width="350px"/>
               </FacebookProvider>
             </div>
           </div>

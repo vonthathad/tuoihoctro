@@ -90,6 +90,11 @@ if (process.env.NODE_ENV === 'production') {
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
           ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
+          <style>
+          .fb_ltr fb_iframe_widget_lift{
+          width: 350px!important
+          }
+          </style>
         </head>
         <body>
           <div id="root">${html}</div>
