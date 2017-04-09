@@ -26,6 +26,7 @@ export class Guest extends Component {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount() {

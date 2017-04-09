@@ -42,7 +42,7 @@ export function _fetchRecommendsChunk(paging = 30) {
     const queryArgs = { paging };
     return getPostsRecommend(queryArgs)
       .then((recommends) => {
-        console.log(recommends);
+        // console.log(recommends);
         return dispatch(fetchRecommendsChunkSuccess(recommends));
       }
       )

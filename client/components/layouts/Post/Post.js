@@ -29,7 +29,7 @@ class Post extends Component {
   }
   handleGoDetailPost() {
     // console.log(1235);
-    console.log(this.props.post);
+    // console.log(this.props.post);
     this.props.dispatch(_fetchPostClient(this.props.post));
   }
   handleShareFb() {

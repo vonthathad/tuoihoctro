@@ -107,7 +107,7 @@ export function _fetchPost(id) {
 }
 export function _fetchPostClient(post) {
   return (dispatch) => {
-    console.log(post);
+    // console.log(post);
     dispatch(fetchPostSuccess(post));
   };
 }
@@ -126,7 +126,7 @@ export function votePost(voteData) {
           }
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
           dispatch(voteFailure(voteData));
         })
       : null;
