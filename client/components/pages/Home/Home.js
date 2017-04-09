@@ -6,7 +6,6 @@ import RecommendsListContainer from '../../containers/RecommendsListContainer';
 
 // Import Actions
 import { _fetchPostsChunk } from '../../../_actions/PostsActions';
-import useScroll from 'react-router-scroll/lib/useScroll';
 // Import Selectors
 // import { getPosts } from '../../../_reducers/PostsReducer';
 // import { getRecommends } from '../../../_reducers/RecommendsReducer';
@@ -25,10 +24,10 @@ class Home extends Component {
       window.FB.XFBML.parse();
     }
     window.scrollTo(0, 0);
-    if (process.env.NODE_ENV === 'development') {
-      this.props.fetchPostChunk();
-      // this.props.fetchRecommendsChunk();
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    //   this.props.fetchPostChunk();
+    //   // this.props.fetchRecommendsChunk();
+    // }
     // useScroll((prevRouterProps, { location }) => {
     //   console.log(prevRouterProps);
     //   return prevRouterProps && location.pathname !== prevRouterProps.location.pathname;

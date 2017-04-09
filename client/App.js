@@ -3,8 +3,7 @@
  */
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
-import useScroll from 'react-router-scroll/lib/useScroll';
+import { Router, browserHistory } from 'react-router';
 // Import Routes
 import routes from './routes';
 

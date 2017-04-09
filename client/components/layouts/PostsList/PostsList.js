@@ -14,6 +14,12 @@ class PostsList extends Component {
     this.handleOnScrollLoadMediaContent = this.handleOnScrollLoadMediaContent.bind(this);
   }
   componentDidMount() {
+    if (process.env.NODE_ENV === 'development' && this.props.postsList.posts.length === 0) {
+      const { dispatch, postsList } = this.props;
+      dispatch(_fetchPostsChunk(postsList.page));
+      // this.props.fetchRecommendsChunk();
+    }
+
     window.addEventListener('scroll', this.handleOnScrollLoadMediaContent, false);
 
     const width = parseInt(window.getComputedStyle(this.postsListRef, null).getPropertyValue('width').replace('px', ''), 10);

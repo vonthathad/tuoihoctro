@@ -15,7 +15,6 @@ import st from './PostDetail.css';
 // Import Actions
 import { _fetchPost, votePost, deletePostRequest, tempVoteDetailSuccess } from '../../../_actions/PostsActions';
 
-// import useScroll from 'react-router-scroll/lib/useScroll';
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
 export class PostDetail extends Component {
@@ -29,7 +28,7 @@ export class PostDetail extends Component {
     this.handleShareFb = this.handleShareFb.bind(this);
     this.fetchPost = this.fetchPost.bind(this);
     this.baseUrl = typeof(window) !== 'undefined' ? window.location.hostname + window.location.pathname : `${process.env.PROTOCOL}://${process.env.DOMAIN}`;
-    console.log(this.url);
+    // console.log(this.url);
   }
   componentDidMount() {
     if (window.FB) {
@@ -37,15 +36,6 @@ export class PostDetail extends Component {
     }
     window.scrollTo(0, 0);
     this.fetchPost();
-    // useScroll((prevRouterProps, { routes }) => {
-    //   if (routes.some(route => route.ignoreScrollBehavior)) {
-    //     return false;
-    //   }
-    //   if (routes.some(route => route.scrollToTop)) {
-    //     return [0, 0];
-    //   }
-    //   return true;
-    // });
   }
   // shouldComponentUpdate(nextProps, nextState) {
   //   console.log(nextProps);
