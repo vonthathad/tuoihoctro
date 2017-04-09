@@ -34,8 +34,8 @@ const development = {
     id: '170584416691811',
     name: 'Title',
     description: 'Description',
-    url: `${process.env.PROTOCOL}://${process.env.CHANNEL}.${process.env.DOMAIN}`,
-    image: `${process.env.PROTOCOL}://${process.env.CHANNEL}.${process.env.DOMAIN}/sources/ads.jpg`,
+    url: `${process.env.PROTOCOL}//${process.env.CHANNEL}.${process.env.DOMAIN}`,
+    image: `${process.env.PROTOCOL}//${process.env.CHANNEL}.${process.env.DOMAIN}/sources/ads.jpg`,
   },
 };
 export default development;

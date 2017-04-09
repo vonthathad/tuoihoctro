@@ -10,7 +10,7 @@ class Post extends Component {
     this.handleVoteClick = this.handleVoteClick.bind(this);
     this.handleShareFb = this.handleShareFb.bind(this);
     this.handleGoDetailPost = this.handleGoDetailPost.bind(this);
-    this.baseUrl = typeof(window) !== 'undefined' ? window.location.href : `${process.env.PROTOCOL}://${process.env.DOMAIN}`;
+    this.baseUrl = typeof(window) !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}` : `${process.env.PROTOCOL}//${process.env.DOMAIN}`;
     // console.log(`${window.location.href}posts/${this.props.post._id}`);
   }
   componentDidMount() {
@@ -114,7 +114,7 @@ class Post extends Component {
                 <i className="fa fa-comment" aria-hidden="true"></i>
               </Link>
               <div className={st['comment-number-wrapper']} ref={(commentCountRef) => { this.commentCountRef = commentCountRef; }}>
-                <span className="fb-comments-count" data-href={`${this.baseUrl}posts/${this.props.post._id}`}></span>
+                <span className="fb-comments-count" data-href={`${this.baseUrl}/posts/${this.props.post._id}`}></span>
               </div>
             </div>
             <div className={st['box-facebook']} onClick={this.handleShareFb}>

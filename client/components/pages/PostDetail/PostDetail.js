@@ -27,8 +27,8 @@ export class PostDetail extends Component {
     // this.url = window.location.hostname + window.location.pathname;
     this.handleShareFb = this.handleShareFb.bind(this);
     this.fetchPost = this.fetchPost.bind(this);
-    this.baseUrl = typeof(window) !== 'undefined' ? window.location.hostname + window.location.pathname : `${process.env.PROTOCOL}://${process.env.DOMAIN}`;
-    // console.log(this.url);
+    this.baseUrl = typeof(window) !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}` : `${process.env.PROTOCOL}//${process.env.DOMAIN}`;
+    console.log(this.baseUrl);
   }
   componentDidMount() {
     if (window.FB) {
