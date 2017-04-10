@@ -22,7 +22,7 @@ export function registerUser(user) {
 
 
 export function loginRequest(data) {
-  // console.log(data);
+  console.log(data);
   return (dispatch) => {
     return login({
       user: {
@@ -30,7 +30,7 @@ export function loginRequest(data) {
         password: data.password,
       },
     }).then((res) => {
-      // console.log(res);
+      console.log(res);
       if (res.message) {
         alert(res.message);
       } else if (res.data) {

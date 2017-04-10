@@ -193,6 +193,7 @@ export class PostDetail extends Component {
         }
         <div className={`container ${st.postDetailWrapper}  ${st.pr0}`}>
           <div className="col-sm-8" id={st.left}>
+
             {
               (post && post.title)
                 ? <div className={st['post-content-box']}>
@@ -274,6 +275,7 @@ export class PostDetail extends Component {
             </div>
             <div className={st.sideAd}>
               <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt="" />
+
             </div>
           </div>
         </div>

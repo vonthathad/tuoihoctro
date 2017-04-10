@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-
 // Import Style
 import styles from './index.css';
 
@@ -14,12 +13,13 @@ export class PostCreateWidget extends Component {
   addPost = () => {
     const titleRef = this.refs.title;
     const fileRef = this.state.file;
-    const category = 'funny';
+    const category = this.refs.category;
     if (titleRef.value && fileRef) {
-      this.props.addPost(titleRef.value, category, fileRef);
-      titleRef.value = '';
+      this.props.addPost(titleRef.value, category.value, fileRef);
+      titleRef.value = ''; fileRef.value = null
     }
   };
+
   loadFile(e) {
     e.preventDefault();
     const reader = new FileReader();
@@ -38,8 +38,18 @@ export class PostCreateWidget extends Component {
       <div className={cls}>
         <div className={styles['form-content']}>
           <h2 className={styles['form-title']}>Đăng bài mới</h2>
-          <input placeholder="Tiêu đề" className={styles['form-field']} ref="title" />
+          <input placeholder="Tiêu đề" className={styles['form-field']} ref="title" onChange={this.checkStatusLimit} />
           <input type="file" ref="file" onChange={(e) => this.loadFile(e)} />
+          <select ref="category" className={styles.select}>
+            <option value="GIF">GIF</option>
+            <option value="Comic">Comic</option>
+            <option value="Cool">Cool</option>
+            <option value="Cute">Cute</option>
+            <option value="Food">Food</option>
+            <option value="Geeky">Geeky</option>
+            <option value="Meme">Meme</option>
+            <option value="WTF">WTF</option>
+          </select>
           <Link to={this.state.imgSrc} target="_blank">
             <img src={this.state.imgSrc} alt="" />
           </Link>

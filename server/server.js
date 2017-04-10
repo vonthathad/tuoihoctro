@@ -86,7 +86,9 @@ if (process.env.NODE_ENV === 'production') {
           ${head.link.toString()}
           ${head.script.toString()}
           <meta data-react-helmet="true" name="viewport" content="width=device-width, initial-scale=1">
-          
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
         </head>
         <body>
 

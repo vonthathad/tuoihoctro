@@ -45,9 +45,8 @@ class PostsList extends Component {
     // console.log(auth);
     // let postsChunks = [];
     // if (postsList) postsChunks = postsList.postsChunks;
-    return (
+    return(
       <div className={st['post-list-wrapper']} ref={(postsListRef) => { this.postsListRef = postsListRef; }}>
-        {/* {postsChunks && postsChunks.length > 0 && postsChunks.map((postsChunk, i) => <PostsChunk*/}
         {posts && posts.length > 0 && posts.map((post, i) =>
           <Post post={post} key={i} dispatch={dispatch} auth={auth}>
             {post.type.indexOf('gif') === -1 ?
@@ -74,8 +73,8 @@ class PostsList extends Component {
             }
           </Post>
         )}
-      </div >
-    );
+      </div>
+    )
   }
 }
 PostsList.propTypes = {

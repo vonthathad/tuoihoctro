@@ -28,6 +28,7 @@ export class Guest extends Component {
     console.log(this.props);
     this.state = { isMounted: false };
     this.handleLogout = this.handleLogout.bind(this);
+    this.toggleLoginSection = this.toggleLoginSection.bind(this)
   }
 
   componentDidMount() {
@@ -66,7 +67,7 @@ export class Guest extends Component {
   };
 
   handleAddPost = (title, category, file) => {
-    // console.log(title, category, file);
+    console.log(title, category, file);
     const data = new FormData();
     data.append('file', file);
     data.append('content', JSON.stringify({
@@ -77,6 +78,7 @@ export class Guest extends Component {
   };
 
   handleLogin = (email, password) => {
+    console.log(email,password)
     this.closeElementSection();
     this.props.loginRequest({ email, password });
   };
@@ -97,6 +99,7 @@ export class Guest extends Component {
 
 
   render() {
+    console.log(this.props)
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
@@ -163,14 +166,14 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(50)),
     checkLoginInit: () => dispatch(checkLoginInit()),
-    logout: () => dispatch(logout()),
-    registerRequest: (obj) => dispatch(registerRequest(obj)),
-    loginRequest: (obj) => dispatch(loginRequest(obj)),
-    addPostRequest: (obj) => dispatch(addPostRequest(obj)),
-    closeElement: () => dispatch(closeElement()),
-    toggleRegister: () => dispatch(toggleRegister()),
     toggleLogin: () => dispatch(toggleLogin()),
+    toggleRegister: () => dispatch(toggleRegister()),
     toggleAddPost: () => dispatch(toggleAddPost()),
+    closeElement: () => dispatch(closeElement()),
+    addPostRequest: (data) => dispatch(addPostRequest(data)),
+    loginRequest: (email, password) => dispatch(loginRequest(email, password)),
+    registerRequest: () => dispatch(registerRequest()),
+    logout: () => dispatch(logout()),
   };
 }
 
