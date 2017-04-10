@@ -13,7 +13,7 @@ export class LoginWidget extends Component {
     if(window.location.href.indexOf('localhost')!== -1){
       window.location.href = `http://localhost:4000/auth/facebook?redirect=${window.location.href}`;
     } else {
-      window.location.href = `${window.location.href}/auth/facebook?redirect=${window.location.href}`;
+      window.location.href = `http://tuoihoctro.co/auth/facebook?redirect=${window.location.href}`;
     }
   }
   loginUser = () => {

@@ -21,14 +21,14 @@ const production = {
     verifyEmailUrl: 'action/verify',
     resetPasswordUrl: 'action/reset',
   },
-  host: `${process.env.PROTOCOL}://${process.env.DOMAIN}`,
+  host: `${process.env.PROTOCOL}//${process.env.DOMAIN}`,
   port: process.env.PORT,
   app: {
     id: '170584416691811',
     name: 'Title',
     description: 'Description',
-    url: `${process.env.PROTOCOL}://${process.env.DOMAIN}`,
-    image: `${process.env.PROTOCOL}://${process.env.DOMAIN}/sources/ads.jpg`,
+    url: `${process.env.PROTOCOL}//${process.env.DOMAIN}`,
+    image: `${process.env.PROTOCOL}//${process.env.DOMAIN}/sources/ads.jpg`,
   },
 };
 export default production;

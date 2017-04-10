@@ -51,7 +51,7 @@ export function register(req, res) {
     user.password = req.body.password;
     user.provider = 'local';
     user.isVerified = false;
-    user.avatar = '/assets/img/avatar.png';
+    user.avatar = '/images/avatar.png';
     const tokenDt = {
       email: req.body.email,
     };

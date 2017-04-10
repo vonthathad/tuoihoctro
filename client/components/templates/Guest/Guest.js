@@ -25,6 +25,7 @@ import { getShowElement } from '../../../_reducers/WidgetReducer';
 export class Guest extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
     this.state = { isMounted: false };
     this.handleLogout = this.handleLogout.bind(this);
     this.toggleLoginSection = this.toggleLoginSection.bind(this)
@@ -92,7 +93,7 @@ export class Guest extends Component {
   handleLogout = () => {
     const reply = this._confirm('Bạn muốn đăng xuất khỏi ứng dụng');
     if (reply === true) {
-      this.props.dispatch(logout());
+      this.props.logout();
     }
   };
 
@@ -139,8 +140,16 @@ Guest.propTypes = {
   dispatch: PropTypes.func.isRequired,
   curentUser: PropTypes.object.isRequired,
   showElement: PropTypes.string,
-  fetchRecommendsChunk: PropTypes.object,
-  checkLoginInit: PropTypes.object,
+  fetchRecommendsChunk: PropTypes.func,
+  checkLoginInit: PropTypes.func,
+  logout: PropTypes.func,
+  registerRequest: PropTypes.func,
+  loginRequest: PropTypes.func,
+  addPostRequest: PropTypes.func,
+  closeElement: PropTypes.func,
+  toggleRegister: PropTypes.func,
+  toggleLogin: PropTypes.func,
+  toggleAddPost: PropTypes.func,
 };
 Guest.need = [
   () => { return _fetchRecommendsChunk(50); },
@@ -153,7 +162,7 @@ function mapStateToProps(store) {
     showElement: getShowElement(store),
   };
 }
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return {
     fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(50)),
     checkLoginInit: () => dispatch(checkLoginInit()),
@@ -164,7 +173,8 @@ const mapDispatchToProps = (dispatch) => {
     addPostRequest: (data) => dispatch(addPostRequest(data)),
     loginRequest: (email, password) => dispatch(loginRequest(email, password)),
     registerRequest: () => dispatch(registerRequest()),
+    logout: () => dispatch(logout()),
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Guest);
