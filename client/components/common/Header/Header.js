@@ -37,11 +37,10 @@ class Header extends Component {
           </Link>
           <div className={st['wide-div']}>
             <ul className={`${st.menu} nav navbar-nav`}>
-              <li><a href="hot.html">Nóng hổi</a></li>
-              <li><a href="trending.html">Top</a></li>
-              <li><a href="fresh.html">Mới</a></li>
+              <li><a>Nóng hổi</a></li>
+              <li><a>Top</a></li>
+              <li><a>Mới</a></li>
               <li className="dropdown"><a
-                href="index.html#"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 role="button" aria-expanded="false"
