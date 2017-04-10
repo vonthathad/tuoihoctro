@@ -5,7 +5,6 @@ import ImagePrettyLoad from '../ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../VideoAutoPlay/VideoAutoPlay';
 import Post from '../Post/Post';
 import { _fetchPostsChunk } from '../../../_actions/PostsActions';
-
 import st from './index.css';
 class PostsList extends Component {
   constructor(props) {
@@ -29,6 +28,7 @@ class PostsList extends Component {
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleOnScrollLoadMediaContent);
   }
+
   handleOnScrollLoadMediaContent = () => {
     if (document.body.scrollTop > parseInt(window.getComputedStyle(this.postsListRef, null).getPropertyValue('height').replace('px', ''), 10) - 1000) {
       const { dispatch, postsList } = this.props;
@@ -53,6 +53,8 @@ class PostsList extends Component {
             {post.type.indexOf('gif') === -1 ?
               <Link to={`/posts/${post._id}`}>
                 <ImagePrettyLoad
+                  dispatch={dispatch}
+                  post={post}
                   key={post._id}
                   image={post.thumb}
                   imageLQ={post.thumbLQ}

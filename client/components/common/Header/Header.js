@@ -6,10 +6,13 @@ import logo from '../../../assets/logos/iconweb.svg';
 // import NavBar from '../../layouts/NavBar/NavBar';
 // import logo from '../../../assets/images/ribbon.svg';
 class Header extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
+  constructor(props) {
+    super(props);
+    this.scrollTop = this.scrollTop.bind(this);
+  }
+  scrollTop() {
+    window.scrollTo(0, 0);
+  }
   burgerToggle = () => {
     const linksEl = this.narrowLinkRef;
     if (linksEl.style.display === 'block') {
@@ -25,7 +28,7 @@ class Header extends Component {
       <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
         <div className={`${st.body_ribbon} ${st.esi_ribbon}`}></div>
         <div className={`${st['nav-wide']} container`}>
-          <Link to="/" className={`navbar-brand ${st['logo-wrapper']}`}>
+          <Link to="/" className={`navbar-brand ${st['logo-wrapper']}`} onClick={this.scrollTop}>
             <img
               src={logo}
               className={st.logo}

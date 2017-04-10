@@ -107,7 +107,7 @@ export function _fetchPost(id) {
 }
 export function _fetchPostClient(post) {
   return (dispatch) => {
-    // console.log(post);
+    console.log(post);
     dispatch(fetchPostSuccess(post));
   };
 }

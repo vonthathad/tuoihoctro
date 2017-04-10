@@ -3,6 +3,7 @@
 }
 .featured-image{
   height: 105px;
+  width: 300px;
   overflow: hidden;
   border-radius: 2px; 
 }
