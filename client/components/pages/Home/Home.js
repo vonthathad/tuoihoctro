@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 // Import Components
 import PostsListContainer from '../../containers/PostsListContainer';
-import RecommendsListContainer from '../../containers/RecommendsListContainer';
+import RecommendsList from '../../layouts/RecommendsList/RecommendsList';
 
 // Import Actions
 import { _fetchPostsChunk } from '../../../_actions/PostsActions';
@@ -55,7 +55,7 @@ class Home extends Component {
           <PostsListContainer />
         </div>
         <div className={' col-sm-4'}>
-          <RecommendsListContainer />
+          <RecommendsList numComments={3} />
         </div>
       </div>
     );

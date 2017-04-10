@@ -8,6 +8,7 @@ export const BASE_URL = (process.env.NODE_ENV === 'development' || typeof(window
   'http://localhost:4000' : 'http://tuoihoctro.co';
 
 function request(options) {
+  console.log(1235);
   // set partial url to full url
   // options.url = `${baseUrl}${options.url}`;
   options.url = `${BASE_URL}/${options.url}`;

@@ -50,7 +50,7 @@ class Post extends Component {
 
     const left = ((width / 2) - (w / 2)) + dualScreenLeft;
     const top = ((height / 2) - (h / 2)) + dualScreenTop;
-    const newWindow = window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'facebook-share-dialog', `scrollbars=yes, width=${w}, height=${h}, top=${top}, left=${left}`);
+    const newWindow = window.open(`https://www.facebook.com/sharer/sharer.php?u=${this.baseUrl}/posts/${this.props.post._id}`, 'facebook-share-dialog', `scrollbars=yes, width=${w}, height=${h}, top=${top}, left=${left}`);
 
     if (window.focus) {
       newWindow.focus();
@@ -90,7 +90,6 @@ class Post extends Component {
           </div>
         </div>
         <div className={st['post-left']}>
-
           <div className={st.post}>
             {this.props.children}
           </div>
