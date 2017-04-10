@@ -188,7 +188,7 @@ exports.listPosts = (req, res) => {
   };
   // if (req.query.type === 'mediaContent') {
   aggregation.project = {
-    ...aggregation.project, ...propertiesMediaContent, ...propertiesDetailInfo, ...aggregation.project, ...propertiesThumb, ...propertiesDetailInfo, ...propertiesMediaContent, ...propertiesDetailInfo,
+    ...aggregation.project, ...propertiesMediaContent, ...propertiesDetailInfo, ...aggregation.project, ...propertiesThumb,
   };
   // } else if (req.query.type === 'thumb') {
   //   aggregation.project = {
@@ -398,20 +398,20 @@ exports.listRecommendPosts = (req, res) => {
   // e33d0d9#.hkka5wx3i
   const aggregation = {};
   aggregation.project = {
-    title: 1,
+    title: 1, type: 1, categories: 1,
   };
-  // const propertiesMediaContent = {
-  // mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
-  // };
+  const propertiesMediaContent = {
+    mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
+  };
   // const propertiesThumb = {
   //   thumb: 1, thumbLQ: 1, thumbHeight: 1, thumbWidth: 1,
   // };
   const propertiesSmallThumb = {
     smallThumb: 1, smallThumbLQ: 1, smallThumbHeight: 1, smallThumbWidth: 1,
   };
-  // const propertiesDetailInfo = {
-  // created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
-  // };
+  const propertiesDetailInfo = {
+    created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
+  };
   // if (req.query.type === 'mediaContent') {
   //   aggregation.project = {
   //     ...aggregation.project, ...propertiesMediaContent, ...propertiesDetailInfo, ...aggregation.project, ...propertiesThumb, ...propertiesDetailInfo, ...propertiesMediaContent, ...propertiesDetailInfo,
@@ -422,7 +422,7 @@ exports.listRecommendPosts = (req, res) => {
   //   };
   // } else if (req.query.type === 'smallThumb') {
   aggregation.project = {
-    ...aggregation.project, ...propertiesSmallThumb,
+    ...aggregation.project, ...propertiesSmallThumb, ...propertiesMediaContent, ...propertiesDetailInfo,
   };
   // }
   // console.log((new Date).getTime());

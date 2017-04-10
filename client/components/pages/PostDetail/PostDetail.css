@@ -256,7 +256,7 @@
 .comment-img {
   float: left;
   margin-right: 33px;
-  border-radius: 5px;
+  border-radius: 2px;
   overflow: hidden;
 }
 
@@ -271,7 +271,7 @@
 .comment .text {
   padding: 10px;
   border: 1px solid #e5e5e5;
-  border-radius: 5px;
+  border-radius: 2px;
   background: #fff;
 }
 
@@ -386,6 +386,11 @@
   position: relative;
   cursor: pointer;
 }
+.shareButton2{
+  position: relative;
+   float: left;
+  display: block;
+}
 .shareButton::after{
   content: " ";
   width: 32px;
@@ -428,8 +433,8 @@
   clear: both
 }
 .facebook-comments{
-  /*max-width: 550px;*/
   margin: auto;
+  border-left: 1px solid #dee5e7;
 }
 .shareButtonLarge{
   margin: 10px auto 20px;
@@ -457,3 +462,19 @@
   background: url('../../../assets/images/sprite.png') -90px 0 no-repeat;
   background-size: 270px 60px;
 }
+
+.postDetailWrapper{
+   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.pr0{
+  padding-right: 0px;
+}
+.sideAd{
+  text-align: center;
+  margin-top: 30px;
+}
+.mt10{
+  margin-top:10px;
+}
+

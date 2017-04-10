@@ -9,33 +9,67 @@ import ImagePrettyLoad from '../../layouts/ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../../layouts/VideoAutoPlay/VideoAutoPlay';
 
 import Helmet from 'react-helmet';
-
 // Import Style
 import st from './PostDetail.css';
 
 // Import Actions
-import { _fetchPost, votePost, deletePostRequest } from '../../../_actions/PostsActions';
+import { _fetchPost, votePost, deletePostRequest, tempVoteDetailSuccess } from '../../../_actions/PostsActions';
 
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
-
-import FacebookProvider, { Comments, Share } from 'react-facebook';
 
 export class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.handleVoteClick = this.handleVoteClick.bind(this);
-    this.state = {};
+    this.state = {
+      post: null,
+    };
+    // this.url = window.location.hostname + window.location.pathname;
+    this.handleShareFb = this.handleShareFb.bind(this);
+    this.fetchPost = this.fetchPost.bind(this);
+    this.baseUrl = typeof(window) !== 'undefined' ? window.location.hostname + window.location.pathname : `${process.env.PROTOCOL}://${process.env.DOMAIN}`;
+    // console.log(this.url);
   }
   componentDidMount() {
-    this.props.dispatch(_fetchPost(this.props.params.postId));
+    if (window.FB) {
+      window.FB.XFBML.parse();
+    }
+    window.scrollTo(0, 0);
+    this.fetchPost();
   }
-
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(nextProps);
+    // if (this.props.posts.length > 0 && nextProps.posts) {
+    //   const posts = this.props.posts;
+    //   const postsLength = posts.length;
+    //   const postId = this.props.params.postId;
+    //   for (let i = 0; i < postsLength; i++) {
+    //     if (posts[i]._id === parseInt(postId, 10)) {
+    //       // console.log(i);
+    //       if (this.props.posts[i].votes === nextProps.posts[i].votes) {
+    //         return true;
+    //       }
+    //     }
+    //   }
+    // }
+    // if (nextState.post === this.state.post
+    //   && this.state.post !== null
+    //   && nextState.post.votes === this.state.post.votes) return false;
+    // && this.props.posts[postId].votes === nextProps.posts[postId].votes
+  //   return true;
+  // }
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
-    console.log(this.props);
+    if (window.FB) {
+      window.FB.XFBML.parse();
+    }
+    // console.log(prevProps);
+    // console.log(this.props);
     const oldId = prevProps.params.postId;
     const newId = this.props.params.postId;
-    newId !== oldId && this.props.dispatch(_fetchPost(this.props.params.postId));
+    if (newId !== oldId) {
+      window.scrollTo(0, 0);
+      this.props.dispatch(_fetchPost(this.props.params.postId));
+    }
     // if (!this.props.post) {
     //   this.props.dispatch(_fetchPost(this.props.params.postId));
     // } else {
@@ -44,37 +78,84 @@ export class PostDetail extends Component {
     //   }
     // }
   }
+  fetchPost() {
+    // console.log(this.props.posts);
+    // if (this.props.posts.length !== 0) {
+    //   const posts = this.props.posts;
+    //   const postsLength = posts.length;
+    //   for (let i = 0; i < postsLength; i++) {
+    //     if (posts[i]._id === parseInt(this.props.params.postId, 10)) {
+    //       this.setState({ post: posts[i] });
+    //       break;
+    //     }
+    //   }
+    // } else {
+    // console.log(this.props.post.title);
+    !this.props.post._id && this.props.dispatch(_fetchPost(this.props.params.postId));
+    // }
+  }
   deletePostByOwner(id) {
     this.props.dispatch(deletePostRequest(id));
   }
-  vote(id) {
-    this.props.dispatch(votePost(id));
+  handleShareFb() {
+    let w = '626';
+    let h = '436';
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+      w = '400';
+      h = '300';
+    }
+    // Fixes dual-screen position                         Most browsers      Firefox
+    const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left;
+    const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top;
+
+    let width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth;
+    width = document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    let height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight;
+    height = document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    const left = ((width / 2) - (w / 2)) + dualScreenLeft;
+    const top = ((height / 2) - (h / 2)) + dualScreenTop;
+    const newWindow = window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'facebook-share-dialog', `scrollbars=yes, width=${w}, height=${h}, top=${top}, left=${left}`);
+
+    if (window.focus) {
+      newWindow.focus();
+    }
   }
   handleVoteClick() {
     // console.log(this.props.auth._id);
-    this.props.dispatch(tempVoteSuccess({
+    const post = this.props.post;
+    this.props.dispatch(tempVoteDetailSuccess({
       userId: this.props.auth._id,
-      postId: this.props.post._id,
-      postVotes: this.props.post.votes,
+      postId: post._id,
+      postVotes: post.votes,
     }));
     this.props.dispatch(votePost({
       userId: this.props.auth._id,
-      postId: this.props.post._id,
-      postVotes: this.props.post.votes,
+      postId: post._id,
+      postVotes: post.votes,
     }));
   }
   readBack(id) {
     this.props.dispatch(_fetchPost(id - 1));
   }
   readNext(id) {
-    console.log(id);
     browserHistory.go(`/posts/${id + 1}`);
   }
   render() {
-    // console.log(this.props.post);
+    console.log(this.props);
     const post = this.props.post;
+    let voted = false;
+    if (post) {
+      post.votes &&
+      post.votes.forEach(id => {
+        if (id === this.props.auth._id) {
+          voted = true;
+        }
+      });
+    }
     return (
       <div id={st.wrap}>
+        {post && post.title &&
         <Helmet
           title={post.title}
           meta={[
@@ -108,8 +189,10 @@ export class PostDetail extends Component {
             },
           ]}
         />
-        <div className={`container ${st['style-container']}`}>
-          <div className={`col-sm-8 ${st['style-col-detail']}`} id={st.left}>
+        }
+        <div className={`container ${st.postDetailWrapper}  ${st.pr0}`}>
+          <div className="col-sm-8" id={st.left}>
+
             {
               (post && post.title)
                 ? <div className={st['post-content-box']}>
@@ -121,15 +204,15 @@ export class PostDetail extends Component {
                   </p>
                   <div className={st['post-action']}>
                     <div className={st['social-box-top']}>
-                      <div className={st.unvotedButton} onClick={this.vote.bind(this, post._id)} >
+                      <div className={voted ? st.votedButton : st.unvotedButton} onClick={this.handleVoteClick} >
                         <span>Thích</span>
                       </div>
-                      <div className={st.shareButton} >
-                        <FacebookProvider appID="1559166841054175">
-                          <Share>
-                            <span className={st['remove-mobile']}>Chia sẻ</span>
-                          </Share>
-                        </FacebookProvider>
+                      <div className={st.shareButton} onClick={this.handleShareFb}>
+                        Chia sẻ
+                        {/* <div className={st.shareButton2} >*/}
+                        {/* <div className="fb-share-button" data-href={this.url} data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                            <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${this.url}`}>Share</a>
+                          </div>*/}
                       </div>
                       <div className={st.nextButton} onClick={this.readNext.bind(this, post._id)}>
                         <span className={st.text}>Xem tiếp</span>
@@ -171,39 +254,33 @@ export class PostDetail extends Component {
                         </div>
                         : null
                     }
-                    {/* <div className={st.timeago}>
-                      BY
-                       {
-                        (post.creator)
-                          ? <a className={st['user-link']}> {post.creator.username}</a>
-                          : null
-                      }
-
-                    </div>*/}
                   </div>
                   <div className={st['clear-fix']}></div>
-                  <FacebookProvider appID="1559166841054175">
-                    <Share>
-                      <div className={st.shareButtonLarge}> Share on Facebook</div>
-                    </Share>
-                  </FacebookProvider>
-                  <RecommendsListContainer />
+                  <div className={st.shareButtonLarge} onClick={this.handleShareFb} >
+                    Chia sẻ
+                      {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                        <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
+                      </div>*/}
+                  </div>
+                   <RecommendsListContainer />
                 </div>
                 : <div className={st.loading}>Loading&#8230;</div>
             }
           </div>
-          <div className={`col-sm-4 ${st['style-col-detail']}`}>
+          <div className={`col-sm-4 ${st.pr0} ${st.mt10}`}>
             <div className={st['facebook-comments']}>
-              <FacebookProvider appID="1559166841054175" >
-                <Comments width="350px"/>
-              </FacebookProvider>
+              <span style={{ display: 'none' }} className="fb-comments-count" data-href="http://example.com/"></span>
+              <div className="fb-comments" data-href={`${this.baseUrl}/posts/${post._id}`} data-numposts="10" width="100%"></div>
+            </div>
+            <div className={st.sideAd}>
+              <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt="" />
+
             </div>
           </div>
         </div>
       </div >
     );
   }
-
 }
 
 // Actions required to provide data for this component to render in sever side.
@@ -225,16 +302,6 @@ PostDetail.propTypes = {
   data: PropTypes.object,
   post: PropTypes.object,
   auth: PropTypes.object,
-  // post: PropTypes.shape({
-  //   _id: PropTypes.number.isRequired,
-  //   title: PropTypes.string.isRequired,
-  //   mediaContent: PropTypes.string,
-  //   numComment: PropTypes.number.isRequired,
-  //   point: PropTypes.number.isRequired,
-  //   created: PropTypes.string.isRequired,
-  //   view: PropTypes.number.isRequired,
-  //   creator: PropTypes.object.isRequired,
-  // }).isRequired,
 };
 
 export default connect(mapStateToProps)(PostDetail);

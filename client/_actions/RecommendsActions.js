@@ -36,13 +36,13 @@ function fetchRecommendsChunkFailure(error) {
   };
 }
 
-export function _fetchRecommendsChunk(paging = 200) {
+export function _fetchRecommendsChunk(paging = 30) {
   return (dispatch) => {
     dispatch(fetchRecommendsChunk());
     const queryArgs = { paging };
     return getPostsRecommend(queryArgs)
       .then((recommends) => {
-        console.log(recommends);
+        // console.log(recommends);
         return dispatch(fetchRecommendsChunkSuccess(recommends));
       }
       )

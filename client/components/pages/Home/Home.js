@@ -6,7 +6,6 @@ import RecommendsListContainer from '../../containers/RecommendsListContainer';
 
 // Import Actions
 import { _fetchPostsChunk } from '../../../_actions/PostsActions';
-
 // Import Selectors
 // import { getPosts } from '../../../_reducers/PostsReducer';
 // import { getRecommends } from '../../../_reducers/RecommendsReducer';
@@ -17,11 +16,22 @@ import st from './index.css';
 //   { _fetchPostsChunk, _fetchRecommendsChunk }
 // )
 class Home extends Component {
+  componentWillMount() {
+
+  }
   componentDidMount() {
-    if (process.env.NODE_ENV === 'development') {
-      this.props.fetchPostChunk();
-      // this.props.fetchRecommendsChunk();
+    if (window.FB) {
+      window.FB.XFBML.parse();
     }
+    window.scrollTo(0, 0);
+    // if (process.env.NODE_ENV === 'development') {
+    //   this.props.fetchPostChunk();
+    //   // this.props.fetchRecommendsChunk();
+    // }
+    // useScroll((prevRouterProps, { location }) => {
+    //   console.log(prevRouterProps);
+    //   return prevRouterProps && location.pathname !== prevRouterProps.location.pathname;
+    // });
   }
   render() {
     return (

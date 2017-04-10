@@ -1,8 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-// Import Plugin
-// import FacebookProvider, { Login } from 'react-facebook';
-
 // Import Style
 import styles from './index.css';
 
@@ -13,7 +10,11 @@ export class LoginWidget extends Component {
     this.loginUser = this.loginUser.bind(this);
   }
   loginFacebook(){
-    window.location.href = `http://localhost:4000/auth/facebook?redirect=${window.location.href}`;
+    if(window.location.href.indexOf('localhost')!== -1){
+      window.location.href = `http://localhost:4000/auth/facebook?redirect=${window.location.href}`;
+    } else {
+      window.location.href = `${window.location.href}/auth/facebook?redirect=${window.location.href}`;
+    }
   }
   loginUser = () => {
     const emailRef = this.refs.email;

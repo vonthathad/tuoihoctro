@@ -26,6 +26,8 @@ export class Guest extends Component {
   constructor(props) {
     super(props);
     this.state = { isMounted: false };
+    this.handleLogout = this.handleLogout.bind(this);
+    this.toggleLoginSection = this.toggleLoginSection.bind(this)
   }
 
   componentDidMount() {
@@ -45,43 +47,44 @@ export class Guest extends Component {
 
   toggleAddPostSection = () => {
     this.changeStyleModal(true);
-    this.props.dispatch(toggleAddPost());
+    this.props.toggleAddPost();
   };
 
   toggleLoginSection = () => {
     this.changeStyleModal(true);
-    this.props.dispatch(toggleLogin());
+    this.props.toggleLogin();
   };
 
   toggleRegisterSection = () => {
     this.changeStyleModal(true);
-    this.props.dispatch(toggleRegister());
+    this.props.toggleRegister();
   };
 
   closeElementSection = () => {
     this.changeStyleModal(false);
-    this.props.dispatch(closeElement());
+    this.props.closeElement();
   };
 
   handleAddPost = (title, category, file) => {
-    // console.log(title, category, file);
+    console.log(title, category, file);
     const data = new FormData();
     data.append('file', file);
     data.append('content', JSON.stringify({
       title, category,
     }));
     this.closeElementSection();
-    this.props.dispatch(addPostRequest(data));
+    this.props.addPostRequest(data);
   };
 
   handleLogin = (email, password) => {
+    console.log(email,password)
     this.closeElementSection();
-    this.props.dispatch(loginRequest({ email, password }));
+    this.props.loginRequest({ email, password });
   };
 
   handleRegister = (username, email, password) => {
     this.closeElementSection();
-    this.props.dispatch(registerRequest({ username, email, password }));
+    this.props.registerRequest({ username, email, password });
   };
   _confirm(content) {
     return confirm(content);
@@ -95,6 +98,7 @@ export class Guest extends Component {
 
 
   render() {
+    console.log(this.props)
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
@@ -139,7 +143,7 @@ Guest.propTypes = {
   checkLoginInit: PropTypes.object,
 };
 Guest.need = [
-  () => { return _fetchRecommendsChunk(200); },
+  () => { return _fetchRecommendsChunk(50); },
 ];
 
 // Retrieve data from store as props
@@ -151,8 +155,15 @@ function mapStateToProps(store) {
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(200)),
+    fetchRecommendsChunk: () => dispatch(_fetchRecommendsChunk(50)),
     checkLoginInit: () => dispatch(checkLoginInit()),
+    toggleLogin: () => dispatch(toggleLogin()),
+    toggleRegister: () => dispatch(toggleRegister()),
+    toggleAddPost: () => dispatch(toggleAddPost()),
+    closeElement: () => dispatch(closeElement()),
+    addPostRequest: (data) => dispatch(addPostRequest(data)),
+    loginRequest: (email, password) => dispatch(loginRequest(email, password)),
+    registerRequest: () => dispatch(registerRequest()),
   };
 };
 

@@ -26,6 +26,7 @@
 .video-wrapper {
   position: relative;
   text-align: center;
+  cursor: pointer;
 }
 
 .video-media-content {
