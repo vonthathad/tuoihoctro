@@ -32,7 +32,7 @@ class ImagePrettyLoad extends Component {
     return (
       <div onClick={this.handleGoDetailPost}>
         <div
-          className={`${st.placeholder}`}
+          className={`${st.placeholder} `}
           style={{ containerWidth, height: this.containerWidthx * imageHeight / imageWidth }}
           ref={(container) => {
             if (container) this.containerWidthx = container.offsetWidth;

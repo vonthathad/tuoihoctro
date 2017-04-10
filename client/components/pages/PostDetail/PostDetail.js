@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
 
@@ -13,7 +13,7 @@ import Helmet from 'react-helmet';
 import st from './PostDetail.css';
 
 // Import Actions
-import { _fetchPost, votePost, deletePostRequest, tempVoteDetailSuccess } from '../../../_actions/PostsActions';
+import { _fetchPost, votePost, deletePostRequest, tempVoteDetailSuccess, _fetchPostClient } from '../../../_actions/PostsActions';
 
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
@@ -27,41 +27,40 @@ export class PostDetail extends Component {
     // this.url = window.location.hostname + window.location.pathname;
     this.handleShareFb = this.handleShareFb.bind(this);
     this.fetchPost = this.fetchPost.bind(this);
-    this.baseUrl = typeof(window) !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}` : `${process.env.PROTOCOL}//${process.env.DOMAIN}`;
-    console.log(this.baseUrl);
+    this.baseUrl = typeof (window) !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}` : `${process.env.PROTOCOL}//${process.env.DOMAIN}`;
+    this.next = this.next.bind(this);
+    // console.log(this.baseUrl);
   }
   componentDidMount() {
-    if (window.FB) {
-      window.FB.XFBML.parse();
-    }
+    // if (window.FB) {
+    //   window.FB.XFBML.parse(this.commentsCountRef);
+    //   window.FB.XFBML.parse(this.commentRef);
+    // }
     window.scrollTo(0, 0);
     this.fetchPost();
   }
   // shouldComponentUpdate(nextProps, nextState) {
   //   console.log(nextProps);
-    // if (this.props.posts.length > 0 && nextProps.posts) {
-    //   const posts = this.props.posts;
-    //   const postsLength = posts.length;
-    //   const postId = this.props.params.postId;
-    //   for (let i = 0; i < postsLength; i++) {
-    //     if (posts[i]._id === parseInt(postId, 10)) {
-    //       // console.log(i);
-    //       if (this.props.posts[i].votes === nextProps.posts[i].votes) {
-    //         return true;
-    //       }
-    //     }
-    //   }
-    // }
-    // if (nextState.post === this.state.post
-    //   && this.state.post !== null
-    //   && nextState.post.votes === this.state.post.votes) return false;
-    // && this.props.posts[postId].votes === nextProps.posts[postId].votes
+  // if (this.props.posts.length > 0 && nextProps.posts) {
+  //   const posts = this.props.posts;
+  //   const postsLength = posts.length;
+  //   const postId = this.props.params.postId;
+  //   for (let i = 0; i < postsLength; i++) {
+  //     if (posts[i]._id === parseInt(postId, 10)) {
+  //       // console.log(i);
+  //       if (this.props.posts[i].votes === nextProps.posts[i].votes) {
+  //         return true;
+  //       }
+  //     }
+  //   }
+  // }
+  // if (nextState.post === this.state.post
+  //   && this.state.post !== null
+  //   && nextState.post.votes === this.state.post.votes) return false;
+  // && this.props.posts[postId].votes === nextProps.posts[postId].votes
   //   return true;
   // }
   componentDidUpdate(prevProps) {
-    if (window.FB) {
-      window.FB.XFBML.parse();
-    }
     // console.log(prevProps);
     // console.log(this.props);
     const oldId = prevProps.params.postId;
@@ -70,6 +69,12 @@ export class PostDetail extends Component {
       window.scrollTo(0, 0);
       // this.props.dispatch(_fetchPost(this.props.params.postId));
       // this.fetchPost();
+    }
+    if (this.props.post._id !== prevProps.post._id) {
+      if (window.FB) {
+        window.FB.XFBML.parse(this.commentsCountRef);
+        window.FB.XFBML.parse(this.commentRef);
+      }
     }
     // if (!this.props.post) {
     //   this.props.dispatch(_fetchPost(this.props.params.postId));
@@ -139,8 +144,31 @@ export class PostDetail extends Component {
   readBack(id) {
     this.props.dispatch(_fetchPost(id - 1));
   }
-  readNext(id) {
-    browserHistory.go(`/posts/${id + 1}`);
+  next() {
+    // console.log(this.props.post.id);
+    const id = this.props.post._id;
+    const posts = this.props.posts;
+    const length = posts.length;
+    // console.log(this.props.posts);
+    let inRecommends = false;
+    for (let i = 0; i < length; i++) {
+      if (posts[i]._id === parseInt(id, 10)) {
+        // console.log(1235);
+        if (i === length - 1) i = 0;
+        else i++;
+        this.props.dispatch(_fetchPostClient(posts[i]));
+        inRecommends = true;
+        break;
+      }
+    }
+    if (!inRecommends) {
+      // console.log(this.props.post);
+      // console.log(posts);
+      // console.log(id);
+      // console.log(posts[0]._id);
+      this.props.dispatch(_fetchPostClient(posts[0]));
+    }
+    // browserHistory.go(`/posts/${id + 1}`);
   }
   render() {
     console.log(this.props);
@@ -148,48 +176,48 @@ export class PostDetail extends Component {
     let voted = false;
     if (post) {
       post.votes &&
-      post.votes.forEach(id => {
-        if (id === this.props.auth._id) {
-          voted = true;
-        }
-      });
+        post.votes.forEach(id => {
+          if (id === this.props.auth._id) {
+            voted = true;
+          }
+        });
     }
     return (
       <div id={st.wrap}>
         {post && post.title &&
-        <Helmet
-          title={post.title}
-          meta={[
-            {
-              name: 'viewport',
-              content: 'width=device-width, initial-scale=1',
-            },
-            {
-              name: 'keywords',
-              content: 'tuoihoctro, tuổi học trò, gif, image, vui',
-            },
-            {
-              name: 'title',
-              content: `${post.title}`,
-            },
-            {
-              name: 'description',
-              content: `${post.title}`,
-            },
-            {
-              name: 'og:description',
-              content: `${post.title}`,
-            },
-            {
-              name: 'og:image',
-              content: `${post.mediaContent}`,
-            },
-            {
-              name: 'og:url',
-              content: `http://tuoihoctro.co/posts/${post._id}`,
-            },
-          ]}
-        />
+          <Helmet
+            title={post.title}
+            meta={[
+              {
+                name: 'viewport',
+                content: 'width=device-width, initial-scale=1',
+              },
+              {
+                name: 'keywords',
+                content: 'tuoihoctro, tuổi học trò, gif, image, vui',
+              },
+              {
+                name: 'title',
+                content: `${post.title}`,
+              },
+              {
+                name: 'description',
+                content: `${post.title}`,
+              },
+              {
+                name: 'og:description',
+                content: `${post.title}`,
+              },
+              {
+                name: 'og:image',
+                content: `${post.mediaContent}`,
+              },
+              {
+                name: 'og:url',
+                content: `http://tuoihoctro.co/posts/${post._id}`,
+              },
+            ]}
+          />
         }
         <div className={`container ${st.postDetailWrapper}  ${st.pr0}`}>
           <div className="col-sm-8" id={st.left}>
@@ -200,8 +228,8 @@ export class PostDetail extends Component {
                   <header className={st['post-header']}>
                     <div className={st['post-title']}><h1>{post.title}</h1></div>
                   </header>
-                  <p className={st.smallText}>
-                    {post.point} điểm . {post.view} bình luận
+                  <p className={st.smallText} ref={commentsCountRef => { this.commentsCountRef = commentsCountRef; }}>
+                    {post.point} điểm . <span className="fb-comments-count" data-href={`${this.baseUrl}/posts/${post._id}`}></span> bình luận
                   </p>
                   <div className={st['post-action']}>
                     <div className={st['social-box-top']}>
@@ -215,7 +243,7 @@ export class PostDetail extends Component {
                             <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${this.url}`}>Share</a>
                           </div>*/}
                       </div>
-                      <div className={st.nextButton} onClick={this.readNext.bind(this, post._id)}>
+                      <div className={st.nextButton} onClick={this.next}>
                         <span className={st.text}>Xem tiếp</span>
                         <span className={st.arrow}></span>
                       </div>
@@ -263,13 +291,13 @@ export class PostDetail extends Component {
                         <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
                       </div>*/}
                   </div>
-                  <RecommendsList numComments={3} />
+                  <RecommendsList numComments={8} type={'horizontal'} notInclude={post._id} />
                 </div>
                 : <div className={st.loading}>Loading&#8230;</div>
             }
           </div>
           <div className={`col-sm-4 ${st.pr0} ${st.mt10}`}>
-            <div className={st['facebook-comments']}>
+            <div className={st['facebook-comments']} ref={commentRef => { this.commentRef = commentRef; }}>
               <span style={{ display: 'none' }} className="fb-comments-count" data-href="http://example.com/"></span>
               <div className="fb-comments" data-href={`${this.baseUrl}/posts/${post._id}`} data-numposts="10" width="100%"></div>
             </div>
@@ -292,6 +320,7 @@ PostDetail.need = [params => {
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
+    posts: state.recommendsStore.recommendsList.posts,
     post: state.postsStore.postDetail,
     auth: state.auth,
   };
@@ -303,6 +332,7 @@ PostDetail.propTypes = {
   data: PropTypes.object,
   post: PropTypes.object,
   auth: PropTypes.object,
+  posts: PropTypes.array,
 };
 
 export default connect(mapStateToProps)(PostDetail);

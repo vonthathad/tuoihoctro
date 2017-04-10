@@ -45,7 +45,7 @@ class PostsList extends Component {
     // console.log(auth);
     // let postsChunks = [];
     // if (postsList) postsChunks = postsList.postsChunks;
-    return(
+    return (
       <div className={st['post-list-wrapper']} ref={(postsListRef) => { this.postsListRef = postsListRef; }}>
         {posts && posts.length > 0 && posts.map((post, i) =>
           <Post post={post} key={i} dispatch={dispatch} auth={auth}>
@@ -74,7 +74,7 @@ class PostsList extends Component {
           </Post>
         )}
       </div>
-    )
+    );
   }
 }
 PostsList.propTypes = {

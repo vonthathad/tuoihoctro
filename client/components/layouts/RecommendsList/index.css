@@ -2,6 +2,21 @@
 .right-bar-title {
   padding: 5px 0;
 }
+.right-bar-title a h2{
+  color: black;
+}
 .recommends-list-wrapper{
   text-align: left;
+}
+.horizontal{
+  float:left;
+  width: 230px;
+  height: 200px;
+  margin: auto 5px;
+}
+.recommentContainer{
+  margin: 0 auto;
+}
+.recommend-item{
+  
 }

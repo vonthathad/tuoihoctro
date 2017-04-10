@@ -15,34 +15,47 @@ class RecommendsList extends Component {
     // const { dispatch } = this.props;
     // dispatch(_fetchRecommendsChunk(1));
   }
-  shuffleArray = (array, numEle) => {
+  shuffleArray = (array, numEle, notInclude) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       const temp = array[i];
       array[i] = array[j];
       array[j] = temp;
     }
+    // if (notInclude) {
+    //   for (let i = array.length - 1; i > 0; i--) {
+    //     if (array[i]._id === notInclude) {
+    //       array.splice(i, 1);
+    //       console.log(array[i]);
+    //       console.log(array[i]._id);
+    //       console.log(notInclude);
+    //       break;
+    //     }
+    //   }
+    // }
     return array.slice(0, numEle);
   }
   render() {
     let { posts } = this.props.recommendsList;
-    const { dispatch, numComments } = this.props;
+    const { dispatch, numComments, notInclude } = this.props;
 
     // console.log(numComments);
     // let recommendsChunks = null;
     // if (recommendsList) recommendsChunks = this.shuffleArray(recommendsList.recommendsChunks).slice(0, 5);
     // console.log(posts);
-    posts = this.shuffleArray(posts, numComments);
+    posts = this.shuffleArray(posts, numComments, notInclude);
+    const type = this.props.type;
     return (
       <div className={st['recommends-list-wrapper']}>
         <div className={st['right-bar-title']}>
           <h1>Bài liên quan</h1>
         </div>
+        <div className={st.recommentContainer}>
         {
           posts.length > 0 &&
           posts.map(post => (
-            <div className={st['recommend-item']} key={post._id}>
-              <Recommend post={post} dispatch={dispatch}>
+            <div className={`${st['recommend-item']} ${type === 'horizontal' ? st.horizontal : ''}`} key={post._id}>
+              <Recommend post={post} type={type} dispatch={dispatch}>
                 <ImagePrettyLoad
                   image={post.smallThumb}
                   imageLQ={post.smallThumbLQ}
@@ -53,6 +66,7 @@ class RecommendsList extends Component {
             </div>
           ))
         }
+        </div>
         <img src={ads} alt="" />
       </div >
     );
@@ -62,6 +76,8 @@ RecommendsList.propTypes = {
   recommendsList: PropTypes.object.isRequired,
   dispatch: PropTypes.func,
   numComments: PropTypes.number,
+  notInclude: PropTypes.number,
+  type: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {

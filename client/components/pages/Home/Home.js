@@ -55,7 +55,7 @@ class Home extends Component {
           <PostsListContainer />
         </div>
         <div className={' col-sm-4'}>
-          <RecommendsList numComments={3} />
+          <RecommendsList numComments={30} type={'vertical'} />
         </div>
       </div>
     );

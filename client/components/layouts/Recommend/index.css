@@ -7,3 +7,7 @@
   overflow: hidden;
   border-radius: 2px; 
 }
+.horizontal{
+  height: 100px;
+  width: 230px;
+} 
