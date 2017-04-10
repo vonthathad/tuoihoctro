@@ -32,10 +32,10 @@ export class PostDetail extends Component {
     // console.log(this.baseUrl);
   }
   componentDidMount() {
-    // if (window.FB) {
-    //   window.FB.XFBML.parse(this.commentsCountRef);
-    //   window.FB.XFBML.parse(this.commentRef);
-    // }
+    if (window.FB) {
+      window.FB.XFBML.parse(this.commentsCountRef);
+      window.FB.XFBML.parse(this.commentRef);
+    }
     window.scrollTo(0, 0);
     this.fetchPost();
   }
