@@ -1,13 +1,19 @@
-.featured-title h2{
-  margin-top: 10px;
+
+.featured-title h2 {
+  font-size: 13px;
+  font-weight: bold;
+  padding-top: 7px;
+
 }
-.featured-image{
+
+.featured-image {
   height: 105px;
   width: 300px;
   overflow: hidden;
-  border-radius: 2px; 
+  border-radius: 2px;
 }
-.horizontal{
+
+.horizontal {
   height: 100px;
   width: 230px;
-} 
+}

@@ -1,11 +1,29 @@
-.style-container{
+/*.style-container {
   -webkit-box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-}
-.style-col-detail{
+}*/
+
+.style-col-detail {
   padding-right: 0;
   padding-left: 0;
 }
+
+.col-sm-8 {
+  padding-left: 0;
+  padding-top: 80px;
+}
+
+.col-sm-4 {
+  padding-top: 80px;
+}
+
+.post-box {
+  width: 650px;
+  overflow: hidden;
+  padding: 10px 0;
+  border-bottom: 1px solid #dddddd;
+}
+
 .post-date {
   width: 100%;
   text-align: right;
@@ -18,31 +36,55 @@
 }
 
 .post-title {
-
+  padding-bottom: 8px;
 }
 
 .post-title h1 {
   font-weight: 700;
-  font-size: 24px;
 }
 
-.timeago{
-  float: right;
+.post-page-left {
+  width: 650px;
+  overflow: hidden;
+  float: left;
 }
+
 .post-footer {
   padding: 5px 0 10px 0;
   color: #999;
 }
-.post-content {
-  margin-top: 15px;
-  width: 600px;
-  margin: auto;
+
+.timeago {
+  float: right;
 }
-.post-action{
-  padding-bottom: 45px;
-  padding-top: 5px;
+
+.post-content {
+  text-align: center;
+  width: 650px;
+  background: #EBEBEB;
+}
+
+.post-content > img.img-responsive {
+  margin: 0 auto;
+}
+
+.post-content-box {
+  width: 650px;
+  overflow: hidden;
+  /*padding: 10px 0;*/
+  border-bottom: 1px solid #dddddd;
+}
+
+.post-content-box p {
+  margin: 15px 0;
+}
+
+.post-action {
+  padding-bottom: 53px;
+  padding-top: 0px;
   width: 100%;
 }
+
 .vote-box {
   width: 50%;
   float: left;
@@ -50,12 +92,10 @@
   margin-bottom: 15px;
 }
 
+/*
 #wrap {
-  margin-top: 55px;
-}
-.social-box-top{
-  width: 100%;
-}
+  margin-top: 50px;
+}*/
 
 .fb-button {
   color: #FFF;
@@ -76,7 +116,6 @@
   float: right;
 }
 
-
 .fb-button-top {
   color: #FFF;
   background: #3e5b97;
@@ -94,7 +133,6 @@
   color: #FFF;
   float: left;
 }
-
 
 .bottom-share {
   width: 100%;
@@ -119,11 +157,9 @@
   margin-bottom: 15px;
 }
 
-.post-content-box {
-  width: 100%;
-  overflow: hidden;
-  padding: 20px;
-  border-bottom: 1px solid #dddddd;
+.vote-font {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
 }
 
 .loading {
@@ -148,7 +184,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* :not(:required) hides these rules from IE9 and below */
@@ -196,6 +232,7 @@
     transform: rotate(360deg);
   }
 }
+
 @-moz-keyframes spinner {
   0% {
     -webkit-transform: rotate(0deg);
@@ -212,6 +249,7 @@
     transform: rotate(360deg);
   }
 }
+
 @-o-keyframes spinner {
   0% {
     -webkit-transform: rotate(0deg);
@@ -228,6 +266,7 @@
     transform: rotate(360deg);
   }
 }
+
 @keyframes spinner {
   0% {
     -webkit-transform: rotate(0deg);
@@ -244,7 +283,6 @@
     transform: rotate(360deg);
   }
 }
-
 
 .comment {
   overflow: hidden;
@@ -286,9 +324,10 @@
 }
 
 /* Decoration */
-.comments{
+.comments {
   margin-top: 20px;
 }
+
 .comments,
 .comment {
   position: relative;
@@ -307,7 +346,7 @@
   width: 3px;
   top: -20px;
   bottom: -20px;
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .comment:before {
@@ -316,7 +355,7 @@
   border: 3px solid #fff;
   border-radius: 100px;
   margin: 16px 0 0 -6px;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.2), inset 0 1px 1px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(0, 0, 0, 0.1);
   background: #ccc;
 }
 
@@ -339,39 +378,42 @@
   -o-transform: rotate(45deg);
 }
 
-.smallText{
-  color:#999;
+.smallText {
+  color: #999;
 }
-.unvotedButton{
+
+.unvotedButton {
   float: left;
   padding: 0 8px 0 12px;
   font-weight: 700;
   height: 34px;
   line-height: 34px;
   display: block;
-  border: #e2264d 1px solid;
+  border: #ddd 1px solid;
   background-color: #fff;
-  color: #e2264d;
-  border-radius: 3px ;
+  color: #999;
+  border-radius: 3px;
   text-align: center;
-  width: 70px;
+  width: 75px;
   cursor: pointer;
 }
-.votedButton{
+
+.votedButton {
   float: left;
   padding: 0 8px 0 12px;
   font-weight: 700;
   height: 34px;
   line-height: 34px;
   display: block;
-  background-color: #e2264d;
-  color: #fff;
-  border-radius: 3px ;
+  border: #09f 1px solid;
+  color: #09f;
+  border-radius: 3px;
   text-align: center;
-  width: 70px;
+  width: 75px;
   cursor: pointer;
 }
-.shareButton{
+
+.shareButton {
   float: left;
   margin-left: 10px;
   display: block;
@@ -386,12 +428,14 @@
   position: relative;
   cursor: pointer;
 }
-.shareButton2{
+
+.shareButton2 {
   position: relative;
-   float: left;
+  float: left;
   display: block;
 }
-.shareButton::after{
+
+.shareButton::after {
   content: " ";
   width: 32px;
   height: 32px;
@@ -402,13 +446,15 @@
   background: url('../../../assets/images/sprite.png') -90px 0 no-repeat;
   background-size: 270px 60px;
 }
-.nextButton{
+
+.nextButton {
   cursor: pointer;
   padding-right: 12px;
   float: right;
   position: relative;
 }
-.nextButton .text{
+
+.nextButton .text {
   padding: 0 8px 0 12px;
   font-weight: 700;
   height: 34px;
@@ -418,7 +464,8 @@
   color: #fff;
   border-radius: 3px 0 0 3px;
 }
-.nextButton .arrow{
+
+.nextButton .arrow {
   position: absolute;
   top: 0;
   right: 0;
@@ -429,14 +476,18 @@
   border-bottom: 17px dashed transparent;
   border-left: 12px solid #ff3c1f;
 }
-.clear-fix{
+
+.clear-fix {
   clear: both
 }
-.facebook-comments{
-  margin: auto;
+
+.facebook-comments {
+  overflow-y: scroll;
   border-left: 1px solid #dee5e7;
+  height: auto;
 }
-.shareButtonLarge{
+
+.shareButtonLarge {
   margin: 10px auto 20px;
   width: 50%;
   background: #3b5998;
@@ -450,8 +501,10 @@
   border-radius: 2px;
   text-align: center;
   position: relative;
+  cursor: pointer;
 }
-.shareButtonLarge:after{
+
+.shareButtonLarge:after {
   content: " ";
   width: 32px;
   height: 32px;
@@ -463,18 +516,102 @@
   background-size: 270px 60px;
 }
 
-.postDetailWrapper{
-   box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-}
-
-.pr0{
-  padding-right: 0px;
-}
-.sideAd{
+.sideAd {
   text-align: center;
   margin-top: 30px;
 }
-.mt10{
-  margin-top:10px;
+
+@media (max-width: 1200px) {
+
+  .post-content-box {
+    width: 100%;
+  }
+
+  .post-page-left {
+    width: 100%;
+  }
+
 }
 
+@media (max-width: 990px) {
+
+  .img-responsive, .thumb {
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .post-box {
+    width: 100%;
+  }
+
+  .post-left {
+    width: 100%;
+  }
+
+  .post-content {
+    width: 100%;
+  }
+
+}
+
+@media (max-width: 755px) {
+
+}
+
+@media (max-width: 645px) {
+
+  .post-date {
+    text-align: left;
+  }
+
+}
+
+@media (max-width: 552px) {
+
+  .fb-btn-long {
+    display: none;
+  }
+
+  .remove-mobile {
+    display: none;
+  }
+
+  .vote-box {
+    width: 65%;
+  }
+
+  .social-box {
+    width: 35%;
+  }
+
+}
+
+@media (max-width: 350px) {
+
+  #wrap {
+    margin: 0 auto -120px;
+    padding: 0 0 120px;
+  }
+
+  .main-footer {
+    height: 120px;
+  }
+
+  .unvotedButton {
+    width: 60px;
+  }
+
+  .shareButton {
+    margin-left: 3px;
+  }
+
+}
+
+@media (max-width: 332px) {
+  .nextButton {
+    display: none;
+  }
+}

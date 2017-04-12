@@ -2,6 +2,7 @@ import {
   FETCH_POSTS_CHUNK, FETCH_POSTS_CHUNK_FAILURE, FETCH_POSTS_CHUNK_SUCCESS, CREATE_POST_SUCCESS,
   FETCH_POST, FETCH_POST_FAILURE, FETCH_POST_SUCCESS,
   VOTE_POST_SUCCESS, VOTE_POST_FAILURE, TEMP_VOTE_POST_SUCCESS, TEMP_VOTE_POST_DETAIL_SUCCESS,
+  REMOVE_ALL_POST,
 } from '../_actions/PostsActions';
 const INITIAL_STATE = {
   // postsList: { postsChunks: [{ posts: [], error: null, loading: false }], page: 1, paging: 5 },
@@ -206,6 +207,11 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
           },
         };
       }
+    case REMOVE_ALL_POST:
+      return {
+        ...state,
+        postsList: INITIAL_STATE.postsList,
+      };
     default:
       return state;
   }

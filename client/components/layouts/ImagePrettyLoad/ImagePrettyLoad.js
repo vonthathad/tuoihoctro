@@ -12,6 +12,7 @@ class ImagePrettyLoad extends Component {
     this.handleLoadedImgLQ = this.handleLoadedImgLQ.bind(this);
     this.handleGoDetailPost = this.handleGoDetailPost.bind(this);
   }
+
   handleLoadedImg = () => {
     this.setState({
       loadedImg: true,
@@ -22,11 +23,13 @@ class ImagePrettyLoad extends Component {
       loadedImgLQ: true,
     });
   };
+
   handleGoDetailPost() {
     // console.log(1235);
     // console.log(this.props.post);
     this.props.dispatch && this.props.dispatch(_fetchPostClient(this.props.post));
   }
+
   render() {
     const { image, imageLQ, imageWidth, imageHeight, containerWidth } = this.props;
     return (
@@ -41,14 +44,13 @@ class ImagePrettyLoad extends Component {
           <div>
             <img
               src={imageLQ}
-              className={`${st['img-small']}
-              ${this.state.loadedImgLQ ? `${st.loaded}` : ''}`}
+              className={`${st['img-small']} ${this.state.loadedImgLQ ? `${st.loaded}` : ''}  ${st['img-responsive']} img-responsive`}
               onLoad={this.handleLoadedImgLQ}
               alt=""
             />
             <img
               src={image}
-              className={this.state.loadedImg ? `${st.loaded}` : ''}
+              className={this.state.loadedImg ? `${st.loaded} ${st['img-responsive']} img-responsive` : ''}
               onLoad={this.handleLoadedImg}
               alt=""
             />

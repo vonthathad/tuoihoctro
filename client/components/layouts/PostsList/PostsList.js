@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import ImagePrettyLoad from '../ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../VideoAutoPlay/VideoAutoPlay';
 import Post from '../Post/Post';
-import { _fetchPostsChunk } from '../../../_actions/PostsActions';
+import { _fetchPostsChunk, _removeAllPosts } from '../../../_actions/PostsActions';
 import st from './index.css';
 class PostsList extends Component {
   constructor(props) {
@@ -14,8 +14,8 @@ class PostsList extends Component {
   }
   componentDidMount() {
     if (process.env.NODE_ENV === 'development' && this.props.postsList.posts.length === 0) {
-      const { dispatch, postsList } = this.props;
-      dispatch(_fetchPostsChunk(postsList.page));
+      const { dispatch, postsList, params } = this.props;
+      dispatch(_fetchPostsChunk(postsList.page, params ? params.order : ''));
       // this.props.fetchRecommendsChunk();
     }
 
@@ -24,16 +24,32 @@ class PostsList extends Component {
     const width = parseInt(window.getComputedStyle(this.postsListRef, null).getPropertyValue('width').replace('px', ''), 10);
     this.containerWidth = width < 500 ? width : 500;
   }
-
+  componentDidUpdate(prevProps) {
+    // console.log(prevProps);
+    // console.log(this.props);
+    if (prevProps.order !== this.props.order) {
+      // console.log(prevProps);
+      // console.log(this.props);
+      const oldId = prevProps.order;
+      const newId = this.props.order;
+      if (newId !== oldId) {
+        const { dispatch, postsList, order } = this.props;
+        dispatch(_removeAllPosts());
+        dispatch(_fetchPostsChunk(postsList.page, order));
+      // this.props.dispatch(_fetchPost(this.props.params.postId));
+      // this.fetchPost();
+      }
+    }
+  }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleOnScrollLoadMediaContent);
   }
 
   handleOnScrollLoadMediaContent = () => {
     if (document.body.scrollTop > parseInt(window.getComputedStyle(this.postsListRef, null).getPropertyValue('height').replace('px', ''), 10) - 1000) {
-      const { dispatch, postsList } = this.props;
+      const { dispatch, postsList, params } = this.props;
       if (!postsList.fetching && !postsList.error && postsList.hasNext) {
-        dispatch(_fetchPostsChunk(postsList.page));
+        dispatch(_fetchPostsChunk(postsList.page, params));
       }
     }
   };
@@ -81,5 +97,6 @@ PostsList.propTypes = {
   postsList: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
+  order: PropTypes.string.isRequired,
 };
 export default PostsList;

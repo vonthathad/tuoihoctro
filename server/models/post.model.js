@@ -86,16 +86,25 @@ const PostSchema = new Schema({
     ref: 'User',
     default: [],
   }],
-  view: {
-    type: Number,
-    default: 0,
-  },
-  reports: [{
+  views: [{
     type: Number,
     ref: 'User',
     default: [],
   }],
+  viewsLength: {
+    type: Number,
+    default: 0,
+  },
   votes: [{
+    type: Number,
+    ref: 'User',
+    default: [],
+  }],
+  votesLength: {
+    type: Number,
+    default: 0,
+  },
+  reports: [{
     type: Number,
     ref: 'User',
     default: [],
@@ -113,10 +122,6 @@ const PostSchema = new Schema({
   created: {
     type: Date,
     default: Date.now,
-  },
-  point: {
-    type: Number,
-    default: 1,
   },
   creator: {
     type: Number,

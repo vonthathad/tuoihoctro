@@ -1,11 +1,12 @@
 // import request from '../../services/api.services';
-import { getPosts, addPost, getPost, deletePost, vote } from '../utils/PostsUtils';
-
+import { getPosts, addPost, getPost, deletePost, vote, view } from '../utils/PostsUtils';
 import { checkLoginAction } from '../_actions/AuthActions';
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
 export const FETCH_POSTS_CHUNK_FAILURE = 'FETCH_POSTS_CHUNK_FAILURE';
+
+export const REMOVE_ALL_POST = 'REMOVE_ALL_POST';
 
 // Create new post
 export const CREATE_POST = 'CREATE_POST';
@@ -32,7 +33,7 @@ export const VOTE_POST_FAILURE = 'VOTE_POST_FAILURE';
 export const TEMP_VOTE_POST_SUCCESS = 'TEMP_VOTE_POST_SUCCESS';
 export const TEMP_VOTE_POST_DETAIL_SUCCESS = 'TEMP_VOTE_POST_DETAIL_SUCCESS';
 
-
+// function updateView(p)
 function addPostSuccess(post) {
   return {
     type: CREATE_POST_SUCCESS,
@@ -86,11 +87,25 @@ export function tempVoteDetailSuccess(post) {
     payload: post,
   };
 }
+function removeAllPosts() {
+  return {
+    type: REMOVE_ALL_POST,
+  };
+}
+export function _removeAllPosts() {
+  return (dispatch) => {
+    dispatch(removeAllPosts());
+  };
+}
 
-export function _fetchPostsChunk(page) {
+export function _fetchPostsChunk(page, order) {
   return (dispatch) => {
     dispatch(fetchPostsChunk());
-    const queryArgs = { page };
+    // let order = window.location.href.split('order/')[1];
+    // if (order.indexOf('created') + order.indexOf('top') + order.indexOf('hot') > -2) order = '';
+    // console.log(window.location.href.split('order/')[1]);
+    // console.log(order);
+    const queryArgs = { page, order };
     return getPosts(queryArgs)
       .then(postsData => dispatch(fetchPostsChunkSuccess(postsData)))
       .catch(error => dispatch(fetchPostsChunkFailure(error)));
@@ -107,7 +122,9 @@ export function _fetchPost(id) {
 }
 export function _fetchPostClient(post) {
   return (dispatch) => {
-    console.log(post);
+    // console.log(post._id);
+    // console.log(5421);
+    view(post._id);
     dispatch(fetchPostSuccess(post));
   };
 }

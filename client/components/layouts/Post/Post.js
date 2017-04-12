@@ -13,25 +13,30 @@ class Post extends Component {
     this.baseUrl = typeof(window) !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}` : `${process.env.PROTOCOL}//${process.env.DOMAIN}`;
     // console.log(`${window.location.href}posts/${this.props.post._id}`);
   }
+
   componentDidMount() {
     if (window.FB) {
       window.FB.XFBML.parse(this.commentCountRef);
     }
   }
+
   shouldComponentUpdate(nextProps) {
     if (this.props.post !== nextProps.post) return false;
     return true;
   }
+
   componentDidUpdate() {
     // if (window.FB) {
     //   window.FB.XFBML.parse();
     // }
   }
+
   handleGoDetailPost() {
     // console.log(1235);
     // console.log(this.props.post);
     this.props.dispatch(_fetchPostClient(this.props.post));
   }
+
   handleShareFb() {
     let w = '626';
     let h = '436';
@@ -56,6 +61,7 @@ class Post extends Component {
       newWindow.focus();
     }
   }
+
   handleVoteClick() {
     // console.log(this.props.auth._id);
     this.props.dispatch(tempVoteSuccess({
@@ -69,6 +75,7 @@ class Post extends Component {
       postVotes: this.props.post.votes,
     }));
   }
+
   render() {
     const post = this.props.post;
     let voted = false;
@@ -80,7 +87,7 @@ class Post extends Component {
     const point = this.props.post.votes.length;
     return (
       <div className={st['post-box']}>
-        <div className={st['post-header']}>
+        <header className={st['post-header']}>
           <div className={st['post-title']}>
             <h1>
               <Link onClick={this.handleGoDetailPost} to={`/posts/${this.props.post._id}`}>
@@ -88,20 +95,20 @@ class Post extends Component {
               </Link>
             </h1>
           </div>
-        </div>
+        </header>
         <div className={st['post-left']}>
           <div className={st.post}>
             {this.props.children}
           </div>
           {this.props.post.type === 'list' &&
-            <a className={st['read-more']}>
-              Xem thêm
-            </a>
+          <a className={st['read-more']}>
+            Xem thêm
+          </a>
           }
           <div>{voted}</div>
           <div className={st['post-footer']}>
             <div className={st['box-vote']}>
-              <div className={st['twitter-heart-wrapper']} >
+              <div className={st['twitter-heart-wrapper']}>
                 <TwitterHeart _id={this.props.post._id} checked={voted} handleClick={this.handleVoteClick} />
               </div>
               <div className={st['vote-number-wrapper']}>
@@ -109,10 +116,14 @@ class Post extends Component {
               </div>
             </div>
             <div className={st['box-comment']}>
-              <Link onClick={this.handleGoDetailPost} to={`/posts/${this.props.post._id}`} className={st['comment-icon-wrapper']}>
+              <Link onClick={this.handleGoDetailPost} to={`/posts/${this.props.post._id}`}
+                className={st['comment-icon-wrapper']}
+              >
                 <i className="fa fa-comment" aria-hidden="true"></i>
               </Link>
-              <div className={st['comment-number-wrapper']} ref={(commentCountRef) => { this.commentCountRef = commentCountRef; }}>
+              <div className={st['comment-number-wrapper']} ref={(commentCountRef) => {
+                this.commentCountRef = commentCountRef;
+              }}>
                 <span className="fb-comments-count" data-href={`${this.baseUrl}/posts/${this.props.post._id}`}></span>
               </div>
             </div>
@@ -121,8 +132,8 @@ class Post extends Component {
                 <i className="fa fa-facebook"></i>
                 <span className={st['remove-mobile']}> Facebook</span>
                 {/* <div className="fb-share-button" data-href={`${window.location.href}posts/${this.props.post._id}`} data-layout="button_count" data-size="large" data-mobile-iframe="true">
-                <a className="fb-xfbml-parse-ignore" target="_blank" href={`${window.location.href}posts/${this.props.post._id}`}>Share</a>
-              </div>*/}
+                 <a className="fb-xfbml-parse-ignore" target="_blank" href={`${window.location.href}posts/${this.props.post._id}`}>Share</a>
+                 </div>*/}
               </a>
             </div>
           </div>

@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
 import session from 'express-session';
+import serialize from 'serialize-javascript';
 // Webpack Requirements
 // import webpack from 'webpack';
 // import webpackConfig from '../webpack.config.dev';
@@ -124,7 +125,7 @@ if (process.env.NODE_ENV === 'production') {
           </script>
 
           <script>
-            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
+            window.__INITIAL_STATE__ = ${serialize(initialState, { isJSON: true })};
             ${process.env.NODE_ENV === 'production' ?
         `//<![CDATA[
             window.webpackManifest = ${JSON.stringify(chunkManifest)};
