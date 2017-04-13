@@ -50,11 +50,11 @@ class RecommendsList extends Component {
         {/* <div className={st['right-bar-title']}>
           <h1>Bài liên quan</h1>
         </div>*/}
-        <div className={`${st.recommentContainer} conntainer col-xs-12`}>
+        <div className={`${st.recommentContainer}`}>
         {
           posts.length > 0 &&
           posts.map(post => (
-            <div className={`${st['recommend-item']} ${type === 'horizontal' ? `${st.horizontal} col-xs-6` : ''}`} key={post._id}>
+            <div className={`${st['recommend-item']} ${type === 'horizontal' ? `${st.horizontal} col-sm-2` : ''}`} key={post._id}>
               <Recommend post={post} type={type} dispatch={dispatch}>
                 <ImagePrettyLoad
                   image={post.smallThumb}
@@ -67,7 +67,7 @@ class RecommendsList extends Component {
           ))
         }
         </div>
-        <img src={ads} alt="" />
+        {/*<img src={ads} alt="" />*/}
       </div >
     );
   }

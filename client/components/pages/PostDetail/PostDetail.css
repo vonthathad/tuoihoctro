@@ -11,6 +11,7 @@
 .col-sm-8 {
   padding-left: 0;
   padding-top: 80px;
+  padding-bottom: 10px;
 }
 
 .col-sm-4 {
@@ -71,8 +72,8 @@
 .post-content-box {
   width: 650px;
   overflow: hidden;
-  /*padding: 10px 0;*/
-  border-bottom: 1px solid #dddddd;
+  /*padding: 26px 0;*/
+  /*border-bottom: 1px solid #dddddd;*/
 }
 
 .post-content-box p {
@@ -411,6 +412,7 @@
   text-align: center;
   width: 75px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .shareButton {
@@ -472,14 +474,14 @@
   display: block;
   width: 0;
   height: 0;
-  border-top: 17px dashed transparent;
+  border-top: 19px dashed transparent;
   border-bottom: 17px dashed transparent;
-  border-left: 12px solid #ff3c1f;
+  border-left: 13px solid #ff3c1f;
 }
 
-.clear-fix {
-  clear: both
-}
+/*.clear-fix {*/
+/*clear: both*/
+/*}*/
 
 .facebook-comments {
   overflow-y: scroll;
@@ -488,7 +490,7 @@
 }
 
 .shareButtonLarge {
-  margin: 10px auto 20px;
+  margin: 18px auto;
   width: 50%;
   background: #3b5998;
   height: 44px;
@@ -558,14 +560,14 @@
 }
 
 @media (max-width: 755px) {
+  .shareButtonLarge {
+    width: 70%;
+    font-size: 13px;
+  }
 
 }
 
 @media (max-width: 645px) {
-
-  .post-date {
-    text-align: left;
-  }
 
 }
 

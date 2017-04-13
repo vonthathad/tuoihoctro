@@ -26,7 +26,7 @@ class Header extends Component {
     const curentUser = this.props.curentUser;
     return (
       <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
-        <div className={`${st.body_ribbon} ${st.esi_ribbon}`}></div>
+
         <div className={`${st['nav-wide']} container`}>
           <Link to="/" className={`navbar-brand ${st['logo-wrapper']}`} onClick={this.scrollTop}>
             <img

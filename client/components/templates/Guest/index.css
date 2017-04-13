@@ -1,9 +1,10 @@
 
-
 .navbar-default {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
 }
+
+
 
 #wrap {
   min-height: 100%;
@@ -442,12 +443,12 @@
 }
 
 .btn-upload {
-  background: lavender;
-  color: #FFF;
+  /*background: lavender;*/
+  color: #bbb;
 }
 
 li.btn-upload > a:link, li.btn-upload > a:visited {
-  color: #FFF;
+  color: #bbb;
   font-weight: bold;
 }
 
