@@ -24,6 +24,7 @@ class Header extends Component {
 
   render() {
     const curentUser = this.props.curentUser;
+    console.log(curentUser.role);
     return (
       <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
 
@@ -50,7 +51,7 @@ class Header extends Component {
                       <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30} />
                     </a>
                   </li>
-                  <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>
+                  {curentUser.role === 'admin' && <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>}
                   <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
                 </ul>
                 :
@@ -87,7 +88,7 @@ class Header extends Component {
             {
               curentUser._id && curentUser ?
                 <div>
-                  <a onClick={() => { this.props.toggleAddPost(); this.burgerToggle(); }}>Upload</a>
+                  {curentUser.role === 'admin' && <a onClick={() => { this.props.toggleAddPost(); this.burgerToggle(); }}>Upload</a>}
                   <a onClick={() => { this.props.logout(); this.burgerToggle(); }}>Đăng xuất</a>
                   <Link to="/admin">Admin</Link>
                 </div>
