@@ -1,4 +1,7 @@
 // import request from '../../services/api.services';
+// import { getPosts, addPost, getPost, deletePost, vote } from '../utils/PostsUtils';
+import { toggleAlert } from './WidgetActions';
+
 import { getPosts, addPost, getPost, deletePost, vote, view } from '../utils/PostsUtils';
 import { checkLoginAction } from '../_actions/AuthActions';
 // Post list
@@ -156,7 +159,12 @@ export function addPostRequest(post) {
       post,
     }).then(res => {
       dispatch(addPostSuccess(res));
-    }).catch(error => console.log(error));
+      dispatch(toggleAlert('Đăng bài thành công'));
+      setTimeout(function () { dispatch(toggleAlert('')); }, 3000);
+    }).catch(error => {
+      dispatch(toggleAlert('Đăng bài lỗi'));
+      setTimeout(function () { dispatch(toggleAlert('')); }, 3000);
+    });
   };
 }
 

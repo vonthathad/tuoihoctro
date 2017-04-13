@@ -47,5 +47,29 @@ export default (
         });
       }}
     />
+    <Route
+      path="/nong"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./components/pages/Home/Home.js').default);
+        });
+      }}
+    />
+    <Route
+      path="/moi"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./components/pages/Home/Home.js').default);
+        });
+      }}
+    />
+    <Route
+      path="/top"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./components/pages/Home/Home.js').default);
+        });
+      }}
+    />
   </Route>
 );

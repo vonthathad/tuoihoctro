@@ -14,12 +14,17 @@ export class PostCreateWidget extends Component {
     };
   }
   addPost = () => {
+    console.log(1)
     const titleRef = this.refs.title;
     const fileRef = this.state.file;
     const category = this.refs.category;
     if (titleRef.value && fileRef) {
       this.props.addPost(titleRef.value, category.value, fileRef);
       titleRef.value = ''; fileRef.value = null
+    } else if(!titleRef.value && !fileRef) {
+      this.setState({showError: true,showErrorSize: true});
+    } else if(titleRef.value && !fileRef) {
+      this.setState({showErrorSize: true});
     }
   };
 
@@ -62,31 +67,39 @@ export class PostCreateWidget extends Component {
       <div className={cls}>
         <div className={styles['form-content']}>
           <h2 className={styles['form-title']}>Đăng bài mới</h2>
-          <input placeholder="Tiêu đề" className={styles['form-field']} style={this.state.showError ? {border: '1px solid red'}: null} ref="title" onChange={(e) => this.handleBlur(e)} />
-          {
-            this.state.showError ? <span>Tiêu đề không được trống</span> : null
-          }
-          <input type="file" ref="file" onChange={(e) => this.loadFile(e)} />
-          {
-            this.state.showErrorSize ? <span>Kích thước file không được quá 5Mb</span> : null
-          }
-          <select ref="category" className={styles.select}>
-            <option value="GIF">GIF</option>
-            <option value="Comic">Comic</option>
-            <option value="Cool">Cool</option>
-            <option value="Cute">Cute</option>
-            <option value="Food">Food</option>
-            <option value="Geeky">Geeky</option>
-            <option value="Meme">Meme</option>
-            <option value="WTF">WTF</option>
-          </select>
-          {
-            this.state.showErrorSize ? null : <Link to={this.state.imgSrc} target="_blank" >
-                <img src={this.state.imgSrc} alt="" />
-              </Link>
-          }
-          <a className={styles['post-submit-button']} onClick={this.props.closeElement}>Cancel</a>
-          <a className={styles['post-submit-button']} style={this.state.showError || this.state.showErrorSize ? {background: 'rgba(89, 120, 54, 0.53)'}: null} onClick={this.addPost} disabled={this.state.showError || this.state.showErrorSize || this.state.disabled}>Submit</a>
+          <div className={styles['form-group']}>
+            <input placeholder="Tiêu đề" className={styles['form-field']} style={this.state.showError ? {border: '1px solid red'}: null} ref="title" onChange={(e) => this.handleBlur(e)} />
+            {
+              this.state.showError ? <span>Tiêu đề không được trống</span> : null
+            }
+          </div>
+         <div className={styles['form-group']}>
+           <input type="file" ref="file" className={styles['form-field']} onChange={(e) => this.loadFile(e)} />
+           {
+             this.state.showErrorSize ? <span>Chọn ảnh là yêu cầu bắt buộc và kích thước file không được quá 5Mb</span> : null
+           }
+           {
+             this.state.imgSrc !== '' ? <img src={this.state.imgSrc} alt="" />: null
+           }
+         </div >
+          <div className={styles['form-group']}>
+            <select ref="category" className={styles['form-field']}>
+              <option value="GIF">GIF</option>
+              <option value="Comic">Comic</option>
+              <option value="Cool">Cool</option>
+              <option value="Cute">Cute</option>
+              <option value="Food">Food</option>
+              <option value="Geeky">Geeky</option>
+              <option value="Meme">Meme</option>
+              <option value="WTF">WTF</option>
+            </select>
+          </div>
+
+
+          <a className={styles['post-submit-button']} onClick={this.props.closeElement}>Hủy bỏ</a>
+          <a className={styles['post-submit-button']} style={this.state.showError || this.state.showErrorSize ? {background: 'rgba(89, 120, 54, 0.53)'}: null}
+             onClick={this.addPost}
+             >Đăng bài</a>
         </div>
         <div className={styles.backgroundPost} onClick={this.props.closeElement}>
         </div>

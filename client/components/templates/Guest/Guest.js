@@ -11,16 +11,16 @@ import Header from '../../common/Header/Header';
 import Footer from '../../common/Footer/Footer';
 import Auth from '../../layouts/Auth';
 import PostCreateWidget from '../../layouts/PostWidget/PostWidget';
-
+import AlertWidget from '../../layouts/AlertWidget/AlertWidget';
 import { _fetchRecommendsChunk } from '../../../_actions/RecommendsActions';
 
 // Import Actions
-import { toggleAddPost, toggleLogin, toggleRegister, closeElement } from '../../../_actions/WidgetActions';
+import { toggleAddPost, toggleLogin, toggleRegister, closeElement, toggleAlert } from '../../../_actions/WidgetActions';
 import { addPostRequest } from '../../../_actions/PostsActions';
 import { loginRequest, registerRequest, checkLoginInit, logout } from '../../../_actions/AuthActions';
 
 // Import Reducer
-import { getShowElement } from '../../../_reducers/WidgetReducer';
+import { getShowElement,getShowAlert } from '../../../_reducers/WidgetReducer';
 
 export class Guest extends Component {
   constructor(props) {
@@ -30,7 +30,6 @@ export class Guest extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.toggleLoginSection = this.toggleLoginSection.bind(this);
   }
-
   componentDidMount() {
     this.setState({ isMounted: true }); // eslint-disable-line
     this.props.checkLoginInit();
@@ -45,27 +44,22 @@ export class Guest extends Component {
     //   document.body.style.overflow = 'inherit';
     // }
   }
-
   toggleAddPostSection = () => {
     this.changeStyleModal(true);
     this.props.toggleAddPost();
   };
-
   toggleLoginSection = () => {
     this.changeStyleModal(true);
     this.props.toggleLogin();
   };
-
   toggleRegisterSection = () => {
     this.changeStyleModal(true);
     this.props.toggleRegister();
   };
-
   closeElementSection = () => {
     this.changeStyleModal(false);
     this.props.closeElement();
   };
-
   handleAddPost = (title, category, file) => {
     console.log(title, category, file);
     const data = new FormData();
@@ -76,13 +70,11 @@ export class Guest extends Component {
     this.closeElementSection();
     this.props.addPostRequest(data);
   };
-
   handleLogin = (email, password) => {
     console.log(email, password);
     this.closeElementSection();
     this.props.loginRequest({ email, password });
   };
-
   handleRegister = (username, email, password) => {
     this.closeElementSection();
     this.props.registerRequest({ username, email, password });
@@ -96,10 +88,7 @@ export class Guest extends Component {
       this.props.logout();
     }
   };
-
-
   render() {
-    // console.log(this.props);
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
@@ -113,6 +102,10 @@ export class Guest extends Component {
               curentUser={this.props.curentUser}
               logout={this.handleLogout}
             />
+            <AlertWidget
+              showAlert={this.props.showAlert}
+              alertMessage={this.props.alertMessage}
+              />
             <PostCreateWidget
               addPost={this.handleAddPost}
               showElement={this.props.showElement}
@@ -150,6 +143,8 @@ Guest.propTypes = {
   toggleRegister: PropTypes.func,
   toggleLogin: PropTypes.func,
   toggleAddPost: PropTypes.func,
+  showAlert: PropTypes.boolean,
+  alertMessage: PropTypes.string,
 };
 Guest.need = [
   () => { return _fetchRecommendsChunk(50); },
@@ -160,6 +155,8 @@ function mapStateToProps(store) {
   return {
     curentUser: store.auth,
     showElement: getShowElement(store),
+    showAlert: store.app.showAlert,
+    alertMessage: store.app.alertMessage
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -174,6 +171,7 @@ function mapDispatchToProps(dispatch) {
     loginRequest: (email, password) => dispatch(loginRequest(email, password)),
     registerRequest: () => dispatch(registerRequest()),
     logout: () => dispatch(logout()),
+    toggleAlert: () => dispatch(toggleAlert())
   };
 }
 

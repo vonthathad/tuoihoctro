@@ -24,6 +24,7 @@ class Header extends Component {
 
   render() {
     const curentUser = this.props.curentUser;
+    console.log(curentUser.role);
     return (
       <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
 
@@ -40,22 +41,6 @@ class Header extends Component {
               <li><Link to="/order/hot">Đừng bỏ lỡ</Link></li>
               <li><Link to="/order/top">Cũ mà hay</Link></li>
               <li><Link to="/order/created">Mới nhất</Link></li>
-              {/* <li className="dropdown"><a
-                className="dropdown-toggle"
-                data-toggle="dropdown"
-                role="button" aria-expanded="false"
-              >Thêm <span className="caret"></span></a>
-                <ul className="dropdown-menu" role="menu">
-                  <li><a href="gif.html">GIF</a></li>
-                  <li><a href="category-4-comic-1.html">Comic</a></li>
-                  <li><a href="category-7-cool-1.html">Cool</a></li>
-                  <li><a href="category-3-cute-1.html">Cute</a></li>
-                  <li><a href="category-5-food-1.html">Food</a></li>
-                  <li><a href="category-1-geeky-1.html">Geeky</a></li>
-                  <li><a href="category-2-meme-1.html">Meme</a></li>
-                  <li><a href="category-6-wtf-1.html">WTF</a></li>
-                </ul>
-              </li>*/}
             </ul>
             {
               curentUser._id && curentUser ?
@@ -66,7 +51,7 @@ class Header extends Component {
                       <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30} />
                     </a>
                   </li>
-                  <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>
+                  {curentUser.role === 'admin' && <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>}
                   <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
                 </ul>
                 :
@@ -103,7 +88,7 @@ class Header extends Component {
             {
               curentUser._id && curentUser ?
                 <div>
-                  <a onClick={() => { this.props.toggleAddPost(); this.burgerToggle(); }}>Upload</a>
+                  {curentUser.role === 'admin' && <a onClick={() => { this.props.toggleAddPost(); this.burgerToggle(); }}>Upload</a>}
                   <a onClick={() => { this.props.logout(); this.burgerToggle(); }}>Đăng xuất</a>
                   <Link to="/admin">Admin</Link>
                 </div>

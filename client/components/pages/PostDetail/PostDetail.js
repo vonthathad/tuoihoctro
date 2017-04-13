@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
 
+
 import RecommendsList from '../../layouts/RecommendsList/RecommendsList';
 import ImagePrettyLoad from '../../layouts/ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../../layouts/VideoAutoPlay/VideoAutoPlay';
@@ -33,10 +34,10 @@ export class PostDetail extends Component {
     this.state = {
       post: null,
     };
-    // this.url = window.location.hostname + window.location.pathname;
     this.handleShareFb = this.handleShareFb.bind(this);
     this.fetchPost = this.fetchPost.bind(this);
     this.baseUrl = typeof (window) !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}` : `${process.env.PROTOCOL}//${process.env.DOMAIN}`;
+    // this.next = this.next.bind(this);
     this.next = this.next.bind(this);
     this.timeSince = this.timeSince.bind(this);
     // console.log(this.baseUrl);
@@ -87,30 +88,10 @@ export class PostDetail extends Component {
         window.FB.XFBML.parse(this.commentRef);
       }
     }
-    // if (!this.props.post) {
-    //   this.props.dispatch(_fetchPost(this.props.params.postId));
-    // } else {
-    //   if (this.props.params.postId !== this.props.post._id) {
-    //     this.props.dispatch(_fetchPost(this.props.params.postId));
-    //   }
-    // }
   }
 
   fetchPost() {
-    // console.log(this.props.posts);
-    // if (this.props.posts.length !== 0) {
-    //   const posts = this.props.posts;
-    //   const postsLength = posts.length;
-    //   for (let i = 0; i < postsLength; i++) {
-    //     if (posts[i]._id === parseInt(this.props.params.postId, 10)) {
-    //       this.setState({ post: posts[i] });
-    //       break;
-    //     }
-    //   }
-    // } else {
-    // console.log(this.props.post.title);
     !this.props.post._id && this.props.dispatch(_fetchPost(this.props.params.postId));
-    // }
   }
 
   deletePostByOwner(id) {
@@ -190,6 +171,7 @@ export class PostDetail extends Component {
     history.pushState(null, null, `/posts/${nextId}`);
     // browserHistory.go(`/posts/${id + 1}`);
   }
+
   timeSince(date) {
     const seconds = Math.floor((new Date() - date) / 1000);
 

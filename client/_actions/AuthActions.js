@@ -4,7 +4,7 @@ import callApiUser from '../utils/_requestCaller';
 export const LOGIN_USER = 'LOGIN_USER';
 export const REGISTER_USER = 'REGISTER_USER';
 
-import { toggleLogin } from './WidgetActions';
+import { toggleLogin, toggleAlert } from './WidgetActions';
 
 // Export Actions
 export function loginUser(user) {
@@ -113,6 +113,8 @@ export function logout() {
     localStorage.removeItem('token');
     // localStorage.removeItem('username');
     dispatch(loginUser(data));
+    dispatch(toggleAlert('Đăng xuất thành công'));
+    setTimeout(function(){dispatch(toggleAlert('')) }, 3000);
   };
 }
 

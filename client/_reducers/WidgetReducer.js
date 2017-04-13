@@ -1,9 +1,11 @@
 // Import Actions
-import { TOGGLE_ADD_POST, TOGGLE_LOGIN, TOGGLE_REGISTER, CLOSE_ELEMENT } from '../_actions/WidgetActions';
+import { TOGGLE_ADD_POST, TOGGLE_LOGIN, TOGGLE_REGISTER, CLOSE_ELEMENT, TOGGLE_ALERT } from '../_actions/WidgetActions';
 
 // Initial State
 const initialState = {
   showElement: '',
+  showAlert: false,
+  alertMessage: ''
 };
 
 const AppReducer = (state = initialState, action) => {
@@ -20,6 +22,13 @@ const AppReducer = (state = initialState, action) => {
       return {
         showElement: 'register',
       };
+    case TOGGLE_ALERT:
+      return {
+        ...state,
+        showAlert: !state.showAlert,
+        alertMessage: action.alertMessage
+
+      };
     case CLOSE_ELEMENT:
       return {
         showElement: '',
@@ -34,6 +43,6 @@ const AppReducer = (state = initialState, action) => {
 // Get showAddPost
 export const getShowElement = state => state.app.showElement;
 
-
+export const getShowAlert = state => state.app.showAlert;
 // Export Reducer
 export default AppReducer;

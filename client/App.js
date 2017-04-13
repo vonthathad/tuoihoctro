@@ -9,7 +9,6 @@ import routes from './routes';
 
 // Base stylesheet
 require('./main.css');
-
 export default function App(props) {
   return (
     <Provider store={props.store}>
