@@ -1,13 +1,10 @@
-// import request from '../../services/api.services';
 import { toggleAlert } from './WidgetActions';
-
 import { getPosts, addPost, getPost, deletePost, vote, view } from '../utils/PostsUtils';
 import { checkLoginAction } from './AuthActions';
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
 export const FETCH_POSTS_CHUNK_FAILURE = 'FETCH_POSTS_CHUNK_FAILURE';
-
 export const REMOVE_ALL_POST = 'REMOVE_ALL_POST';
 
 // Create new post
@@ -158,11 +155,13 @@ export function addPostRequest(post) {
       post,
     }).then(res => {
       dispatch(addPostSuccess(res));
+      console.log(res);
       dispatch(toggleAlert('Đăng bài thành công'));
-      setTimeout(function(){dispatch(toggleAlert('')) }, 3000);
+      setTimeout(function () { dispatch(toggleAlert('')); }, 3000);
     }).catch(error => {
+      console.error(error)
       dispatch(toggleAlert('Đăng bài lỗi'));
-      setTimeout(function(){dispatch(toggleAlert('')) }, 3000);
+      setTimeout(function () { dispatch(toggleAlert('')); }, 3000);
     });
   };
 }

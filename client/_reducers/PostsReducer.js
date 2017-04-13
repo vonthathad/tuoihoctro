@@ -19,11 +19,13 @@ const PostsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CREATE_POST_SUCCESS:
       {
-        const temp = { postsList: { ...state.postsList } };
-        temp.postsList.postsChunks[0].posts.unshift(action.post.data);
+        const postsList = { ...state.postsList };
+        // const temp = { postsList: { ...state.postsList } };
+        // temp.postsList.postsChunks[0].posts.unshift(action.post.data);
+        postsList.posts.unshift(action.post.data);
         return {
           ...state,
-          ...temp,
+          postsList,
         };
       }
 
