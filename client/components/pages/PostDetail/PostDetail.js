@@ -327,7 +327,7 @@ export class PostDetail extends Component {
                     <abbr className={st['time-ago']}>{this.timeSince(new Date(post.created))} trước</abbr> bởi
                     <a className={st['user-link']}> {post.creator.username}</a>
                   </div>
-                  <RecommendsList numComments={8} type={'horizontal'} notInclude={post._id} />
+                  <RecommendsList numComments={9} type={'horizontal'} notInclude={post._id} />
                 </div>
               </div>
               : <div className={st.loading}>Loading&#8230;</div>

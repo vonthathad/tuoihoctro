@@ -1,5 +1,4 @@
 
-
 .right-bar-title {
   padding: 5px 0;
 }
@@ -9,14 +8,12 @@
 }
 
 .recommends-list-wrapper {
-  text-align: left;
+
 }
 
 .horizontal {
-  /*float:left;*/
-  width: 200px;
+  width: 215px;
   height: 130px;
-  /*margin: auto 5px;*/
 }
 
 .recommentContainer {
@@ -26,3 +23,13 @@
 .recommend-item {
   margin-top: 13px;
 }
+
+@media (max-width: 750px) {
+  .horizontal {
+    width: 100%;
+    height: auto;
+  }
+
+}
+
+
