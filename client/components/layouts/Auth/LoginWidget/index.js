@@ -38,7 +38,7 @@ export class LoginWidget extends Component {
               <div className={`form-group ${styles['form-group']}`}>
                 <label className="sr-only" htmlFor="exampleInputPassword2">Password</label>
                 <input type="password" className="form-control" id="exampleInputPassword2" placeholder="Password" required ref="password" />
-                <div className="help-block text-right"><a href="">Forget the password ?</a></div>
+                <div className="help-block text-right"><a href="">Quên mật khẩu?</a></div>
               </div>
               <div className={`form-group ${styles['form-group']}`}>
                 <button type="button" className="btn btn-primary btn-block" onClick={this.loginUser}>Sign in</button>
@@ -50,7 +50,7 @@ export class LoginWidget extends Component {
             </form>
           </div>
           <div className="bottom text-center">
-            New here ? <a onClick={this.props.toggleRegister} ><b>Join Us</b></a>
+            Bạn là thành viên mới? Click vào <a onClick={this.props.toggleRegister} ><b>đây</b></a> để đăng kí!
           </div>
         </div>
         <div className={styles['login-background']} onClick={this.props.closeElement}>
