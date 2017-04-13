@@ -37,9 +37,6 @@ class Header extends Component {
           </Link>
           <div className={st['wide-div']}>
             <ul className={`${st.menu} nav navbar-nav`}>
-              <li><Link to="/nong">Nóng hổi</Link></li>
-              <li><Link to="top">Top</Link></li>
-              <li><Link to="moi">Mới</Link></li>
               <li><Link to="/order/hot">Đừng bỏ lỡ</Link></li>
               <li><Link to="/order/top">Cũ mà hay</Link></li>
               <li><Link to="/order/created">Mới nhất</Link></li>
