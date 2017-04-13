@@ -1,9 +1,8 @@
 // import request from '../../services/api.services';
-import { getPosts, addPost, getPost, deletePost, vote } from '../utils/PostsUtils';
 import { toggleAlert } from './WidgetActions';
 
 import { getPosts, addPost, getPost, deletePost, vote, view } from '../utils/PostsUtils';
-import { checkLoginAction } from '../_actions/AuthActions';
+import { checkLoginAction } from './AuthActions';
 // Post list
 export const FETCH_POSTS_CHUNK = 'FETCH_POSTS_CHUNK';
 export const FETCH_POSTS_CHUNK_SUCCESS = 'FETCH_POSTS_CHUNK_SUCCESS';
