@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
 
+
 import RecommendsList from '../../layouts/RecommendsList/RecommendsList';
 import ImagePrettyLoad from '../../layouts/ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../../layouts/VideoAutoPlay/VideoAutoPlay';
@@ -24,12 +25,10 @@ export class PostDetail extends Component {
     this.state = {
       post: null,
     };
-    // this.url = window.location.hostname + window.location.pathname;
     this.handleShareFb = this.handleShareFb.bind(this);
     this.fetchPost = this.fetchPost.bind(this);
     this.baseUrl = typeof (window) !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}` : `${process.env.PROTOCOL}//${process.env.DOMAIN}`;
-    this.next = this.next.bind(this);
-    // console.log(this.baseUrl);
+    // this.next = this.next.bind(this);
   }
   componentDidMount() {
     if (window.FB) {
@@ -39,27 +38,6 @@ export class PostDetail extends Component {
     window.scrollTo(0, 0);
     this.fetchPost();
   }
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(nextProps);
-  // if (this.props.posts.length > 0 && nextProps.posts) {
-  //   const posts = this.props.posts;
-  //   const postsLength = posts.length;
-  //   const postId = this.props.params.postId;
-  //   for (let i = 0; i < postsLength; i++) {
-  //     if (posts[i]._id === parseInt(postId, 10)) {
-  //       // console.log(i);
-  //       if (this.props.posts[i].votes === nextProps.posts[i].votes) {
-  //         return true;
-  //       }
-  //     }
-  //   }
-  // }
-  // if (nextState.post === this.state.post
-  //   && this.state.post !== null
-  //   && nextState.post.votes === this.state.post.votes) return false;
-  // && this.props.posts[postId].votes === nextProps.posts[postId].votes
-  //   return true;
-  // }
   componentDidUpdate(prevProps) {
     // console.log(prevProps);
     // console.log(this.props);
@@ -76,29 +54,9 @@ export class PostDetail extends Component {
         window.FB.XFBML.parse(this.commentRef);
       }
     }
-    // if (!this.props.post) {
-    //   this.props.dispatch(_fetchPost(this.props.params.postId));
-    // } else {
-    //   if (this.props.params.postId !== this.props.post._id) {
-    //     this.props.dispatch(_fetchPost(this.props.params.postId));
-    //   }
-    // }
   }
   fetchPost() {
-    // console.log(this.props.posts);
-    // if (this.props.posts.length !== 0) {
-    //   const posts = this.props.posts;
-    //   const postsLength = posts.length;
-    //   for (let i = 0; i < postsLength; i++) {
-    //     if (posts[i]._id === parseInt(this.props.params.postId, 10)) {
-    //       this.setState({ post: posts[i] });
-    //       break;
-    //     }
-    //   }
-    // } else {
-    // console.log(this.props.post.title);
     !this.props.post._id && this.props.dispatch(_fetchPost(this.props.params.postId));
-    // }
   }
   deletePostByOwner(id) {
     this.props.dispatch(deletePostRequest(id));
@@ -170,6 +128,7 @@ export class PostDetail extends Component {
     }
     // browserHistory.go(`/posts/${id + 1}`);
   }
+
   render() {
     console.log(this.props);
     const post = this.props.post;
@@ -221,7 +180,6 @@ export class PostDetail extends Component {
         }
         <div className={`container ${st.postDetailWrapper}  ${st.pr0}`}>
           <div className="col-sm-8" id={st.left}>
-
             {
               (post && post.title)
                 ? <div className={st['post-content-box']}>

@@ -37,25 +37,9 @@ class Header extends Component {
           </Link>
           <div className={st['wide-div']}>
             <ul className={`${st.menu} nav navbar-nav`}>
-              <li><a>Nóng hổi</a></li>
-              <li><a>Top</a></li>
-              <li><a>Mới</a></li>
-              <li className="dropdown"><a
-                className="dropdown-toggle"
-                data-toggle="dropdown"
-                role="button" aria-expanded="false"
-              >Thêm <span className="caret"></span></a>
-                <ul className="dropdown-menu" role="menu">
-                  <li><a href="gif.html">GIF</a></li>
-                  <li><a href="category-4-comic-1.html">Comic</a></li>
-                  <li><a href="category-7-cool-1.html">Cool</a></li>
-                  <li><a href="category-3-cute-1.html">Cute</a></li>
-                  <li><a href="category-5-food-1.html">Food</a></li>
-                  <li><a href="category-1-geeky-1.html">Geeky</a></li>
-                  <li><a href="category-2-meme-1.html">Meme</a></li>
-                  <li><a href="category-6-wtf-1.html">WTF</a></li>
-                </ul>
-              </li>
+              <li><Link to="/nong">Nóng hổi</Link></li>
+              <li><Link to="top">Top</Link></li>
+              <li><Link to="moi">Mới</Link></li>
             </ul>
              {
                curentUser._id && curentUser ?

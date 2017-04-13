@@ -6,6 +6,8 @@ export const TOGGLE_LOGIN = 'TOGGLE_LOGIN';
 export const TOGGLE_REGISTER = 'TOGGLE_REGISTER';
 
 export const CLOSE_ELEMENT = 'CLOSE_ELEMENT';
+
+export const TOGGLE_ALERT = 'TOGGLE_ALERT';
 // Export Actions
 export function toggleAddPost() {
   return {
@@ -22,6 +24,13 @@ export function toggleLogin() {
 export function toggleRegister() {
   return {
     type: TOGGLE_REGISTER,
+  };
+}
+
+export function toggleAlert(msg) {
+  return {
+    type: TOGGLE_ALERT,
+    alertMessage: msg
   };
 }
 
