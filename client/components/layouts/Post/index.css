@@ -1,3 +1,4 @@
+
 @media (max-width: 552px) {
 
   .remove-mobile {
@@ -8,9 +9,17 @@
 .post-left {
   width: 500px;
   overflow: hidden;
-  position: relative;
   float: left;
 }
+
+.post {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  width: 550px;
+  text-align: center;
+}
+
 @media (max-width: 990px) {
   .post-box {
     max-width: 550px;
@@ -18,7 +27,7 @@
   }
 
   .post-left {
-    max-width: 500px;
+
     width: 100%;
   }
 
@@ -31,10 +40,12 @@
     height: auto;
   }
 }
-.post{
-  border-radius: 2px; 
+
+.post {
+  border-radius: 2px;
   overflow: hidden;
 }
+
 .post-box {
   margin: 0 auto;
   max-width: 550px;
@@ -46,6 +57,7 @@
 .post-box p {
   margin: 15px 0;
 }
+
 .post-header {
   overflow: hidden;
   width: 100%;
@@ -56,6 +68,7 @@
   padding-bottom: 15px;
   cursor: pointer;
 }
+
 .post-footer {
   color: #999;
   margin: 10px 0;
@@ -63,20 +76,23 @@
   text-align: left;
   display: inline-block;
   width: 100%;
-  font-size: 25px;
+  font-size: 20px;
 }
+
 .post-title h1 {
-  font-weight: 700;
+  font-weight: bold;
   float: left;
 }
 
-.box-facebook>a>i{
+.box-facebook > a > i {
   color: #fff;
 }
-.box-facebook>a>span{
+
+.box-facebook > a > span {
   color: #fff;
 }
-.fb-button{
+
+.fb-button {
   background-color: #3b5998;
   display: block;
   font-weight: 700;
@@ -89,56 +105,61 @@
   cursor: pointer;
 }
 
-.fb-button:hover{
+.fb-button:hover {
   background-color: #4c70ba;
-   color: #fff;
+  color: #fff;
 }
+
 .fb-button i {
   margin-right: 10px;
   font-size: 20px;
   line-height: 34px;
 }
+
 .fb-button span {
   float: right;
 }
 
-
 /*DEVIDE*/
 
-.social-button{
-  height:50px;
+.social-button {
+  height: 50px;
 }
 
-.box-vote{
-  float:left;
+.box-vote {
+  float: left;
   margin-right: 20px;
   position: relative;
   transition: 0.06s ease-in-out;
   transition-property: bottom;
   bottom: 0px;
 }
-.box-vote:hover{
+
+.box-vote:hover {
   bottom: 4px;
 }
 
-.box-comment{
-  float:left;
+.box-comment {
+  float: left;
   line-height: 36px;
   display: block;
-   position: relative;
+  position: relative;
   transition: 0.06s ease-in-out;
   transition-property: bottom;
   bottom: 0px;
 }
-.box-comment:hover{
+
+.box-comment:hover {
   bottom: 4px;
 }
-.box-facebook{
-  float:right;
+
+.box-facebook {
+  float: right;
 }
-.twitter-heart-wrapper{
+
+.twitter-heart-wrapper {
   display: inline-block;
-  font-size: 15px;
+  font-size: 13px;
   margin-top: 4px;
   float: left;
   width: 56px;
@@ -146,9 +167,9 @@
   left: -10px;
   transform: scale(0.75);
 
-
 }
-.vote-number-wrapper{
+
+.vote-number-wrapper {
   float: right;
   margin-left: 32px;
   line-height: 36px;
@@ -156,17 +177,19 @@
   color: #888888;
 }
 
-.comment-icon-wrapper>i{
+.comment-icon-wrapper > i {
   float: left;
   line-height: 36px;
   cursor: pointer;
   display: block;
   color: #888888;
 }
-.comment-icon-wrapper:hover{
-   color: #597836;
+
+.comment-icon-wrapper:hover {
+  color: #597836;
 }
-.comment-number-wrapper{
+
+.comment-number-wrapper {
   float: right;
   margin-left: 5px;
   font-size: 15px;
@@ -174,7 +197,7 @@
   color: #888888;
 }
 
-.read-more{
+.read-more {
   position: absolute;
   background: #fff;
   bottom: 46px;
@@ -187,6 +210,6 @@
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
-  box-shadow: 0 1px 0 rgba(0,0,0,.05);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .05);
 }
 

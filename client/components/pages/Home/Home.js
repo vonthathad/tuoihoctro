@@ -16,14 +16,22 @@ import st from './index.css';
 //   { _fetchPostsChunk, _fetchRecommendsChunk }
 // )
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      order: '',
+    };
+  }
   componentWillMount() {
 
   }
+
   componentDidMount() {
     if (window.FB) {
       window.FB.XFBML.parse();
     }
     window.scrollTo(0, 0);
+    console.log(this.props.params.order);
     // if (process.env.NODE_ENV === 'development') {
     //   this.props.fetchPostChunk();
     //   // this.props.fetchRecommendsChunk();
@@ -32,6 +40,25 @@ class Home extends Component {
     //   console.log(prevRouterProps);
     //   return prevRouterProps && location.pathname !== prevRouterProps.location.pathname;
     // });
+  }
+  componentDidUpdate(prevProps) {
+    console.log(prevProps.params);
+    console.log(this.props.params);
+    if (this.props.params) {
+      const oldId = prevProps.params.order;
+      const newId = this.props.params.order;
+      if (newId !== oldId) {
+        window.scrollTo(0, 0);
+        this.setState({
+          order: this.props.params.order ? this.props.params.order : '',
+        });
+        // const { dispatch, postsList, params } = this.props;
+        // dispatch(_fetchPostsChunk(postsList.page, params ? params.order : ''));
+
+        // this.props.dispatch(_fetchPost(this.props.params.postId));
+        // this.fetchPost();
+      }
+    }
   }
   render() {
     return (
@@ -52,7 +79,7 @@ class Home extends Component {
           ]}
         />
         <div className={'col-sm-8'}>
-          <PostsListContainer />
+          <PostsListContainer order={this.state.order} />
         </div>
         <div className={' col-sm-4'}>
           <RecommendsList numComments={30} type={'vertical'} />
@@ -64,7 +91,9 @@ class Home extends Component {
 
 // Actions required to provide data for this component to render in sever side.
 Home.need = [
-  () => { return _fetchPostsChunk(1); },
+  params => {
+    return _fetchPostsChunk(1, params.order ? params.order : '');
+  },
   // () => { return _fetchRecommendsChunk(200); },
 ];
 
@@ -74,6 +103,7 @@ Home.contextTypes = {
 Home.propTypes = {
   fetchPostChunk: PropTypes.func,
   fetchRecommendsChunk: PropTypes.func,
+  params: PropTypes.object,
 };
 const mapDispatchToProps = (dispatch) => {
   return {

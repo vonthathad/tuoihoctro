@@ -5,10 +5,10 @@ import fetch from 'isomorphic-fetch';
 //   process.env.baseUrl || (`http://localhost:${process.env.PORT || Config.port}`) :
 //   'http://localhost:4000';
 export const BASE_URL = (process.env.NODE_ENV === 'development' || typeof(window) !== 'undefined' && window.location.href.indexOf('localhost') !== -1) ?
-  'http://localhost:4000' : 'http://tuoihoctro.co';
+  'http://localhost:4000' : 'http://localhost:4000';
 
 function request(options) {
-  console.log(1235);
+  // console.log(1235);
   // set partial url to full url
   // options.url = `${baseUrl}${options.url}`;
   options.url = `${BASE_URL}/${options.url}`;
@@ -26,6 +26,7 @@ function request(options) {
     // connect array componet with '&' then connect with full url
     options.url = `${options.url}?${queryArgsArray.join('&')}`;
   }
+  console.log(options.url);
   // send request and return observable
   // return this.http.request(req);
   return fetch(options.url, { ...options })

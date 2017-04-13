@@ -5,8 +5,7 @@
   position: relative;
   overflow: hidden;
   /*width: 500px;*/
-  margin:  0 auto;
-  border-radius: 2px;
+  margin: 0 auto;
 }
 
 .placeholder img {
@@ -14,7 +13,7 @@
   opacity: 0;
   top: 0;
   left: 0;
-  width: 100%;
+
   transition: opacity 0.5s ease-in-out;
 }
 
@@ -27,6 +26,17 @@
   /* this is needed so Safari keeps sharp edges */
   transform: scale(1);
 }
-.horizontal{
-    
+
+.horizontal {
+
+}
+
+.img-responsive {
+  width: 100%;
+}
+
+@media (max-width: 990px) {
+  .img-responsive {
+    width: 100%;
+  }
 }

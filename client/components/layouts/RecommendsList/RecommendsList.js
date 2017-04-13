@@ -47,14 +47,14 @@ class RecommendsList extends Component {
     const type = this.props.type;
     return (
       <div className={st['recommends-list-wrapper']}>
-        <div className={st['right-bar-title']}>
+        {/* <div className={st['right-bar-title']}>
           <h1>Bài liên quan</h1>
-        </div>
-        <div className={st.recommentContainer}>
+        </div>*/}
+        <div className={`${st.recommentContainer} conntainer col-xs-12`}>
         {
           posts.length > 0 &&
           posts.map(post => (
-            <div className={`${st['recommend-item']} ${type === 'horizontal' ? st.horizontal : ''}`} key={post._id}>
+            <div className={`${st['recommend-item']} ${type === 'horizontal' ? `${st.horizontal} col-xs-6` : ''}`} key={post._id}>
               <Recommend post={post} type={type} dispatch={dispatch}>
                 <ImagePrettyLoad
                   image={post.smallThumb}

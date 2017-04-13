@@ -1,58 +1,121 @@
+@charset "utf-8";
+/* CSS Document */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
-.userinfo{
-  padding: 10px 10px 10px 10px!important;
+a:link, a:visited, a:active {
+  text-decoration: none;
+
 }
-.userinfo img{
+
+a:hover {
+  text-decoration: none;
+  /*color: #0087f7;*/
+  color: rgba(136, 176, 75, 1);
+}
+
+a img {
+  border: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+  font-size: 22px;
+}
+
+h2 {
+  font-size: 19px;
+}
+
+h3 {
+  font-size: 15px;
+}
+
+h4 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+p {
+  line-height: 23px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.userinfo {
+  padding: 10px 10px 10px 10px !important;
+}
+
+.userinfo img {
   margin-left: 10px;
 }
-.mobile-menu-icon-wrapper{
+
+.mobile-menu-icon-wrapper {
   float: right;
   margin-top: 10px;
   margin-right: 15px;
 }
-.mobile-logo-wrapper{
+
+.mobile-logo-wrapper {
   margin: auto;
-  width: 100px;
+
 }
 
 .logo {
+
   height: 100%;
 }
-.logo-wrapper{
+
+.logo-wrapper {
+  cursor: pointer;
   padding: 0;
 }
-.body_ribbon{
+
+.body_ribbon {
   width: 100%;
   height: 5px;
   position: relative;
   z-index: 3;
 }
-.esi_ribbon{
-  background: url('../../../assets/images/ribbon.svg') top left/500px 100% repeat-x;
+
+.esi_ribbon {
+  /*background: url('../../../assets/images/ribbon.svg') top left/500px 100% repeat-x;*/
 }
 
-.header-wrapper{
-  background: #203806;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+.header-wrapper {
+  /*background: #203806;*/
+  background: #000;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-.nav-wide{
+.nav-wide {
   display: none;
   margin: 0 auto;
 }
 
-.nav-wide .wide-div{
+.nav-wide .wide-div {
   text-align: center;
 }
-.nav-narrow i{
+
+.nav-narrow i {
   float: left;
   cursor: pointer;
   color: #597836;
 }
-.narrow-links{
+
+.narrow-links {
   display: none;
 }
-.narrow-links a{
+
+.narrow-links a {
+  cursor: pointer;
   text-decoration: none;
   display: block;
   float: left;
@@ -61,28 +124,42 @@
   margin: auto;
 }
 
-@media (min-width: 800px){
-  .nav-wide{
+@media (min-width: 800px) {
+  .nav-wide {
     display: block;
   }
-  .nav-narrow{
+
+  .nav-narrow {
     display: none;
   }
 }
-.menu{
+
+.menu {
+  cursor: pointer;
   margin-left: 10px;
 }
-.menu>li>a:hover{
+
+.menu > li > a:hover {
   color: #fff;
-  background-color: #6d8058;
+  background-color: hsla(0,0%,100%,.2);
 }
-.menu>li>a{
-  border-right: 1px solid #6d8058;
+
+.menu > li > a {
+  text-align: center;
+  border-right: 1px solid #333;
+  color: #fff;
+  font-weight: 700;
 }
-.menu>li:first-child>a{
+
+/*.menu>li:first-child>a{
   border-left: 1px solid #6d8058;
+}*/
+.rightMenu {
+  cursor: pointer;
 }
-.rightMenu>li>a:hover{
+
+/*.rightMenu > li > a:hover {
   color: #fff;
-  background-color: #6d8058;
-}
+  background-color: hsla(0,0%,100%,.2);
+}*/
+

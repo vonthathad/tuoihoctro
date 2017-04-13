@@ -1,22 +1,28 @@
 
+
 .right-bar-title {
   padding: 5px 0;
 }
-.right-bar-title a h2{
+
+.right-bar-title a h2 {
   color: black;
 }
-.recommends-list-wrapper{
+
+.recommends-list-wrapper {
   text-align: left;
 }
-.horizontal{
-  float:left;
-  width: 230px;
-  height: 200px;
-  margin: auto 5px;
+
+.horizontal {
+  /*float:left;*/
+  width: 200px;
+  height: 130px;
+  /*margin: auto 5px;*/
 }
-.recommentContainer{
+
+.recommentContainer {
   margin: 0 auto;
 }
-.recommend-item{
-  
+
+.recommend-item {
+  margin-top: 13px;
 }

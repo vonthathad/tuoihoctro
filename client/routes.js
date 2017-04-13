@@ -32,6 +32,14 @@ export default (
       }}
     />
     <Route
+      path="/order/:order"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./components/pages/Home/Home.js').default);
+        });
+      }}
+    />
+    <Route
       path="/posts/:postId"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {

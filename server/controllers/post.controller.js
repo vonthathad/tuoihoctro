@@ -3,7 +3,7 @@
  */
 import Post from '../models/post.model';
 // const User = require('mongoose').model('User');
-const npp = 6;
+const npp = 13;
 const formidable = require('formidable');
 // const dir = 'sources/img';
 import graphicMagick from 'gm';
@@ -41,7 +41,29 @@ const getErrorMessage = (err) => {
   return messages;
 };
 const configAggregation = (sortType, aggregation) => {
-  if (sortType === 'hot') {
+  if (sortType === 'created') {
+    aggregation.sort = {
+      created: -1,
+    };
+  } else if (sortType === 'top') {
+    aggregation.project.top = {
+      // $add: [
+      // {
+      $abs: '$viewLength',
+      // },
+      //   {
+      //     $multiply: [
+      //       {
+      //         $size: '$shares',
+      //       }, 2,
+      //     ],
+      //   },
+      // ],
+    };
+    aggregation.sort = {
+      viewsLength: -1,
+    };
+  } else {
     aggregation.project.hot = {
       $add: [
         {
@@ -49,11 +71,11 @@ const configAggregation = (sortType, aggregation) => {
             {
               $cond: [
                 {
-                  $gt: ['$point', 0],
+                  $gt: ['$votesLength', 0],
                 }, {
                   $cond: [
                     {
-                      $lt: ['$point', 0],
+                      $lt: ['$votesLength', 0],
                     }, 0, 1,
                   ],
                 }, -1,
@@ -63,7 +85,7 @@ const configAggregation = (sortType, aggregation) => {
                 {
                   $max: [
                     {
-                      $abs: '$point',
+                      $abs: '$votesLength',
                     }, 1,
                   ],
                 }, 10,
@@ -86,27 +108,6 @@ const configAggregation = (sortType, aggregation) => {
     aggregation.sort = {
       hot: -1,
     };
-  } else if (sortType === 'top') {
-    aggregation.project.top = {
-      $add: [
-        {
-          $size: '$views',
-        }, {
-          $multiply: [
-            {
-              $size: '$shares',
-            }, 2,
-          ],
-        },
-      ],
-    };
-    aggregation.sort = {
-      top: -1,
-    };
-  } else {
-    aggregation.sort = {
-      created: -1,
-    };
   }
 };
 exports.hasAuthorization = (req, res, next) => {
@@ -119,6 +120,136 @@ exports.hasAuthorization = (req, res, next) => {
   return null;
 };
 exports.listPosts = (req, res) => {
+  if (req.query.order === 'top') {
+    const paging = parseInt(req.query.paging, 10) || npp;
+  // console.log('paging', paging);
+    const page = parseInt(req.query.page, 10) || 1;
+    const skip = page > 0 ? ((page - 1) * paging) : 0;
+    const conds = [];
+    if (!req.query.user || parseInt(req.query.user, 10) !== req.user._id) {
+      if (req.query.review) {
+        conds.push({ review: true });
+      } else {
+        conds.push({ publish: true });
+      }
+    }
+    req.query.category && conds.push({ categories: req.query.category });
+    if (req.query.recommendations && req.user._id) {
+      if (req.user.recommendations) {
+        const cateList = [];
+        req.user.recommendations.forEach((recommendation) => {
+          cateList.push({ categories: recommendation });
+        });
+        if (cateList.length) {
+          conds.push({ $or: cateList });
+        }
+      }
+    }
+    req.query.user && conds.push({ creator: parseInt(req.query.user, 10) });
+    req.query.text && conds.push({
+      $or: [
+        {
+          title: {
+            $regex: req.query.text, $options: 'i',
+          },
+        }, {
+          description: {
+            $regex: req.query.text, $options: 'i',
+          },
+        },
+      ],
+    });
+    conds.push({ processed: true });
+    let match = null;
+    if (!conds.length) {
+      match = {};
+    } else if (conds.length === 1) {
+      match = conds.pop();
+    } else {
+      match = {
+        $and: conds,
+      };
+    }
+    // https://medium.com/hacking-and-gonzo/how-reddit-ranking-algorithms-work-ef111
+    // e33d0d9#.hkka5wx3i
+    const aggregation = {};
+    aggregation.project = {
+      title: 1, type: 1, categories: 1,
+    };
+    const propertiesMediaContent = {
+      mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, votesLength: 1,
+    };
+    const propertiesThumb = {
+      thumb: 1, thumbLQ: 1, thumbHeight: 1, thumbWidth: 1,
+    };
+    // const propertiesSmallThumb = {
+    //   smallThumb: 1, smallThumbLQ: 1, smallThumbHeight: 1, smallThumbWidth: 1,
+    // };
+    const propertiesDetailInfo = {
+      created: 1,
+      description: 1,
+      shares: 1,
+      follows: 1,
+      votesLength: 1,
+      viewsLength: 1,
+      // numComment: 1,
+      creator: 1,
+    };
+    // if (req.query.type === 'mediaContent') {
+    aggregation.project = {
+      ...aggregation.project, ...propertiesMediaContent, ...propertiesDetailInfo, ...aggregation.project, ...propertiesThumb,
+    };
+    // } else if (req.query.type === 'thumb') {
+    //   aggregation.project = {
+    //     ...aggregation.project, ...propertiesThumb, ...propertiesDetailInfo, ...propertiesMediaContent, ...propertiesDetailInfo,
+    //   };
+    // } else if (req.query.type === 'smallThumb') {
+    //   aggregation.project = {
+    //     ...aggregation.project, ...propertiesSmallThumb, ...propertiesMediaContent, ...propertiesDetailInfo,
+    //   };
+    // }
+    // console.log((new Date).getTime());
+    configAggregation(req.query.order, aggregation);
+    Post.aggregate([
+      {
+        $match: match,
+        // }, {
+        //   $lookup: {
+        //     from: 'users', localField: 'creator', foreignField: '_id', as: 'creator',
+        //   },
+      }, {
+        $project: aggregation.project,
+      }, // Sorting pipeline
+      {
+        $sort: aggregation.sort,
+      },
+      {
+        $skip: skip,
+      }, // Optionally limit results
+      {
+        $limit: (paging),
+      },
+    ], (err, results) => {
+      // console.log(results);
+      if (err) {
+        // console.log(err);
+        return res
+          .status(400)
+          .send();
+      }
+      if (results.length === 0) {
+        return res
+          .status(404)
+          .send();
+      }
+      // return res.json(results);
+      return res.json({
+        postsChunk: results,
+        hasNext: results.length === 13,
+      });
+    });
+    return null;
+  }
   // const paging = parseInt(req.query.paging, 10) || npp;
   // console.log('paging', paging);
   const page = parseInt(req.query.page, 10) || 1;
@@ -175,7 +306,7 @@ exports.listPosts = (req, res) => {
     title: 1, type: 1, categories: 1,
   };
   const propertiesMediaContent = {
-    mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
+    mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, votesLength: 1,
   };
   const propertiesThumb = {
     thumb: 1, thumbLQ: 1, thumbHeight: 1, thumbWidth: 1,
@@ -184,7 +315,14 @@ exports.listPosts = (req, res) => {
   //   smallThumb: 1, smallThumbLQ: 1, smallThumbHeight: 1, smallThumbWidth: 1,
   // };
   const propertiesDetailInfo = {
-    created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
+    created: 1,
+    description: 1,
+    shares: 1,
+    follows: 1,
+    votesLength: 1,
+    viewsLength: 1,
+    // numComment: 1,
+    creator: 1,
   };
   // if (req.query.type === 'mediaContent') {
   aggregation.project = {
@@ -342,8 +480,11 @@ exports.listPosts = (req, res) => {
     }
     return null;
   });
+
   return null;
 };
+
+
 exports.listRecommendPosts = (req, res) => {
   const paging = parseInt(req.query.paging, 10) || npp;
   // console.log('paging', paging);
@@ -401,7 +542,7 @@ exports.listRecommendPosts = (req, res) => {
     title: 1, type: 1, categories: 1,
   };
   const propertiesMediaContent = {
-    mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, point: 1,
+    mediaContent: 1, mediaContentLQ: 1, mediaContentHeight: 1, mediaContentWidth: 1, votes: 1, votesLength: 1,
   };
   // const propertiesThumb = {
   //   thumb: 1, thumbLQ: 1, thumbHeight: 1, thumbWidth: 1,
@@ -410,7 +551,14 @@ exports.listRecommendPosts = (req, res) => {
     smallThumb: 1, smallThumbLQ: 1, smallThumbHeight: 1, smallThumbWidth: 1,
   };
   const propertiesDetailInfo = {
-    created: 1, description: 1, shares: 1, follows: 1, point: 1, view: 1, numComment: 1, creator: 1,
+    created: 1,
+    description: 1,
+    shares: 1,
+    follows: 1,
+    votesLength: 1,
+    viewsLength: 1,
+    // numComment: 1,
+    creator: 1,
   };
   // if (req.query.type === 'mediaContent') {
   //   aggregation.project = {
@@ -502,7 +650,7 @@ const createCompressedImage = (input) => {
       input.size.width && (input.size.width = Math.round(input.size.width / 10));
       input.size.height && (input.size.height = Math.round(input.size.height / 10));
     }
-    const cmd = `convert ${input.fileInput} -filter Triangle -define filter:support=2 -thumbnail ${input.size.width} -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB -strip ${input.fileOutput}`;
+    const cmd = `convert ${input.fileInput} -level 0%,100%,0.85  -filter Triangle -define filter:support=2 -thumbnail ${input.size.width} -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB -strip ${input.fileOutput}`;
     exec(cmd, (err) => {
       if (err) {
         reject(err);
@@ -519,7 +667,7 @@ const createCroppedCompressedImage = (input) => {
       input.size.height && (input.size.height = Math.round(input.size.height / 10));
     }
     const height = Math.round(input.size.height * input.originalWidth / input.size.width);
-    const cmd = `convert ${input.fileInput} -gravity center -crop ${input.originalWidth}x${height}+0+0 +repage -filter Triangle -define filter:support=2 -thumbnail ${input.size.width} -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB -strip ${input.fileOutput}`;
+    const cmd = `convert ${input.fileInput} -level 0%,100%,0.85  -gravity center -crop ${input.originalWidth}x${height}+0+0 +repage -filter Triangle -define filter:support=2 -thumbnail ${input.size.width} -unsharp 0.25x0.25+8+0.065 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB -strip ${input.fileOutput}`;
     exec(cmd, (err) => {
       if (err) {
         reject(err);
@@ -998,18 +1146,21 @@ exports.share = (req, res) => {
     return err ? res.status(400).send() : res.status(200).send();
   });
 };
-exports.view = (req, res) => {
-  // Post.findByIdAndUpdate(req.post._id, { $addToSet: { "views":
-  // req.user._id } }).exec(function (err, success) {     if (err) return
-  // res.status(400).send();     return res.status(200).send(); });
-  Post.findByIdAndUpdate(req.post._id, {
-    $inc: {
-      view: 1,
-    },
-  }).exec((err, success) => {
-    return err ? res.status(400).send() : res.json({ view: success.view });
-  });
-};
+
+// exports.view = (req, res) => {
+//   // Post.findByIdAndUpdate(req.post._id, { $addToSet: { "views":
+//   // req.user._id } }).exec(function (err, success) {     if (err) return
+//   // res.status(400).send();     return res.status(200).send(); });
+//   Post.findByIdAndUpdate(req.post._id, {
+//     $inc: {
+//       view: 1,
+//     },
+//   }).exec((err, success) => {
+//     return err ? res.status(400).send() : res.json({ view: success.view });
+//   });
+// };
+
+
 exports.report = (req, res) => {
   let hasReported = false;
   req.post.reports.forEach((reporter) => {
@@ -1046,20 +1197,46 @@ exports.vote = (req, res) => {
   });
   if (!isVoted) {
     Post.findByIdAndUpdate(req.post._id, {
-      $addToSet: { votes: req.user._id }, $inc: { point: 1 },
+      $addToSet: { votes: req.user._id }, $inc: { votesLength: 1 },
     }, { new: true }).exec((err, post) => {
       if (err) return res.status(400).send();
-      return res.status(200).send({ data: { voted: true, votes: post.votes, point: post.point } });
+      return res.status(200).send({ data: { voted: true, votes: post.votes, votesLength: post.votesLength } });
     });
   } else {
     Post.findByIdAndUpdate(req.post._id, {
-      $pull: { votes: req.user._id }, $inc: { point: -1 },
+      $pull: { votes: req.user._id }, $inc: { votesLength: -1 },
     }, { new: true }).exec((err, post) => {
       if (err) return res.status(400).send();
-      return res.status(200).send({ data: { voted: false, votes: post.votes, point: post.point } });
+      return res.status(200).send({ data: { voted: false, votes: post.votes, votesLength: post.votesLength } });
     });
   }
 };
+
+
+exports.view = (req, res) => {
+  let isViewed = false;
+  req.post.views.forEach((view) => {
+    if (view === req.user._id) isViewed = true;
+    return;
+  });
+  if (!isViewed) {
+    Post.findByIdAndUpdate(req.post._id, {
+      $addToSet: { views: req.user._id }, $inc: { viewsLength: 1 },
+    }, { new: true }).exec((err, post) => {
+      if (err) return res.status(400).send();
+      return res.status(200).send({ data: { viewed: true, views: post.views, viewsLength: post.viewsLength } });
+    });
+  } else {
+    // Post.findByIdAndUpdate(req.post._id, {
+    //   $pull: { votes: req.user._id }, $inc: { votesLength: -1 },
+    // }, { new: true }).exec((err, post) => {
+    //   if (err) return res.status(400).send();
+    return res.status(200).send({ data: { updated: false } });
+    // });
+  }
+  return null;
+};
+
 exports.voteUp = (req, res) => {
   let isVotedUp = false;
   req
@@ -1083,7 +1260,7 @@ exports.voteUp = (req, res) => {
         $pull: {
           voteDowns: req.user._id,
         }, $inc: {
-          point: 1,
+          votesLength: 1,
         },
       })
         .exec((err) => {
@@ -1094,7 +1271,7 @@ exports.voteUp = (req, res) => {
             $addToSet: {
               voteUps: req.user._id,
             }, $inc: {
-              point: 1,
+              votesLength: 1,
             },
           })
             .exec((err1) => {
@@ -1111,7 +1288,7 @@ exports.voteUp = (req, res) => {
         $addToSet: {
           voteUps: req.user._id,
         }, $inc: {
-          point: 1,
+          votesLength: 1,
         },
       })
         .exec((err) => {
@@ -1153,7 +1330,7 @@ exports.voteDown = (req, res) => {
         $pull: {
           voteUps: req.user._id,
         }, $inc: {
-          point: -1,
+          votesLength: -1,
         },
       })
         .exec((err) => {
@@ -1164,7 +1341,7 @@ exports.voteDown = (req, res) => {
             $addToSet: {
               voteDowns: req.user._id,
             }, $inc: {
-              point: -1,
+              votesLength: -1,
             },
           }).exec((err1) => {
             return err1 ? res.status(400).send() : res.status(200).send({
@@ -1180,7 +1357,7 @@ exports.voteDown = (req, res) => {
         $addToSet: {
           voteDowns: req.user._id,
         }, $inc: {
-          point: -1,
+          votesLength: -1,
         },
       }).exec((err) => {
         return err ? res.status(400).send() : res.status(200).send({
@@ -1219,7 +1396,7 @@ exports.unVote = (req, res) => {
       $pull: {
         voteDowns: req.user._id,
       }, $inc: {
-        point: 1,
+        votesLength: 1,
       },
     }).exec((err) => {
       if (err) {
@@ -1230,7 +1407,7 @@ exports.unVote = (req, res) => {
           $pull: {
             voteUps: req.user._id,
           }, $inc: {
-            point: -1,
+            votesLength: -1,
           },
         }).exec((err1) => {
           return err1 ? res.status(400).send() : res.status(200).send({
@@ -1248,7 +1425,7 @@ exports.unVote = (req, res) => {
         $pull: {
           voteUps: req.user._id,
         }, $inc: {
-          point: -1,
+          votesLength: -1,
         },
       })
         .exec((err) => {

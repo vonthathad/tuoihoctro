@@ -7,9 +7,11 @@ class Recommend extends Component {
     super(props);
     this.handleGoDetailPost = this.handleGoDetailPost.bind(this);
   }
+
   handleGoDetailPost() {
     this.props.dispatch(_fetchPostClient(this.props.post));
   }
+
   render() {
     return (
       <Link to={`/posts/${this.props.post._id}`} onClick={this.handleGoDetailPost}>

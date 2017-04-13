@@ -40,25 +40,28 @@ class Header extends Component {
               <li><Link to="/nong">Nóng hổi</Link></li>
               <li><Link to="top">Top</Link></li>
               <li><Link to="moi">Mới</Link></li>
+              <li><Link to="/order/hot">Đừng bỏ lỡ</Link></li>
+              <li><Link to="/order/top">Cũ mà hay</Link></li>
+              <li><Link to="/order/created">Mới nhất</Link></li>
             </ul>
-             {
-               curentUser._id && curentUser ?
-                 <ul className={`${st.rightMenu} nav navbar-nav navbar-right`}>
-                   <li className="btn-upload">
-                     <a className={st.userinfo}>
+            {
+              curentUser._id && curentUser ?
+                <ul className={`${st.rightMenu} nav navbar-nav navbar-right`}>
+                  <li className="btn-upload">
+                    <a className={st.userinfo}>
                       {curentUser.username}
-                       <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30} />
-                     </a>
-                   </li>
-                   <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>
-                   <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
-                 </ul>
-                 :
-                 <ul className={'nav navbar-nav navbar-right'}>
-                   <li><a onClick={this.props.toggleLogin}>Đăng nhập</a></li>
-                   <li><a onClick={this.props.toggleRegister}>Đăng ký</a></li>
-                 </ul>
-             }
+                      <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30} />
+                    </a>
+                  </li>
+                  <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>
+                  <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
+                </ul>
+                :
+                <ul className={'nav navbar-nav navbar-right'}>
+                  <li><a onClick={this.props.toggleLogin}>Đăng nhập</a></li>
+                  <li><a onClick={this.props.toggleRegister}>Đăng ký</a></li>
+                </ul>
+            }
           </div>
         </div>
         <div className={`${st['nav-narrow']} container`}>

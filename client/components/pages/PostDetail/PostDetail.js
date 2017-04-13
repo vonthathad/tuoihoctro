@@ -14,11 +14,20 @@ import Helmet from 'react-helmet';
 import st from './PostDetail.css';
 
 // Import Actions
-import { _fetchPost, votePost, deletePostRequest, tempVoteDetailSuccess, _fetchPostClient } from '../../../_actions/PostsActions';
+import {
+  _fetchPost,
+  votePost,
+  deletePostRequest,
+  tempVoteDetailSuccess,
+  _fetchPostClient,
+} from '../../../_actions/PostsActions';
 
 // import { getPost, getPosts } from '../../../_reducers/PostsReducer';
 
 export class PostDetail extends Component {
+  static need = [params => {
+    return _fetchPost(params.postId);
+  }];
   constructor(props) {
     super(props);
     this.handleVoteClick = this.handleVoteClick.bind(this);
@@ -29,6 +38,9 @@ export class PostDetail extends Component {
     this.fetchPost = this.fetchPost.bind(this);
     this.baseUrl = typeof (window) !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}` : `${process.env.PROTOCOL}//${process.env.DOMAIN}`;
     // this.next = this.next.bind(this);
+    this.next = this.next.bind(this);
+    this.timeSince = this.timeSince.bind(this);
+    // console.log(this.baseUrl);
   }
   componentDidMount() {
     if (window.FB) {
@@ -38,6 +50,28 @@ export class PostDetail extends Component {
     window.scrollTo(0, 0);
     this.fetchPost();
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(nextProps);
+  // if (this.props.posts.length > 0 && nextProps.posts) {
+  //   const posts = this.props.posts;
+  //   const postsLength = posts.length;
+  //   const postId = this.props.params.postId;
+  //   for (let i = 0; i < postsLength; i++) {
+  //     if (posts[i]._id === parseInt(postId, 10)) {
+  //       // console.log(i);
+  //       if (this.props.posts[i].votes === nextProps.posts[i].votes) {
+  //         return true;
+  //       }
+  //     }
+  //   }
+  // }
+  // if (nextState.post === this.state.post
+  //   && this.state.post !== null
+  //   && nextState.post.votes === this.state.post.votes) return false;
+  // && this.props.posts[postId].votes === nextProps.posts[postId].votes
+  //   return true;
+  // }
   componentDidUpdate(prevProps) {
     // console.log(prevProps);
     // console.log(this.props);
@@ -55,12 +89,15 @@ export class PostDetail extends Component {
       }
     }
   }
+
   fetchPost() {
     !this.props.post._id && this.props.dispatch(_fetchPost(this.props.params.postId));
   }
+
   deletePostByOwner(id) {
     this.props.dispatch(deletePostRequest(id));
   }
+
   handleShareFb() {
     let w = '626';
     let h = '436';
@@ -79,12 +116,13 @@ export class PostDetail extends Component {
 
     const left = ((width / 2) - (w / 2)) + dualScreenLeft;
     const top = ((height / 2) - (h / 2)) + dualScreenTop;
-    const newWindow = window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'facebook-share-dialog', `scrollbars=yes, width=${w}, height=${h}, top=${top}, left=${left}`);
+    const newWindow = window.open(`https://www.facebook.com/sharer/sharer.php?u=${this.baseUrl}/posts/${this.props.post._id}`, 'facebook-share-dialog', `scrollbars=yes, width=${w}, height=${h}, top=${top}, left=${left}`);
 
     if (window.focus) {
       newWindow.focus();
     }
   }
+
   handleVoteClick() {
     // console.log(this.props.auth._id);
     const post = this.props.post;
@@ -99,14 +137,17 @@ export class PostDetail extends Component {
       postVotes: post.votes,
     }));
   }
+
   readBack(id) {
     this.props.dispatch(_fetchPost(id - 1));
   }
+
   next() {
     // console.log(this.props.post.id);
     const id = this.props.post._id;
     const posts = this.props.posts;
     const length = posts.length;
+    let nextId = 0;
     // console.log(this.props.posts);
     let inRecommends = false;
     for (let i = 0; i < length; i++) {
@@ -115,6 +156,7 @@ export class PostDetail extends Component {
         if (i === length - 1) i = 0;
         else i++;
         this.props.dispatch(_fetchPostClient(posts[i]));
+        nextId = posts[i]._id;
         inRecommends = true;
         break;
       }
@@ -126,11 +168,38 @@ export class PostDetail extends Component {
       // console.log(posts[0]._id);
       this.props.dispatch(_fetchPostClient(posts[0]));
     }
+    history.pushState(null, null, `/posts/${nextId}`);
     // browserHistory.go(`/posts/${id + 1}`);
   }
 
+  timeSince(date) {
+    const seconds = Math.floor((new Date() - date) / 1000);
+
+    let interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+      return `${interval} năm`;
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return `${interval} tháng`;
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return `${interval} ngày`;
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return `${interval} giờ`;
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return `${interval} phút`;
+    }
+    return `${Math.floor(seconds)} năm`;
+  }
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const post = this.props.post;
     let voted = false;
     if (post) {
@@ -142,7 +211,7 @@ export class PostDetail extends Component {
         });
     }
     return (
-      <div id={st.wrap}>
+      <div className="container">
         {post && post.title &&
           <Helmet
             title={post.title}
@@ -159,14 +228,14 @@ export class PostDetail extends Component {
                 name: 'title',
                 content: `${post.title}`,
               },
-              {
-                name: 'description',
-                content: `${post.title}`,
-              },
-              {
-                name: 'og:description',
-                content: `${post.title}`,
-              },
+              /* {
+               name: 'description',
+               content: `${post.title}`,
+               },
+               {
+               name: 'og:description',
+               content: `${post.title}`,
+               },*/
               {
                 name: 'og:image',
                 content: `${post.mediaContent}`,
@@ -178,102 +247,111 @@ export class PostDetail extends Component {
             ]}
           />
         }
-        <div className={`container ${st.postDetailWrapper}  ${st.pr0}`}>
-          <div className="col-sm-8" id={st.left}>
-            {
-              (post && post.title)
-                ? <div className={st['post-content-box']}>
-                  <header className={st['post-header']}>
-                    <div className={st['post-title']}><h1>{post.title}</h1></div>
-                  </header>
-                  <p className={st.smallText} ref={commentsCountRef => { this.commentsCountRef = commentsCountRef; }}>
-                    {post.point} điểm . <span className="fb-comments-count" data-href={`${this.baseUrl}/posts/${post._id}`}></span> bình luận
-                  </p>
-                  <div className={st['post-action']}>
-                    <div className={st['social-box-top']}>
-                      <div className={voted ? st.votedButton : st.unvotedButton} onClick={this.handleVoteClick} >
-                        <span>Thích</span>
-                      </div>
-                      <div className={st.shareButton} onClick={this.handleShareFb}>
-                        Chia sẻ
-                        {/* <div className={st.shareButton2} >*/}
-                        {/* <div className="fb-share-button" data-href={this.url} data-layout="button_count" data-size="large" data-mobile-iframe="true">
-                            <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${this.url}`}>Share</a>
-                          </div>*/}
-                      </div>
-                      <div className={st.nextButton} onClick={this.next}>
-                        <span className={st.text}>Xem tiếp</span>
-                        <span className={st.arrow}></span>
-                      </div>
+
+        <div className={`col-sm-8 ${st['col-sm-8']}`}>
+          {
+            (post && post.title)
+              ? <div className={st['post-content-box']}>
+                <header className={st['post-header']}>
+                  <div className={st['post-title']}>
+                    <h1>{post.title}</h1>
+                  </div>
+                  <div className={st['post-footer']}>
+                    <span className={st['display-vote']}>{post.votesLength} điểm</span> - {post.viewsLength} lượt xem
+                  </div>
+                  {/* <p className={st.smallText} ref={commentsCountRef => {
+                   this.commentsCountRef = commentsCountRef;
+                   }}>
+                   {post.point} điểm - <span className="fb-comments-count"
+                   data-href={`${this.baseUrl}/posts/${post._id}`}></span> bình luận
+                   </p>*/}
+                </header>
+
+                <div className={st['post-action']}>
+                  <div className={st['social-box-top']}>
+                    <div className={voted ? st.votedButton : st.unvotedButton} onClick={this.handleVoteClick}>
+                      <span>Thích</span>
+                    </div>
+                    <div className={st.shareButton} onClick={this.handleShareFb}>
+                      Facebook
+                    </div>
+                    <div className={st.nextButton} onClick={this.next}>
+                      <span className={st.text}>Xem tiếp</span>
+                      <span className={st.arrow}></span>
                     </div>
                   </div>
-                  <div className={st['post-page-left']}>
-                    <div
-                      id={st['page-post']}
-                      className={st['post-content']}
-                    >
-                      {post.type.indexOf('gif') === -1 ?
-                        <ImagePrettyLoad
-                          key={post._id}
-                          image={post.mediaContent}
-                          imageLQ={post.mediaContentLQ}
-                          imageHeight={post.mediaContentHeight}
-                          imageWidth={post.mediaContentWidth}
-                          containerWidth={this.containerWidth}
-                        />
-                        :
-                        <VideoAutoPlay
-                          key={post._id}
-                          videoSrc={post.mediaContent}
-                          videoHeight={post.mediaContentHeight}
-                          videoWidth={post.mediaContentWidth}
-                          containerWidth={this.containerWidth}
-                        />
-                      }
-                      {/* <img alt="" src={post.mediaContent} className={st['img-responsive']} />*/}
-                    </div>
-                    {
-                      (this.props.auth && post.creator && this.props.auth._id === post.creator._id)
-                        ? <div className={st['bottom-share']} >
-                          <a href="" onClick={this.deletePostByOwner.bind(this, post._id)}>
-                            Delete this post
-                          </a>
-                        </div>
-                        : null
+                </div>
+
+                <div className={st['post-page-left']}>
+                  <div
+                    id={st['page-post']}
+                    className={st['post-content']}
+                  >
+                    {post.type.indexOf('gif') === -1 ?
+                      <ImagePrettyLoad
+                        key={post._id}
+                        image={post.mediaContent}
+                        imageLQ={post.mediaContentLQ}
+                        imageHeight={post.mediaContentHeight}
+                        imageWidth={post.mediaContentWidth}
+                        containerWidth={this.containerWidth}
+                      />
+                      :
+                      <VideoAutoPlay
+                        key={post._id}
+                        videoSrc={post.mediaContent}
+                        videoHeight={post.mediaContentHeight}
+                        videoWidth={post.mediaContentWidth}
+                        containerWidth={this.containerWidth}
+                      />
                     }
+                    {/* <img alt="" src={post.mediaContent} className={st['img-responsive']} />*/}
                   </div>
-                  <div className={st['clear-fix']}></div>
-                  <div className={st.shareButtonLarge} onClick={this.handleShareFb} >
-                    Chia sẻ
-                      {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
-                        <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
-                      </div>*/}
+                  {
+                    (this.props.auth && post.creator && this.props.auth._id === post.creator._id)
+                      ? <div className={st['bottom-share']}>
+                        <a href="" onClick={this.deletePostByOwner.bind(this, post._id)}>
+                          Delete this post
+                        </a>
+                      </div>
+                      : null
+                  }
+                  {/* <div className={st['clear-fix']}></div>*/}
+                  <div className={st.shareButtonLarge} onClick={this.handleShareFb}>
+                    Share on Facebook
+                    {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                     <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
+                     </div>*/}
+                  </div>
+                  <div className={st['post-date']}>
+                    <abbr className={st['time-ago']}>{this.timeSince(new Date(post.created))} trước</abbr> bởi
+                    <a className={st['user-link']}> {post.creator.username}</a>
                   </div>
                   <RecommendsList numComments={8} type={'horizontal'} notInclude={post._id} />
                 </div>
-                : <div className={st.loading}>Loading&#8230;</div>
-            }
+              </div>
+              : <div className={st.loading}>Loading&#8230;</div>
+          }
+        </div>
+        <div className={`col-sm-4 ${st['col-sm-4']}`}>
+          <div className={st['facebook-comments']} ref={commentRef => {
+            this.commentRef = commentRef;
+          }}>
+            <span style={{ display: 'none' }} className="fb-comments-count" data-href="http://example.com/"></span>
+            <div className="fb-comments" data-href={`${this.baseUrl}/posts/${post._id}`} data-numposts="10"
+              width="100%" data-order-by="social"
+            ></div>
           </div>
-          <div className={`col-sm-4 ${st.pr0} ${st.mt10}`}>
-            <div className={st['facebook-comments']} ref={commentRef => { this.commentRef = commentRef; }}>
-              <span style={{ display: 'none' }} className="fb-comments-count" data-href="http://example.com/"></span>
-              <div className="fb-comments" data-href={`${this.baseUrl}/posts/${post._id}`} data-numposts="10" width="100%"></div>
-            </div>
-            <div className={st.sideAd}>
-              <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt="" />
-
-            </div>
+          <div className={st.sideAd}>
+            <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt="" />
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 }
 
 // Actions required to provide data for this component to render in sever side.
-PostDetail.need = [params => {
-  return _fetchPost(params.postId);
-}];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {

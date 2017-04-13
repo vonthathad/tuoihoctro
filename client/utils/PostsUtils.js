@@ -72,3 +72,13 @@ export function vote(id) {
     headers,
   });
 }
+export function view(id) {
+  const token = getToken();
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  return put({
+    url: `api/posts/${id}/view`,
+    headers,
+  });
+}

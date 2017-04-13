@@ -31,8 +31,8 @@ class VideoAutoPlay extends Component {
     if (videoRefSetten) {
       const { videoWidth, videoHeight, containerWidth } = this.props;
       const changedVideoHeight = videoHeight * containerWidth / videoWidth;
-      const y = - videoRef.getBoundingClientRect().top;
-      if (y < - changedVideoHeight / 2 && y + window.innerHeight > changedVideoHeight) {
+      const y = videoRef.getBoundingClientRect().top;
+      if (y > 0 && y + changedVideoHeight < window.innerHeight) {
         this.playVideo();
       } else {
         this.pauseVideo();

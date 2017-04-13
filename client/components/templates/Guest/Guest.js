@@ -28,7 +28,7 @@ export class Guest extends Component {
     console.log(this.props);
     this.state = { isMounted: false };
     this.handleLogout = this.handleLogout.bind(this);
-    this.toggleLoginSection = this.toggleLoginSection.bind(this)
+    this.toggleLoginSection = this.toggleLoginSection.bind(this);
   }
   componentDidMount() {
     this.setState({ isMounted: true }); // eslint-disable-line
@@ -71,7 +71,7 @@ export class Guest extends Component {
     this.props.addPostRequest(data);
   };
   handleLogin = (email, password) => {
-    console.log(email,password)
+    console.log(email, password);
     this.closeElementSection();
     this.props.loginRequest({ email, password });
   };
@@ -89,8 +89,6 @@ export class Guest extends Component {
     }
   };
   render() {
-    console.log(this.props.showAlert);
-
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
