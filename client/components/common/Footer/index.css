@@ -7,11 +7,29 @@
   background-color: #f4f4f4;
   color: #7b7a7a;
 }
+
 .pull-middle {
   text-align: center;
   font-size: 15px;
   margin-bottom: 7px;
 }
+
 .copyright-note {
   font-weight: bold;
+}
+
+.main-footer a:link, .main-footer a:visited {
+  color: #898989;
+}
+
+.main-footer a:hover {
+  color: #acaaaa;
+}
+
+@media (max-width: 350px) {
+
+  .main-footer {
+    height: 120px;
+  }
+
 }

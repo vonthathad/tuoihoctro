@@ -1,7 +1,44 @@
-
-.wrapper{
-    padding-top: 80px
+/*.wrapper {
+  padding-top: 80px
 }
-.wrapper a{
-    color:#000;
+
+.wrapper a {
+  color: #000;
+}*/
+
+.col-sm-8 {
+  /*padding-left: 0;*/
+  padding-top: 60px;
+  padding-bottom: 40px;
+  width: 62%;
+}
+
+.col-sm-4 {
+  padding-top: 80px;
+  width: 27%;
+}
+
+.ads-one {
+  float: right;
+  overflow: hidden;
+  margin: 15px 0;
+  background: #F8F8F8;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #dddddd;
+  overflow: hidden;
+}
+
+@media (max-width: 990px) {
+
+  .col-sm-4 {
+    display: none;
+  }
+
+  .col-sm-8 {
+    width: 100%;
+    /*padding: 0;*/
+  }
+
 }

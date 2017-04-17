@@ -1,11 +1,4 @@
 
-@media (max-width: 552px) {
-
-  .remove-mobile {
-    display: none;
-  }
-}
-
 .post-left {
   width: 500px;
   overflow: hidden;
@@ -16,41 +9,16 @@
   overflow: hidden;
   padding: 0;
   margin: 0;
-  width: 550px;
+  width: 500px;
   text-align: center;
-}
-
-@media (max-width: 990px) {
-  .post-box {
-    max-width: 550px;
-    width: 100%;
-  }
-
-  .post-left {
-
-    width: 100%;
-  }
-
-  .post-content {
-    width: 100%;
-  }
-
-  .post {
-    width: 100%;
-    height: auto;
-  }
-}
-
-.post {
   border-radius: 2px;
-  overflow: hidden;
 }
 
 .post-box {
   margin: 0 auto;
-  max-width: 550px;
+  width: 550px;
   overflow: hidden;
-  margin-bottom: 21px;
+  padding: 10px 0;
   border-bottom: 1px solid #dddddd;
 }
 
@@ -61,12 +29,18 @@
 .post-header {
   overflow: hidden;
   width: 100%;
-  margin-bottom: 10px;
+  padding: 12px 0 12px 0;
 }
 
 .post-title {
-  padding-bottom: 15px;
+  padding-bottom: 4px;
   cursor: pointer;
+}
+
+.post-title h1 {
+  font-size: 19px;
+  font-weight: bold;
+  float: left;
 }
 
 .post-footer {
@@ -77,11 +51,6 @@
   display: inline-block;
   width: 100%;
   font-size: 20px;
-}
-
-.post-title h1 {
-  font-weight: bold;
-  float: left;
 }
 
 .box-facebook > a > i {
@@ -171,7 +140,7 @@
 
 .vote-number-wrapper {
   float: right;
-  margin-left: 32px;
+  margin-left: 29px;
   line-height: 36px;
   font-size: 15px;
   color: #888888;
@@ -213,3 +182,28 @@
   box-shadow: 0 1px 0 rgba(0, 0, 0, .05);
 }
 
+@media (max-width: 990px) {
+  .post-box {
+    width: 100%;
+  }
+
+  .post-left {
+    width: 100%;
+  }
+
+  .post-content {
+    width: 100%;
+  }
+
+  .post {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 552px) {
+
+  .remove-mobile {
+    display: none;
+  }
+}

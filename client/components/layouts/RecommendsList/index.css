@@ -1,4 +1,8 @@
 
+.recommend-item {
+  /*margin-top: 0;*/
+}
+
 .right-bar-title {
   padding: 5px 0;
 }
@@ -7,9 +11,14 @@
   color: black;
 }
 
-.recommends-list-wrapper {
-
+#featured-box {
+  float: right;
+  overflow: hidden;
 }
+
+/*.recommends-list-wrapper {*/
+
+/*}*/
 
 .horizontal {
   width: 215px;
@@ -17,19 +26,14 @@
 }
 
 .recommentContainer {
-  margin: 0 auto;
+  /*margin: 0 auto;*/
 }
 
-.recommend-item {
-  margin-top: 13px;
-}
-
-@media (max-width: 750px) {
+@media (max-width: 375px) {
   .horizontal {
     width: 100%;
     height: auto;
   }
-
 }
 
 
