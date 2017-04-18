@@ -21,15 +21,15 @@
 /*}*/
 
 .horizontal {
-  width: 215px;
-  height: 130px;
+  width: 243px;
+  height: 170px;
 }
 
 .recommentContainer {
   /*margin: 0 auto;*/
 }
 
-@media (max-width: 375px) {
+@media (max-width: 750px) {
   .horizontal {
     width: 100%;
     height: auto;

@@ -3,7 +3,10 @@
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
 }
-
+.nav > li > a:focus, .nav > li > a:hover {
+  text-decoration: none;
+  background-color: transparent;
+}
 #wrap {
   min-height: 100%;
   height: auto;
@@ -418,7 +421,7 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
   border: 1px solid #dddddd;
-  }
+}
 
 .ads-two {
   position: fixed;
@@ -433,7 +436,7 @@
 }
 
 .btn-upload {
-  background: lavender;
+  /*background: lavender;*/
   color: #FFF;
 }
 
@@ -831,7 +834,7 @@ ul#profile-nav li {
   padding: 0;
   line-height: 36px; /*--Vertically aligns the text within the tab--*/
   overflow: hidden;
-  background: #FFF;
+  /*background: #FFF;*/
   font-weight: bold;
 }
 

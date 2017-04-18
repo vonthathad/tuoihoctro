@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 // Import Style
 import st from './index.css';
 import logo from '../../../assets/logos/iconweb.svg';
@@ -10,9 +10,11 @@ class Header extends Component {
     super(props);
     this.scrollTop = this.scrollTop.bind(this);
   }
+
   scrollTop() {
     window.scrollTo(0, 0);
   }
+
   burgerToggle = () => {
     const linksEl = this.narrowLinkRef;
     if (linksEl.style.display === 'block') {
@@ -27,7 +29,6 @@ class Header extends Component {
     console.log(curentUser.role);
     return (
       <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
-
         <div className={`${st['nav-wide']} container`}>
           <Link to="/" className={`navbar-brand ${st['logo-wrapper']}`} onClick={this.scrollTop}>
             <img
@@ -48,10 +49,11 @@ class Header extends Component {
                   <li className="btn-upload">
                     <a className={st.userinfo}>
                       {curentUser.username}
-                      <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30} />
+                      <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30}/>
                     </a>
                   </li>
-                  {curentUser.role === 'admin' && <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>}
+                  {curentUser.role === 'admin' &&
+                  <li className="btn-upload"><a onClick={this.props.toggleAddPost}>Upload</a></li>}
                   <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
                 </ul>
                 :
@@ -81,23 +83,39 @@ class Header extends Component {
               this.narrowLinkRef = narrowLinkRef;
             }}
           >
-            <a onClick={() => { this.burgerToggle(); }}>Home</a>
+            <a onClick={() => {
+              this.burgerToggle();
+            }}>Home</a>
             <a href="hot.html">Hot</a>
             <a href="trending.html">Top</a>
             <a href="fresh.html">Fresh</a>
             {
               curentUser._id && curentUser ?
                 <div>
-                  {curentUser.role === 'admin' && <a onClick={() => { this.props.toggleAddPost(); this.burgerToggle(); }}>Upload</a>}
-                  <a onClick={() => { this.props.logout(); this.burgerToggle(); }}>Đăng xuất</a>
+                  {curentUser.role === 'admin' && <a onClick={() => {
+                    this.props.toggleAddPost();
+                    this.burgerToggle();
+                  }}>Upload</a>}
+                  <a onClick={() => {
+                    this.props.logout();
+                    this.burgerToggle();
+                  }}>Đăng xuất</a>
                   <Link to="/admin">Admin</Link>
                 </div>
                 :
                 <div>
-                  <a onClick={() => { this.props.toggleLogin(); this.burgerToggle(); }}>Đăng nhập</a>
-                  <a onClick={() => { this.burgerToggle(); }}>Đăng nhập</a>
+                  <a onClick={() => {
+                    this.props.toggleLogin();
+                    this.burgerToggle();
+                  }}>Đăng nhập</a>
+                  <a onClick={() => {
+                    this.burgerToggle();
+                  }}>Đăng nhập</a>
 
-                  <a onClick={() => { this.props.toggleRegister(); this.burgerToggle(); }}>Đăng ký</a>
+                  <a onClick={() => {
+                    this.props.toggleRegister();
+                    this.burgerToggle();
+                  }}>Đăng ký</a>
                 </div>
             }
           </div>

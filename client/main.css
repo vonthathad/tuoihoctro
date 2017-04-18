@@ -47,7 +47,12 @@ p {
   padding: 0;
   font-size: 14px;
 }
-.fb_iframe_widget iframe{
-  width: 350px!important;
+
+.fb_iframe_widget iframe {
+  width: 350px !important;
 }
 
+.nav > li > a:focus, .nav > li > a:hover {
+  text-decoration: none;
+  background-color: transparent;
+}
