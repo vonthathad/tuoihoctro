@@ -15,7 +15,7 @@
 
 .col-sm-4 {
   padding-top: 80px;
-  width: 30%;
+  /*width: 30%;*/
 }
 
 .ads-one {
@@ -34,12 +34,12 @@
     /*padding: 0;*/
   }
 
-.wrapper {
-  padding-top: 80px
-}
+  .wrapper {
+    padding-top: 80px
+  }
 
-.wrapper a {
-  color: #000;
-}
+  .wrapper a {
+    color: #000;
+  }
 
 }

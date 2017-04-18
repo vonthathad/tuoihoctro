@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 // Import Plugin
 // import FacebookProvider, { Login } from 'react-facebook';
@@ -10,6 +10,7 @@ export class RegisterWidget extends Component {
 
   onFacebookResponse() {
   }
+
   registerUser = () => {
     const emailRef = this.refs.email;
     const usernameRef = this.refs.username;
@@ -19,6 +20,7 @@ export class RegisterWidget extends Component {
       emailRef.value = passwordRef.value = usernameRef.value = '';
     }
   };
+
   render() {
     return (
       <div>
@@ -27,49 +29,49 @@ export class RegisterWidget extends Component {
           <div className="col-md-12">
             <form className="form" role="form" method="post" action="login">
               <div className={`form-group ${styles['form-group']}`}>
-                <label className="sr-only" htmlFor="exampleInputName">User name</label>
+                <label className="sr-only" htmlFor="exampleInputName">Tên đăng nhập</label>
                 <input
                   type="text"
                   className="form-control"
                   id="exampleInputName"
-                  placeholder="User name"
+                  placeholder="Nhập tên đăng nhập"
                   required
                   ref="username"
                 />
               </div>
               <div className={`form-group ${styles['form-group']}`}>
-                <label className="sr-only" htmlFor="exampleInputEmail2">Email address</label>
+                <label className="sr-only" htmlFor="exampleInputEmail2">Email</label>
                 <input
                   type="email"
                   className="form-control"
                   id="exampleInputEmail2"
-                  placeholder="Email address"
+                  placeholder="Email"
                   required
                   ref="email"
                 />
               </div>
               <div className={`form-group ${styles['form-group']}`}>
-                <label className="sr-only" htmlFor="exampleInputPassword1">Password</label>
+                <label className="sr-only" htmlFor="exampleInputPassword1">Mật khẩu</label>
                 <input
                   type="password"
                   className="form-control"
                   id="exampleInputPassword1"
-                  placeholder="Password"
+                  placeholder="Nhập mật khẩu"
                   required
                   ref="password"
                 />
               </div>
               <div className={`form-group ${styles['form-group']}`}>
-                <label className="sr-only" htmlFor="exampleInputPassword2">Confirm Password</label>
+                <label className="sr-only" htmlFor="exampleInputPassword2">Xác định mật khẩu</label>
                 <input
                   type="password"
                   className="form-control"
                   id="exampleInputPassword2"
-                  placeholder="Confirm Password" required
+                  placeholder="Nhập lại mật khẩu" required
                 />
               </div>
               <div className={`form-group ${styles['form-group']}`}>
-                <button type="button" className="btn btn-primary btn-block" onClick={this.registerUser}>Sign up</button>
+                <button type="button" className="btn btn-primary btn-block" onClick={this.registerUser}>Đăng ký</button>
               </div>
             </form>
           </div>

@@ -4,7 +4,6 @@
 
 a:link, a:visited, a:active {
   text-decoration: none;
-
 }
 
 a:hover {
@@ -121,6 +120,15 @@ p {
   clear: left;
   padding: 0.5em 0;
   margin: auto;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.mobile-header-nav {
+  width: 100%;
+  height: 9vh;
+  border-bottom: 1px solid #ffffff;
+
 }
 
 @media (min-width: 800px) {
@@ -139,8 +147,7 @@ p {
 }
 
 .menu > li > a:hover {
-  color: #fff;
-  background-color: hsla(0,0%,100%,.2);
+  background-color: hsla(0, 0%, 100%, .2);
 }
 
 .menu > li > a {
@@ -150,24 +157,27 @@ p {
   font-weight: 700;
 }
 
-/*.menu>li:first-child>a{
-  border-left: 1px solid #6d8058;
-}*/
 .rightMenu {
   cursor: pointer;
 }
 
-.rightMenu > ul > li a {
-  color: #bbb;
-  text-decoration: none;
-}
-
-/*.rightMenu > li > a:hover {
-  color: #fff;
-  background-color: hsla(0,0%,100%,.2);
-}*/
-
-.nav > li > a:focus, .nav > li > a:hover {
-  text-decoration: none;
+.rightMenu > li > a:hover {
+  color: #ffffff;
   background-color: transparent;
 }
+
+.rightMenu a {
+  color: #bbb;
+}
+
+.navbar-right > li > a:hover {
+  background-color: transparent;
+}
+
+.navbar-right a {
+  color: #bbb;
+}
+
+
+
+

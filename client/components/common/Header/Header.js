@@ -57,7 +57,7 @@ class Header extends Component {
                   <li className="btn-upload"><a onClick={this.props.logout}>Đăng xuất</a></li>
                 </ul>
                 :
-                <ul className={'nav navbar-nav navbar-right'}>
+                <ul className={`${st.rightMenu} nav navbar-nav navbar-right`}>
                   <li><a onClick={this.props.toggleLogin}>Đăng nhập</a></li>
                   <li><a onClick={this.props.toggleRegister}>Đăng ký</a></li>
                 </ul>
@@ -65,17 +65,19 @@ class Header extends Component {
           </div>
         </div>
         <div className={`${st['nav-narrow']} container`}>
-          <div className={st['mobile-logo-wrapper']}>
-            <a className={`navbar-brand ${st['logo-wrapper']}`} href="/">
-              <img
-                src={logo}
-                className={st.logo}
-                alt="Tuổi học trò"
-              />
-            </a>
-          </div>
-          <div className={st['mobile-menu-icon-wrapper']}>
-            <i className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+          <div className={st['mobile-header-nav']}>
+            <div className={st['mobile-logo-wrapper']}>
+              <a className={`navbar-brand ${st['logo-wrapper']}`} href="/">
+                <img
+                  src={logo}
+                  className={st.logo}
+                  alt="Tuổi học trò"
+                />
+              </a>
+            </div>
+            <div className={st['mobile-menu-icon-wrapper']}>
+              <i className="fa fa-bars fa-2x" onClick={this.burgerToggle}></i>
+            </div>
           </div>
           <div
             className={st['narrow-links']}
@@ -86,9 +88,9 @@ class Header extends Component {
             <a onClick={() => {
               this.burgerToggle();
             }}>Home</a>
-            <a href="hot.html">Hot</a>
-            <a href="trending.html">Top</a>
-            <a href="fresh.html">Fresh</a>
+            <a>Hot</a>
+            <a>Top</a>
+            <a>Fresh</a>
             {
               curentUser._id && curentUser ?
                 <div>
@@ -108,10 +110,6 @@ class Header extends Component {
                     this.props.toggleLogin();
                     this.burgerToggle();
                   }}>Đăng nhập</a>
-                  <a onClick={() => {
-                    this.burgerToggle();
-                  }}>Đăng nhập</a>
-
                   <a onClick={() => {
                     this.props.toggleRegister();
                     this.burgerToggle();

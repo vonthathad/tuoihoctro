@@ -276,7 +276,7 @@ export class PostDetail extends Component {
                       <span>Thích</span>
                     </div>
                     <div className={st.shareButton} onClick={this.handleShareFb}>
-                      Facebook
+                      Chia sẻ Facebook
                     </div>
                     <div className={st.nextButton} onClick={this.next}>
                       <span className={st.text}>Xem tiếp</span>
@@ -325,7 +325,7 @@ export class PostDetail extends Component {
                          src="https://ads-9gag-lol.9gaging.com/static/ads/default/9gag/728x90_ios_2.jpg"/>
                   </div>
                   <div className={st.shareButtonLarge} onClick={this.handleShareFb}>
-                    Share on Facebook
+                    Chia sẻ Facebook
                     {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
                      <a className="fb-xfbml-parse-ignore" target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}>Share</a>
                      </div>*/}

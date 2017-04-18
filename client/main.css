@@ -9,7 +9,6 @@ a:link, a:visited, a:active {
 
 a:hover {
   text-decoration: none;
-  /*color: #0087f7;*/
   color: #09f;
 }
 
@@ -52,7 +51,9 @@ p {
   width: 350px !important;
 }
 
+/*
 .nav > li > a:focus, .nav > li > a:hover {
   text-decoration: none;
   background-color: transparent;
 }
+*/

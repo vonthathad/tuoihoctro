@@ -493,7 +493,7 @@
   background: #3b5998;
   height: 44px;
   line-height: 43px;
-  font-size: 15px;
+  font-size: 21px;
   padding: 0;
   display: block;
   color: #fff;
@@ -512,7 +512,7 @@
   top: 50%;
   margin-top: -16px;
   left: 2px;
-  background: url('../../../assets/images/sprite.png') -90px 0 no-repeat;
+  background: url('../../../assets/images/sprite.png') -84px 0 no-repeat;
   background-size: 270px 60px;
 }
 
