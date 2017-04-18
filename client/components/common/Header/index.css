@@ -140,7 +140,7 @@ p {
 
 .menu > li > a:hover {
   color: #fff;
-  background-color: hsla(0, 0%, 100%, .2);
+  background-color: hsla(0,0%,100%,.2);
 }
 
 .menu > li > a {

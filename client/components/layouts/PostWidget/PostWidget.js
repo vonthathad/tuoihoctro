@@ -1,65 +1,41 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-// Import Style
+import {TextInput} from '../../common/TextInput'
 import styles from './index.css';
 
 export class PostCreateWidget extends Component {
   constructor() {
     super();
     this.state = {
-      imgSrc: '',
-      showError : false,
-      showErrorSize : false,
-      disabled: true
-    };
+      title: ''
+    }
+    this.loadFile = this.loadFile.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   addPost = () => {
-    console.log(1)
-    const titleRef = this.refs.title;
+    const titleRef = this.state.title;
     const fileRef = this.state.file;
     const category = this.refs.category;
-    if (titleRef.value && fileRef) {
-      this.props.addPost(titleRef.value, category.value, fileRef);
-      titleRef.value = ''; fileRef.value = null
-    } else if(!titleRef.value && !fileRef) {
-      this.setState({showError: true,showErrorSize: true});
-    } else if(titleRef.value && !fileRef) {
-      this.setState({showErrorSize: true});
+    console.log(titleRef, fileRef);
+    if (titleRef && fileRef) {
+      this.props.addPost(titleRef, category.value, fileRef)
     }
   };
 
-  loadFile(e) {
+  loadFile(e){
     e.preventDefault();
     const reader = new FileReader();
     const file = e.target.files[0];
-    console.log(e.target.files[0].size);
-    if(e.target.files[0].size > 4000000){
-      this.setState({showErrorSize : true})
-    } else {
-      this.setState({showErrorSize : false})
-    }
+    console.log(1);
     reader.onloadend = () => {
       this.setState({
-        file,
-        imgSrc: reader.result,
+        file
       });
     };
     reader.readAsDataURL(file);
   }
   handleChange(e){
-    console.log(e);
-    if(e.target.value.length == 0){
-      this.setState({showError: true});
-    } else {
-      this.setState({showError: false, disabled: false});
-    }
-}
-  handleBlur(e){
-    if(e.target.value.length == 0){
-      this.setState({showError: true});
-    }else {
-      this.setState({showError: false, disabled: false});
-    }
+    this.setState({title: e.target.value})
   }
   render() {
     const cls = `${styles.form} ${(this.props.showElement === 'post' ? styles.appear : '')}`;
@@ -68,19 +44,23 @@ export class PostCreateWidget extends Component {
         <div className={styles['form-content']}>
           <h2 className={styles['form-title']}>Đăng bài mới</h2>
           <div className={styles['form-group']}>
-            <input placeholder="Tiêu đề" className={styles['form-field']} style={this.state.showError ? {border: '1px solid red'}: null} ref="title" onChange={(e) => this.handleBlur(e)} />
-            {
-              this.state.showError ? <span>Tiêu đề không được trống</span> : null
-            }
+            <TextInput
+              ref="title"
+              type="text"
+              placeholder="Tiêu đề"
+              class={styles['form-field']}
+              onChange={this.handleChange}
+            />
+
           </div>
          <div className={styles['form-group']}>
-           <input type="file" ref="file" className={styles['form-field']} onChange={(e) => this.loadFile(e)} />
-           {
-             this.state.showErrorSize ? <span>Chọn ảnh là yêu cầu bắt buộc và kích thước file không được quá 5Mb</span> : null
-           }
-           {
-             this.state.imgSrc !== '' ? <img src={this.state.imgSrc} alt="" />: null
-           }
+           <TextInput
+             type="file"
+             ref="file"
+             placeholder="Tiêu đề"
+             class={styles['form-field']}
+             onChange={this.loadFile}
+           />
          </div >
           <div className={styles['form-group']}>
             <select ref="category" className={styles['form-field']}>
@@ -94,10 +74,8 @@ export class PostCreateWidget extends Component {
               <option value="WTF">WTF</option>
             </select>
           </div>
-
-
           <a className={styles['post-submit-button']} onClick={this.props.closeElement}>Hủy bỏ</a>
-          <a className={styles['post-submit-button']} style={this.state.showError || this.state.showErrorSize ? {background: 'rgba(89, 120, 54, 0.53)'}: null}
+          <a className={styles['post-submit-button']}
              onClick={this.addPost}
              >Đăng bài</a>
         </div>

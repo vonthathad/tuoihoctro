@@ -27,6 +27,8 @@
   text-align: center;
   top: 100px;
   left: 25%;
+  overflow: scroll;
+  height: 80vh;
 
 }
 .form-content img{
