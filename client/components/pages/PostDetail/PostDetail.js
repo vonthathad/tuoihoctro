@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react';
-import { connect } from 'react-redux';
+import React, {PropTypes, Component} from 'react';
+import {connect} from 'react-redux';
 // import { browserHistory } from 'react-router';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
@@ -28,6 +28,7 @@ export class PostDetail extends Component {
   static need = [params => {
     return _fetchPost(params.postId);
   }];
+
   constructor(props) {
     super(props);
     this.handleVoteClick = this.handleVoteClick.bind(this);
@@ -42,6 +43,7 @@ export class PostDetail extends Component {
     this.timeSince = this.timeSince.bind(this);
     // console.log(this.baseUrl);
   }
+
   componentDidMount() {
     if (window.FB) {
       window.FB.XFBML.parse(this.commentsCountRef);
@@ -198,54 +200,55 @@ export class PostDetail extends Component {
     }
     return `${Math.floor(seconds)} năm`;
   }
+
   render() {
     // console.log(this.props);
     const post = this.props.post;
     let voted = false;
     if (post) {
       post.votes &&
-        post.votes.forEach(id => {
-          if (id === this.props.auth._id) {
-            voted = true;
-          }
-        });
+      post.votes.forEach(id => {
+        if (id === this.props.auth._id) {
+          voted = true;
+        }
+      });
     }
     return (
       <div className="container">
         {post && post.title &&
-          <Helmet
-            title={post.title}
-            meta={[
-              {
-                name: 'viewport',
-                content: 'width=device-width, initial-scale=1',
-              },
-              {
-                name: 'keywords',
-                content: 'tuoihoctro, tuổi học trò, gif, image, vui',
-              },
-              {
-                name: 'title',
-                content: `${post.title}`,
-              },
-              /* {
-               name: 'description',
-               content: `${post.title}`,
-               },
-               {
-               name: 'og:description',
-               content: `${post.title}`,
-               },*/
-              {
-                name: 'og:image',
-                content: `${post.mediaContent}`,
-              },
-              {
-                name: 'og:url',
-                content: `http://tuoihoctro.co/posts/${post._id}`,
-              },
-            ]}
-          />
+        <Helmet
+          title={post.title}
+          meta={[
+            {
+              name: 'viewport',
+              content: 'width=device-width, initial-scale=1',
+            },
+            {
+              name: 'keywords',
+              content: 'tuoihoctro, tuổi học trò, gif, image, vui',
+            },
+            {
+              name: 'title',
+              content: `${post.title}`,
+            },
+            /* {
+             name: 'description',
+             content: `${post.title}`,
+             },
+             {
+             name: 'og:description',
+             content: `${post.title}`,
+             },*/
+            {
+              name: 'og:image',
+              content: `${post.mediaContent}`,
+            },
+            {
+              name: 'og:url',
+              content: `http://tuoihoctro.co/posts/${post._id}`,
+            },
+          ]}
+        />
         }
 
         <div className={`col-sm-8 ${st['col-sm-8']}`}>
@@ -317,6 +320,10 @@ export class PostDetail extends Component {
                       : null
                   }
                   {/* <div className={st['clear-fix']}></div>*/}
+                  <div className={st['ads-under-share']}>
+                    <img className="img-responsive"
+                         src="https://ads-9gag-lol.9gaging.com/static/ads/default/9gag/728x90_ios_2.jpg"/>
+                  </div>
                   <div className={st.shareButtonLarge} onClick={this.handleShareFb}>
                     Share on Facebook
                     {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">
@@ -327,7 +334,7 @@ export class PostDetail extends Component {
                     <abbr className={st['time-ago']}>{this.timeSince(new Date(post.created))} trước</abbr> bởi
                     <a className={st['user-link']}> {post.creator.username}</a>
                   </div>
-                  <RecommendsList numComments={9} type={'horizontal'} notInclude={post._id} />
+                  <RecommendsList numComments={9} type={'horizontal'} notInclude={post._id}/>
                 </div>
               </div>
               : <div className={st.loading}>Loading&#8230;</div>
@@ -337,13 +344,13 @@ export class PostDetail extends Component {
           <div className={st['facebook-comments']} ref={commentRef => {
             this.commentRef = commentRef;
           }}>
-            <span style={{ display: 'none' }} className="fb-comments-count" data-href="http://example.com/"></span>
+            <span style={{display: 'none'}} className="fb-comments-count" data-href="http://example.com/"></span>
             <div className="fb-comments" data-href={`${this.baseUrl}/posts/${post._id}`} data-numposts="10"
-              width="100%" data-order-by="social"
+                 width="100%" data-order-by="social"
             ></div>
           </div>
           <div className={st.sideAd}>
-            <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt="" />
+            <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt=""/>
           </div>
         </div>
       </div>

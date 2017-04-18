@@ -62,7 +62,7 @@ class Home extends Component {
   }
   render() {
     return (
-      <div className={`container ${st.wrapper}`}>
+      <div className="container">
         <Helmet
           title="Tuổi học trò - tuoihoctro.com"
           titleTemplate="%s - tuoihoctro.co"
@@ -78,10 +78,16 @@ class Home extends Component {
             },
           ]}
         />
-        <div className={'col-sm-8'}>
+        <div className={`col-sm-8 ${st['col-sm-8']}`}>
           <PostsListContainer order={this.state.order} />
         </div>
-        <div className={' col-sm-4'}>
+        <div className={`col-sm-4 ${st['col-sm-4']}`}>
+          <div className={st['ads-one']}>
+            <a href="" target="blank">
+              <img className="img-responsive"
+                   src="http://bluehost-cdn.com/media/partner/images/maxlk/300x250/bh-300x250-01-dy.png"/>
+            </a>
+          </div>
           <RecommendsList numComments={30} type={'vertical'} />
         </div>
       </div>

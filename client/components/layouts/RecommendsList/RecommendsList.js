@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 // import RecommendsChunk from '../RecommendsChunk/RecommendsChunk';
 import ImagePrettyLoad from '../ImagePrettyLoad/ImagePrettyLoad';
 import Recommend from '../Recommend/Recommend';
@@ -11,10 +11,12 @@ class RecommendsList extends Component {
     super(props);
     this.shuffleArray = this.shuffleArray.bind(this);
   }
+
   componentDidMount() {
     // const { dispatch } = this.props;
     // dispatch(_fetchRecommendsChunk(1));
   }
+
   shuffleArray = (array, numEle, notInclude) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -35,9 +37,10 @@ class RecommendsList extends Component {
     // }
     return array.slice(0, numEle);
   }
+
   render() {
-    let { posts } = this.props.recommendsList;
-    const { dispatch, numComments, notInclude } = this.props;
+    let {posts} = this.props.recommendsList;
+    const {dispatch, numComments, notInclude} = this.props;
 
     // console.log(numComments);
     // let recommendsChunks = null;
@@ -46,26 +49,27 @@ class RecommendsList extends Component {
     posts = this.shuffleArray(posts, numComments, notInclude);
     const type = this.props.type;
     return (
-      <div className={st['recommends-list-wrapper']}>
+      <div className={st['featured-box']}>
         {/* <div className={st['right-bar-title']}>
-          <h1>Bài liên quan</h1>
-        </div>*/}
+         <h1>Bài liên quan</h1>
+         </div>*/}
         <div className={`${st.recommentContainer}`}>
-        {
-          posts.length > 0 &&
-          posts.map(post => (
-            <div className={`${st['recommend-item']} ${type === 'horizontal' ? `${st.horizontal} col-sm-2` : ''}`} key={post._id}>
-              <Recommend post={post} type={type} dispatch={dispatch}>
-                <ImagePrettyLoad
-                  image={post.smallThumb}
-                  imageLQ={post.smallThumbLQ}
-                  imageHeight={post.smallThumbHeight}
-                  imageWidth={post.smallThumbWidth}
-                />
-              </Recommend>
-            </div>
-          ))
-        }
+          {
+            posts.length > 0 &&
+            posts.map(post => (
+              <div className={`${st['recommend-item']} ${type === 'horizontal' ? `${st.horizontal} col-sm-2` : ''}`}
+                   key={post._id}>
+                <Recommend post={post} type={type} dispatch={dispatch}>
+                  <ImagePrettyLoad
+                    image={post.smallThumb}
+                    imageLQ={post.smallThumbLQ}
+                    imageHeight={post.smallThumbHeight}
+                    imageWidth={post.smallThumbWidth}
+                  />
+                </Recommend>
+              </div>
+            ))
+          }
         </div>
         {/*<img src={ads} alt="" />*/}
       </div >
