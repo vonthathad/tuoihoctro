@@ -53,15 +53,15 @@ export class PostCreateWidget extends Component {
             />
 
           </div>
-         <div className={styles['form-group']}>
-           <TextInput
-             type="file"
-             ref="file"
-             placeholder="Tiêu đề"
-             class={styles['form-field']}
-             onChange={this.loadFile}
-           />
-         </div >
+          <div className={styles['form-group']}>
+            <TextInput
+              type="file"
+              ref="file"
+              placeholder="Tiêu đề"
+              class={styles['form-field']}
+              onChange={this.loadFile}
+            />
+          </div >
           <div className={styles['form-group']}>
             <select ref="category" className={styles['form-field']}>
               <option value="GIF">GIF</option>
@@ -77,7 +77,7 @@ export class PostCreateWidget extends Component {
           <a className={styles['post-submit-button']} onClick={this.props.closeElement}>Hủy bỏ</a>
           <a className={styles['post-submit-button']}
              onClick={this.addPost}
-             >Đăng bài</a>
+          >Đăng bài</a>
         </div>
         <div className={styles.backgroundPost} onClick={this.props.closeElement}>
         </div>

@@ -30,18 +30,15 @@
 }
 
 @media (max-width: 750px) {
+  .horizontal {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .recommend-item {
   margin-top: 13px;
 }
 
-@media (max-width: 375px) {
-
-  .horizontal {
-    width: 100%;
-    height: auto;
-  }
-}
 
 
