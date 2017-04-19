@@ -67,6 +67,7 @@ class RecommendsList extends Component {
                     imageWidth={post.smallThumbWidth}
                   />
                 </Recommend>
+
               </div>
             ))
           }

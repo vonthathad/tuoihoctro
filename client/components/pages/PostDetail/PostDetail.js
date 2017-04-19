@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import RecommendsList from '../../layouts/RecommendsList/RecommendsList';
 import ImagePrettyLoad from '../../layouts/ImagePrettyLoad/ImagePrettyLoad';
 import VideoAutoPlay from '../../layouts/VideoAutoPlay/VideoAutoPlay';
+import GoogleAd from '../../advert/advert';
 
 import Helmet from 'react-helmet';
 // Import Style
@@ -321,8 +322,11 @@ export class PostDetail extends Component {
                   }
                   {/* <div className={st['clear-fix']}></div>*/}
                   <div className={st['ads-under-share']}>
-                    <img className="img-responsive"
-                         src="https://ads-9gag-lol.9gaging.com/static/ads/default/9gag/728x90_ios_2.jpg"/>
+                    <GoogleAd
+                      client="ca-pub-8167045239596974"
+                      slot="4898417443"
+                      format="auto"
+                    />
                   </div>
                   <div className={st.shareButtonLarge} onClick={this.handleShareFb}>
                     Chia sẻ Facebook
@@ -350,7 +354,11 @@ export class PostDetail extends Component {
             ></div>
           </div>
           <div className={st.sideAd}>
-            <img src="https://s1.2mdn.net/3797665/300x600_Korean.jpg" alt=""/>
+            <GoogleAd
+              client="ca-pub-8167045239596974"
+              slot="4898417443"
+              format="auto"
+            />
           </div>
         </div>
       </div>
