@@ -7,9 +7,6 @@ import {AppContainer} from 'react-hot-loader';
 import App from './App.js';
 import {configureStore} from './store';
 
-
-
-
 // Initialize store
 const store = configureStore(window.__INITIAL_STATE__);
 const mountApp = document.getElementById('root');
