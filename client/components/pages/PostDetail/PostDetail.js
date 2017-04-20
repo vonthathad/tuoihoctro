@@ -239,10 +239,14 @@ export class PostDetail extends Component {
              {
              name: 'og:description',
              content: `${post.title}`,
-             },*/
+             },
             {
               name: 'og:image',
-              content: `${post.thumb}`,
+              content: `${post.mediaContent}`,
+            },*/
+            {
+              name: 'og:video',
+              content: `${post.mediaContent}`,
             },
             {
               name: 'og:url',
@@ -321,13 +325,13 @@ export class PostDetail extends Component {
                       : null
                   }
                   {/* <div className={st['clear-fix']}></div>*/}
-                  <div className={st['ads-under-share']}>
+                  {/*<div className={st['ads-under-share']}>
                     <GoogleAd
                       client="ca-pub-8167045239596974"
                       slot="4898417443"
                       format="auto"
                     />
-                  </div>
+                  </div>*/}
                   <div className={st.shareButtonLarge} onClick={this.handleShareFb}>
                     Chia sẻ Facebook
                     {/* <div className="fb-share-button" data-href={window.location.href} data-layout="button_count" data-size="small" data-mobile-iframe="true">

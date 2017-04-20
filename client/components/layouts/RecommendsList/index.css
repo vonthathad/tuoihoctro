@@ -7,6 +7,10 @@
   padding: 5px 0;
 }
 
+.right-bar-title h1 {
+  font-weight: bold;
+}
+
 .right-bar-title a h2 {
   color: black;
 }

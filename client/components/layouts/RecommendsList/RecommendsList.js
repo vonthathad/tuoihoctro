@@ -50,9 +50,9 @@ class RecommendsList extends Component {
     const type = this.props.type;
     return (
       <div className={st['featured-box']}>
-        {/* <div className={st['right-bar-title']}>
-         <h1>Bài liên quan</h1>
-         </div>*/}
+        <div className={st['right-bar-title']}>
+          <h1>Có thể bạn sẽ thích</h1>
+        </div>
         <div className={`${st.recommentContainer}`}>
           {
             posts.length > 0 &&
