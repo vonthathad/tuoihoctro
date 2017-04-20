@@ -67,6 +67,7 @@ class VideoAutoPlay extends Component {
               });
           }}
           loop
+          preload="false"
         >
           <source src={videoSrc} type="video/mp4" />
         </video>

@@ -242,7 +242,7 @@ export class PostDetail extends Component {
              },*/
             {
               name: 'og:image',
-              content: `${post.mediaContent}`,
+              content: `${post.thumb}`,
             },
             {
               name: 'og:url',
@@ -354,11 +354,11 @@ export class PostDetail extends Component {
             ></div>
           </div>
           <div className={st.sideAd}>
-            <GoogleAd
+            {/*<GoogleAd
               client="ca-pub-8167045239596974"
               slot="4898417443"
               format="auto"
-            />
+            />*/}
           </div>
         </div>
       </div>

@@ -87,22 +87,20 @@ class Home extends Component {
         </div>
         <div className={`col-sm-4 ${st['col-sm-4']}`}>
           <div className={st['ads-one']}>
-            <a href="" target="blank">
-              <GoogleAd
-                client="ca-pub-8167045239596974"
-                slot="4898417443"
-                format="auto"
-              />
-            </a>
+            <GoogleAd
+              client="ca-pub-8167045239596974"
+              slot="4898417443"
+              format="auto"
+            />
           </div>
-          <RecommendsList numComments={60} type={'vertical'}/>
+          <RecommendsList numComments={30} type={'vertical'}/>
           <div className={st['ads-last']}>
             <a href="" target="blank">
-              <GoogleAd
-                client="ca-pub-8167045239596974"
-                slot="4898417443"
-                format="auto"
-              />
+              {/*<GoogleAd
+               client="ca-pub-8167045239596974"
+               slot="4898417443"
+               format="auto"
+               />*/}
             </a>
           </div>
         </div>

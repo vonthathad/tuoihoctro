@@ -13,6 +13,7 @@ class GoogleAd extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.client);
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
 
@@ -20,6 +21,7 @@ class GoogleAd extends Component {
     return (
       <ins className="adsbygoogle"
            style={{'display': 'block'}}
+           ref="adsbygoogle"
            data-ad-client={this.props.client}
            data-ad-slot={this.props.slot}
            data-ad-format={this.props.format}>
