@@ -1,9 +1,9 @@
 /**
  * Root Component
  */
-import React from 'react';
-import {Provider} from 'react-redux';
-import {Router, browserHistory} from 'react-router';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { Router, browserHistory } from 'react-router';
 // Import Routes
 import routes from './routes';
 
@@ -16,17 +16,25 @@ require('./main.css');
 ReactGA.initialize('UA-51655784-10');
 
 function logPageView() {
-  ReactGA.set({page: window.location.pathname});
+  ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
 }
-export default function App(props) {
-  return (
-    <Provider store={props.store}>
-      <Router history={browserHistory} routes={routes} onUpdate={logPageView}>
-        {routes}
-      </Router>
-    </Provider>
-  );
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+  shoudComponentUpdate() {
+    return false;
+  }
+  render() {
+    return (
+      <Provider store={this.props.store}>
+        <Router history={browserHistory} routes={routes} onUpdate={logPageView}>
+          {routes}
+        </Router>
+      </Provider>
+    );
+  }
 }
 
 

@@ -36,7 +36,6 @@ export class Guest extends Component {
     // if (process.env.NODE_ENV === 'development') {
     //   console.log(1255);
     if (this.props.posts && this.props.posts.length === 0) {
-      console.log(1255);
       this.props.fetchRecommendsChunk();
     }
   }

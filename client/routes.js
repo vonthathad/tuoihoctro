@@ -2,6 +2,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Guest from './components/templates/Guest/Guest';
+import Home from './components/pages/Home/Home.js';
+import PostDetail from './components/pages/PostDetail/PostDetail.js';
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -25,6 +27,17 @@ if (process.env.NODE_ENV !== 'production') {
 export default (
   <Route path="/" component={Guest}>
     <IndexRoute
+      component={Home}
+    />
+    <Route
+      path="/order/:order"
+      component={Home}
+    />
+    <Route
+      path="/posts/:postId"
+      component={PostDetail}
+    />
+    {/* <IndexRoute
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./components/pages/Home/Home.js').default);
@@ -46,30 +59,6 @@ export default (
           cb(null, require('./components/pages/PostDetail/PostDetail.js').default);
         });
       }}
-    />
-    <Route
-      path="/nong"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./components/pages/Home/Home.js').default);
-        });
-      }}
-    />
-    <Route
-      path="/moi"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./components/pages/Home/Home.js').default);
-        });
-      }}
-    />
-    <Route
-      path="/top"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./components/pages/Home/Home.js').default);
-        });
-      }}
-    />
+    />*/}
   </Route>
 );
