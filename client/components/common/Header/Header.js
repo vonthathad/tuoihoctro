@@ -1,5 +1,6 @@
-import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 // Import Style
 import st from './index.css';
 import logo from '../../../assets/logos/iconweb.svg';
@@ -9,8 +10,20 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.scrollTop = this.scrollTop.bind(this);
+    this.burgerToggle = this.burgerToggle.bind(this);
   }
-
+  componentWillMount = () => {
+    document.addEventListener('click', this.handleClick, false);
+  }
+  componentWillUnmount = () => {
+    document.removeEventListener('click', this.handleClick, false);
+  }
+  handleClick = e => {
+    if (!ReactDOM.findDOMNode(this).contains(e.target)) {
+      const linksEl = this.narrowLinkRef;
+      linksEl.style.display = 'none';
+    }
+  }
   scrollTop() {
     window.scrollTo(0, 0);
   }
@@ -26,7 +39,7 @@ class Header extends Component {
 
   render() {
     const curentUser = this.props.curentUser;
-    console.log(curentUser.role);
+    // console.log(curentUser.role);
     return (
       <nav className={`navbar-fixed-top ${st['header-wrapper']}`}>
         <div className={`${st['nav-wide']} container`}>
@@ -49,7 +62,7 @@ class Header extends Component {
                   <li className="btn-upload">
                     <a className={st.userinfo}>
                       {curentUser.username}
-                      <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30}/>
+                      <img src={curentUser.avatar} alt={curentUser.username} height={30} width={30} />
                     </a>
                   </li>
                   {curentUser.role === 'admin' &&
@@ -85,14 +98,14 @@ class Header extends Component {
               this.narrowLinkRef = narrowLinkRef;
             }}
           >
-            {/*<a onClick={() => {
+            {/* <a onClick={() => {
               this.burgerToggle();
             }}
             ></a>*/}
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/order/hot">Đừng bỏ lỡ</Link></li>
-            <li><Link to="/order/top">Cũ mà hay</Link></li>
-            <li><Link to="/order/created">Mới nhất</Link></li>
+            <li><Link to="/" onClick={this.burgerToggle}>Home</Link></li>
+            <li><Link to="/order/hot" onClick={this.burgerToggle}>Đừng bỏ lỡ</Link></li>
+            <li><Link to="/order/top" onClick={this.burgerToggle}>Cũ mà hay</Link></li>
+            <li><Link to="/order/created" onClick={this.burgerToggle} >Mới nhất</Link></li>
             {
               curentUser._id && curentUser ?
                 <li>
@@ -100,22 +113,28 @@ class Header extends Component {
                     this.props.toggleAddPost();
                     this.burgerToggle();
                   }}>Upload</a>}
-                  <a onClick={() => {
-                    this.props.logout();
-                    this.burgerToggle();
-                  }}>Đăng xuất</a>
-                  <Link to ="/admin">Admin</Link>
+                  <a
+                    onClick={() => {
+                      this.props.logout();
+                      this.burgerToggle();
+                    }}
+                  >Đăng xuất</a>
+                  <Link to="/admin">Admin</Link>
                 </li>
                 :
                 <li>
-                  <a onClick={() => {
-                    this.props.toggleLogin();
-                    this.burgerToggle();
-                  }}>Đăng nhập</a>
-                  <a onClick={() => {
-                    this.props.toggleRegister();
-                    this.burgerToggle();
-                  }}>Đăng ký</a>
+                  <a
+                    onClick={() => {
+                      this.props.toggleLogin();
+                      this.burgerToggle();
+                    }}
+                  >Đăng nhập</a>
+                  <a
+                    onClick={() => {
+                      this.props.toggleRegister();
+                      this.burgerToggle();
+                    }}
+                  >Đăng ký</a>
                 </li>
             }
           </div>
