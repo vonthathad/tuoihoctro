@@ -281,7 +281,7 @@ export class PostDetail extends Component {
                       <span>Thích</span>
                     </div>
                     <div className={st.shareButton} onClick={this.handleShareFb}>
-                      Chia sẻ Facebook
+                      Facebook
                     </div>
                     <div className={st.nextButton} onClick={this.next}>
                       <span className={st.text}>Xem tiếp</span>

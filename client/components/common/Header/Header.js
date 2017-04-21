@@ -85,15 +85,17 @@ class Header extends Component {
               this.narrowLinkRef = narrowLinkRef;
             }}
           >
-            <a onClick={() => {
+            {/*<a onClick={() => {
               this.burgerToggle();
-            }}>Home</a>
-            <a>Hot</a>
-            <a>Top</a>
-            <a>Fresh</a>
+            }}
+            ></a>*/}
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/order/hot">Đừng bỏ lỡ</Link></li>
+            <li><Link to="/order/top">Cũ mà hay</Link></li>
+            <li><Link to="/order/created">Mới nhất</Link></li>
             {
               curentUser._id && curentUser ?
-                <div>
+                <li>
                   {curentUser.role === 'admin' && <a onClick={() => {
                     this.props.toggleAddPost();
                     this.burgerToggle();
@@ -102,10 +104,10 @@ class Header extends Component {
                     this.props.logout();
                     this.burgerToggle();
                   }}>Đăng xuất</a>
-                  <Link to="/admin">Admin</Link>
-                </div>
+                  <Link to ="/admin">Admin</Link>
+                </li>
                 :
-                <div>
+                <li>
                   <a onClick={() => {
                     this.props.toggleLogin();
                     this.burgerToggle();
@@ -114,7 +116,7 @@ class Header extends Component {
                     this.props.toggleRegister();
                     this.burgerToggle();
                   }}>Đăng ký</a>
-                </div>
+                </li>
             }
           </div>
         </div>
