@@ -12,7 +12,7 @@ class Header extends Component {
     this.scrollTop = this.scrollTop.bind(this);
     this.burgerToggle = this.burgerToggle.bind(this);
   }
-  componentWillMount = () => {
+  componentDidMount = () => {
     document.addEventListener('click', this.handleClick, false);
   }
   componentWillUnmount = () => {
