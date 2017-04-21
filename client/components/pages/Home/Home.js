@@ -1,12 +1,12 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 // Import Components
 import PostsListContainer from '../../containers/PostsListContainer';
 import RecommendsList from '../../layouts/RecommendsList/RecommendsList';
 import GoogleAd from '../../advert/advert';
 
 // Import Actions
-import {_fetchPostsChunk} from '../../../_actions/PostsActions';
+import { _fetchPostsChunk } from '../../../_actions/PostsActions';
 // Import Selectors
 // import { getPosts } from '../../../_reducers/PostsReducer';
 // import { getRecommends } from '../../../_reducers/RecommendsReducer';
@@ -33,7 +33,7 @@ class Home extends Component {
       window.FB.XFBML.parse();
     }
     window.scrollTo(0, 0);
-    console.log(this.props.params.order);
+    // console.log(this.props.params.order);
     // if (process.env.NODE_ENV === 'development') {
     //   this.props.fetchPostChunk();
     //   // this.props.fetchRecommendsChunk();
@@ -71,7 +71,7 @@ class Home extends Component {
           title="Tuổi học trò - tuoihoctro.com"
           titleTemplate="%s - tuoihoctro.co"
           meta={[
-            {charset: 'utf-8'},
+            { charset: 'utf-8' },
             {
               'http-equiv': 'X-UA-Compatible',
               content: 'IE=edge',
@@ -83,21 +83,21 @@ class Home extends Component {
           ]}
         />
         <div className={`col-sm-8 ${st['col-sm-8']}`}>
-          <PostsListContainer order={this.state.order}/>
+          <PostsListContainer order={this.state.order} />
         </div>
         <div className={`col-sm-4 ${st['col-sm-4']}`}>
           <div className={st['ads-one']}>
-            <img className="img-responsive" src="http://bluehost-cdn.com/media/partner/images/maxlk/300x250/bh-300x250-01-dy.png"/>
-            {/*<GoogleAd
+            <img className="img-responsive" src="http://bluehost-cdn.com/media/partner/images/maxlk/300x250/bh-300x250-01-dy.png" />
+            {/* <GoogleAd
               client="ca-pub-8167045239596974"
               slot="4898417443"
               format="auto"
             />*/}
           </div>
-          <RecommendsList numComments={30} type={'vertical'}/>
+          <RecommendsList numComments={30} type={'vertical'} />
           <div className={st['ads-last']}>
             <a href="" target="blank">
-              {/*<GoogleAd
+              {/* <GoogleAd
                client="ca-pub-8167045239596974"
                slot="4898417443"
                format="auto"

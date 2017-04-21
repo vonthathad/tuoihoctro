@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import {TextInput} from '../../common/TextInput'
+import { TextInput } from '../../common/TextInput';
 import styles from './index.css';
 
 export class PostCreateWidget extends Component {
   constructor() {
     super();
     this.state = {
-      title: ''
-    }
+      title: '',
+    };
     this.loadFile = this.loadFile.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -16,26 +16,26 @@ export class PostCreateWidget extends Component {
     const titleRef = this.state.title;
     const fileRef = this.state.file;
     const category = this.refs.category;
-    console.log(titleRef, fileRef);
+    // console.log(titleRef, fileRef);
     if (titleRef && fileRef) {
-      this.props.addPost(titleRef, category.value, fileRef)
+      this.props.addPost(titleRef, category.value, fileRef);
     }
   };
 
-  loadFile(e){
+  loadFile(e) {
     e.preventDefault();
     const reader = new FileReader();
     const file = e.target.files[0];
     console.log(1);
     reader.onloadend = () => {
       this.setState({
-        file
+        file,
       });
     };
     reader.readAsDataURL(file);
   }
-  handleChange(e){
-    this.setState({title: e.target.value})
+  handleChange(e) {
+    this.setState({ title: e.target.value });
   }
   render() {
     const cls = `${styles.form} ${(this.props.showElement === 'post' ? styles.appear : '')}`;
@@ -76,7 +76,7 @@ export class PostCreateWidget extends Component {
           </div>
           <a className={styles['post-submit-button']} onClick={this.props.closeElement}>Hủy bỏ</a>
           <a className={styles['post-submit-button']}
-             onClick={this.addPost}
+            onClick={this.addPost}
           >Đăng bài</a>
         </div>
         <div className={styles.backgroundPost} onClick={this.props.closeElement}>

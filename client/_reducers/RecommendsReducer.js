@@ -43,7 +43,7 @@ const RecommendsReducer = (state = INITIAL_STATE, action) => {
         recommendsList.posts = recommendsList.posts.concat(action.payload);
         recommendsList.fetching = false;
         recommendsList.page++;
-        console.log(recommendsList);
+        // console.log(recommendsList);
         return {
           ...state,
           recommendsList,
@@ -54,7 +54,7 @@ const RecommendsReducer = (state = INITIAL_STATE, action) => {
         // const recommendsChunks = state.recommendsList.recommendsChunks;
         // const lastChunkIndex = recommendsChunks.length - 1;
         // recommendsChunks[lastChunkIndex].loading = true;
-        console.log(action.payload);
+        // console.log(action.payload);
         return {
           ...state,
           // recommendsList:

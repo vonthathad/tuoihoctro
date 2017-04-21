@@ -26,7 +26,6 @@ function request(options) {
     // connect array componet with '&' then connect with full url
     options.url = `${options.url}?${queryArgsArray.join('&')}`;
   }
-  console.log(options.url);
   // send request and return observable
   // return this.http.request(req);
   return fetch(options.url, { ...options })

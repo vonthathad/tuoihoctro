@@ -22,7 +22,7 @@ export function registerUser(user) {
 
 
 export function loginRequest(data) {
-  console.log(data);
+  // console.log(data);
   return (dispatch) => {
     return login({
       user: {
@@ -30,7 +30,7 @@ export function loginRequest(data) {
         password: data.password,
       },
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.message) {
         alert(res.message);
       } else if (res.data) {
@@ -114,7 +114,7 @@ export function logout() {
     // localStorage.removeItem('username');
     dispatch(loginUser(data));
     dispatch(toggleAlert('Đăng xuất thành công'));
-    setTimeout(function(){dispatch(toggleAlert('')) }, 3000);
+    setTimeout(function () { dispatch(toggleAlert('')); }, 3000);
   };
 }
 

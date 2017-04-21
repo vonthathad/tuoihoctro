@@ -20,20 +20,23 @@ import { addPostRequest } from '../../../_actions/PostsActions';
 import { loginRequest, registerRequest, checkLoginInit, logout } from '../../../_actions/AuthActions';
 
 // Import Reducer
-import { getShowElement,getShowAlert } from '../../../_reducers/WidgetReducer';
+import { getShowElement, getShowAlert } from '../../../_reducers/WidgetReducer';
 
 export class Guest extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
-    this.state = { isMounted: false };
+    // console.log(this.props);
+    // this.state = { isMounted: false };
     this.handleLogout = this.handleLogout.bind(this);
     this.toggleLoginSection = this.toggleLoginSection.bind(this);
   }
   componentDidMount() {
-    this.setState({ isMounted: true }); // eslint-disable-line
+    // this.setState({ isMounted: true }); // eslint-disable-line
     this.props.checkLoginInit();
-    if (process.env.NODE_ENV === 'development') {
+    // if (process.env.NODE_ENV === 'development') {
+    //   console.log(1255);
+    if (this.props.posts && this.props.posts.length === 0) {
+      console.log(1255);
       this.props.fetchRecommendsChunk();
     }
   }
@@ -61,7 +64,7 @@ export class Guest extends Component {
     this.props.closeElement();
   };
   handleAddPost = (title, category, file) => {
-    console.log(title, category, file);
+    // console.log(title, category, file);
     const data = new FormData();
     data.append('file', file);
     data.append('content', JSON.stringify({
@@ -71,7 +74,7 @@ export class Guest extends Component {
     this.props.addPostRequest(data);
   };
   handleLogin = (email, password) => {
-    console.log(email, password);
+    // console.log(email, password);
     this.closeElementSection();
     this.props.loginRequest({ email, password });
   };
@@ -91,7 +94,7 @@ export class Guest extends Component {
   render() {
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
+        {typeof window !== 'undefined' && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
 
           <div id={styles.wrap}>
@@ -105,7 +108,7 @@ export class Guest extends Component {
             <AlertWidget
               showAlert={this.props.showAlert}
               alertMessage={this.props.alertMessage}
-              />
+            />
             <PostCreateWidget
               addPost={this.handleAddPost}
               showElement={this.props.showElement}
@@ -145,6 +148,7 @@ Guest.propTypes = {
   toggleAddPost: PropTypes.func,
   showAlert: PropTypes.boolean,
   alertMessage: PropTypes.string,
+  posts: PropTypes.array,
 };
 Guest.need = [
   () => { return _fetchRecommendsChunk(50); },
@@ -156,7 +160,8 @@ function mapStateToProps(store) {
     curentUser: store.auth,
     showElement: getShowElement(store),
     showAlert: store.app.showAlert,
-    alertMessage: store.app.alertMessage
+    alertMessage: store.app.alertMessage,
+    posts: store.postsStore.postsList.posts,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -171,7 +176,7 @@ function mapDispatchToProps(dispatch) {
     loginRequest: (email, password) => dispatch(loginRequest(email, password)),
     registerRequest: () => dispatch(registerRequest()),
     logout: () => dispatch(logout()),
-    toggleAlert: () => dispatch(toggleAlert())
+    toggleAlert: () => dispatch(toggleAlert()),
   };
 }
 
