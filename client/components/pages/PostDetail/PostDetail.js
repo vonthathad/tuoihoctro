@@ -1,5 +1,5 @@
-import React, {PropTypes, Component} from 'react';
-import {connect} from 'react-redux';
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 // import { browserHistory } from 'react-router';
 // Import Components
 // import RecommendList from '../../layouts/RecommendsListContainer/RecommendsListContainer';
@@ -217,43 +217,47 @@ export class PostDetail extends Component {
     return (
       <div className="container">
         {post && post.title &&
-        <Helmet
-          title={post.title}
-          meta={[
-            {
-              name: 'viewport',
-              content: 'width=device-width, initial-scale=1',
-            },
-            {
-              name: 'keywords',
-              content: 'tuoihoctro, tuổi học trò, gif, image, vui',
-            },
-            {
-              name: 'title',
+          <Helmet
+            title={post.title}
+            meta={[
+              {
+                name: 'viewport',
+                content: 'width=device-width, initial-scale=1',
+              },
+              {
+                name: 'keywords',
+                content: 'tuoihoctro, tuổi học trò, gif, image, vui',
+              },
+              {
+                name: 'title',
+                content: `${post.title}`,
+              },
+              /* {
+              name: 'description',
               content: `${post.title}`,
-            },
-            /* {
-             name: 'description',
-             content: `${post.title}`,
-             },
-             {
-             name: 'og:description',
-             content: `${post.title}`,
-             },
-            {
-              name: 'og:image',
-              content: `${post.mediaContent}`,
-            },*/
-            {
-              name: 'og:video',
-              content: `${post.mediaContent}`,
-            },
-            {
-              name: 'og:url',
-              content: `http://tuoihoctro.co/posts/${post._id}`,
-            },
-          ]}
-        />
+              },
+              {
+              name: 'og:description',
+              content: `${post.title}`,
+              },
+              {
+                name: 'og:image',
+                content: `${post.mediaContent}`,
+              },*/
+              {
+                name: 'og:image',
+                content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
+              },
+              {
+                name: 'og:video',
+                content: 'https://youtu.be/kOB0SWt29nk',
+              },
+              {
+                name: 'og:url',
+                content: `http://tuoihoctro.co/posts/${post._id}`,
+              },
+            ]}
+          />
         }
 
         <div className={`col-sm-8 ${st['col-sm-8']}`}>
@@ -325,7 +329,7 @@ export class PostDetail extends Component {
                       : null
                   }
                   {/* <div className={st['clear-fix']}></div>*/}
-                  {/*<div className={st['ads-under-share']}>
+                  {/* <div className={st['ads-under-share']}>
                     <GoogleAd
                       client="ca-pub-8167045239596974"
                       slot="4898417443"
@@ -342,23 +346,29 @@ export class PostDetail extends Component {
                     <abbr className={st['time-ago']}>{this.timeSince(new Date(post.created))} trước</abbr> bởi
                     <a className={st['user-link']}> {post.creator.username}</a>
                   </div>
-                  <RecommendsList numComments={9} type={'horizontal'} notInclude={post._id}/>
+                  <RecommendsList numComments={9} type={'horizontal'} notInclude={post._id} />
                 </div>
               </div>
               : <div className={st.loading}>Loading&#8230;</div>
           }
         </div>
         <div className={`col-sm-4 ${st['col-sm-4']}`}>
-          <div className={st['facebook-comments']} ref={commentRef => {
-            this.commentRef = commentRef;
-          }}>
-            <span style={{display: 'none'}} className="fb-comments-count" data-href="http://example.com/"></span>
-            <div className="fb-comments" data-href={`${this.baseUrl}/posts/${post._id}`} data-numposts="10"
-                 width="100%" data-order-by="social"
+          <div
+            className={st['facebook-comments']}
+            ref={commentRef => {
+              this.commentRef = commentRef;
+            }}
+          >
+            <span style={{ display: 'none' }} className="fb-comments-count" data-href="http://example.com/"></span>
+            <div
+              className="fb-comments"
+              data-href={`${this.baseUrl}/posts/${post._id}`}
+              data-numposts="10"
+              width="100%" data-order-by="social"
             ></div>
           </div>
           <div className={st.sideAd}>
-            {/*<GoogleAd
+            {/* <GoogleAd
               client="ca-pub-8167045239596974"
               slot="4898417443"
               format="auto"
