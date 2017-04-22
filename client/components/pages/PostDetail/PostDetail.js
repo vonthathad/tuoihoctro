@@ -214,78 +214,76 @@ export class PostDetail extends Component {
         }
       });
     }
-    let meta = [
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        name: 'keywords',
-        content: 'tuoihoctro, tuổi học trò, gif, image, vui',
-      },
-      {
-        name: 'title',
-        content: `${post.title}`,
-      },
-      /* {
-      name: 'description',
-      content: `${post.title}`,
-      },
-      {
-      name: 'og:description',
-      content: `${post.title}`,
-      },
-      {
-        name: 'og:image',
-        content: `${post.mediaContent}`,
-      },
-      {
-        name: 'og:image',
-        content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
-      },
-      {
-        property: 'og:title',
-        content: `${post.title}`,
-      },*/
-      {
-        property: 'og:title',
-        content: `${post.title}`,
-      },
-      {
-        property: 'og:image',
-        content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
-      },
-
-      {
-        property: 'og:url',
-        content: `http://tuoihoctro.co/posts/${post._id}`,
-      },
-    ];
-    if (post.value.type === 'gif') {
-      meta = meta.concat([
-        {
-          property: 'og:type',
-          content: 'video.movie',
-        },
-        {
-          property: 'og:video:url',
-          content: 'https://www.ipgmediabrands.com/wp-content/uploads/APAC_720_COMPRESSED.mp4.mp4',
-        },
-        {
-          property: 'og:video:secure_url',
-          content: 'https://www.ipgmediabrands.com/wp-content/uploads/APAC_720_COMPRESSED.mp4.mp4',
-        },
-        {
-          property: 'og:video:type',
-          content: ' video/mp4',
-        }]);
-    }
     return (
       <div className="container">
         {post && post.title &&
           <Helmet
             title={post.title}
-            meta={meta}
+            meta={[
+              {
+                name: 'viewport',
+                content: 'width=device-width, initial-scale=1',
+              },
+              {
+                name: 'keywords',
+                content: 'tuoihoctro, tuổi học trò, gif, image, vui',
+              },
+              {
+                name: 'title',
+                content: `${post.title}`,
+              },
+              /* {
+              name: 'description',
+              content: `${post.title}`,
+              },
+              {
+              name: 'og:description',
+              content: `${post.title}`,
+              },
+              {
+                name: 'og:image',
+                content: `${post.mediaContent}`,
+              },
+              {
+                name: 'og:image',
+                content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
+              },
+              {
+                property: 'og:title',
+                content: `${post.title}`,
+              },*/
+              {
+                property: 'og:title',
+                content: `${post.title}`,
+              },
+              {
+                property: 'og:image',
+                content: `${post.mediaContent}`,
+              },
+              {
+                property: 'og:url',
+                content: `http://tuoihoctro.co/posts/${post._id}`,
+              },
+            ].concat(
+              post.type === 'gif' ?
+               [{
+                 property: 'og:type',
+                 content: 'video.movie',
+               },
+               {
+                 property: 'og:video:url',
+                 content: 'https://www.ipgmediabrands.com/wp-content/uploads/APAC_720_COMPRESSED.mp4.mp4',
+               },
+               {
+                 property: 'og:video:secure_url',
+                 content: 'https://www.ipgmediabrands.com/wp-content/uploads/APAC_720_COMPRESSED.mp4.mp4',
+               },
+               {
+                 property: 'og:video:type',
+                 content: ' video/mp4',
+               }] :
+              []
+            )}
           />
         }
 
