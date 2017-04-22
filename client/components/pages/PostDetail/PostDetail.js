@@ -243,11 +243,11 @@ export class PostDetail extends Component {
               {
                 name: 'og:image',
                 content: `${post.mediaContent}`,
-              },*/
+              },
               {
                 name: 'og:image',
                 content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
-              },
+              },*/
               {
                 name: 'og:video',
                 content: 'https://youtu.be/kOB0SWt29nk',
