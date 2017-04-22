@@ -232,6 +232,10 @@ export class PostDetail extends Component {
                 name: 'title',
                 content: `${post.title}`,
               },
+              {
+                property: 'og:url',
+                content: `http://tuoihoctro.co/posts/${post._id}`,
+              },
               /* {
               name: 'description',
               content: `${post.title}`,
@@ -284,10 +288,7 @@ export class PostDetail extends Component {
                   property: 'og:image',
                   content: `${post.mediaContent}`,
                 },
-                {
-                  property: 'og:url',
-                  content: `http://tuoihoctro.co/posts/${post._id}`,
-                }]
+                ]
             )}
           />
         }
