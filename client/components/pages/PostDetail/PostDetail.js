@@ -278,14 +278,6 @@ export class PostDetail extends Component {
                 content: ' video/mp4',
               },
               {
-                property: 'og:video:height',
-                content: '589',
-              },
-              {
-                property: 'og:video:width',
-                content: '600',
-              },
-              {
                 property: 'og:url',
                 content: `http://tuoihoctro.co/posts/${post._id}`,
               },
