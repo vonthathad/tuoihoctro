@@ -253,15 +253,16 @@ export class PostDetail extends Component {
                 content: `${post.title}`,
               },*/
 
-              {
-                property: 'og:image',
-                content: `${post.mediaContent}`,
-              },
+
             ].concat(
               post.type === 'gif' ?
                [{
                  property: 'og:type',
                  content: 'video.movie',
+               },
+               {
+                 property: 'og:image',
+                 content: 'http://tuoihoctro.co/uploaded/102/upload_b402e6e33d6ce93cfea1facad8eb94fa.png',
                },
                {
                  property: 'og:video:url',
@@ -273,11 +274,15 @@ export class PostDetail extends Component {
                },
                {
                  property: 'og:video:type',
-                 content: ' video/mp4',
+                 content: ' application/x-shockwave-flash',
                }] :
                 [{
                   property: 'og:title',
                   content: `${post.title}`,
+                },
+                {
+                  property: 'og:image',
+                  content: `${post.mediaContent}`,
                 },
                 {
                   property: 'og:url',
