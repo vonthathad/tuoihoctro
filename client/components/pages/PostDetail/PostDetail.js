@@ -267,11 +267,11 @@ export class PostDetail extends Component {
               },
               {
                 property: 'og:video:url',
-                content: 'https://youtu.be/q37IAlsw8r8',
+                content: 'https://www.ipgmediabrands.com/wp-content/uploads/APAC_720_COMPRESSED.mp4.mp4',
               },
               {
                 property: 'og:video:secure_url',
-                content: 'https://youtu.be/q37IAlsw8r8',
+                content: 'https://www.ipgmediabrands.com/wp-content/uploads/APAC_720_COMPRESSED.mp4.mp4',
               },
               {
                 property: 'og:video:type',
