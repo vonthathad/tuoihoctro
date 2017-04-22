@@ -78,7 +78,7 @@ if (process.env.NODE_ENV === 'production') {
           <meta name="robots" content="index,follow" />
           <meta http-equiv="content-language" content="vi">
           <meta charset="UTF-8">
-          <meta property="fb:app_id" content="123" />
+          <meta property="fb:app_id" content="1559166841054175" />
           <meta property="og:site_name" content="tuoihoctro.co" />
           <base href="/">
           ${head.base.toString()}
