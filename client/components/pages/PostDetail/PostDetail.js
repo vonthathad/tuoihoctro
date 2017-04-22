@@ -267,11 +267,11 @@ export class PostDetail extends Component {
               },
               {
                 property: 'og:video:url',
-                content: 'https://youtu.be/i3dSRxy20e8',
+                content: 'https://youtu.be/q37IAlsw8r8',
               },
               {
                 property: 'og:video:secure_url',
-                content: 'https://youtu.be/i3dSRxy20e8',
+                content: 'https://youtu.be/q37IAlsw8r8',
               },
               {
                 property: 'og:video:type',
