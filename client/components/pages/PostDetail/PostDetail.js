@@ -258,7 +258,7 @@ export class PostDetail extends Component {
                 content: `${post.title}`,
               },
               {
-                name: 'og:image',
+                property: 'og:image',
                 content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
               },
               {
@@ -266,7 +266,11 @@ export class PostDetail extends Component {
                 content: 'video.movie',
               },
               {
-                property: 'og:video',
+                property: 'og:video:url',
+                content: 'http://tuoihoctro.co/uploaded/102/upload_5863a62a059b7e2e958337d0e916d66a.mp4',
+              },
+              {
+                property: 'og:video:secure_url',
                 content: 'http://tuoihoctro.co/uploaded/102/upload_5863a62a059b7e2e958337d0e916d66a.mp4',
               },
               {
