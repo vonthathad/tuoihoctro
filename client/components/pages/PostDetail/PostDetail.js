@@ -254,6 +254,14 @@ export class PostDetail extends Component {
                 content: `${post.title}`,
               },*/
               {
+                property: 'og:title',
+                content: `${post.title}`,
+              },
+              {
+                name: 'og:image',
+                content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
+              },
+              {
                 property: 'og:type',
                 content: 'video.movie',
               },
