@@ -214,6 +214,7 @@ export class PostDetail extends Component {
         }
       });
     }
+    console.log(this.props.post);
     return (
       <div className="container">
         {post && post.title &&
@@ -258,7 +259,7 @@ export class PostDetail extends Component {
               },
               {
                 property: 'og:video',
-                content: 'https://www.youtube.com/watch?v=BQBjVr1iHH4',
+                content: 'http://tuoihoctro.co/uploaded/102/upload_5863a62a059b7e2e958337d0e916d66a.mp4',
               },
               {
                 property: 'og:url',
