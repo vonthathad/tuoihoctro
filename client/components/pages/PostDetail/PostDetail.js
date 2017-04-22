@@ -266,20 +266,20 @@ export class PostDetail extends Component {
                 content: 'video.movie',
               },
               {
-                property: 'og:video:type',
-                content: ' video/mp4',
-              },
-              {
                 property: 'og:video',
                 content: 'http://tuoihoctro.co/uploaded/102/upload_5863a62a059b7e2e958337d0e916d66a.mp4',
               },
               {
+                property: 'og:video:type',
+                content: ' video/mp4',
+              },
+              {
                 property: 'og:video:height',
-                content: '300',
+                content: '589',
               },
               {
                 property: 'og:video:width',
-                content: '300',
+                content: '600',
               },
               {
                 property: 'og:url',
