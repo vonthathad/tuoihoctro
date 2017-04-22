@@ -252,17 +252,10 @@ export class PostDetail extends Component {
                 property: 'og:title',
                 content: `${post.title}`,
               },*/
-              {
-                property: 'og:title',
-                content: `${post.title}`,
-              },
+
               {
                 property: 'og:image',
                 content: `${post.mediaContent}`,
-              },
-              {
-                property: 'og:url',
-                content: `http://tuoihoctro.co/posts/${post._id}`,
               },
             ].concat(
               post.type === 'gif' ?
@@ -282,7 +275,14 @@ export class PostDetail extends Component {
                  property: 'og:video:type',
                  content: ' video/mp4',
                }] :
-              []
+                [{
+                  property: 'og:title',
+                  content: `${post.title}`,
+                },
+                {
+                  property: 'og:url',
+                  content: `http://tuoihoctro.co/posts/${post._id}`,
+                }]
             )}
           />
         }
