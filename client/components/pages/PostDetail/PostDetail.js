@@ -267,11 +267,11 @@ export class PostDetail extends Component {
               },
               {
                 property: 'og:video:url',
-                content: 'http://tuoihoctro.co/uploaded/102/upload_5863a62a059b7e2e958337d0e916d66a.mp4',
+                content: 'https://youtu.be/i3dSRxy20e8',
               },
               {
                 property: 'og:video:secure_url',
-                content: 'http://tuoihoctro.co/uploaded/102/upload_5863a62a059b7e2e958337d0e916d66a.mp4',
+                content: 'https://youtu.be/i3dSRxy20e8',
               },
               {
                 property: 'og:video:type',
