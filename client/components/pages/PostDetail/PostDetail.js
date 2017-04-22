@@ -249,11 +249,19 @@ export class PostDetail extends Component {
                 content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
               },*/
               {
-                name: 'og:video',
-                content: 'https://youtu.be/kOB0SWt29nk',
+                property: 'og:title',
+                content: `${post.title}`,
               },
               {
-                name: 'og:url',
+                property: 'og:type',
+                content: 'video.movie',
+              },
+              {
+                property: 'og:video',
+                content: 'https://www.youtube.com/watch?v=BQBjVr1iHH4',
+              },
+              {
+                property: 'og:url',
                 content: `http://tuoihoctro.co/posts/${post._id}`,
               },
             ]}
