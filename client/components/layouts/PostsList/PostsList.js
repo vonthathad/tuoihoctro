@@ -13,11 +13,13 @@ class PostsList extends Component {
     this.handleOnScrollLoadMediaContent = this.handleOnScrollLoadMediaContent.bind(this);
   }
   componentDidMount() {
-    if (process.env.NODE_ENV === 'development' && this.props.postsList.posts.length === 0) {
-      const { dispatch, postsList, params } = this.props;
-      dispatch(_fetchPostsChunk(postsList.page, params ? params.order : ''));
-      // this.props.fetchRecommendsChunk();
-    }
+    // if (process.env.NODE_ENV === 'development' && this.props.postsList.posts.length === 0) {
+    //   const { dispatch, postsList, params } = this.props;
+    //   dispatch(_fetchPostsChunk(postsList.page, params ? params.order : ''));
+    //   // this.props.fetchRecommendsChunk();
+    // }
+    const { dispatch, params } = this.props;
+    dispatch(_fetchPostsChunk(1, params ? params.order : ''));
 
     window.addEventListener('scroll', this.handleOnScrollLoadMediaContent, false);
 
@@ -98,5 +100,6 @@ PostsList.propTypes = {
   auth: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
+  params: PropTypes.string.string,
 };
 export default PostsList;
