@@ -15,7 +15,12 @@
 
 .col-sm-4 {
   padding-top: 80px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 
+}
+
+.comment-title {
+  margin: 10px 0 20px 0;
 }
 
 .post-box {
@@ -493,7 +498,7 @@
   background: #3b5998;
   height: 44px;
   line-height: 43px;
-  font-size: 21px;
+  font-size: 16px;
   padding: 0;
   display: block;
   color: #fff;
@@ -564,7 +569,7 @@
 @media (max-width: 755px) {
   .shareButtonLarge {
     width: 90%;
-    font-size: 13px;
+    font-size: 16px;
   }
 
   .col-sm-4 {
@@ -597,7 +602,13 @@
 
 }
 
-@media (max-width: 350px) {
+@media (max-width: 414px) {
+  .col-sm-4 {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 375px) {
 
   #wrap {
     margin: 0 auto -120px;
@@ -616,9 +627,31 @@
     margin-left: 3px;
   }
 
+  .votedButton, .unvotedButton {
+    padding: 0 6px 0 6px;
+    width: 47px;
+    font-size: 12px;
+  }
+
+  .shareButton {
+    padding: 0 15px 0 21px;
+    font-size: 11px;
+  }
+
+  .nextButton {
+
+    font-size: 11px;
+
+  }
+
+  .shareButton::after {
+    left: 2px;
+    background-size: 253px 60px;
+  }
+
 }
 
-@media (max-width: 332px) {
+@media (max-width: 300px) {
   .nextButton {
     display: none;
   }

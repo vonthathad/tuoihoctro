@@ -94,15 +94,15 @@ class Home extends Component {
               format="auto"
             />*/}
           </div>
-          <RecommendsList numComments={30} type={'vertical'} />
+          <RecommendsList numComments={100} type={'vertical'} />
           <div className={st['ads-last']}>
-            <a href="" target="blank">
+            <img className="img-responsive" src="http://bluehost-cdn.com/media/partner/images/maxlk/300x250/bh-300x250-01-dy.png" />
               {/* <GoogleAd
                client="ca-pub-8167045239596974"
                slot="4898417443"
                format="auto"
                />*/}
-            </a>
+
           </div>
         </div>
       </div>

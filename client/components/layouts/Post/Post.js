@@ -1,9 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 import TwitterHeart from '../../decorations/TwitterHeart/TwitterHeart';
 // Import Style
 import st from './index.css';
-import { votePost, tempVoteSuccess, _fetchPostClient } from '../../../_actions/PostsActions';
+import read_more_item from '../../../assets/images/read_more.png';
+import {votePost, tempVoteSuccess, _fetchPostClient} from '../../../_actions/PostsActions';
+
+var divStyle = {
+  backgroundImage: 'url(' + read_more_item + ')',
+  color:'#09f',
+
+};
 class Post extends Component {
   constructor(props) {
     super(props);
@@ -101,15 +108,18 @@ class Post extends Component {
             {this.props.children}
           </div>
           {this.props.post.type === 'list' &&
-          <a className={st['read-more']}>
-            Xem thêm
-          </a>
+          <div className={st['post-to-full']}>
+            <Link onClick={this.handleGoDetailPost} to={`/posts/${this.props.post._id}`} style={divStyle}
+                  className={st['post-read-more']}>
+              Xem thêm
+            </Link>
+          </div>
           }
           <div>{voted}</div>
           <div className={st['post-footer']}>
             <div className={st['box-vote']}>
               <div className={st['twitter-heart-wrapper']}>
-                <TwitterHeart _id={this.props.post._id} checked={voted} handleClick={this.handleVoteClick} />
+                <TwitterHeart _id={this.props.post._id} checked={voted} handleClick={this.handleVoteClick}/>
               </div>
               <div className={st['vote-number-wrapper']}>
                 <span> {point} </span>
@@ -117,7 +127,7 @@ class Post extends Component {
             </div>
             <div className={st['box-comment']}>
               <Link onClick={this.handleGoDetailPost} to={`/posts/${this.props.post._id}`}
-                className={st['comment-icon-wrapper']}
+                    className={st['comment-icon-wrapper']}
               >
                 <i className="fa fa-comment" aria-hidden="true"></i>
               </Link>

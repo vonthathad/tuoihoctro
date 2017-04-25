@@ -285,7 +285,7 @@ export class PostDetail extends Component {
                       <span>Thích</span>
                     </div>
                     <div className={st.shareButton} onClick={this.handleShareFb}>
-                      Facebook
+                      Chia sẻ Facebook
                     </div>
                     <div className={st.nextButton} onClick={this.next}>
                       <span className={st.text}>Xem tiếp</span>
@@ -353,6 +353,9 @@ export class PostDetail extends Component {
           }
         </div>
         <div className={`col-sm-4 ${st['col-sm-4']}`}>
+          <h1 className={st['comment-title']}>
+            Tham gia chém gió
+          </h1>
           <div
             className={st['facebook-comments']}
             ref={commentRef => {
