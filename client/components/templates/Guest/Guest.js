@@ -150,7 +150,7 @@ Guest.propTypes = {
   posts: PropTypes.array,
 };
 Guest.need = [
-  () => { return _fetchRecommendsChunk(50); },
+  () => { return _fetchRecommendsChunk(70); },
 ];
 
 // Retrieve data from store as props

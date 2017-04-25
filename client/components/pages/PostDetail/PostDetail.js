@@ -232,6 +232,10 @@ export class PostDetail extends Component {
                 name: 'title',
                 content: `${post.title}`,
               },
+              {
+                property: 'og:url',
+                content: `http://tuoihoctro.co/posts/${post._id}`,
+              },
               /* {
               name: 'description',
               content: `${post.title}`,
@@ -243,20 +247,49 @@ export class PostDetail extends Component {
               {
                 name: 'og:image',
                 content: `${post.mediaContent}`,
-              },*/
+              },
               {
                 name: 'og:image',
                 content: 'https://www.shoutmeloud.com/wp-content/uploads/2010/05/facebook-login.png',
               },
               {
-                name: 'og:video',
-                content: 'https://youtu.be/kOB0SWt29nk',
-              },
-              {
-                name: 'og:url',
-                content: `http://tuoihoctro.co/posts/${post._id}`,
-              },
-            ]}
+                property: 'og:title',
+                content: `${post.title}`,
+              },*/
+
+
+            ].concat(
+              post.type === 'gif' ?
+               [{
+                 property: 'og:type',
+                 content: 'video.movie',
+               },
+               {
+                 property: 'og:image',
+                 content: 'http://tuoihoctro.co/uploaded/102/upload_b402e6e33d6ce93cfea1facad8eb94fa.png',
+               },
+               {
+                 property: 'og:video:url',
+                 content: 'https://www.ipgmediabrands.com/wp-content/uploads/APAC_720_COMPRESSED.mp4.mp4',
+               },
+               {
+                 property: 'og:video:secure_url',
+                 content: 'https://www.ipgmediabrands.com/wp-content/uploads/APAC_720_COMPRESSED.mp4.mp4',
+               },
+               {
+                 property: 'og:video:type',
+                 content: ' application/x-shockwave-flash',
+               }] :
+                [{
+                  property: 'og:title',
+                  content: `${post.title}`,
+                },
+                {
+                  property: 'og:image',
+                  content: `${post.mediaContent}`,
+                },
+                ]
+            )}
           />
         }
 

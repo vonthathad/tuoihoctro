@@ -111,12 +111,11 @@ class Home extends Component {
 }
 
 // Actions required to provide data for this component to render in sever side.
-Home.need = [
-  params => {
-    return _fetchPostsChunk(1, params.order ? params.order : '');
-  },
-  // () => { return _fetchRecommendsChunk(200); },
-];
+// Home.need = [
+//   params => {
+//     return _fetchPostsChunk(1, params.order ? params.order : '');
+//   },
+// ];
 
 Home.contextTypes = {
   router: PropTypes.object,
